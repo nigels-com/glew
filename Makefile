@@ -305,4 +305,7 @@ tardist:
 	$(RM) -r $(TARDIR)/auto/registry
 	env GZIP=-9 tar -C `dirname $(TARDIR)` -cvzf $(TARBALL) `basename $(TARDIR)`
 
+extensions:
+	$(MAKE) -C auto
+
 .PHONY: clean distclean tardist
