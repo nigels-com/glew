@@ -116,7 +116,7 @@ LD = cc
 CFLAGS.EXTRA = -dynamic -I/usr/X11R6/include
 LDFLAGS.SO = -dynamiclib
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
-ifdef GLEW_APPLE_GLX
+ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -D'GLEW_APPLE_GLX'
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 else

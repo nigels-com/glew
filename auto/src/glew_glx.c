@@ -1,7 +1,7 @@
   return GLEW_OK;
 }
 
-#else /* _UNIX */
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
 
 GLboolean glxewGetExtension (const GLubyte *name)
 {    
