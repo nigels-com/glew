@@ -54,7 +54,14 @@ foreach my $ext (sort @extlist)
     print "  $extvar = " . $extpre . "GetExtension(\"$extname\");\n";
     if (keys %$functions)
     {
-	print "  if (glewExperimental || $extvar) $extvar = !_glewInit_$extname();\n";
+        if ($extname =~ /WGL_.*/)
+        {
+            print "  if (glewExperimental || $extvar || (!WGLEW_EXT_extensions_string && !WGLEW_ARB_extensions_string)) $extvar = !_glewInit_$extname();\n";
+        }
+        else
+        {
+            print "  if (glewExperimental || $extvar) $extvar = !_glewInit_$extname();\n";
+        }
     }
     print "#endif /* $extname */\n";
 }
