@@ -136,7 +136,7 @@ ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 NAME = GLEW
 CC = cc
 LD = cc
-CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common 
+CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common
 LDFLAGS.SO = -dynamiclib -install_name $(GLEW_DEST)/lib/$(LIB.SHARED)
 LDFLAGS.EXTRA =
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
