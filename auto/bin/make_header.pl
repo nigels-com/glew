@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
 # Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
+# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
 #
 # This program is distributed under the terms and conditions of the GNU
 # General Public License Version 2 as published by the Free Software
@@ -59,7 +60,7 @@ if (@ARGV)
 
 foreach my $ext (sort @extlist)
 {
-    my ($extname, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
     make_separator($extname);
     print "#ifndef $extname\n#define $extname 1\n";
@@ -71,10 +72,7 @@ foreach my $ext (sort @extlist)
     output_decls($functions, \&make_pfn_alias);
 
     my $extvar = $extname;
-    my $extvardef = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
-    $extvardef=~ s/(W*)GL(X*)_/\l$1gl\l$2ew_/;
-    print "\nGLEWAPI GLboolean $extvar;\n";
-    print "#define $extvardef $extvar\n\n";
+    print "\nGLEWAPI GLboolean $extvar;\n\n";
     print "#endif /* $extname */\n\n";
 }

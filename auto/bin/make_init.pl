@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
 # Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
+# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
 #
 # This program is distributed under the terms and conditions of the GNU
 # General Public License Version 2 as published by the Free Software
@@ -41,7 +42,7 @@ if (@ARGV)
 
 foreach my $ext (sort @extlist)
 {
-    my ($extname, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
     make_separator($extname);
     print "#ifdef $extname\n";

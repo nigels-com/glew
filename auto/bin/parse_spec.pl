@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
 # Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
+# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
 #
 # This program is distributed under the terms and conditions of the GNU
 # General Public License Version 2 as published by the Free Software
@@ -258,6 +259,7 @@ my @speclist = ();
 my %extensions = ();
 
 my $ext_dir = shift;
+my $reg_http = "http://oss.sgi.com/projects/ogl-sample/";
 
 # Take command line arguments or read list from file
 if (@ARGV)
@@ -277,6 +279,8 @@ foreach my $spec (sort @speclist)
 	my $info = "$ext_dir/" . $ext;
 	open EXT, ">$info";
 	print EXT $ext . "\n";
+	print EXT $reg_http . $spec . "\n";
+	
 	my $prefix = $ext;
 	$prefix =~ s/^(.+?)(_.+)$/$1/;
 	foreach my $token (sort { hex ${$tokens}{$a} <=> hex ${$tokens}{$b} } keys %{$tokens})

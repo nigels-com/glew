@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
+# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
 #
 # This program is distributed under the terms and conditions of the GNU
 # General Public License Version 2 as published by the Free Software
@@ -7,6 +8,7 @@
 
 my %regex = (
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
+    exturl   => qr/^http.+$/,
     function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
     token    => qr/^([A-Z][A-Z0-9_]*)\s+((?:0x)?[0-9A-F]+)$/,
     type     => qr/^typedef\s+(.+)\s+([\*A-Za-z0-9_]+)$/,
@@ -60,6 +62,7 @@ sub parse_ext($)
     my %types = ();
     my @exacts = ();
     my $extname = "";
+    my $exturl = "";
     
     open EXT, "<$filename" or return;
 
@@ -71,6 +74,10 @@ sub parse_ext($)
             $extname = $_;
             next;
         }
+	elsif (/$regex{exturl}/)
+	{
+	    $exturl = $_;
+	}
         elsif (s/^\s+//)
         {
             if (/$regex{exact}/)
@@ -100,7 +107,7 @@ sub parse_ext($)
 
     close EXT;
 
-    return ($extname, \%types, \%tokens, \%functions, \@exacts);
+    return ($extname, $exturl, \%types, \%tokens, \%functions, \@exacts);
 }
 
 sub output_tokens($$)

@@ -1,31 +1,10 @@
-## The OpenGL Extension Wrangler Library
-## Copyright (C) 2003, 2002, Milan Ikits <milan.ikits@ieee.org>
-## Copyright (C) 2003, 2002, Marcelo E. Magallon <mmagallo@debian.org>
-## Copyright (C) 2002, Lev Povalahev <levp@gmx.net>
-## All rights reserved.
-## 
-## Redistribution and use in source and binary forms, with or without 
-## modification, are permitted provided that the following conditions are met:
-## 
-## * Redistributions of source code must retain the above copyright notice, 
-##   this list of conditions and the following disclaimer.
-## * Redistributions in binary form must reproduce the above copyright notice, 
-##   this list of conditions and the following disclaimer in the documentation 
-##   and/or other materials provided with the distribution.
-## * The name of the author may be used to endorse or promote products 
-##   derived from this software without specific prior written permission.
-##
-## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-## AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-## IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-## LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-## CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-## SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-## INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-## CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-## THE POSSIBILITY OF SUCH DAMAGE.
+#
+# Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
+# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
+#
+# This program is distributed under the terms and conditions of the GNU
+# General Public License Version 2 as published by the Free Software
+# Foundation or, at your option, any later version.
 
 SHELL := bash
 REGISTRY := registry
@@ -40,8 +19,9 @@ PARSE_SPEC := parse_spec.pl
 TOP := ..
 I.DEST := $(TOP)/include/GL
 S.DEST := $(TOP)/src
+D.DEST := $(TOP)/doc
 
-TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew.c $(S.DEST)/glewinfo.c
+TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew.c $(S.DEST)/glewinfo.c $(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
 
 all: $(TARGETS)
 
@@ -126,6 +106,23 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	$(BIN)/make_info_list.pl $(EXT)/GLX_* >> $@
 	cat $(SRC)/glewinfo_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
+
+#doc: $(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
+
+$(D.DEST)/glew.html: $(EXT)/.dummy
+	cp -f $(SRC)/glew_pre.html $@
+	$(BIN)/make_html.pl $(EXT)/GL_* >> $@
+	cat $(SRC)/glew_post.html >> $@
+
+$(D.DEST)/wglew.html: $(EXT)/.dummy
+	cp -f $(SRC)/wglew_pre.html $@
+	$(BIN)/make_html.pl $(EXT)/WGL_* >> $@
+	cat $(SRC)/glew_post.html >> $@
+
+$(D.DEST)/glxew.html: $(EXT)/.dummy
+	cp -f $(SRC)/glxew_pre.html $@
+	$(BIN)/make_html.pl $(EXT)/GLX_* >> $@
+	cat $(SRC)/glew_post.html >> $@
 
 clean:
 	rm -rf $(TARGETS)

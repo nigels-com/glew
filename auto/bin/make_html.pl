@@ -14,17 +14,10 @@ do 'bin/make.pl';
 
 #---------------------------------------------------------------------------------------
 
-# function pointer definition
-sub make_pfn_info($%)
-{
-    my $name = prefixname($_[0]);
-    return "  glewInfoFunc(\"$_[0]\", $name == NULL);";
-}
-
-#---------------------------------------------------------------------------------------
-
 my @extlist = ();
 my %extensions = ();
+my $group = "";
+my $cur_group = "";
 
 if (@ARGV)
 {
@@ -37,14 +30,20 @@ if (@ARGV)
 foreach my $ext (sort @extlist)
 {
     my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-    my $extvar = $extname;
-    my $extvardef = $extname;
-    $extvar =~ s/GL(X*)_/GL$1EW_/;
-
-    make_separator($extname);
-    print "#ifdef $extname\n\n";
-    print "static void _glewInfo_$extname (void)\n{\n  glewPrintExt(\"$extname\", $extvar);\n";
-    output_decls($functions, \&make_pfn_info);
-    print "}\n\n";
-    print "#endif /* $extname */\n\n";
+    $cur_group = $extname;
+    $cur_group =~ s/^(?:W?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
+    $extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;
+    if ($cur_group ne $group)
+    {
+	$group = $cur_group;
+	print "<br>\n";
+    }
+    if ($exturl)
+    {
+	print "<a href=\"$exturl\">$extname</a><br>\n";
+    }
+    else
+    {
+	print "$extname<br>\n";
+    }
 }
