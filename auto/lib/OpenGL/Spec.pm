@@ -67,12 +67,13 @@ my $voidtype_re = __compile_wordlist_cap(keys %void_typemap);
 sub new($)
 {
     my $class = shift;
-    my $self = {};
+    my $self = { section => {} };
     $self->{filename} = shift;
     local $/;
     open(my $fh, "<$self->{filename}") or die "Can't open $self->{filename}";
     my $content = <$fh>;
     my $section;
+    my $s = $self->{section};
 
     $content =~ s{[ \t]+$}{}mg;
     # Join lines that end with a word-character and ones that *begin*
@@ -86,17 +87,16 @@ sub new($)
             chomp;
             s/^Name String$/Name Strings/; # Fix common mistake
             $section = $_;
-            $self->{$section} = "";
+            $s->{$section} = "";
         }
-        elsif (defined $section and exists $self->{$section})
+        elsif (defined $section and exists $s->{$section})
         {
             s{^\s+}{}mg; # Remove leading whitespace
-            $self->{$section} .= $_;
-            $self->{$section} .= "\n";
+            $s->{$section} .= $_ . "\n";
         }
     }
 
-    $self->{$_} =~ s{(?:^\n+|\n+$)}{}s foreach keys %{$self};
+    $s->{$_} =~ s{(?:^\n+|\n+$)}{}s foreach keys %$s;
 
     bless $self, $class;
 }
@@ -104,26 +104,26 @@ sub new($)
 sub sections()
 {
     my $self = shift;
-    grep { $_ ne "filename" } keys %{$self};
+    keys %{$self->{section}};
 }
 
 sub name()
 {
     my $self = shift;
-    $self->{Name};
+    $self->{section}->{Name};
 }
 
 sub name_strings()
 {
     my $self = shift;
-    split("\n", $self->{"Name Strings"});
+    split("\n", $self->{section}->{"Name Strings"});
 }
 
 sub tokens()
 {
     my $self = shift;
     my %tokens = ();
-    foreach (split /\n/, $self->{"New Tokens"})
+    foreach (split /\n/, $self->{section}->{"New Tokens"})
     {
         next unless /$token_re/;
         my ($name, $value) = ($1, $2);
@@ -140,33 +140,32 @@ sub functions()
     my %functions = ();
     my @fnc = ();
 
-    foreach (split /\n/, $self->{"New Procedures and Functions"})
+    foreach (split /\n/, $self->{section}->{"New Procedures and Functions"})
     {
         push @fnc, $_ unless ($_ eq "" or $_ eq "None");
 
-        if (/$eofnc_re/)
+        next unless /$eofnc_re/;
+
+        if (__normalize_proto(@fnc) =~ /$function_re/)
         {
-            if (__normalize_proto(@fnc) =~ /$function_re/)
+            my ($return, $name, $parms) = ($1, $2, $3);
+            if (!__ignore_function($name, $extname))
             {
-                my ($return, $name, $parms) = ($1, $2, $3);
-                if (!__ignore_function($name, $extname))
+                $name =~ s/^/gl/ unless $name =~ /$prefix_re/;
+                if ($name =~ /^gl/ && $name !~ /^glX/)
                 {
-                    $name =~ s/^/gl/ unless $name =~ /$prefix_re/;
-                    if ($name =~ /^gl/ && $name !~ /^glX/)
-                    {
-                        $return =~ s/$types_re/$typemap{$1}/g;
-                        $return =~ s/$voidtype_re/$void_typemap{$1}/g;
-                        $parms  =~ s/$types_re/$typemap{$1}/g;
-                        $parms  =~ s/$voidtype_re/$void_typemap{$1}/g;
-                    }
-                    $functions{$name} = {
-                        rtype => $return,
-                        parms => $parms,
-                    };
+                    $return =~ s/$types_re/$typemap{$1}/g;
+                    $return =~ s/$voidtype_re/$void_typemap{$1}/g;
+                    $parms  =~ s/$types_re/$typemap{$1}/g;
+                    $parms  =~ s/$voidtype_re/$void_typemap{$1}/g;
                 }
+                $functions{$name} = {
+                    rtype => $return,
+                    parms => $parms,
+                };
             }
-            @fnc = ();
         }
+        @fnc = ();
     }
 
     return %functions;
