@@ -37,7 +37,7 @@
 #endif
 
 #if defined(_WIN32)
-#  define glewGetProcAddress(name) wglGetProcAddress(name)
+#  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #else
 #  if defined(__APPLE__)
 #    define glewGetProcAddress(name) NSGLGetProcAddress(name)
