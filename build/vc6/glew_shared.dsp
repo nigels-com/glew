@@ -55,7 +55,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../lib/glew32.dll" /ignore:4089
+# ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../bin/glew32.dll" /ignore:4089
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Debug"
 
@@ -81,7 +81,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../lib/glew32d.dll" /pdbtype:sept
+# ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../bin/glew32d.dll" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Debug MX"
@@ -103,14 +103,14 @@ LINK32=link.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /d "_DEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 opengl32.lib /nologo /dll /incremental:no /pdb:"../../lib/glew32d.pdb" /debug /machine:I386 /out:"../../lib/glew32d.dll" /implib:"../../lib/glew32d.lib" /pdbtype:sept
 # SUBTRACT BASE LINK32 /pdb:none
-# ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../lib/glew32mxd.dll" /pdbtype:sept
+# ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../bin/glew32mxd.dll" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Release MX"
@@ -132,13 +132,13 @@ LINK32=link.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409 /d "NDEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../lib/glew32.dll" /implib:"../../lib/glew32.lib" /ignore:4089
-# ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../lib/glew32mx.dll" /ignore:4089
+# ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../bin/glew32mx.dll" /ignore:4089
 
 !ENDIF 
 
@@ -166,6 +166,14 @@ SOURCE=..\..\include\GL\glew.h
 # Begin Source File
 
 SOURCE=..\..\include\GL\wglew.h
+# End Source File
+# End Group
+# Begin Group "Resource Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\glew.rc
 # End Source File
 # End Group
 # End Target

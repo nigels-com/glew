@@ -96,7 +96,7 @@ LINK32=link.exe
 # ADD BASE CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_STATIC" /YX /FD /GZ /c
 # ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /d "_DEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -123,7 +123,7 @@ LINK32=link.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409 /d "NDEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -145,6 +145,14 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=..\..\src\visualinfo.c
+# End Source File
+# End Group
+# Begin Group "Resource Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\visualinfo.rc
 # End Source File
 # End Group
 # End Target

@@ -37,6 +37,7 @@ TOP = ..
 I.DEST = $(TOP)/include/GL
 S.DEST = $(TOP)/src
 D.DEST = $(TOP)/doc
+B.DEST = $(TOP)/build/vc6
 
 I.TARGETS = \
 	$(I.DEST)/glew.h \
@@ -56,7 +57,14 @@ D.TARGETS = \
 	$(D.DEST)/wglew.html \
 	$(D.DEST)/glxew.html
 
+B.TARGETS = \
+	$(B.DEST)/glew.rc \
+	$(B.DEST)/glewinfo.rc \
+	$(B.DEST)/visualinfo.rc
+
 all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
+
+rc: $(B.TARGETS)
 
 registry: $(REGISTRY)/.dummy
 ext: $(EXT)/.dummy
@@ -317,6 +325,9 @@ $(D.DEST)/glxew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
 	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
+
+$(B.DEST)/%.rc: src/%.rc $(EXT)/.dummy
+	perl -e "s/GLEW_MAJOR/$(GLEW_MAJOR)/g;s/GLEW_MINOR/$(GLEW_MINOR)/g;s/GLEW_MICRO/$(GLEW_MICRO)/g;" -p $< > $@
 
 clean:
 	rm -rf $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
