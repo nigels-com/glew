@@ -19,21 +19,27 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr>
 <td bgcolor="#ffffff" align=center><br><p><img src="./glew.png" alt="glew" width="97" height="75">
 <p>
-<font size="+2"><b>The OpenGL Extension Wrangler Library</b></font>
+<h1>The OpenGL Extension Wrangler Library</h1>
 <p>
 <table border=0 cellpadding=0 cellspacing=0 align=center>
-<tr><td align=center><a href="#Introduction"><font size="-1">Introduction</font></a></td></tr>
-<tr><td align=center><a href="#Download"><font size="-1">Obtaining GLEW</font></a></td></tr>
-<tr><td align=center><a href="#Supported"><font size="-1">Supported Extensions</font></a></td></tr>
-<tr><td align=center><a href="#Build"><font size="-1">How to Build Your Project with GLEW</font></a></td></tr>
-<tr><td align=center><a href="#Install"><font size="-1">How to Install GLEW</font></a></td></tr>
-<tr><td align=center><a href="#Use"><font size="-1">How to Use GLEW</font></a></td></tr>
-<tr><td align=center><a href="#Utilities"><font size="-1">Utilities</font></a></td></tr>
-<tr><td align=center><a href="#Auto"><font size="-1">Automatic Code Generation</font></a></td></tr>
-<tr><td align=center><a href="#Namespace"><font size="-1">Separate Namespace</font></a></td></tr>
-<tr><td align=center><a href="#Issues"><font size="-1">Known Issues</font></a></td></tr>
-<tr><td align=center><a href="#Credits"><font size="-1">Credits, Copyright</font></a></td></tr>
-<tr><td align=center><a href="#Log"><font size="-1">Change Log</font></a></td></tr>
+<tr><td align=center><a href="#Introduction"><small>Introduction</small></a></td></tr>
+<tr><td align=center><a href="#Download"><small>Obtaining GLEW</small></a></td></tr>
+<tr><td align=center><a href="#Supported"><small>Supported Extensions</small></a></td></tr>
+<tr><td align=center><a href="#Build"><small>How to Build Your Project with GLEW</small></a></td></tr>
+<tr><td align=center><a href="#Install"><small>How to Install GLEW</small></a></td></tr>
+<tr><td align=center><a href="#Use"><small>How to Use GLEW</small></a></td></tr>
+<tr><td align=center><a href="#Utilities"><small>Utilities</small></a></td></tr>
+<tr><td align=center>
+<a href="#Auto"><small>Automatic Code Generation</small></a>
+</td></tr>
+<tr><td align=center>
+<a href="#Namespace"><small>Separate Namespace</small></a>
+</td></tr>
+<tr><td align=center><a href="#Issues"><small>Known Issues</small></a></td></tr>
+<tr><td align=center><a href="#Credits"><small>Credits, Copyright</small></a></td></tr>
+<tr><td align=center><a href="#Log"><small>Change Log</small></a></td></tr>
+<tr><td align=center><a href="http://sourceforge.net/tracker/?group_id=67586">
+<small>Bug Tracker</small></a></td></tr>
 <tr><td align=center><br></td></tr>
 </table>
 </tr>
@@ -42,7 +48,7 @@ GLEW: The OpenGL Extension Wrangler Library
 
 <tr>
 <td bgcolor="#ffffff">
-<center><a name="Introduction"><font size="+1"><b>Introduction</b></font></a></center>
+<center><a name="Introduction"><h2>Introduction</h2></a></center>
 <p>
 The goal of the OpenGL Extension Wrangler Library (GLEW) is to assist
 C/C++ OpenGL developers with two tedious tasks: initializing and
@@ -60,7 +66,7 @@ on three operating systems: Windows, Linux, and IRIX.
 
 <tr>
 <td bgcolor="#ffffff">
-<center><a name="Download"><font size="+1"><b>Obtaining GLEW</b></font></a></center>
+<center><a name="Download"><h2>Obtaining GLEW</h2></a></center>
 <p>
 Source and precompiled binaries are available at the <a
 href="http://glew.sourceforge.net/">project website</a>.
@@ -73,7 +79,7 @@ href="http://glew.sourceforge.net/">project website</a>.
 
 <tr>
 <td  bgcolor="#ffffff">
-<center><a name="Supported"><font size="+1"><b>Supported Extensions</b></font></a></center>
+<center><a name="Supported"><h2>Supported Extensions</h2></a></center>
 <p>
 GLEW currently supports the following extensions:
 <ul>
@@ -104,13 +110,13 @@ OpenGL Extension Specifications</a>
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Build"><font size="+1"><b>How to Build Your Project with GLEW</b></font></a></center>
+<center><a name="Build"><h2>How to Build Your Project with GLEW</h2></a></center>
 <p>
 
 There are two ways to build your project with GLEW.
 <p>
 
-<font size="+1">Including the source files / project file</font>
+<h3>Including the source files / project file</h3>
 <p>
 
 The simpler but less flexible way is to include <tt>glew.h</tt> and
@@ -141,7 +147,7 @@ multi-threaded or multi-threaded DLL) it is linked with</b>.
 
 <p>
 
-<font size="+1">Using GLEW as a shared library</font>
+<h3>Using GLEW as a shared library</h3>
 <p>
 
 Alternatively, you can use the provided project files / makefile to
@@ -188,7 +194,7 @@ issuing a preprocessor error in case you have included <tt>gl.h</tt>,
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Install"><font size="+1"><b>How to Install GLEW</b></font></a></center>
+<center><a name="Install"><h2>How to Install GLEW</h2></a></center>
 
 <p>
 To install the shared library version of GLEW you need to copy the
@@ -231,10 +237,10 @@ to these directories.
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Use"><font size="+1"><b>How to Use GLEW</b></font></a></center>
+<center><a name="Use"><h2>How to Use GLEW</h2></a></center>
 <p>
 
-<font size="+1">Initializing GLEW</font>
+<h3>Initializing GLEW</h3>
 <p>
 
 First you need to create a valid OpenGL rendering context and call
@@ -259,7 +265,7 @@ if (GLEW_OK != err)
 
 <p>
 
-<font size="+1">Querying the available OpenGL extensions</font>
+<h3>Querying the available OpenGL extensions</h3>
 <p>
 
 Starting from GLEW 1.1.0, you can find out if a particular extension
@@ -304,7 +310,7 @@ For extensions <tt>glewGetExtension</tt> provides a slower alternative:
 
 <p>
 
-<font size="+1">Experimental drivers</font>
+<h3>Experimental drivers</h3>
 <p>
 
 GLEW works by querying the supported extensions from the graphics
@@ -317,7 +323,7 @@ sure that all extensions with valid entry points will be exposed.
 
 <p>
 
-<font size="+1">Platform specific extensions</font>
+<h3>Platform specific extensions</h3>
 <p>
 
 Platform specific extensions are separated into two header files:
@@ -343,7 +349,7 @@ else
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Utilities"><font size="+1"><b>Utilities</b></font></a></center>
+<center><a name="Utilities"><h2>Utilities</h2></a></center>
 <p>
 
 GLEW provides two command line tools: one for creating a list of
@@ -352,7 +358,7 @@ entry points.
 
 <p>
 
-<font size="+1">wglinfo: extensions and visuals on Windows</font>
+<h3>wglinfo: extensions and visuals on Windows</h3>
 <p>
 
 <tt>wglinfo</tt> is the Windows version of <tt>glxinfo</tt>. By
@@ -365,7 +371,7 @@ described <a href="wglinfo.txt">here</a>. For additional usage information, type
 
 <p>
 
-<font size="+1">glewinfo: extension verification utility</font>
+<h3>glewinfo: extension verification utility</h3>
 <p>
 
 <tt>glewinfo</tt> allows you to verify the entry points for the
@@ -383,7 +389,7 @@ called <tt>glewinfo.txt</tt>, on Linux and IRIX it prints them to <tt>stdout</tt
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Auto"><font size="+1"><b>Automatic Code Generation</b></font></a></center>
+<center><a name="Auto"><h2>Automatic Code Generation</h2></a></center>
 <p>
 
 Starting from release 1.1.0, the source code and parts of the
@@ -409,7 +415,7 @@ subdirectory.
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Namespace"><font size="+1"><b>Separate Namespace</b></font></a></center>
+<center><a name="Namespace"><h2>Separate Namespace</h2></a></center>
 <p>
 
 To avoid name clashes when linking with libraries that include the
@@ -430,7 +436,7 @@ effect token and function pointer definitions.
 <tr>
 <td bgcolor="#ffffff">
 
-<center><a name="Issues"><font size="+1"><b>Known Issues</b></font></a></center>
+<center><a name="Issues"><h2>Known Issues</h2></a></center>
 <p>
 
 GLEW requires GLX 1.2 to assure compatibility with GLUT.  In addition,
@@ -452,7 +458,7 @@ so far from ignoring the specification.
 
 <tr>
 <td bgcolor="#ffffff">
-<center><a name="Credits"><font size="+1"><b>Credits, Copyright</b></font></a></center>
+<center><a name="Credits"><h2>Credits, Copyright</h2></a></center>
 <p>
 
 GLEW was developed by Milan Ikits and Marcelo Magallon.  They also
@@ -483,7 +489,7 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 
 <tr>
 <td bgcolor="#ffffff">
-<center><a name="Log"><font size="+1"><b>Change Log</b></font></a></center>
+<center><a name="Log"><h2>Change Log</h2></a></center>
 <p>
 
 <ul class="none">
@@ -495,34 +501,34 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <li> Added IRIX support
 <li> Updated documentation
 </ul>
-
+<p>
 <li><b>1.0.7</b> [06-29-03]
 <ul>
 <li> Added GL_EXT_depth_bounds_test
 <li> Fixed typos
 </ul>
-
+<p>
 <li><b>1.0.6</b> [05-05-03]
 <ul>
 <li> Added ARB_vertex_buffer_object and NV_half_float
 <li> Updated <tt>wglinfo</tt>
 <li> Temporary Linux bug fixes (problems with SDL and MESA)
 </ul>
-
+<p>
 <li><b>1.0.5</b> [02-17-03]
 <ul>
 <li> Bug fixes
 <li> Added <tt>wglinfo</tt>
 <li> Updated documentation
 </ul>
-
+<p>
 <li><b>1.0.4</b> [02-02-03]
 <ul>
 <li> Added NV_texture_expand_normal
 <li> Added mingw support
 <li> Updated documentation
 </ul>
-
+<p>
 <li><b>1.0.3</b> [01-09-03]
 <ul>
 <li> Cleaned up ATI extensions
@@ -530,19 +536,19 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <li> Added EXT_texture3D
 <li> Fixed typos in ATI_vertex_attrib_array_object and ATI_draw_buffers
 </ul>
-
+<p>
 <li><b>1.0.2</b> [12-21-02]
 <ul>
 <li> Added list of supported extensions to documentation
 <li> Added NV_half_float and NV_texgen_emboss
 </ul>
-
+<p>
 <li><b>1.0.1</b> [12-17-02]
 <ul>
 <li> Bug fixes
 <li> Added glewGetExtension
 </ul>
-
+<p>
 <li><b>1.0.0</b> [12-12-02]
 <ul>
 <li> Initial release

@@ -1,21 +1,38 @@
 h1 
 {   
 	color: black;
-	font: 16pt "Verdana", "Arial", "Helvetica";
+	font: 23px "Verdana", "Arial", "Helvetica";
 	display: inline;
-	/* font-weight: bold */
+	font-weight: bold
 }
 
 h2
 {   
 	color: black;
-	font: 14pt "Verdana", "Arial", "Helvetica";
+	font: 18px "Verdana", "Arial", "Helvetica";
+	font-weight: bold
+}
+
+h3
+{   
+	color: black;
+	font: 18px "Verdana", "Arial", "Helvetica";
+}
+
+small
+{
+	font: 12px "Verdana", "Arial", "Helvetica";
 }
 
 body, table, td, p, div
 {
 	color: black;
 	font: 10pt "Verdana", "Arial", "Helvetica"
+}
+
+tt, blockquote
+{
+	color: maroon;
 }
 
 a:link
