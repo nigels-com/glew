@@ -37,13 +37,7 @@ sub make_pfn_type($%)
 sub make_pfn_alias($%)
 {
     our $type;
-    return join(" ", "#define", $_[0], $type . "EW_GET_CONTEXT(" . prefixname($_[0]) . ")")
-}
-
-# function pointer declaration
-sub make_pfn_decl($%)
-{
-    return "GLEWAPI PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . ";";
+    return join(" ", "#define", $_[0], $type . "EW_GET_FUN(" . prefixname($_[0]) . ")")
 }
 
 my @extlist = ();
@@ -70,12 +64,11 @@ foreach my $ext (sort @extlist)
     output_types($types, \&make_type);
     output_exacts($exacts, \&make_exact);
     output_decls($functions, \&make_pfn_type);
-    #output_decls($functions, \&make_pfn_decl);
     output_decls($functions, \&make_pfn_alias);
 
     my $extvar = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
 
-    print "\n#define $extvar " . $type . "EW_GET_CONTEXT(" . prefix_varname($extvar) . ")\n";
+    print "\n#define $extvar " . $type . "EW_GET_VAR(" . prefix_varname($extvar) . ")\n";
     print "\n#endif /* $extname */\n\n";
 }

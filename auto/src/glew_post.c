@@ -34,15 +34,23 @@ const GLubyte* glewGetString (GLenum name)
 
 GLboolean glewExperimental = GL_FALSE;
 
+#ifndef GLEW_MX
+
 GLenum glewInit ()
 {
   GLenum r;
-  if ( (r = glewContextInit(glewDefaultContext)) ) return r;
+  if ( (r = glewContextInit(0)) ) return r;
 #if defined(_WIN32)
-  return wglewContextInit(wglewDefaultContext);
+  return wglewContextInit(0);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
-  return glxewContextInit(glxewDefaultContext);
+  return glxewContextInit(0);
 #else
   return r;
 #endif /* _WIN32 */
 }
+
+#else
+
+
+#endif
+

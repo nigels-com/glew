@@ -15,7 +15,7 @@ do 'bin/make.pl';
 # function pointer declaration
 sub make_pfn_decl($%)
 {
-    return "  PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . ";";
+    return "GLEW_EXPORT PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . ";";
 }
 
 my @extlist = ();
@@ -32,7 +32,14 @@ if (@ARGV)
 }
 
 print "/* ------------------------------------------------------------------------- */\n\n";
-print "struct " . $type . "EWContextStruct\n{";
+print "#ifdef GLEW_MX\n";
+print "#define GLEW_EXPORT\n";
+print "#else\n";
+print "#define GLEW_EXPORT GLEWAPI\n";
+print "#endif /* GLEW_MX */\n\n";
+print "#if defined(GLEW_MX) && defined(_WIN32)\n";
+print "struct " . $type . "EWContextStruct\n{\n";
+print "#endif /* GLEW_MX */\n";
 
 foreach my $ext (sort @extlist)
 {
@@ -40,14 +47,18 @@ foreach my $ext (sort @extlist)
     output_decls($functions, \&make_pfn_decl);
 }
 
-print "\n";
+print "\n#if defined(GLEW_MX) && !defined(_WIN32)\n";
+print "struct " . $type . "EWContextStruct\n{\n";
+print "#endif /* GLEW_MX */\n\n";
 
 foreach my $ext (sort @extlist)
 {
     my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
     my $extvar = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
-    print "  GLboolean " . prefix_varname($extvar) . ";\n";
+    print "GLEW_EXPORT GLboolean " . prefix_varname($extvar) . ";\n";
 }
 
-print "\n}; /* " . $type . "EWContextStruct */\n\n";
+print "\n#ifdef GLEW_MX\n";
+print "}; /* " . $type . "EWContextStruct */\n";
+print "#endif /* GLEW_MX */\n\n";

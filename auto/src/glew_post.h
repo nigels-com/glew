@@ -12,19 +12,28 @@
 
 /* API */
 #ifdef GLEW_MX
-#  define GLEW_GET_CONTEXT(x) glewGetContext()->x
-#else
-#  define GLEW_GET_CONTEXT(x) glewDefaultContext->x
-#endif /* GLEW_MX */
 
 typedef struct GLEWContextStruct GLEWContext;
-
-GLEWAPI GLEWContext* glewDefaultContext;
-GLEWAPI GLboolean glewExperimental;
-
-GLEWAPI GLenum glewInit ();
 GLEWAPI GLenum glewContextInit (GLEWContext* ctx);
 
+#ifdef _WIN32
+#  define GLEW_GET_VAR(x) glewGetContext()->x
+#  define GLEW_GET_FUN(x) glewGetContext()->x
+#else
+#  define GLEW_GET_VAR(x) glewGetContext()->x
+#  define GLEW_GET_FUN(x) x
+#endif
+
+#else /* GLEW_MX */
+
+GLEWAPI GLenum glewInit ();
+
+#define GLEW_GET_VAR(x) x
+#define GLEW_GET_FUN(x) x
+
+#endif /* GLEW_MX */
+
+GLEWAPI GLboolean glewExperimental;
 GLEWAPI GLboolean glewGetExtension (const char* name);
 GLEWAPI const GLubyte* glewGetErrorString (GLenum error);
 GLEWAPI const GLubyte* glewGetString (GLenum name);
@@ -49,7 +58,6 @@ GLEWAPI const GLubyte* glewGetString (GLenum name);
 #undef WINGDIAPI
 #endif
 
-/* #undef GLEW_GET_CONTEXT */
 #undef GLAPI
 /* #undef GLEWAPI */
 

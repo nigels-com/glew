@@ -1,23 +1,26 @@
 /* ------------------------------------------------------------------------- */
 
-typedef struct WGLEWContextStruct WGLEWContext;
-GLEWAPI WGLEWContext* wglewDefaultContext;
-
 #ifdef GLEW_MX
-extern WGLEWContext* wglewGetContext();
-#  define WGLEW_GET_CONTEXT(x) wglewGetContext()->x
-#else
-#  define WGLEW_GET_CONTEXT(x) wglewDefaultContext->x
+
+typedef struct WGLEWContextStruct WGLEWContext;
+GLEWAPI GLenum wglewContextInit (WGLEWContext* ctx);
+
+#define WGLEW_GET_VAR(x) wglewGetContext()->x
+#define WGLEW_GET_FUN(x) wglewGetContext()->x
+
+#else /* GLEW_MX */
+
+#define WGLEW_GET_VAR(x) x
+#define WGLEW_GET_FUN(x) x
+
 #endif /* GLEW_MX */
 
-GLEWAPI GLenum wglewContextInit (WGLEWContext* ctx);
 GLEWAPI GLboolean wglewGetExtension (const char* name);
 
 #ifdef __cplusplus
 }
 #endif
 
-/* #undef WGLEW_GET_CONTEXT */
 #undef GLEWAPI
 
 #endif /* __wglew_h__ */

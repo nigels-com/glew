@@ -1091,7 +1091,7 @@ GLAPI void GLAPIENTRY glVertex4sv (const GLshort *v);
 GLAPI void GLAPIENTRY glVertexPointer (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 
-#define GLEW_VERSION_1_1 GLEW_GET_CONTEXT(__GLEW_VERSION_1_1)
+#define GLEW_VERSION_1_1 GLEW_GET_VAR(__GLEW_VERSION_1_1)
 
 #endif /* GL_VERSION_1_1 */
 

@@ -51,6 +51,9 @@ GLboolean glewGetExtension (const char* name)
 
 /* ------------------------------------------------------------------------- */
 
+#ifndef GLEW_MX
+static
+#endif
 GLenum glewContextInit (GLEWContext* ctx)
 {
   const GLubyte* s;
@@ -67,43 +70,43 @@ GLenum glewContextInit (GLEWContext* ctx)
   {
     if (s[3] >= '5')
     {
-      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_4 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_5 = GL_TRUE;
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_TRUE;
+      GLEW_VERSION_1_4 = GL_TRUE;
+      GLEW_VERSION_1_5 = GL_TRUE;
     }
     if (s[2] == '4')
     {
-      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_4 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_TRUE;
+      GLEW_VERSION_1_4 = GL_TRUE;
+      GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] == '3')
     {
-      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_TRUE;
+      GLEW_VERSION_1_4 = GL_FALSE;
+      GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] == '2')
     {
-      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_3 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_FALSE;
+      GLEW_VERSION_1_4 = GL_FALSE;
+      GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] < '2')
     {
-      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
-      ctx->__GLEW_VERSION_1_2 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_3 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
-      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_FALSE;
+      GLEW_VERSION_1_3 = GL_FALSE;
+      GLEW_VERSION_1_4 = GL_FALSE;
+      GLEW_VERSION_1_5 = GL_FALSE;
     }
   }
   /* initialize extensions */

@@ -62,7 +62,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	$(BIN)/make_header.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
 	$(BIN)/make_struct.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
-	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
+	perl -e 's/GLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
 	rm -f $@.bak
 	cat $(SRC)/glew_post.h >> $@
 
@@ -83,6 +83,14 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 
 $(S.DEST)/glew.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.c $@
+	$(BIN)/make_struct_def.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	echo -e "\n#endif /* !_WIN32 || !GLEW_MX */\n" >> $@
+	echo -e "#if defined(_WIN32) && !defined(GLEW_MX)" >> $@
+	$(BIN)/make_struct_def.pl WGL $(EXT)/WGL_* >> $@
+	echo -e "\n#endif /* _WIN32 && !GLEW_MX */\n" >> $@
+	echo -e "#if !(defined(_WIN32) || (defined(__APPLE__) && !defined(GLEW_APPLE_GLX)))" >> $@
+	$(BIN)/make_struct_def.pl GLX $(EXT)/GLX_* >> $@
+	echo -e "\n#endif /* !_WIN32 */\n" >> $@
 	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@
 	echo -e "#ifdef _WIN32\n" >> $@
