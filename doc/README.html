@@ -474,7 +474,7 @@ following:
 <ol>
 <li>Compile and use GLEW with the <tt>GLEW_MX</tt> preprocessor token defined.</li>
 <li>Replace the global <tt>glewInit()</tt> call with <tt>glewContextInit(GLEWContext* ctx)</tt>. Note, that <tt>ctx</tt> has to reside in global or thread-local memory.</li>
-<li>Define the <tt>glewGetContext()</tt> macro or function that retrieves the GLEW context for the thread from which the OpenGL/WGL/GLX call is issued. This dispatch mechanism is primitive, but generic.</li>
+<li>Define the <tt>glewGetContext()</tt> macro or function that retrieves the GLEW context for the thread from which the OpenGL/WGL/GLX call is issued. The dispatch mechanism is primitive, but generic.</li>
 </ol>
 
 <p> Note that according to <a
