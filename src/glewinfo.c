@@ -521,7 +521,7 @@ static void glewInfo_EXT_cull_vertex ()
 /* ------------------------ GL_EXT_depth_bounds_test ---------------------- */
 
 #ifdef GL_EXT_depth_bounds_test
-static void _glewInfo_EXT_depth_bounds_test ()
+static void glewInfo_EXT_depth_bounds_test ()
 {
   char me[] = "GL_EXT_depth_bounds_test"; glewPrintExt(me, glew.EXT_depth_bounds_test);
   glewInfoFunc(glDepthBoundsEXT == NULL, "glDepthBoundsEXT");

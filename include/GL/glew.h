@@ -2611,7 +2611,7 @@ extern GLEW_EXPORT PFNGLCULLPARAMETERDVEXTPROC glCullParameterdvEXT;
 #define GL_DEPTH_BOUNDS_TEST_EXT                                0x8890
 #define GL_DEPTH_BOUNDS_EXT                                     0x8891
 
-typedef void (GLAPIENTRY * PFNGLDEPTHBOUNDSEXTPROC) (GLclampd zmin, GLclampd zmax);
+typedef void (APIENTRY * PFNGLDEPTHBOUNDSEXTPROC) (GLclampd zmin, GLclampd zmax);
 
 extern GLEW_EXPORT PFNGLDEPTHBOUNDSEXTPROC glDepthBoundsEXT;
 
