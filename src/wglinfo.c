@@ -84,13 +84,13 @@ VisualInfoARB (HDC hDC, int verbose)
   attrib[22] = WGL_NUMBER_UNDERLAYS_ARB;
   attrib[23] = WGL_SWAP_LAYER_BUFFERS_ARB;
   n_attrib = 24;
-  if (wglew_ARB_pbuffer)
+  if (WGLEW_ARB_pbuffer)
   {
     attrib[n_attrib] = WGL_DRAW_TO_PBUFFER_ARB;
     n_pbuffer = n_attrib;
     n_attrib++;
   }
-  if (wglew_NV_float_buffer)
+  if (WGLEW_NV_float_buffer)
   {
     attrib[n_attrib] = WGL_FLOAT_COMPONENTS_NV;
     n_float = n_attrib;
@@ -114,7 +114,7 @@ VisualInfoARB (HDC hDC, int verbose)
       /* by default show only fully accelerated window or pbuffer capable visuals */
       if (!showall
 	  && ((value[2] && !value[1])
-	  || (!wglew_ARB_pbuffer || !value[n_pbuffer])
+	  || (!WGLEW_ARB_pbuffer || !value[n_pbuffer])
 	  || (value[3] != WGL_FULL_ACCELERATION_ARB))) continue;
       /* print out the information for this visual */
       /* visual id */
@@ -122,21 +122,21 @@ VisualInfoARB (HDC hDC, int verbose)
       /* visual type */
       if (value[1])
       {
-	if (wglew_ARB_pbuffer && value[n_pbuffer]) fprintf(file, "wp ");
+	if (WGLEW_ARB_pbuffer && value[n_pbuffer]) fprintf(file, "wp ");
 	else fprintf(file, "wn ");
       }
       else
       {
 	if (value[2]) fprintf(file, "bm ");
-	else if (wglew_ARB_pbuffer && value[n_pbuffer]) fprintf(file, "pb ");
+	else if (WGLEW_ARB_pbuffer && value[n_pbuffer]) fprintf(file, "pb ");
       }
       /* acceleration */
       fprintf(file, "%s", value[3] == WGL_FULL_ACCELERATION_ARB ? "fu" : 
 	      value[3] == WGL_GENERIC_ACCELERATION_ARB ? "ge" :
 	      value[3] == WGL_NO_ACCELERATION_ARB ? "no" : ". ");
       /* format */
-      if (wglew_NV_float_buffer && value[n_float]) fprintf(file, "  f ");
-      else if (wglew_ATI_pixel_format_float && value[7] == WGL_TYPE_RGBA_FLOAT_ATI) fprintf(file, "  f ");
+      if (WGLEW_NV_float_buffer && value[n_float]) fprintf(file, "  f ");
+      else if (WGLEW_ATI_pixel_format_float && value[7] == WGL_TYPE_RGBA_FLOAT_ATI) fprintf(file, "  f ");
       else if (value[7] == WGL_TYPE_RGBA_ARB) fprintf(file, "  i ");
       else if (value[7] == WGL_TYPE_COLORINDEX_ARB) fprintf(file, "  c ");
       /* double buffer */
@@ -556,14 +556,14 @@ main (int argc, char** argv)
   fprintf(file, "GLU extensions (GLU_): \n");
   PrintExtensions((char*)gluGetString(GLU_EXTENSIONS));
   /* WGL extensions */
-  if (wglew_ARB_extensions_string || wglew_EXT_extensions_string)
+  if (WGLEW_ARB_extensions_string || WGLEW_EXT_extensions_string)
   {
     fprintf(file, "WGL extensions (WGL_): \n");
     PrintExtensions(wglGetExtensionsStringARB ? (char*)wglGetExtensionsStringARB(hDC) :
 		    (char*)wglGetExtensionsStringEXT());
   }
   /* enumerate all the formats */
-  if (wglew_ARB_pixel_format)
+  if (WGLEW_ARB_pixel_format)
   {
     int attrib[16], value[16], pf;
     unsigned int c;

@@ -47,8 +47,11 @@ foreach my $ext (sort @extlist)
     my $extvar = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
 
+    my $extpre = $extname;
+    $extpre =~ s/^(W?)GL(X?).*$/\l$1gl\l$2ew/;
+    
     print "#ifdef $extname\n";
-    print "  $extvar = glewGetExtension(\"$extname\");\n";
+    print "  $extvar = " . $extpre . "GetExtension(\"$extname\");\n";
     if (keys %$functions)
     {
 	print "  if (glewExperimental || $extvar) $extvar = !_glewInit_$extname();\n";

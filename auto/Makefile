@@ -107,8 +107,6 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	cat $(SRC)/glewinfo_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 
-#doc: $(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
-
 $(D.DEST)/glew.html: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.html $@
 	$(BIN)/make_html.pl $(EXT)/GL_* >> $@
