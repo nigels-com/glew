@@ -39,18 +39,16 @@ TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
 SHELL = /bin/sh
-
 SYSTEM = $(strip $(shell uname -s))
 
 # ----------------------------------------------------------------------------
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
 CC = gcc
 EXTRA_CCFLAGS = -mno-cygwin
-EXTRA_LDFALGS = 
+EXTRA_LDFLAGS = 
 EXTRA_CPPFLAGS = -D'GLEW_STATIC'
 NAME = glew32
 P.BIN = .exe
-LIB.DIR = lib
 
 GL_LDFLAGS = -lopengl32
 GLU_LDFLAGS = -lglu32
@@ -61,11 +59,10 @@ else
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
 CC = cc
 EXTRA_CCFLAGS = 
-EXTRA_LDFALGS = -L/usr/X11R6/lib
+EXTRA_LDFLAGS = -L/usr/X11R6/lib
 EXTRA_CPPFLAGS =
 NAME = GLEW
 P.BIN =
-LIB.DIR = lib
 
 # Support broken systems which don't include proper inter-library
 # dependency information (several versions of RedHat and SuSE among
@@ -73,7 +70,7 @@ LIB.DIR = lib
 # LDFLAGS.  Same thnig for GLU and GL.  Include the stuff needed only by
 # GLUT *before* the GL flags.  This probably breaks down on IRIX. (mem)
 
-GL_LDFLAGS = -lGL -lXext -lX11 -lm
+GL_LDFLAGS = -lGL -lXext -lX11
 GLU_LDFLAGS = -lGLU
 GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 
@@ -81,20 +78,15 @@ else
 # ----------------------------------------------------------------------------
 ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
 CC = cc
-ifeq ($(MAKECMDGOALS), 64)
-EXTRA_CCFLAGS = -64
-LIB.DIR = lib64
-else
-EXTRA_CCFLAGS = -n32
-LIB.DIR = lib32
-endif
-EXTRA_LDFALGS =
+ABI = -n32 # -64
+EXTRA_CCFLAGS = -woff 1110,1498 $(ABI)
+EXTRA_LDFLAGS = $(ABI)
 EXTRA_CPPFLAGS = -DGLEW_NEEDS_CUSTOM_GET_PROCADDRESS=1
 NAME = GLEW
 P.BIN =
 WARN = -fullwarn
 
-GL_LDFLAGS = -lGL -lXext -lX11 -lm
+GL_LDFLAGS = -lGL -lXext -lX11
 GLU_LDFLAGS = -lGLU
 GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
@@ -127,23 +119,26 @@ LIB.SHARED = $(LIB).so.$(GLEW_VERSION)
 LIB.STATIC = $(LIB).a
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
-LIB.LDFLAGS = $(EXTRA_LDFALGS)
+LIB.LDFLAGS = $(EXTRA_LDFLAGS)
 LIB.LIBS = $(GL_LDFLAGS)
 
 BIN = glewinfo$(P.BIN)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -l$(NAME) $(EXTRA_LDFALGS) $(GLUT_LDFLAGS)
+BIN.LIBS = -Llib -l$(NAME) $(EXTRA_LDFLAGS) $(GLUT_LDFLAGS)
 
-all: $(LIB.DIR)/$(LIB.SHARED) $(LIB.DIR)/$(LIB.STATIC) bin/$(BIN)
+all 64: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
-$(LIB.DIR)/$(LIB.STATIC): $(LIB.OBJS)
+lib:
+	mkdir lib
+
+lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
 
-$(LIB.DIR)/$(LIB.SHARED): $(LIB.OBJS)
+lib/$(LIB.SHARED): $(LIB.OBJS)
 	$(LD) -shared -o $@ $^ -soname $(LIB.SONAME) $(LIB.LDFLAGS) $(LIB.LIBS)
-	$(LN) $(LIB.SHARED) $(LIB.DIR)/$(LIB.SONAME)
-	$(LN) $(LIB.SHARED) $(LIB.DIR)/$(LIB.DEVLNK)
+	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
+	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 
 bin/$(BIN): $(BIN.SRCS)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
@@ -160,14 +155,14 @@ install: all
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
 # runtime
-	$(INSTALL) $(STRIP) -m 0644 $(LIB.DIR)/$(LIB.SHARED) $(GLEW_DEST)/$(LIB.DIR)/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.SONAME)
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
 # development files
 	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
-	$(INSTALL) $(STRIP) -m 0644 $(LIB.DIR)/$(LIB.STATIC) $(GLEW_DEST)/$(LIB.DIR)/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.DEVLNK)
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
 # utilities
 	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
 
@@ -175,15 +170,15 @@ uninstall:
 	$(RM) $(GLEW_DEST)/include/GL/wglew.h
 	$(RM) $(GLEW_DEST)/include/GL/glew.h
 	$(RM) $(GLEW_DEST)/include/GL/glxew.h
-	$(RM) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.DEVLNK)
-	$(RM) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.SONAME)
-	$(RM) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.SHARED)
-	$(RM) $(GLEW_DEST)/$(LIB.DIR)/$(LIB.STATIC)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.STATIC)
 	$(RM) $(GLEW_DEST)/bin/$(BIN)
 
 clean:
 	$(RM) $(LIB.OBJS)
-	$(RM) $(LIB.DIR)/$(LIB.STATIC) $(LIB.DIR)/$(LIB.SHARED) $(LIB.DIR)/$(LIB.DEVLNK) $(LIB.DIR)/$(LIB.SONAME) $(LIB.STATIC)
+	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
 	$(RM) $(BIN.OBJS) bin/$(BIN)
 # Compiler droppings
 	$(RM) so_locations
