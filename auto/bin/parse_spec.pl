@@ -292,7 +292,7 @@ foreach my $spec (sort @speclist)
         $prefix =~ s/^(.+?)(_.+)$/$1/;
         foreach my $token (sort { hex ${$tokens}{$a} <=> hex ${$tokens}{$b} } keys %{$tokens})
         {
-            if ($token =~ /^$prefix.*/i)
+            if ($token =~ /^$prefix\_.*/i)
             {
                 print EXT "\t" . $token . " " . ${%{$tokens}}{$token} . "\n";
             }
