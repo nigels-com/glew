@@ -36,7 +36,7 @@ my %typemap = (
     # Intel fsck up
     Glenum   => "GLenum",
     float    => "GLfloat",
-    half     => "GLuint",
+    half     => "GLhalf",
     int      => "GLint",
     short    => "GLshort",
     sizei    => "GLsizei",
