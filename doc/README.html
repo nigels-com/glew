@@ -29,6 +29,8 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr><td align=center><a href="#Install"><font size="-1">How to Install GLEW</font></a></td></tr>
 <tr><td align=center><a href="#Use"><font size="-1">How to Use GLEW</font></a></td></tr>
 <tr><td align=center><a href="#Utilities"><font size="-1">Utilities</font></a></td></tr>
+<tr><td align=center><a href="#Auto"><font size="-1">Automatic Code Generation</font></a></td></tr>
+<tr><td align=center><a href="#Namespace"><font size="-1">Separate Namespace</font></a></td></tr>
 <tr><td align=center><a href="#Issues"><font size="-1">Known Issues</font></a></td></tr>
 <tr><td align=center><a href="#Credits"><font size="-1">Credits, Copyright</font></a></td></tr>
 <tr><td align=center><br></td></tr>
@@ -79,7 +81,7 @@ GLEW currently supports the following extensions:
 <li><a href="glxew.html">GLX extensions</a>
 </ul>
 <p>
-Other useful links about OpenGL extensions:
+Useful links about OpenGL extensions:
 <ul>
 <li><a
 href="http://www.opengl.org/developers/code/features/OGLextensions/OGLextensions.html">
@@ -236,7 +238,7 @@ to these directories.
 
 First you need to create a valid OpenGL rendering context and call
 <tt>glewInit()</tt> to initialize the extension entry points.  If
-<tt>glewInit()</tt> returns <tt>GLEW_OK</tt> the initialization
+<tt>glewInit()</tt> returns <tt>GLEW_OK</tt>, the initialization
 succeeded and you can use the available extensions as well as core
 OpenGL functionality. For example:
 
@@ -374,6 +376,54 @@ called <tt>glewinfo.txt</tt>, on Linux and IRIX it prints them to <tt>stdout</tt
 </td>
 </tr>
 
+
+<tr><td bgcolor="#fff0d0" align="center"></td></tr>
+
+<tr>
+<td bgcolor="#ffffff">
+
+<center><a name="Auto"><font size="+1"><b>Automatic Code Generation</b></font></a></center>
+<p>
+
+Starting from release 1.1.0, the source code and parts of the
+documentation are automatically generated from the extension
+specifications via a two-step process.  In the first step,
+specification files from the registry are parsed and skeleton
+descriptors are created for each extension.  These descriptors contain
+all necessary information for creating the source code and
+documentation in a simple and compact format, including the the
+extension name, url, tokens, function declarations, typedefs and
+struct definitions.  In the second step, the header files as well as
+the library and glewinfo source are generated from the descriptor
+files. The code generation scripts are located in the <tt>auto</tt>
+subdirectory.
+
+<p>
+
+</td>
+</tr>
+
+<tr><td bgcolor="#fff0d0" align="center"></td></tr>
+
+<tr>
+<td bgcolor="#ffffff">
+
+<center><a name="Namespace"><font size="+1"><b>Separate Namespace</b></font></a></center>
+<p>
+
+To avoid name clashes when linking with libraries that include the
+same symbol, extension entry points are declared in a separate
+namespace (release 1.1.0 and up). This is achieved by aliasing OpenGL
+function names to their GLEW equivalents. For instance,
+<tt>glFancyFunction</tt> is simply an alias to
+<tt>glewFancyFunction</tt>.  Note that the separate namespace doesn't
+effect token and function pointer definitions.
+<p>
+
+</td>
+</tr>
+
+
 <tr><td bgcolor="#fff0d0" align="center"></td></tr>
 
 <tr>
@@ -420,7 +470,8 @@ GLEW is originally derived from the <a
 href="http://www.levp.de/3d/">EXTGL</a> project by Lev Povalahev.  The
 source code is licensed under the modified BSD license, the <a
 href="sgi.txt">SGI Free Software License B</a>, and the <a
-href="glx.txt">GLX Public License</a>.
+href="glx.txt">GLX Public License</a>. The automatic code
+generation scripts are released under the <a href="gpl.txt">GPL</a>.
 
 <blockquote><pre></pre></blockquote>
 
