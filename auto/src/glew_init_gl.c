@@ -34,7 +34,7 @@ GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   GLuint major, minor;
   /* check for SiS driver */
   s = glGetString(GL_RENDERER);
-  if (s && _glewStrSame(s,"SiS",3))
+  if (s && _glewStrSame(s,(const GLubyte*)"SiS",3))
   {
 	  GLEW_VERSION_1_1 = GL_TRUE;
       GLEW_VERSION_1_2 = GL_FALSE;
