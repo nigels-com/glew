@@ -31,89 +31,75 @@ static
 GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 {
   const GLubyte* s;
-  GLuint major, minor;
-  /* check for SiS driver */
-  s = glGetString(GL_RENDERER);
-  if (s && _glewStrSame(s,(const GLubyte*)"SiS",3))
+  GLuint dot, major, minor;
+  /* query opengl version */
+  s = glGetString(GL_VERSION);
+  dot = _glewStrCLen(s, '.');
+  major = dot-1;
+  minor = dot+1;
+  if (dot == 0 || s[minor] == '\0')
+    return GLEW_ERROR_NO_GL_VERSION;
+  if (s[major] == '1' && s[minor] == '0')
   {
-	  GLEW_VERSION_1_1 = GL_TRUE;
-      GLEW_VERSION_1_2 = GL_FALSE;
-      GLEW_VERSION_1_3 = GL_FALSE;
-      GLEW_VERSION_1_4 = GL_FALSE;
-      GLEW_VERSION_1_5 = GL_FALSE;
-      GLEW_VERSION_2_0 = GL_FALSE;
+	return GLEW_ERROR_GL_VERSION_10_ONLY;
   }
   else
   {
-	/* query opengl version */
-	s = glGetString(GL_VERSION);
-	if (!s) return GLEW_ERROR_NO_GL_VERSION;
-	major = _glewStrCLen(s, '.')-1;
-	minor = _glewStrCLen(s, '.')+1;
-  	if (s+major == NULL
-	  || s+minor-1 == NULL || s+minor == NULL
-	  || (s[major] == 1 && s[minor] < '1'))
+	if (s[major] >= '2')
 	{
-	  return GLEW_ERROR_GL_VERSION_10_ONLY;
+	  GLEW_VERSION_1_1 = GL_TRUE;
+	  GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_TRUE;
+      GLEW_VERSION_1_4 = GL_TRUE;
+	  GLEW_VERSION_1_5 = GL_TRUE;
+	  GLEW_VERSION_2_0 = GL_TRUE;
 	}
 	else
 	{
-	  if (s[major] >= '2')
+	  if (s[minor] >= '5')
 	  {
 		GLEW_VERSION_1_1 = GL_TRUE;
 		GLEW_VERSION_1_2 = GL_TRUE;
 		GLEW_VERSION_1_3 = GL_TRUE;
 		GLEW_VERSION_1_4 = GL_TRUE;
 		GLEW_VERSION_1_5 = GL_TRUE;
-		GLEW_VERSION_2_0 = GL_TRUE;
+		GLEW_VERSION_2_0 = GL_FALSE;
 	  }
-	  else
+	  if (s[minor] == '4')
 	  {
-		if (s[minor] >= '5')
-		{
-		  GLEW_VERSION_1_1 = GL_TRUE;
-		  GLEW_VERSION_1_2 = GL_TRUE;
-		  GLEW_VERSION_1_3 = GL_TRUE;
-		  GLEW_VERSION_1_4 = GL_TRUE;
-		  GLEW_VERSION_1_5 = GL_TRUE;
-		  GLEW_VERSION_2_0 = GL_FALSE;
-		}
-	    if (s[minor] == '4')
-		{
-		  GLEW_VERSION_1_1 = GL_TRUE;
-		  GLEW_VERSION_1_2 = GL_TRUE;
-		  GLEW_VERSION_1_3 = GL_TRUE;
-		  GLEW_VERSION_1_4 = GL_TRUE;
-		  GLEW_VERSION_1_5 = GL_FALSE;
-		  GLEW_VERSION_2_0 = GL_FALSE;
-		}
-		if (s[minor] == '3')
-		{
-		  GLEW_VERSION_1_1 = GL_TRUE;
-		  GLEW_VERSION_1_2 = GL_TRUE;
-		  GLEW_VERSION_1_3 = GL_TRUE;
-		  GLEW_VERSION_1_4 = GL_FALSE;
-		  GLEW_VERSION_1_5 = GL_FALSE;
-		  GLEW_VERSION_2_0 = GL_FALSE;
-		}
-		if (s[minor] == '2')
-		{
-		  GLEW_VERSION_1_1 = GL_TRUE;
-		  GLEW_VERSION_1_2 = GL_TRUE;
-		  GLEW_VERSION_1_3 = GL_FALSE;
-		  GLEW_VERSION_1_4 = GL_FALSE;
-		  GLEW_VERSION_1_5 = GL_FALSE;
-		  GLEW_VERSION_2_0 = GL_FALSE;
-		}
-		if (s[minor] < '2')
-		{
-		  GLEW_VERSION_1_1 = GL_TRUE;
-		  GLEW_VERSION_1_2 = GL_FALSE;
-		  GLEW_VERSION_1_3 = GL_FALSE;
-		  GLEW_VERSION_1_4 = GL_FALSE;
-		  GLEW_VERSION_1_5 = GL_FALSE;
-		  GLEW_VERSION_2_0 = GL_FALSE;
-		}
+		GLEW_VERSION_1_1 = GL_TRUE;
+		GLEW_VERSION_1_2 = GL_TRUE;
+		GLEW_VERSION_1_3 = GL_TRUE;
+		GLEW_VERSION_1_4 = GL_TRUE;
+		GLEW_VERSION_1_5 = GL_FALSE;
+		GLEW_VERSION_2_0 = GL_FALSE;
+	  }
+	  if (s[minor] == '3')
+	  {
+		GLEW_VERSION_1_1 = GL_TRUE;
+		GLEW_VERSION_1_2 = GL_TRUE;
+		GLEW_VERSION_1_3 = GL_TRUE;
+		GLEW_VERSION_1_4 = GL_FALSE;
+		GLEW_VERSION_1_5 = GL_FALSE;
+		GLEW_VERSION_2_0 = GL_FALSE;
+	  }
+	  if (s[minor] == '2')
+	  {
+		GLEW_VERSION_1_1 = GL_TRUE;
+		GLEW_VERSION_1_2 = GL_TRUE;
+		GLEW_VERSION_1_3 = GL_FALSE;
+		GLEW_VERSION_1_4 = GL_FALSE;
+		GLEW_VERSION_1_5 = GL_FALSE;
+		GLEW_VERSION_2_0 = GL_FALSE;
+	  }
+	  if (s[minor] < '2')
+	  {
+		GLEW_VERSION_1_1 = GL_TRUE;
+		GLEW_VERSION_1_2 = GL_FALSE;
+		GLEW_VERSION_1_3 = GL_FALSE;
+		GLEW_VERSION_1_4 = GL_FALSE;
+		GLEW_VERSION_1_5 = GL_FALSE;
+		GLEW_VERSION_2_0 = GL_FALSE;
 	  }
 	}
   }

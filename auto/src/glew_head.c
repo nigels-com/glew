@@ -103,21 +103,25 @@ void* dlGetProcAddress (const GLubyte* name)
 static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
-  while (s+i != NULL && s[i] != '\0') i++;
+  if (s == NULL) return 0;
+  while (s[i] != '\0') i++;
   return i;
 }
 
 static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
 {
   GLuint i=0;
-  while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
-  return i;
+  if (s == NULL) return 0;
+  while (s[i] != '\0' && s[i] != c) i++;
+  return s[i] == c ? i : 0;
 }
 
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
-  while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
+  if(a == NULL || b == NULL)
+    return (a == NULL && b == NULL && n == 0) ? GL_TRUE : GL_FALSE;
+  while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
 
