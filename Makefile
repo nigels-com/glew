@@ -62,6 +62,29 @@ LIB.STATIC = lib$(NAME).a
 
 else
 # ----------------------------------------------------------------------------
+# Mingw32
+# ----------------------------------------------------------------------------
+ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+NAME = glew32
+CC = gcc
+# use gcc for linking, with ld it does not work
+LD = gcc
+CFLAGS.EXTRA =
+CFLAGS.SO = -DGLEW_BUILD
+#LDFLAGS.SO = -shared -soname $(LIB.SONAME) --out-implib lib/$(LIB.DEVLNK)
+LDFLAGS.SO = -shared -Wl,-soname,$(LIB.SONAME) -Wl,--out-implib,lib/$(LIB.DEVLNK)
+LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
+LDFLAGS.EXTRA = -L/mingw/lib
+WARN = -Wall -W
+POPT = -O2
+BIN.SUFFIX = .exe
+LIB.SONAME = $(NAME).dll
+LIB.DEVLNK = lib$(NAME).dll.a    # for mingw this is the dll import lib
+LIB.SHARED = $(NAME).dll
+LIB.STATIC = lib$(NAME).a     # the static lib will be broken (see CFLAGS.SO)
+
+else
+# ----------------------------------------------------------------------------
 # Linux
 # ----------------------------------------------------------------------------
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
@@ -158,6 +181,7 @@ endif
 endif
 endif
 endif
+endif
 
 AR = ar
 INSTALL = install
@@ -193,8 +217,11 @@ lib/$(LIB.STATIC): $(LIB.OBJS)
 
 lib/$(LIB.SHARED): $(LIB.OBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
+ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+else
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
+endif
 
 bin/$(BIN): $(BIN.SRCS)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
@@ -203,7 +230,7 @@ bin/$(BIN): $(BIN.SRCS)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 install: all
 # directories
@@ -211,24 +238,34 @@ install: all
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
 # runtime
-ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/bin/
+else
+  ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	strip -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
-else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
-endif
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
+  else
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
+  endif
+endif
 # development files
 	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
-ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(GLEW_DEST)/lib/
+else
+  ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	strip -x lib/$(LIB.STATIC)
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
-else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
-endif
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+  else
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+  endif
+endif
 # utilities
 	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
 
@@ -237,9 +274,13 @@ uninstall:
 	$(RM) $(GLEW_DEST)/include/GL/glew.h
 	$(RM) $(GLEW_DEST)/include/GL/glxew.h
 	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+	$(RM) $(GLEW_DEST)/bin/$(LIB.SHARED)
+else
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
 	$(RM) $(GLEW_DEST)/lib/$(LIB.STATIC)
+endif
 	$(RM) $(GLEW_DEST)/bin/$(BIN)
 
 clean:
