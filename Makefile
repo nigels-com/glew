@@ -136,14 +136,14 @@ ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 NAME = GLEW
 CC = cc
 LD = cc
-CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common -I/usr/X11R6/include
+CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common 
 LDFLAGS.SO = -dynamiclib -install_name $(GLEW_DEST)/lib/$(LIB.SHARED)
-LDFLAGS.EXTRA = -L/usr/X11R6/lib
+LDFLAGS.EXTRA =
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
-CFLAGS.EXTRA += -D'GLEW_APPLE_GLX'
-LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
+LDFLAGS.GL = -L/usr/X11R6/lib -lXmu -lXi -lGLU -lGL -lXext -lX11
 else
-LDFLAGS.GL = -framework AGL -lGL
+LDFLAGS.GL = -framework AGL -framework OpenGL
 endif
 NAME = GLEW
 BIN.SUFFIX =
