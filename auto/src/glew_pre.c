@@ -59,7 +59,7 @@ static void* NSGLGetProcAddress (const char* name)
 {
   NSSymbol symbol;
   char* symbolName;
-  // Prepend a '_' for the Unix C symbol mangling convention
+  /* prepend a '_' for the Unix C symbol mangling convention */
   symbolName = malloc(strlen(name) + 2);
   strcpy(symbolName+1, name);
   symbolName[0] = '_';

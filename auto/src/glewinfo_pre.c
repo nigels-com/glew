@@ -32,11 +32,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <GL/glew.h>
-#include <GL/glut.h>
 #include <GL/wglew.h>
 #include <GL/glxew.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 static FILE* f;
+
+GLboolean glewCreateContext ();
+void glewDestroyContext ();
+
+/* ------------------------------------------------------------------------- */
 
 static void glewPrintExt (const GLubyte* name, GLint defined)
 {
