@@ -31,6 +31,7 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr><td align=center><a href="#Build"><font size="-1">How to Build Your Project with GLEW</font></a></td></tr>
 <tr><td align=center><a href="#Install"><font size="-1">How to Install GLEW</font></a></td></tr>
 <tr><td align=center><a href="#Use"><font size="-1">How to Use GLEW</font></a></td></tr>
+<tr><td align=center><a href="#Utilities"><font size="-1">Utilities</font></a></td></tr>
 <tr><td align=center><a href="#Issues"><font size="-1">Known Issues</font></a></td></tr>
 <tr><td align=center><a href="#Credits"><font size="-1">Credits, Copyright</font></a></td></tr>
 </table>
@@ -332,14 +333,39 @@ else
 }
 </pre></blockquote>
 
+<tr>
+<td bgcolor="#FFF0D0" align="center"><a
+name="Utilities"><font size="+1"><b>Utilities</b></font></a>
+</td>
+</tr>
+
+<tr>
+<td>
+
+GLEW provides two command line tools: one for creating a list of
+available extensions and visuals; and another for verification of extension
+entry points.
+
 <p>
 
-<font size="+1"><b>glewinfo: a command line extension reporting utility</b></font>
+<font size="+1"><b>wglinfo: reporting extensions and visuals on Windows</b></font>
 <p>
 
-GLEW comes with a command line utility called <tt>glewinfo</tt> that
-allows you to make a list of the extensions supported on your platform.
-The <tt>glewinfo</tt> utility uses GLEW to find out which extensions
+<tt>wglinfo</tt> is the Windows version of <tt>glxinfo</tt>. By
+default it creates a file called <tt>wglinfo.txt</tt> containing
+a list of available OpenGL, WGL, and GLU extensions
+as well as a table of visuals, aka. pixelformats. PBuffer and multiple output
+capable visuals are also included. The format of the table is 
+described <a href="wglinfo.txt">here</a>. For additional usage information, type
+<tt>wglinfo -h</tt>.
+
+<p>
+
+<font size="+1"><b>glewinfo: extension verification utility</b></font>
+<p>
+
+<tt>glewinfo</tt> allows you to verify the entry points for the
+extensions supported on your platform. It uses GLEW to find out which extensions
 and entry points are available and reports the results to a text file
 called <tt>glewinfo.txt</tt>.
 
@@ -384,7 +410,11 @@ GLEW was developed by Milan Ikits.  He also performs occasional
 maintainance to make sure that GLEW stays in mint condition.  Aaron
 Lefohn, Joe Kniss, and Chris Wyman were the first users and also
 assisted with the design and debugging process.  The acronym
-originates from Aaron Lefohn.
+originates from Aaron Lefohn. The RPM packages are maintained by Karol
+Pietrzak. Nate Robins created the <tt>wglinfo</tt> utility,
+to which modifications were added by Michael Wimmer.
+<p>
+
 <p>
 GLEW is derived from the EXTGL project by Lev Povalahev.  It is
 licensed under the LGPL, the BSD license, the SGI Free Software
