@@ -114,7 +114,7 @@ NAME = GLEW
 CC = cc
 LD = cc
 CFLAGS.EXTRA = -no-cpp-precomp -dynamic -I/usr/X11R6/include
-LDFLAGS.SO = -dynamiclib
+LDFLAGS.SO = -dynamiclib -install_name $(GLEW_DEST)/lib/$(LIB.SHARED)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -D'GLEW_APPLE_GLX'

@@ -1089,11 +1089,15 @@ GLAPI void GLAPIENTRY glVertexPointer (GLint size, GLenum type, GLsizei stride, 
 GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 
 GLEWAPI GLboolean GLEW_VERSION_1_1;
-#define glew_VERSION_1_1 GLEW_VERSION_1_1
 
 #endif /* GL_VERSION_1_1 */
 
 /* ------------------------------------------------------------------------- */
 
 /* this is where we can safely include GLU */
+#if defined(__APPLE__) && defined(__MACH__)
+#include <OpenGL/glu.h>
+#else
 #include <GL/glu.h>
+#endif
+
