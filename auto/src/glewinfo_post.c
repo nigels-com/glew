@@ -4,7 +4,11 @@
 
 /* ------------------------------------------------------------------------ */
 
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 int main (int argc, char** argv)
+#else
+int main (void)
+#endif
 {
   GLuint err;
 
@@ -65,7 +69,7 @@ int main (int argc, char** argv)
   glewInfo();
 #if defined(_WIN32)
   wglewInfo();
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#else
   glxewInfo();
 #endif
   if (f != stdout) fclose(f);
