@@ -6,14 +6,14 @@ default:
 	"glew_static - Win32 Release" \
 	"glew_shared - Win32 Release" \
 	"glewinfo - Win32 Release" \
-	"wglinfo - Win32 Release" /build
+	"visualinfo - Win32 Release" /build
 
 debug:
 	$(MSDEV) glew.dsw /make \
 	"glew_static - Win32 Debug" \
 	"glew_shared - Win32 Debug" \
 	"glewinfo - Win32 Debug" \
-	"wglinfo - Win32 Debug" /build
+	"visualinfo - Win32 Debug" /build
 
 clean:
 	$(MSDEV) glew.dsw /make all /clean
