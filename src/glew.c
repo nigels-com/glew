@@ -3009,6 +3009,9 @@ static GLint _glewInit ()
 #ifdef GL_NV_texture_env_combine4
   glew.NV_texture_env_combine4 = glewGetExtension("GL_NV_texture_env_combine4");
 #endif
+#ifdef GL_NV_texture_expand_normal
+  glew.NV_texture_expand_normal = glewGetExtension("GL_NV_texture_expand_normal");
+#endif
 #ifdef GL_NV_texture_rectangle
   glew.NV_texture_rectangle = glewGetExtension("GL_NV_texture_rectangle");
 #endif

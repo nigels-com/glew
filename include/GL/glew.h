@@ -268,6 +268,7 @@ extern "C" {
 #define GL_NV_texgen_reflection 1
 #define GL_NV_texture_compression_vtc 1
 #define GL_NV_texture_env_combine4 1
+#define GL_NV_texture_expand_normal 1
 #define GL_NV_texture_rectangle 1
 #define GL_NV_texture_shader 1
 #define GL_NV_texture_shader2 1
@@ -4040,6 +4041,14 @@ extern GLEW_EXPORT PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC glGetCombinerStagePara
 
 #endif /* GL_NV_texture_env_combine */
 
+/* ------------------------ NV_texture_expand_normal ---------------------- */
+
+#ifdef GL_NV_texture_expand_normal
+
+#define GL_TEXTURE_UNSIGNED_REMAP_MODE_NV                       0x888F
+
+#endif /* GL_NV_texture_expand_normal */
+
 /* ------------------------- NV_texture_rectangle ------------------------- */
 
 #ifdef GL_NV_texture_rectangle
@@ -4547,6 +4556,7 @@ struct GLEW
   unsigned int NV_texgen_reflection : 1;
   unsigned int NV_texture_compression_vtc : 1;
   unsigned int NV_texture_env_combine4 : 1;
+  unsigned int NV_texture_expand_normal : 1;
   unsigned int NV_texture_rectangle : 1;
   unsigned int NV_texture_shader : 1;
   unsigned int NV_texture_shader2 : 1;

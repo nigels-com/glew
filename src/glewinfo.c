@@ -1973,6 +1973,9 @@ static void glewInfo ()
 #ifdef GL_NV_texture_env_combine4
   glewPrintExt("GL_NV_texture_env_combine4", glew.NV_texture_env_combine4);
 #endif
+#ifdef GL_NV_texture_expand_normal
+  glewPrintExt("GL_NV_texture_expand_normal", glew.NV_texture_expand_normal);
+#endif
 #ifdef GL_NV_texture_rectangle
   glewPrintExt("GL_NV_texture_rectangle", glew.NV_texture_rectangle);
 #endif
