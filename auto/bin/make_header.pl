@@ -36,7 +36,8 @@ sub make_pfn_type($%)
 # function name alias
 sub make_pfn_alias($%)
 {
-    return join(" ", "#define", $_[0], "GLEW_GET_CONTEXT(", $_[0], ")")
+    our $type;
+    return join(" ", "#define", $_[0], $type . "EW_GET_CONTEXT(" . prefixname($_[0]) . ")")
 }
 
 # function pointer declaration
@@ -49,6 +50,7 @@ my @extlist = ();
 my %extensions = ();
 
 our $api = shift;
+our $type = shift;
 
 if (@ARGV)
 {
@@ -68,12 +70,12 @@ foreach my $ext (sort @extlist)
     output_types($types, \&make_type);
     output_exacts($exacts, \&make_exact);
     output_decls($functions, \&make_pfn_type);
-    output_decls($functions, \&make_pfn_decl);
+    #output_decls($functions, \&make_pfn_decl);
     output_decls($functions, \&make_pfn_alias);
 
     my $extvar = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
-    print "\nGLEWAPI GLboolean _$extvar;\n";
-    print "\n#define $extvar GLEW_GET_CONTEXT($extvar);\n";
+
+    print "\n#define $extvar " . $type . "EW_GET_CONTEXT(" . prefix_varname($extvar) . ")\n";
     print "\n#endif /* $extname */\n\n";
 }
