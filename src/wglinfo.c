@@ -48,7 +48,7 @@ int pixelformatok = 0;
 int dontcreatecontext = 0;
 int displaystdout = 0;
 int verbose = 0;
-FILE* file = stdout;
+FILE* file = 0;
 
 void
 VisualInfoARB (HDC hDC, int verbose)

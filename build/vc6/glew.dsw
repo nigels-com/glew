@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "glew"=.\glew_shared.dsp - Package Owner=<4>
+Project: "glew_shared"=.\glew_shared.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -11,9 +11,6 @@ Package=<5>
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name glew_static
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -53,6 +50,9 @@ Package=<5>
 
 Package=<4>
 {{{
+    Begin Project Dependency
+    Project_Dep_Name glew_static
+    End Project Dependency
 }}}
 
 ###############################################################################
