@@ -1,4 +1,5 @@
 GL_EXT_texture_rectangle
+http://developer.apple.com/opengl/extensions/ext_texture_rectangle.html
 	GL_TEXTURE_RECTANGLE_EXT 0x85B3
 	GL_TEXTURE_BINDING_RECTANGLE_EXT 0x85B4
 	GL_PROXY_TEXTURE_RECTANGLE_EXT 0x85B5

@@ -1,4 +1,5 @@
 GL_ATIX_point_sprites
+http://www.ati.com/developer/atiopengl.pdf
 	GL_TEXTURE_POINT_MODE_ATIX 0x60b0
 	GL_TEXTURE_POINT_ONE_COORD_ATIX 0x60b1
 	GL_TEXTURE_POINT_SPRITE_ATIX 0x60b2

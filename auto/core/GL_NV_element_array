@@ -1,4 +1,5 @@
 GL_NV_element_array
+http://developer.nvidia.com/docs/IO/3260/ATT/nv30specs.pdf
 	GL_ELEMENT_ARRAY_TYPE_NV 0x8769
 	GL_ELEMENT_ARRAY_POINTER_NV 0x876A
 	void glElementPointerNV (GLenum type, const GLvoid *pointer)
