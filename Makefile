@@ -1,3 +1,4 @@
+#! gmake
 ## The OpenGL Extension Wrangler Library
 ## Copyright (C) 2003, 2002, Milan Ikits <milan.ikits@ieee.org>
 ## Copyright (C) 2003, 2002, Marcelo E. Magallon <mmagallo@debian.org>
@@ -150,14 +151,18 @@ install: all
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
 # development files
-	$(INSTALL) -m 0644 include/GL/{wglew,glew,glxew}.h $(GLEW_DEST)/include/GL
+	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
+	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
+	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
 # utilities
 	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
 
 uninstall:
-	$(RM) $(GLEW_DEST)/include/GL/{wglew,glew,glxew}.h
+	$(RM) $(GLEW_DEST)/include/GL/wglew.h
+	$(RM) $(GLEW_DEST)/include/GL/glew.h
+	$(RM) $(GLEW_DEST)/include/GL/glxew.h
 	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
