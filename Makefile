@@ -91,7 +91,9 @@ ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
 NAME = GLEW
 CC = cc
 LD = ld
-CFLAGS.EXTRA =
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA = -DGLEW_MX
+endif
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
