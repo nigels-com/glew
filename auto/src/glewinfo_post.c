@@ -41,7 +41,13 @@ int main (void)
   }
   glewExperimental = GL_TRUE;
 #ifdef GLEW_MX
-  err = glewContextInit(ctx);
+  err = glewContextInit(glewGetContext());
+#ifdef _WIN32
+  err = err || wglewContextInit(wglewGetContext());
+#else
+  err = err || glxewContextInit(glxewGetContext());
+#endif
+
 #else
   err = glewInit();
 #endif

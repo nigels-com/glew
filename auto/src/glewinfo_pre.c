@@ -42,9 +42,15 @@
 static FILE* f;
 
 #ifdef GLEW_MX
-GLEWContext _ctx;
-GLEWContext* ctx = &_ctx;
-#define glewGetContext() ctx
+GLEWContext _glewctx;
+#define glewGetContext() (&_glewctx)
+#ifdef _WIN32
+WGLEWContext _wglewctx;
+#define wglewGetContext() (&_wglewctx)
+#else
+GLXEWContext _glxewctx;
+#define glxewGetContext() (&_glxewctx)
+#endif
 #endif
 
 #if defined(_WIN32)

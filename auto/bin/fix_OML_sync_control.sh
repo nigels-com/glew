@@ -8,9 +8,9 @@
 
 perl -e 's/#ifndef GLX_OML_sync_control/#if !defined(GLX_OML_sync_control) \&\& defined(__STDC_VERSION__) \&\& (__STDC_VERSION__ >= 199901L)\n#include <inttypes.h>/;' -pi $1
 perl -e 's/#ifdef GLX_OML_sync_control/#if defined(GLX_OML_sync_control) \&\& defined(__STDC_VERSION__) \&\& (__STDC_VERSION__ >= 199901L)\n#include <inttypes.h>/;' -pi $1
-perl -e 's/(GLXEW_EXPORT PFNGLXGETMSCRATEOMLPROC __glewXGetMscRateOML;)/#ifdef GLX_OML_sync_control\n\1/' -pi $1
-perl -e 's/(GLXEW_EXPORT PFNGLXWAITFORSBCOMLPROC __glewXWaitForSbcOML;)/\1\n#endif/' -pi $1
-perl -e 's/(GLXEW_EXPORT GLboolean __GLXEW_OML_sync_control;)/#ifdef GLX_OML_sync_control\n\1\n#endif/' -pi $1
+perl -e 's/(extern PFNGLXGETMSCRATEOMLPROC __glewXGetMscRateOML;)/#ifdef GLX_OML_sync_control\n\1/' -pi $1
+perl -e 's/(extern PFNGLXWAITFORSBCOMLPROC __glewXWaitForSbcOML;)/\1\n#endif/' -pi $1
+perl -e 's/(extern GLboolean __GLXEW_OML_sync_control;)/#ifdef GLX_OML_sync_control\n\1\n#endif/' -pi $1
 perl -e 's/(PFNGLXGETMSCRATEOMLPROC __glewXGetMscRateOML = NULL;)/#ifdef GLX_OML_sync_control\n\1/' -pi $1
 perl -e 's/(PFNGLXWAITFORSBCOMLPROC __glewXWaitForSbcOML = NULL;)/\1\n#endif/' -pi $1
 perl -e 's/(GLboolean __GLXEW_OML_sync_control = GL_FALSE;)/#ifdef GLX_OML_sync_control\n\1\n#endif/' -pi $1
