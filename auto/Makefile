@@ -58,6 +58,7 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	touch $@
 
 $(I.DEST)/glew.h: $(EXT)/.dummy
+	test -d $(I.DEST) || mkdir -p $(I.DEST)
 	cp -f $(SRC)/glew_pre.h $@
 	$(BIN)/make_header.pl GLAPIENTRY $(CORE)/GL_VERSION* >> $@
 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
