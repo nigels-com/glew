@@ -89,7 +89,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_def.pl WGL $(EXT)/WGL_* >> $@
 	echo -e "\n#endif /* _WIN32 && !GLEW_MX */\n" >> $@
 	echo -e "#if !(defined(_WIN32) || (defined(__APPLE__) && !defined(GLEW_APPLE_GLX)))" >> $@
-	$(BIN)/make_def.pl GLX $(EXT)/GLX_* >> $@
+	$(BIN)/make_def.pl GLX $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
 	echo -e "\n#endif /* !_WIN32 */\n" >> $@
 	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@

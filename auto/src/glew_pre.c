@@ -110,4 +110,6 @@ static void *dlGetProcAddress (const GLubyte* name)
 #if !defined(_WIN32) || !defined(GLEW_MX)
 
 GLboolean __GLEW_VERSION_1_1 = GL_FALSE;
+GLboolean __GLXEW_VERSION_1_0 = GL_FALSE;
+GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;
 
