@@ -1,8 +1,6 @@
 
 Major:
- - add OpenGL 2.0 support
  - add support for initialization on first use
- - add text file for selecting a subset of the extensions
 
 Minor:
  - add support for all SUN, MTX, and OML extensions

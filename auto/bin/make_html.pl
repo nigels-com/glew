@@ -22,28 +22,29 @@ my $cur_group = "";
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
-}
+# } else {
+#     local $/;
+#     @extlist = split "\n", (<>);
+# }
 
-foreach my $ext (sort @extlist)
-{
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-    $cur_group = $extname;
-    $cur_group =~ s/^(?:W?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
-    $extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;
-    if ($cur_group ne $group)
-    {
-	$group = $cur_group;
-	print "<br>\n";
-    }
-    if ($exturl)
-    {
-	print "<a href=\"$exturl\">$extname</a><br>\n";
-    }
-    else
-    {
-	print "$extname<br>\n";
-    }
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		$cur_group = $extname;
+		$cur_group =~ s/^(?:W?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
+		$extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;
+		if ($cur_group ne $group)
+		{
+			$group = $cur_group;
+			print "<br>\n";
+		}
+		if ($exturl)
+		{
+			print "<a href=\"$exturl\">$extname</a><br>\n";
+		}
+		else
+		{
+			print "$extname<br>\n";
+		}
+	}
 }

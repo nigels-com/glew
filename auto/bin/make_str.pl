@@ -20,34 +20,34 @@ our $export = shift;
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
-}
+# } else {
+#     local $/;
+#     @extlist = split "\n", (<>);
+# }
 
-my $curexttype = "";
-
-foreach my $ext (sort @extlist)
-{
-	my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-	my $exttype = $extname;
-	$exttype =~ s/(W*?)GL(X*?)_(.*?_)(.*)/$3/;
-	my $extrem = $extname;
-	$extrem =~ s/(W*?)GL(X*?)_(.*?_)(.*)/$4/;
-    my $extvar = $extname;
-    $extvar =~ s/(W*)GL(X*)_/$1GL$2EW_/;
-	if(!($exttype =~ $curexttype))
+	my $curexttype = "";
+	foreach my $ext (sort @extlist)
 	{
-		if(length($curexttype) > 0)
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my $exttype = $extname;
+		$exttype =~ s/(W*?)GL(X*?)_(.*?_)(.*)/$3/;
+		my $extrem = $extname;
+		$extrem =~ s/(W*?)GL(X*?)_(.*?_)(.*)/$4/;
+		my $extvar = $extname;
+		$extvar =~ s/(W*)GL(X*)_/$1GL$2EW_/;
+		if(!($exttype =~ $curexttype))
 		{
-			print "    }\n";
+			if(length($curexttype) > 0)
+			{
+				print "    }\n";
+			}
+			print "    if (_glewStrSame2(&pos, &len, (const GLubyte*)\"$exttype\", " . length($exttype) . "))\n";
+			print "    {\n";
+			$curexttype = $exttype;
 		}
-		print "    if (_glewStrSame2(&pos, &len, (const GLubyte*)\"$exttype\", " . length($exttype) . "))\n";
-		print "    {\n";
-		$curexttype = $exttype;
+		print "      if (_glewStrSame3(pos, len, (const GLubyte*)\"$extrem\", ". length($extrem) . "))\n";
+		print "        return $extvar;\n";
 	}
-	print "      if (_glewStrSame3(pos, len, (const GLubyte*)\"$extrem\", ". length($extrem) . "))\n";
-	print "        return $extvar;\n";
-}
 
-print "    }\n";
+	print "    }\n";
+}

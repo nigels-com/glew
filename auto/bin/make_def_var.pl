@@ -20,15 +20,16 @@ our $type = shift;
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
-}
+# } else {
+#     local $/;
+#     @extlist = split "\n", (<>);
+# }
 
-foreach my $ext (sort @extlist)
-{
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-    my $extvar = $extname;
-    $extvar =~ s/GL(X*)_/GL$1EW_/;
-    print "GLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n";
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my $extvar = $extname;
+		$extvar =~ s/GL(X*)_/GL$1EW_/;
+		print "GLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n";
+	}
 }

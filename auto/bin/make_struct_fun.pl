@@ -27,13 +27,15 @@ our $export = shift;
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
+
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		output_decls($functions, \&make_pfn_decl);
+	}
 }
 
-foreach my $ext (sort @extlist)
-{
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-    output_decls($functions, \&make_pfn_decl);
-}
+#} else {
+#    local $/;
+#    @extlist = split "\n", (<>);
+#}

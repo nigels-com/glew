@@ -49,26 +49,33 @@ our $type = shift;
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
-}
-
-foreach my $ext (sort @extlist)
+my $extstr = $extlist[0];
+printf STDERR "FASZI: $extstr \n";
+#if (length($extstr) > 1)
 {
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
-    make_separator($extname);
-    print "#ifndef $extname\n#define $extname 1\n";
-    output_tokens($tokens, \&make_define);
-    output_types($types, \&make_type);
-    output_exacts($exacts, \&make_exact);
-    output_decls($functions, \&make_pfn_type);
-    output_decls($functions, \&make_pfn_alias);
+		make_separator($extname);
+		print "#ifndef $extname\n#define $extname 1\n";
+		output_tokens($tokens, \&make_define);
+		output_types($types, \&make_type);
+		output_exacts($exacts, \&make_exact);
+		output_decls($functions, \&make_pfn_type);
+		output_decls($functions, \&make_pfn_alias);
 
-    my $extvar = $extname;
-    $extvar =~ s/GL(X*)_/GL$1EW_/;
-
-    print "\n#define $extvar " . $type . "EW_GET_VAR(" . prefix_varname($extvar) . ")\n";
-    print "\n#endif /* $extname */\n\n";
+		my $extvar = $extname;
+		$extvar =~ s/GL(X*)_/GL$1EW_/;
+		
+		print "\n#define $extvar " . $type . "EW_GET_VAR(" . prefix_varname($extvar) . ")\n";
+		print "\n#endif /* $extname */\n\n";
+	}
 }
+}
+
+#} else {
+#    local $/;
+#    @extlist = split "\n", (<>);
+#}
+

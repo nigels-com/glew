@@ -35,16 +35,17 @@ my %extensions = ();
 if (@ARGV)
 {
     @extlist = @ARGV;
-} else {
-    local $/;
-    @extlist = split "\n", (<>);
-}
+# } else {
+#     local $/;
+#     @extlist = split "\n", (<>);
+# }
 
-foreach my $ext (sort @extlist)
-{
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
-    print "#ifdef $extname\n";
-    print "  _glewInfo_$extname();\n";
-    print "#endif /* $extname */\n";
+		print "#ifdef $extname\n";
+		print "  _glewInfo_$extname();\n";
+		print "#endif /* $extname */\n";
+	}
 }
