@@ -38,7 +38,7 @@
 
 static FILE* f;
 
-static void glewPrintExt (const GLubyte* name, GLboolean defined)
+static void glewPrintExt (const GLubyte* name, GLint defined)
 {
   unsigned int i;
   fprintf(f, "\n%s:", name);
@@ -49,7 +49,7 @@ static void glewPrintExt (const GLubyte* name, GLboolean defined)
   fflush(f);
 }
 
-static void glewInfoFunc (const GLubyte* name, GLboolean undefined)
+static void glewInfoFunc (const GLubyte* name, GLint undefined)
 {
   unsigned int i;
   fprintf(f, "  %s:", name);
