@@ -132,13 +132,14 @@
 #    define _W64
 #  endif
 #endif
-#ifndef _PTRDIFF_T_DEFINED
-#  ifdef  _WIN64
+#if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_)
+#  ifdef _WIN64
 typedef __int64 ptrdiff_t;
 #  else
 typedef _W64 int ptrdiff_t;
 #  endif
 #  define _PTRDIFF_T_DEFINED
+#  define _PTRDIFF_T_
 #endif
 
 #ifndef GLAPI
