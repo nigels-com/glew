@@ -24,7 +24,7 @@ sub make_pfn_def($%)
 sub make_pfn_def_init($%)
 {
     my $name = prefixname($_[0]);
-    return "  r = r || (" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress(\"" . $_[0] . "\")) == NULL;";
+    return "  r = ((" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress(\"" . $_[0] . "\")) == NULL) || r;";
 }
 
 #---------------------------------------------------------------------------------------
