@@ -55,11 +55,11 @@ static void * __dlopenGetProcAddress(const GLubyte *procName)
 
     if (!h)
     {
-        if (!(h = dlopen(GLEW_OPENGL_LIB_PATH, RTLD_LAZY | RTLD_LOCAL)))
+        if (!(h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)))
         {
             fprintf(stderr,
-                    "E: GLEW failed to dlopen %s: %s.\nAbort.\n",
-                    GLEW_OPENGL_LIB_PATH, dlerror());
+                    "E: GLEW failed to dlopen myself: %s.\nAbort.\n",
+                    dlerror());
             exit(100);
         }
 
