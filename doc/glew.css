@@ -41,6 +41,10 @@ a:hover
 
 ul
 {
-	color: darkblue;
 	list-style-type: square;
+}
+
+ul.none
+{
+	list-style-type: none;
 }
