@@ -47,8 +47,9 @@ SYSTEM = $(strip $(shell uname -s))
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
 NAME = glew32
 CC = gcc
+LD = ld
 CFLAGS.EXTRA = -mno-cygwin -DGLEW_STATIC
-LDFLAGS.EXTRA = 
+LDFLAGS.EXTRA = -shared -soname $(LIB.SONAME)
 WARN = -Wall -W
 BIN.SUFFIX = .exe
 
@@ -68,8 +69,9 @@ else
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
 NAME = GLEW
 CC = cc
+LD = ld
 CFLAGS.EXTRA = 
-LDFLAGS.EXTRA = -L/usr/X11R6/lib
+LDFLAGS.EXTRA = -shared -soname $(LIB.SONAME) -L/usr/X11R6/lib
 NAME = GLEW
 WARN = -Wall -W
 BIN.SUFFIX =
@@ -95,9 +97,10 @@ else
 ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
 NAME = GLEW
 CC = cc
+LD = ld
 ABI = -64 # -n32
 CFLAGS.EXTRA = -woff 1110,1498 $(ABI)
-LDFLAGS.EXTRA = $(ABI)
+LDFLAGS.EXTRA = $(ABI) -shared -soname $(LIB.SONAME)
 NAME = GLEW
 WARN = -fullwarn
 BIN.SUFFIX =
@@ -112,8 +115,9 @@ else
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 NAME = GLEW
 CC = cc
+LD = cc
 CFLAGS.EXTRA = -I/usr/X11R6/include -I/sw/include -dynamic -fno-common
-LDFLAGS.EXTRA = -L/usr/X11R6/lib 
+LDFLAGS.EXTRA = -dynamiclib -L/usr/X11R6/lib 
 NAME = GLEW
 BIN.SUFFIX =
 WARN = -Wall -W
@@ -131,9 +135,9 @@ $(error "Platform '$(SYSTEM)' not supported")
 endif
 endif
 endif
+endif
 
 AR = ar
-LD = ld
 INSTALL = install
 RM = rm -f
 LN = ln -sf
@@ -166,7 +170,7 @@ lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
 
 lib/$(LIB.SHARED): $(LIB.OBJS)
-	$(LD) -shared -o $@ $^ -soname $(LIB.SONAME) $(LIB.LDFLAGS) $(LIB.LIBS)
+	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 
