@@ -2604,7 +2604,7 @@ extern GLEW_EXPORT PFNGLCULLPARAMETERDVEXTPROC glCullParameterdvEXT;
  
 #endif /* GL_EXT_cull_vertex */
 
-/* ------------------------ GL_EXT_depth_bounds_test ----------------------- */
+/* ----------------------- GL_EXT_depth_bounds_test ----------------------- */
 
 #ifdef GL_EXT_depth_bounds_test
 
