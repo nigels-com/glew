@@ -119,30 +119,35 @@ There are two ways to build your project with GLEW.
 <p>
 
 The simpler but less flexible way is to include <tt>glew.h</tt> and
-<tt>glew.c</tt> into your project and on Windows define the
-<tt>GLEW_STATIC</tt> preprocessor constant for the static library or
-executable you are building together with GLEW.  You also need to
-replace <tt>&lt;GL/gl.h&gt;</tt> and <tt>&lt;GL/glu.h&gt;</tt> with
-<tt>&lt;glew.h&gt;</tt> and set the appropriate include flag
-(<tt>-I</tt>) to tell the compiler where to look for it.  For example:
+<tt>glew.c</tt> into your project and define the <tt>GLEW_STATIC</tt>
+preprocessor constant for the static library or executable you are
+building together with GLEW (Windows only).  You also need to replace
+<tt>&lt;GL/gl.h&gt;</tt> and <tt>&lt;GL/glu.h&gt;</tt> with
+<tt>&lt;glew.h&gt;</tt> in your code and set the appropriate include
+flag (<tt>-I</tt>) to tell the compiler where to look for it.  For
+example:
 
 <blockquote><pre>#include &lt;glew.h&gt;
 #include &lt;GL/glut.h&gt;
 &lt;gl, glu, and glut functionality is available here&gt;
 </pre></blockquote>
 
-Note that if you are using GLEW together with GLUT, you have to
-include <tt>glew.h</tt> first.  In addition, <tt>glew.h</tt> includes
-<tt>glu.h</tt>, so you don't need to include it separately.
+Depending on where you put <tt>glew.h</tt> you may also need to change
+the include directives in <tt>glew.c</tt>. Note that if you are using
+GLEW together with GLUT, you have to include <tt>glew.h</tt> first.
+In addition, <tt>glew.h</tt> includes <tt>glu.h</tt>, so you don't
+need to include it separately.
 
 <p>
-On Windows you can also add the supplied project file
-<tt>glew_static.dsp</tt> to your workspace (solution) and compile it together
-with your other projects.  In this case you need to change the
-<tt>GLEW_BUILD</tt> preprocessor constant to <tt>GLEW_STATIC</tt>,
+On Windows you also have the option of adding the supplied project
+file <tt>glew_static.dsp</tt> to your workspace (solution) and compile
+it together with your other projects.  In this case you need to change
+the <tt>GLEW_BUILD</tt> preprocessor constant to <tt>GLEW_STATIC</tt>,
 otherwise you get build errors. <b>Note that GLEW does not use the C
 runtime library, so it does not matter which version (single-threaded,
-multi-threaded or multi-threaded DLL) it is linked with</b>.
+multi-threaded or multi-threaded DLL) it is linked with (without
+debugging information). It is, however, a good idea to compile all
+your projects including GLEW with the same C runtime settings.</b>
 
 <p>
 
@@ -260,6 +265,7 @@ if (GLEW_OK != err)
   fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
   ...
 }
+fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 </pre></blockquote>
 
 <p>
@@ -352,7 +358,7 @@ else
 <p>
 
 GLEW provides two command line tools: one for creating a list of
-available extensions and visuals; and another for verification of extension
+available extensions and visuals; and another for verifying extension
 entry points.
 
 <p>
@@ -361,11 +367,11 @@ entry points.
 <p>
 
 <tt>wglinfo</tt> is the Windows version of <tt>glxinfo</tt>. By
-default it creates a file called <tt>wglinfo.txt</tt> that contains
-a list of available OpenGL, WGL, and GLU extensions
-as well as a table of visuals aka. pixelformats. Pbuffer and multiple output
-capable visuals are also included. The format of the table is 
-described <a href="wglinfo.txt">here</a>. For additional usage information, type
+default it creates a file called <tt>wglinfo.txt</tt> that contains a
+list of available OpenGL, WGL, and GLU extensions as well as a table
+of visuals aka. pixel formats. Pbuffer and multiple output capable
+visuals are also included. The format of the table is described <a
+href="wglinfo.txt">here</a>. For additional usage information, type
 <tt>wglinfo -h</tt>.
 
 <p>
@@ -374,9 +380,10 @@ described <a href="wglinfo.txt">here</a>. For additional usage information, type
 <p>
 
 <tt>glewinfo</tt> allows you to verify the entry points for the
-extensions supported on your platform. It uses GLEW to find out which extensions
-and entry points are available. On Windows it reports the results to a text file
-called <tt>glewinfo.txt</tt>, on Linux and IRIX it prints them to <tt>stdout</tt>.
+extensions supported on your platform. It uses GLEW to find out which
+extensions and entry points are available. On Windows it reports the
+results to a text file called <tt>glewinfo.txt</tt>, on Linux and IRIX
+it prints them to <tt>stdout</tt>.
 
 <p>
 </td>
@@ -394,13 +401,13 @@ called <tt>glewinfo.txt</tt>, on Linux and IRIX it prints them to <tt>stdout</tt
 Starting from release 1.1.0, the source code and parts of the
 documentation are automatically generated from the extension
 specifications via a two-step process.  In the first step,
-specification files from the registry are parsed and skeleton
+specification files from the OpenGL registry are parsed and skeleton
 descriptors are created for each extension.  These descriptors contain
 all necessary information for creating the source code and
-documentation in a simple and compact format, including the the
-extension name, url, tokens, function declarations, typedefs and
-struct definitions.  In the second step, the header files as well as
-the library and glewinfo source are generated from the descriptor
+documentation in a simple and compact format, including the name of
+the extension, url, tokens, function declarations, typedefs and struct
+definitions.  In the second step, the header files as well as the
+library and glewinfo source are generated from the descriptor
 files. The code generation scripts are located in the <tt>auto</tt>
 subdirectory.
 
@@ -441,10 +448,10 @@ effect token and function pointer definitions.
 GLEW requires GLX 1.2 to assure compatibility with GLUT.  In addition,
 the SGI GLX video extensions are currently not supported.
 <p>
-Note that according to some <a
+Note that according to <a
 href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/ntopnglr_6yer.asp">WGL documentation</a> you have to initialize the entry points
-for every rendering context you create.  GLEW ignores this
-requirement, and does not define per context entry points.  This means
+for every rendering context you create.  <b>GLEW ignores this
+requirement, and does not define per-context entry points.</b>  This means
 that you need to call <tt>glewInit()</tt> only once in your program,
 or more precisely, once per process.  We have not noticed any problems
 so far from ignoring the specification.
@@ -492,6 +499,12 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <p>
 
 <ul class="none">
+<li><b>1.1.2</b> [09-15-03]
+<ul>
+<li> Removed dependency on WGL_{ARB,EXT}_extensions_string
+<li> Added glewGetString for querying GLEW version string
+</ul>
+<p>
 <li><b>1.1.1</b> [08-11-03]
 <ul>
 <li> Added GLX_NV_float_buffer
@@ -570,7 +583,7 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
 <td align="right">
-<i>Last update: 08-11-03</i></td>
+<i>Last update: 09-15-03</i></td>
 </tr>
 </table>
 </td>
