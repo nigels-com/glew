@@ -49,6 +49,9 @@ NAME = glew32
 CC = gcc -mno-cygwin
 LD = ld
 CFLAGS.EXTRA = -DGLEW_STATIC
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA += -DGLEW_MX
+endif
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA =
@@ -69,7 +72,9 @@ NAME = glew32
 CC = gcc
 # use gcc for linking, with ld it does not work
 LD = gcc
-CFLAGS.EXTRA =
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA = -DGLEW_MX
+endif
 CFLAGS.SO = -DGLEW_BUILD
 #LDFLAGS.SO = -shared -soname $(LIB.SONAME) --out-implib lib/$(LIB.DEVLNK)
 LDFLAGS.SO = -shared -Wl,-soname,$(LIB.SONAME) -Wl,--out-implib,lib/$(LIB.DEVLNK)
@@ -119,7 +124,9 @@ LD = ld
 ABI = -64# -n32
 CC += $(ABI)
 LD += $(ABI)
-CFLAGS.EXTRA =
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA = -DGLEW_MX
+endif
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA =
 LDFLAGS.GL = -lGL -lXext -lX11
@@ -141,6 +148,9 @@ NAME = GLEW
 CC = cc
 LD = cc
 CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA += -DGLEW_MX
+endif
 LDFLAGS.SO = -dynamiclib -install_name $(GLEW_DEST)/lib/$(LIB.SHARED)
 LDFLAGS.EXTRA =
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
@@ -167,6 +177,9 @@ NAME = GLEW
 CC = cc
 LD = ld
 CFLAGS.EXTRA = -I/usr/openwin/include
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA += -DGLEW_MX
+endif
 LDFLAGS.SO = -G
 LDFLAGS.EXTRA = -L/usr/openwin/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11

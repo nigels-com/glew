@@ -44,7 +44,7 @@ int main (void)
   err = glewContextInit(glewGetContext());
 #ifdef _WIN32
   err = err || wglewContextInit(wglewGetContext());
-#else
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   err = err || glxewContextInit(glxewGetContext());
 #endif
 

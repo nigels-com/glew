@@ -47,7 +47,7 @@ GLEWContext _glewctx;
 #ifdef _WIN32
 WGLEWContext _wglewctx;
 #define wglewGetContext() (&_wglewctx)
-#else
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLXEWContext _glxewctx;
 #define glxewGetContext() (&_glxewctx)
 #endif
