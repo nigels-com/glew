@@ -154,10 +154,11 @@ typedef unsigned short wchar_t;
 #define APIENTRY
 #define GLEW_EXPORT
 
-#endif /* _WIN32 */
-
 /* <glu.h> */
 #define GLAPI extern
+#define GLAPIENTRY
+
+#endif /* _WIN32 */
 
 #ifdef __cplusplus
 extern "C" {

@@ -3365,7 +3365,7 @@ GLboolean glewExperimental = GL_FALSE;
 GLint glewInit ()
 {
   GLint r;
-  if (r = _glewInit()) return r;
+  if ( (r = _glewInit()) ) return r;
 #ifdef _WIN32
   return _wglewInit();
 #else /* _UNIX */
