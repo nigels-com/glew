@@ -38,12 +38,15 @@ foreach my $ext (sort @extlist)
 {
     my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
     my $extvar = $extname;
-    my $extvardef = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
+    my $extpre = $extname;
+    $extpre =~ s/(GLX|GLW|GL).*/$1/;
+    $extpre = lc $extpre;
 
     make_separator($extname);
     print "#ifdef $extname\n\n";
-    print "static void _glewInfo_$extname (void)\n{\n  glewPrintExt(\"$extname\", $extvar);\n";
+    print "static void _glewInfo_$extname (void)\n{\n";
+    print "  glewPrintExt(\"$extname\", $extvar, $extpre" . "ewGetExtension(\"$extname\"));\n";
     output_decls($functions, \&make_pfn_info);
     print "}\n\n";
     print "#endif /* $extname */\n\n";

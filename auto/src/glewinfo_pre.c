@@ -32,11 +32,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <GL/glew.h>
+#if defined(_WIN32)
 #include <GL/wglew.h>
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 #include <GL/glxew.h>
-
-#ifdef _WIN32
-#include <windows.h>
 #endif
 
 static FILE* f;
@@ -46,12 +45,12 @@ void glewDestroyContext ();
 
 /* ------------------------------------------------------------------------- */
 
-static void glewPrintExt (const GLubyte* name, GLint defined)
+static void glewPrintExt (const GLubyte* name, GLint def1, GLint def2)
 {
   unsigned int i;
   fprintf(f, "\n%s:", name);
   for (i=0; i<62-strlen((const char*)name); i++) fprintf(f, " ");
-  fprintf(f, "%s\n", defined ? "OK" : "MISSING");
+  fprintf(f, "%s [%s]\n", def1 ? "OK" : "MISSING", def2 ? "OK" : "MISSING");
   for (i=0; i<strlen((const char*)name)+1; i++) fprintf(f, "-");
   fprintf(f, "\n");
   fflush(f);
@@ -72,7 +71,7 @@ static void glewInfoFunc (const GLubyte* name, GLint undefined)
 
 static void _glewInfo_GL_VERSION_1_1 (void)
 {
-  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1);
+  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, glewGetExtension("GL_VERSION_1_1"));
 }
 
 #endif /* GL_VERSION_1_1 */

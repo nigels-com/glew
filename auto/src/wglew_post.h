@@ -8,6 +8,4 @@ GLEWAPI GLboolean wglewGetExtension (const GLubyte* name);
 
 #undef GLEWAPI
 
-#endif /* _WIN32 */
-
 #endif /* __wglew_h__ */

@@ -68,8 +68,6 @@
 
 #define __wglext_h_
 
-#ifdef _WIN32
-
 #if !defined(APIENTRY) && !defined(__CYGWIN__)
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>

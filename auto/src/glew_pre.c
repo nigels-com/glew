@@ -30,19 +30,19 @@
 */
 
 #include <GL/glew.h>
-#ifdef _WIN32
-#include <GL/wglew.h>
-#else
-#include <GL/glxew.h>
+#if defined(_WIN32)
+#  include <GL/wglew.h>
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#  include <GL/glxew.h>
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress(name)
 #else
-#  ifdef __APPLE__
+#  if defined(__APPLE__)
 #    define glewGetProcAddress(name) NSGLGetProcAddress(name)
 #  else
-#    ifdef __sgi
+#    if defined(__sgi)
 #      define glewGetProcAddress(name) dlGetProcAddress(name)
 #    else /* __linux */
 #      define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
@@ -50,7 +50,7 @@
 #  endif
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,7 +71,7 @@ static void* NSGLGetProcAddress (const char* name)
 }
 #endif /* __APPLE__ */
 
-#ifdef __sgi
+#if defined(__sgi)
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>

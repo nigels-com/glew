@@ -6,6 +6,4 @@ extern GLboolean glxewGetExtension (const GLubyte* name);
 }
 #endif
 
-#endif /* _WIN32 */
-
 #endif /* __glxew_h__ */

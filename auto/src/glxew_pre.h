@@ -58,8 +58,6 @@
 
 #define __glxext_h_
 
-#ifndef _WIN32
-
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xmd.h>
