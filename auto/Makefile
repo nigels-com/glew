@@ -66,7 +66,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	echo -e "\n#if defined(GLEW_MX) && !defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLEW_EXPORT $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
-	perl -e 's/GLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
+	perl -e 's/GLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi $@
 	rm -f $@.bak
 	cat $(SRC)/glew_post.h >> $@
 
@@ -88,7 +88,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLXEW_EXPORT $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
-	perl -e 's/GLEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLEW_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/' -pi.bak $@
+	perl -e 's/GLXEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/' -pi $@
 	cat $(SRC)/glxew_post.h >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 
@@ -121,7 +121,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(EXT)/GLX_* >> $@
 	cat $(SRC)/glew_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
-	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi.bak $@
+	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
 	rm -f $@.bak
 
 $(S.DEST)/glewinfo.c: $(EXT)/.dummy
