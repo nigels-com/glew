@@ -101,11 +101,11 @@ All About OpenGL Extensions</a>
 href="http://www.ati.com/developer/sdk/radeonSDK/html/info/Prog3D.html">ATI
 OpenGL Extension Specifications</a>
 <li><a
-href="http://developer.nvidia.com/view.asp?IO=nvidia_opengl_specs">NVIDIA
-OpenGL Extension Specifications</a>
-<li><a
 href="http://developer.apple.com/opengl/extensions.html">
 APPLE OpenGL Extensions Guide</a>
+<li><a
+href="http://developer.nvidia.com/view.asp?IO=nvidia_opengl_specs">NVIDIA
+OpenGL Extension Specifications</a>
 </ul>
 <p>
 </td>
@@ -370,16 +370,16 @@ entry points.
 
 <p>
 
-<h3>wglinfo: extensions and visuals on Windows</h3>
+<h3>visualinfo: extensions and visuals</h3>
 <p>
 
-<tt>wglinfo</tt> is the Windows version of <tt>glxinfo</tt>. By
-default it creates a file called <tt>wglinfo.txt</tt> that contains a
-list of available OpenGL, WGL, and GLU extensions as well as a table
-of visuals aka. pixel formats. Pbuffer and multiple output capable
-visuals are also included. The format of the table is described <a
-href="wglinfo.txt">here</a>. For additional usage information, type
-<tt>wglinfo -h</tt>.
+<tt>visualinfo</tt> is an extended version of <tt>glxinfo</tt>. On
+Windows, by default it creates a file called <tt>visualinfo.txt</tt>
+that contains a list of available OpenGL, WGL, and GLU extensions as
+well as a table of visuals aka. pixel formats. Pbuffer and multiple
+output capable visuals are also included. The format of the table is
+described <a href="visualinfo.txt">here</a>. For additional usage
+information, type <tt>visualinfo -h</tt>.
 
 <p>
 
@@ -561,8 +561,13 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <td bgcolor="#ffffff">
 <center><a name="Log"><h2>Change Log</h2></a></center>
 <p>
-
 <ul class="none">
+<li><b>1.2.4</b> [09-06-04]
+<ul>
+<li> Added ARB_draw_buffers and ARB_texture_rectangle
+<li> Replaced <tt>wglinfo</tt> with <tt>visualinfo</tt>
+</ul>
+<p>
 <li><b>1.2.3</b> [06-10-04]
 <ul>
 <li> Added NV_fragment_program2, NV_fragment_program_option, NV_vertex_program2_option, NV_vertex_program3
