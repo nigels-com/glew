@@ -1,9 +1,0 @@
-GL_NV_element_array
-http://developer.nvidia.com/docs/IO/3260/ATT/nv30specs.pdf
-	GL_ELEMENT_ARRAY_TYPE_NV 0x8769
-	GL_ELEMENT_ARRAY_POINTER_NV 0x876A
-	void glElementPointerNV (GLenum type, const GLvoid *pointer)
-	void glDrawElementArrayNV (GLenum mode, GLint first, GLsizei count)
-	void glDrawRangeElementArrayNV (GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count)
-	void glMultiDrawElementArrayNV (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount)
-	void glMultiDrawRangeElementArrayNV (GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount)
