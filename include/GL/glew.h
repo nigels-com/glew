@@ -254,6 +254,7 @@ extern "C" {
 #define GL_NV_fog_distance 1
 #define GL_NV_float_buffer 1
 #define GL_NV_fragment_program 1
+#define GL_NV_half_float 1
 #define GL_NV_light_max_exponent 1
 #define GL_NV_multisample_filter_hint 1
 #define GL_NV_occlusion_query 1
@@ -263,6 +264,7 @@ extern "C" {
 #define GL_NV_primitive_restart 1
 #define GL_NV_register_combiners 1
 #define GL_NV_register_combiners2 1
+#define GL_NV_texgen_emboss 1
 #define GL_NV_texgen_reflection 1
 #define GL_NV_texture_compression_vtc 1
 #define GL_NV_texture_env_combine4 1
@@ -3800,6 +3802,14 @@ extern GLEW_EXPORT glGetProgramLocalParameterfvARBPROC glGetProgramLocalParamete
 
 #endif /* GL_NV_fragment_program */
 
+/* ----------------------------- NV_half_float ---------------------------- */
+
+#ifdef GL_NV_half_float
+
+#define GL_HALF_FLOAT_NV                                        0x140B
+
+#endif /* GL_NV_half_float */
+
 /* ------------------------- NV_light_max_exponent ------------------------ */
 
 #ifdef GL_NV_light_max_exponent
@@ -4006,6 +4016,16 @@ extern GLEW_EXPORT glCombinerStageParameterfvNVPROC glCombinerStageParameterfvNV
 extern GLEW_EXPORT glGetCombinerStageParameterfvNVPROC glGetCombinerStageParameterfvNV;
 
 #endif /* GL_NV_register_combiners2 */
+
+/* --------------------------- NV_texgen_emboss --------------------------- */
+
+#ifdef GL_NV_texgen_emboss
+
+#define GL_EMBOSS_LIGHT_NV                                      0x855D
+#define GL_EMBOSS_CONSTANT_NV                                   0x855E
+#define GL_EMBOSS_MAP_NV                                        0x855F
+
+#endif /* GL_NV_texgen_emboss */
 
 /* ------------------------- NV_texgen_reflection ------------------------- */
 
@@ -4524,6 +4544,7 @@ struct GLEW
   unsigned int NV_float_buffer : 1;
   unsigned int NV_fog_distance : 1;
   unsigned int NV_fragment_program : 1;
+  unsigned int NV_half_float : 1;
   unsigned int NV_light_max_exponent : 1;
   unsigned int NV_multisample_filter_hint : 1;
   unsigned int NV_occlusion_query : 1;
@@ -4533,6 +4554,7 @@ struct GLEW
   unsigned int NV_point_sprite : 1;
   unsigned int NV_register_combiners : 1;
   unsigned int NV_register_combiners2 : 1;
+  unsigned int NV_texgen_emboss : 1;
   unsigned int NV_texgen_reflection : 1;
   unsigned int NV_texture_compression_vtc : 1;
   unsigned int NV_texture_env_combine4 : 1;

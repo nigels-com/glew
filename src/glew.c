@@ -2981,6 +2981,9 @@ static GLint _glewInit ()
   if (glewExperimental || glew.NV_fragment_program) glew.NV_fragment_program = !_glewInit_NV_fragment_program();
 #endif
 #ifdef GL_NV_light_max_exponent
+  glew.NV_half_float = glewGetExtension("GL_NV_half_float");
+#endif
+#ifdef GL_NV_light_max_exponent
   glew.NV_light_max_exponent = glewGetExtension("GL_NV_light_max_exponent");
 #endif
 #ifdef GL_NV_multisample_filter_hint
@@ -3012,6 +3015,9 @@ static GLint _glewInit ()
 #ifdef GL_NV_register_combiners2
   glew.NV_register_combiners2 = glewGetExtension("GL_NV_register_combiners2");
   if (glewExperimental || glew.NV_register_combiners2) glew.NV_register_combiners2 = !_glewInit_NV_register_combiners2();
+#endif
+#ifdef GL_NV_texgen_emboss
+  glew.NV_texgen_emboss = glewGetExtension("GL_NV_texgen_emboss");
 #endif
 #ifdef GL_NV_texgen_reflection
   glew.NV_texgen_reflection = glewGetExtension("GL_NV_texgen_reflection");

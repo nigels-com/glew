@@ -1944,6 +1944,9 @@ static void glewInfo ()
 #ifdef GL_NV_fragment_program
   glewInfo_NV_fragment_program();
 #endif
+#ifdef GL_NV_half_float
+  glewPrintExt("GL_NV_half_float", glew.NV_half_float);
+#endif
 #ifdef GL_NV_light_max_exponent
   glewPrintExt("GL_NV_light_max_exponent", glew.NV_light_max_exponent);
 #endif
@@ -1970,6 +1973,9 @@ static void glewInfo ()
 #endif
 #ifdef GL_NV_register_combiners2
   glewInfo_NV_register_combiners2();
+#endif
+#ifdef GL_NV_texgen_emboss
+  glewPrintExt("GL_NV_texgen_emboss", glew.NV_texgen_emboss);
 #endif
 #ifdef GL_NV_texgen_reflection
   glewPrintExt("GL_NV_texgen_reflection", glew.NV_texgen_reflection);
