@@ -55,7 +55,7 @@ http://www.opengl.org/documentation/specs/version1.5/glspec15.pdf
 	GLboolean glIsQuery (GLuint id)
 	void glBeginQuery (GLenum target, GLuint id)
 	void glEndQuery (GLenum target)
-	void glGetQueryiv (GLenum target, GLenum pname, GLint params)
+	void glGetQueryiv (GLenum target, GLenum pname, GLint* params)
 	void glGetQueryObjectiv (GLuint id, GLenum pname, GLint* params)
 	void glGetQueryObjectuiv (GLuint id, GLenum pname, GLuint* params)
 	void glBindBuffer (GLenum target, GLuint buffer)
