@@ -3,7 +3,7 @@
 **
 ** Copyright (C) Nate Robins, 1997
 **               Michael Wimmer, 1999
-**               Milan Ikits, 2004, 2003
+**               Milan Ikits, 2003-2005
 **
 ** visualinfo is a small utility that displays all available visuals,
 ** aka. pixelformats, in an OpenGL system along with renderer version

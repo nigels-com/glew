@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 ##
-## Copyright (C) 2004, 2003 Marcelo E. Magallon <mmagallo[at]debian org>
-## Copyright (C) 2004, 2003 Milan Ikits <milan ikits[at]ieee org>
+## Copyright (C) 2003-2005, Marcelo E. Magallon <mmagallo[]debian org>
+## Copyright (C) 2003-2005, Milan Ikits <milan ikits[]ieee org>
 ##
 ## This program is distributed under the terms and conditions of the GNU
 ## General Public License Version 2 as published by the Free Software
@@ -34,8 +34,3 @@ if (@ARGV)
 		output_decls($functions, \&make_pfn_decl);
 	}
 }
-
-#} else {
-#    local $/;
-#    @extlist = split "\n", (<>);
-#}
