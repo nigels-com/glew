@@ -258,7 +258,7 @@ OpenGL functionality. For example:
 ...
 glutInit(&amp;argc, argv);
 glutCreateWindow("GLEW Test");
-int err = glewInit();
+GLenum err = glewInit();
 if (GLEW_OK != err)
 {
   /* problem: glewInit failed, something is seriously wrong */
