@@ -57,6 +57,7 @@
 #endif
 
 #define __glxext_h_
+#define __GLX_glx_h__
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>

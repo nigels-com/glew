@@ -77,7 +77,6 @@
 #define __glext_h_
 #define __GLEXT_H_
 #define __gl_ATI_h_
-#define __GLX_glx_h__
 
 #if defined(_WIN32)
 
