@@ -1096,13 +1096,6 @@ GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei heigh
 
 #endif /* GL_VERSION_1_1 */
 
-#ifndef GL_VERSION_2_0
-#define GL_VERSION_2_0 1
-
-#define GLEW_VERSION_2_0 GLEW_GET_VAR(__GLEW_VERSION_2_0)
-
-#endif /* GL_VERSION_2_0 */
-
 /* ---------------------------------- GLU ---------------------------------- */
 
 /* this is where we can safely include GLU */
