@@ -38,3 +38,9 @@ a:hover
 	text-decoration: underline;
 
 }
+
+ul
+{
+	color: darkblue;
+	list-style-type: square;
+}
