@@ -88,7 +88,7 @@ static void* dlGetProcAddress (const char* name)
   }
 
   if (gpa != NULL)
-    return ((void* (*)(const GLubyte*))gpa)(procName);
+    return ((void* (*)(const GLubyte*))gpa)((const GLubyte*)name);
   else
     return dlsym(h, name);
 }

@@ -152,7 +152,7 @@ void glewDestroyContext ()
 {
   if (NULL != dpy && NULL != ctx) glXDestroyContext(dpy, ctx);
   if (NULL != dpy) XDestroyWindow(dpy, wnd);
-  XFreeColormap(dpy, cmap);
+  if (NULL != dpy) XFreeColormap(dpy, cmap);
   if (NULL != vi) XFree(vi);
   if (NULL != dpy) XCloseDisplay(dpy);
 }
