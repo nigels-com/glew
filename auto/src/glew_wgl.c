@@ -34,7 +34,7 @@ GLboolean wglewGetExtension (const char* name)
 #ifndef GLEW_MX
 static
 #endif
-GLenum wglewContextInit (WGLEWContext* ctx)
+GLenum wglewContextInit (WGLEW_CONTEXT_ARG_DEF)
 {
   GLboolean crippled;
   /* find wgl extension string query functions */

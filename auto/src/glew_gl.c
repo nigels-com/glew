@@ -54,7 +54,7 @@ GLboolean glewGetExtension (const char* name)
 #ifndef GLEW_MX
 static
 #endif
-GLenum glewContextInit (GLEWContext* ctx)
+GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF)
 {
   const GLubyte* s;
   GLuint i;

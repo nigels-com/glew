@@ -24,7 +24,7 @@ GLboolean glxewGetExtension (const char* name)
 #ifndef GLEW_MX
 static
 #endif
-GLenum glxewContextInit (GLXEWContext* ctx)
+GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF)
 {
   int major, minor;
   /* initialize core GLX 1.2 */

@@ -89,6 +89,7 @@ GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
     if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
     {
       if (++p >= argc) return GL_TRUE;
+      *display = 0;
       *visual = strtol(argv[p++], NULL, 0);
     }
     else

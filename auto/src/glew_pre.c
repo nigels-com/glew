@@ -96,10 +96,15 @@ static void *dlGetProcAddress (const GLubyte* name)
 
 #ifdef GLEW_MX
 #define glewGetContext() ctx
+#define GLEW_CONTEXT_ARG_DEF GLEWContext* ctx
+#define WGLEW_CONTEXT_ARG_DEF WGLEWContext* ctx
+#define GLXEW_CONTEXT_ARG_DEF GLXEWContext* ctx
+#define GLEW_CONTEXT_ARG_VAR ctx
 #else
-#define GLEWContext void
-#define WGLEWContext void
-#define GLXEWContext void
+#define GLEW_CONTEXT_ARG_DEF void
+#define WGLEW_CONTEXT_ARG_DEF void
+#define GLXEW_CONTEXT_ARG_DEF void
+#define GLEW_CONTEXT_ARG_VAR
 #endif
 
 #if !defined(_WIN32) || !defined(GLEW_MX)
