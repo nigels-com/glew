@@ -145,7 +145,6 @@ LDFLAGS.EXTRA = -L/usr/openwin/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 BIN.SUFFIX =
-WARN =
 POPT = -xO2
 LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so

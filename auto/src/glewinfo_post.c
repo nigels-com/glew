@@ -142,7 +142,7 @@ Colormap cmap;
 
 GLboolean glewCreateContext ()
 {
-  int attrib[] = { GLX_RGBA, None };
+  int attrib[] = { GLX_RGBA, GLX_DOUBLEBUFFER, None };
   int erb, evb;
   XSetWindowAttributes swa;
   /* open display */
