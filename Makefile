@@ -32,7 +32,7 @@ GLEW_DEST ?= /usr
 
 GLEW_MAJOR = 1
 GLEW_MINOR = 1
-GLEW_MICRO = 2
+GLEW_MICRO = 3
 GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
 TARDIR = ../glew-$(GLEW_VERSION)
@@ -42,13 +42,20 @@ SHELL = /bin/sh
 SYSTEM = $(strip $(shell uname -s))
 
 # ----------------------------------------------------------------------------
+# Cygwin
+# ----------------------------------------------------------------------------
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
-CC = gcc
-EXTRA_CCFLAGS = -mno-cygwin
-EXTRA_LDFLAGS = 
-EXTRA_CPPFLAGS = -D'GLEW_STATIC'
 NAME = glew32
-P.BIN = .exe
+CC = gcc
+CFLAGS.EXTRA = -mno-cygwin -DGLEW_STATIC
+LDFLAGS.EXTRA = 
+WARN = -Wall -W
+BIN.SUFFIX = .exe
+
+LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.STATIC = lib$(NAME).a
 
 GL_LDFLAGS = -lopengl32
 GLU_LDFLAGS = -lglu32
@@ -56,13 +63,20 @@ GLUT_LDFLAGS = -lglut32 $(GLU_LDFLAGS) $(GL_LDFLAGS)
 
 else
 # ----------------------------------------------------------------------------
+# Linux
+# ----------------------------------------------------------------------------
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
-CC = cc
-EXTRA_CCFLAGS = 
-EXTRA_LDFLAGS = -L/usr/X11R6/lib
-EXTRA_CPPFLAGS =
 NAME = GLEW
-P.BIN =
+CC = cc
+CFLAGS.EXTRA = 
+LDFLAGS.EXTRA = -L/usr/X11R6/lib
+NAME = GLEW
+WARN = -Wall -W
+BIN.SUFFIX =
+LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.STATIC = lib$(NAME).a
 
 # Support broken systems which don't include proper inter-library
 # dependency information (several versions of RedHat and SuSE among
@@ -76,19 +90,41 @@ GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 
 else
 # ----------------------------------------------------------------------------
+# Irix
+# ----------------------------------------------------------------------------
 ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
-CC = cc
-ABI = -n32 # -64
-EXTRA_CCFLAGS = -woff 1110,1498 $(ABI)
-EXTRA_LDFLAGS = $(ABI)
-EXTRA_CPPFLAGS = -DGLEW_NEEDS_CUSTOM_GET_PROCADDRESS=1
 NAME = GLEW
-P.BIN =
+CC = cc
+ABI = -64 # -n32
+CFLAGS.EXTRA = -woff 1110,1498 $(ABI)
+LDFLAGS.EXTRA = $(ABI)
+NAME = GLEW
 WARN = -fullwarn
+BIN.SUFFIX =
 
 GL_LDFLAGS = -lGL -lXext -lX11
 GLU_LDFLAGS = -lGLU
 GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
+else
+# ----------------------------------------------------------------------------
+# Darwin
+# ----------------------------------------------------------------------------
+ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+NAME = GLEW
+CC = cc
+CFLAGS.EXTRA = -I/usr/X11R6/include -I/sw/include -dynamic -fno-common
+LDFLAGS.EXTRA = -L/usr/X11R6/lib 
+NAME = GLEW
+BIN.SUFFIX =
+WARN = -Wall -W
+LIB.SONAME = lib$(NAME).$(GLEW_MAJOR).dylib
+LIB.DEVLNK = lib$(NAME).dylib
+LIB.SHARED = lib$(NAME).$(GLEW_VERSION).dylib
+LIB.STATIC = lib$(NAME).a
+
+GL_LDFLAGS = -lGL -lXext -lX11
+GLU_LDFLAGS = -lGLU
+GLUT_LDFLAGS = -L/sw/lib -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
 # ----------------------------------------------------------------------------
 $(error "Platform '$(SYSTEM)' not supported")
@@ -105,29 +141,23 @@ ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
 STRIP =
 else
-OPT = -O2 # -fomit-frame-pointer
+OPT = -O2
 STRIP = -s
 endif
-WARN ?= -Wall -W
 INCLUDE = -Iinclude
-CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(EXTRA_CPPFLAGS) $(EXTRA_CCFLAGS)
+CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
 
-LIB = lib$(NAME)
-LIB.SONAME = $(LIB).so.$(GLEW_MAJOR)
-LIB.DEVLNK = $(LIB).so
-LIB.SHARED = $(LIB).so.$(GLEW_VERSION)
-LIB.STATIC = $(LIB).a
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
-LIB.LDFLAGS = $(EXTRA_LDFLAGS)
+LIB.LDFLAGS = $(LDFLAGS.EXTRA)
 LIB.LIBS = $(GL_LDFLAGS)
 
-BIN = glewinfo$(P.BIN)
+BIN = glewinfo$(BIN.SUFFIX)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -l$(NAME) $(EXTRA_LDFLAGS) $(GLUT_LDFLAGS)
+BIN.LIBS = -Llib -l$(NAME) $(LDFLAGS.EXTRA) $(GLUT_LDFLAGS)
 
-all 64: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
+all: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
 lib:
 	mkdir lib
