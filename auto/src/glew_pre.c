@@ -30,41 +30,67 @@
 */
 
 #include <GL/glew.h>
+#ifdef _WIN32
 #include <GL/wglew.h>
+#else
 #include <GL/glxew.h>
+#endif
 
 #ifdef _WIN32
 #  define glewGetProcAddress(name) wglGetProcAddress(name)
 #else
-#  ifdef GLEW_NEEDS_CUSTOM_GET_PROCADDRESS
-#    define glewGetProcAddress(name) __dlopenGetProcAddress(name)
-#  else
-#    define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
-#  endif /* GLEW_NEEDS_CUSTOM_GET_PROCADDRESS */
-#endif /* _WIN32 */
+#ifdef __APPLE__
+#  define glewGetProcAddress(name) NSGLGetProcAddress(name)
+#else
+#ifdef __sgi
+#  define glewGetProcAddress(name) dlGetProcAddress(name)
+#else /* __linux */
+#  define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
+#endif
 
-#ifdef GLEW_NEEDS_CUSTOM_GET_PROCADDRESS
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void* NSGLGetProcAddress (const char* name)
+{
+  NSSymbol symbol;
+  char* symbolName;
+  // Prepend a '_' for the Unix C symbol mangling convention
+  symbolName = malloc(strlen(name) + 2);
+  strcpy(symbolName+1, name);
+  symbolName[0] = '_';
+  symbol = NULL;
+  if (NSIsSymbolNameDefined(symbolName))
+    symbol = NSLookupAndBindSymbol(symbolName);
+  free(symbolName);
+  return symbol ? NSAddressOfSymbol(symbol) : NULL;
+}
+#endif /* __APPLE__ */
+
+#ifdef __sgi
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-static void* __dlopenGetProcAddress (const GLubyte *procName)
+static void* dlGetProcAddress (const char* name)
 {
-  static void *h = NULL;
-  static void *gpa;
+  static void* h = NULL;
+  /* static void *gpa; */
 
-  if (!h)
+  if (h != NULL)
   {
-    if (!(h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL))) return NULL;
-    gpa = dlsym(h, "glXGetProcAddress");
+    if ((h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)) == NULL) return NULL;
+    /* gpa = dlsym(h, "glXGetProcAddress"); */
   }
 
-  if (gpa != NULL)
+  /* if (gpa != NULL)
     return ((void* (*)(const GLubyte*))gpa)(procName);
-  else
-    return dlsym(h, (const char *)procName);
+    else */
+  return dlsym(h, name);
 }
-#endif /* GLEW_NEEDS_CUSTOM_GET_PROCADDRESS */
+#endif /* __sgi */
 
 /* ----------------------------- GL_VERSION_1_1 ---------------------------- */
 
