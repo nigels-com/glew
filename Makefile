@@ -213,8 +213,8 @@ clean:
 	$(RM) so_locations
 
 distclean: clean
-	find -name \*~ | xargs $(RM)
-	find -name .\*.sw\? | xargs $(RM)
+	find . -name \*~ | xargs $(RM)
+	find . -name .\*.sw\? | xargs $(RM)
 
 tardist:
 	$(RM) -r $(TARDIR)
