@@ -119,7 +119,7 @@ extern void glXWaitX (void);
 extern void glXSwapBuffers (Display *dpy, GLXDrawable drawable);
 extern void glXUseXFont (Font font, int first, int count, int listBase);
 
-#define GLXEW_VERSION_1_0 GLXEW_GET_CONTEXT(__GLXEW_VERSION_1_0)
+#define GLXEW_VERSION_1_0 GLXEW_GET_VAR(__GLXEW_VERSION_1_0)
 
 #endif /* GLX_VERSION_1_0 */
 
@@ -136,7 +136,7 @@ extern const char* glXQueryExtensionsString (Display *dpy, int screen);
 extern const char* glXGetClientString (Display *dpy, int name);
 extern const char* glXQueryServerString (Display *dpy, int screen, int name);
 
-#define GLXEW_VERSION_1_1 GLXEW_GET_CONTEXT(__GLXEW_VERSION_1_1)
+#define GLXEW_VERSION_1_1 GLXEW_GET_VAR(__GLXEW_VERSION_1_1)
 
 #endif /* GLX_VERSION_1_1 */
 
