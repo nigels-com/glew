@@ -523,7 +523,7 @@ static void glewInfo_EXT_blend_color ()
 /* ------------------------ EXT_blend_func_separate ----------------------- */
 
 #ifdef GL_EXT_blend_func_separate
-static void glewInfo_EXT_blend_function_separate ()
+static void glewInfo_EXT_blend_func_separate ()
 {
   char me[] = "GL_EXT_blend_func_separate"; glewPrintExt(me, glew.EXT_blend_func_separate);
   glewInfoFunc(glBlendFuncSeparateEXT == NULL, "glBlendFuncSeparateEXT");
@@ -1763,8 +1763,8 @@ static void glewInfo ()
 #ifdef GL_EXT_blend_color
   glewInfo_EXT_blend_color();
 #endif
-#ifdef GL_EXT_blend_function_separate
-  glewInfo_EXT_blend_function_separate();
+#ifdef GL_EXT_blend_func_separate
+  glewInfo_EXT_blend_func_separate();
 #endif
 #ifdef GL_EXT_blend_minmax
   glewInfo_EXT_blend_minmax();

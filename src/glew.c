@@ -808,7 +808,7 @@ static GLboolean _glewInit_EXT_blend_color ()
 #ifdef GL_EXT_blend_func_separate
 glBlendFuncSeparateEXTPROC glBlendFuncSeparateEXT = NULL;
 
-static GLboolean _glewInit_EXT_blend_function_separate ()
+static GLboolean _glewInit_EXT_blend_func_separate ()
 {
   GLboolean r = GL_FALSE;
   r = r || (glBlendFuncSeparateEXT = (glBlendFuncSeparateEXTPROC)glewGetProcAddress("glBlendFuncSeparateEXT")) == NULL;
@@ -2770,9 +2770,9 @@ static GLint _glewInit ()
   glew.EXT_blend_color = glewGetExtension("GL_EXT_blend_color");
   if (glewExperimental || glew.EXT_blend_color) glew.EXT_blend_color = !_glewInit_EXT_blend_color();
 #endif
-#ifdef GL_EXT_blend_function_separate
-  glew.EXT_blend_func_separate = glewGetExtension("GL_EXT_blend_function_separate");
-  if (glewExperimental || glew.EXT_blend_func_separate) glew.EXT_blend_func_separate = !_glewInit_EXT_blend_function_separate();
+#ifdef GL_EXT_blend_func_separate
+  glew.EXT_blend_func_separate = glewGetExtension("GL_EXT_blend_func_separate");
+  if (glewExperimental || glew.EXT_blend_func_separate) glew.EXT_blend_func_separate = !_glewInit_EXT_blend_func_separate();
 #endif
 #ifdef GL_EXT_blend_minmax
   glew.EXT_blend_minmax = glewGetExtension("GL_EXT_blend_minmax");
