@@ -110,30 +110,30 @@ my %fnc_ignore_list = (
 );
 
 my %regex = (
-    eofnc    => qr/(?:\);?$|^$)/, # ); $|^$
+    eofnc    => qr/(?:\);?$|^$)/, # )$ | );$ | ^$
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
-    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
-    prefix   => qr/^(?:[aw]?gl|glX)/, # (agl,wgl,glX) + cluster wo/ capturing
-    tprefix  => qr/^(?:[AW]?GL|GLX)_/, # (AGL,WGL,GLX) + cluster wo/ capturing
+    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i,
+    prefix   => qr/^(?:[aw]?gl|glX)/, # gl | agl | wgl | glX
+    tprefix  => qr/^(?:[AW]?GL|GLX)_/, # GL_ | AGL_ | WGL_ | GLX_
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
     token    => qr/^([A-Z0-9][A-Z0-9_]*):?\s+((?:0x)?[0-9A-F]+)(.*)$/, # define tokens
     types    => compile_regex('\b(', join('|', keys %typemap), ')\b'), # var types
     voidtype => compile_regex('\b(', keys %voidtypemap, ')\b '), # void type
 );
 
-# reshapes the the function declaration from multiline to single line form 
+# reshapes the the function declaration from multiline to single line form
 sub normalize_prototype
 {
-    my $fnc = join(" ", @_);
-    $fnc =~ s/\s+/ /g;
-    $fnc =~ s/\s*\(\s*/ \(/;
-    $fnc =~ s/\s*\)\s*/\)/;
-    $fnc =~ s/\s*\*([a-zA-Z])/\* $1/;
-    $fnc =~ s/\*wgl/\* wgl/;
-    $fnc =~ s/\*glX/\* glX/;
-    $fnc =~ s/\.\.\./void/;
-    $fnc =~ s/;$//;
-    return $fnc;
+    local $_ = join(" ", @_);
+    s/\s+/ /g;                # multiple whitespace -> single space
+    s/\s*\(\s*/ \(/;          # exactly one space before ( and none after
+    s/\s*\)\s*/\)/;           # no after before or after )
+    s/\s*\*([a-zA-Z])/\* $1/; # "* identifier"
+    s/\*wgl/\* wgl/;          # "* wgl"
+    s/\*glX/\* glX/;          # "* glX"
+    s/\.\.\./void/;           # ... -> void
+    s/;$//;                   # remove ; at the end of the line
+    return $_;
 }
 
 # Ugly hack to work arround the fact that functions are declared in more
@@ -165,47 +165,53 @@ sub parse_spec($)
         },
 
         "Name Strings" => sub {
-	    # Add extension name to extension list
+            # Add extension name to extension list
             # Does this look even plausible?
-            push @extnames, $_ if (/$regex{extname}/)
+            if (/$regex{extname}/)
+            {
+                # prefix with "GL_" if prefix not present
+                s/^/GL_/ unless /$regex{tprefix}/o;
+                # Add extension name to extension list
+                push @extnames, $_;
+            }
         },
 
         "New Procedures and Functions" => sub {
-	    # if line matches end of function
-	    if (/$regex{eofnc}/)
+            # if line matches end of function
+            if (/$regex{eofnc}/)
             {
-		# add line to function list
+                # add line to function declaration
                 push @fnc, $_;
 
-		# my $f = normalize_prototype(@fnc);
-		# print STDERR "$f\n";
-
-		# if normalized version of function looks like a function
+                # if normalized version of function looks like a function
                 if (normalize_prototype(@fnc) =~ /$regex{function}/)
                 {
-		    # get return type, name, and arguments, add them to functions hash
+                    # get return type, name, and arguments from regex
                     my ($return, $name, $parms) = ($1, $2, $3);
-		    # print STDERR "$1 | $2 | $3\n";
                     if (!ignore_function($name, $extname))
                     {
+                        # prefix with "gl" if prefix not present
                         $name =~ s/^/gl/ unless $name =~ /$regex{prefix}/;
-			if ($name =~ /^gl/ && $name !~ /^glX/)
-			{
-			    $return =~ s/$regex{types}/$typemap{$1}/og;
-			    $return =~ s/void\*/GLvoid */og;
-			    $parms =~ s/$regex{types}/$typemap{$1}/og;
-			    $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
-			}
+                        # is this a pure GL function?
+                        if ($name =~ /^gl/ && $name !~ /^glX/)
+                        {
+                            # apply typemaps
+                            $return =~ s/$regex{types}/$typemap{$1}/og;
+                            $return =~ s/void\*/GLvoid */og;
+                            $parms =~ s/$regex{types}/$typemap{$1}/og;
+                            $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
+                        }
+                        # add to functions hash
                         $functions{$name} = {
                             rtype => $return,
                             parms => $parms,
                         };
                     }
                 }
-		# reset function list
+                # reset function declaration
                 @fnc = ();
             } elsif ($_ ne "" and $_ ne "None") {
-		# if not eof, add line to function list
+                # if not eof, add line to function declaration
                 push @fnc, $_
             }
         },
@@ -214,16 +220,15 @@ sub parse_spec($)
             if (/$regex{token}/)
             {
                 my ($name, $value) = ($1, $2);
-		#print STDERR "TOKEN: $1 | $2\n";
-		# Prepend name with GL_, unless it is already prepended
+                # prefix with "GL_" if prefix not present
                 $name =~ s/^/GL_/ unless $name =~ /$regex{tprefix}/;
-		# Add (name, value) pair to tokens hash, unless it's in taboo_tokens
+                # Add (name, value) pair to tokens hash, unless it's taboo
                 $tokens{$name} = $value unless exists $taboo_tokens{$name};
             }
         },
     );
 
-    # Some people can't read
+    # Some people can't read, the template clearly says "Name String_s_"
     $proc{"Name String"} = $proc{"Name Strings"};
 
     # Open spec file
@@ -232,21 +237,20 @@ sub parse_spec($)
     # For each line of SPEC
     while(<SPEC>)
     {
-	# Delete trailing newline character
+        # Delete trailing newline character
         chomp;
-	# Remove trailing white spaces
+        # Remove trailing white spaces
         s/\s+$//;
-	# If starts with a capital letter, it must be a new section
+        # If starts with a capital letter, it must be a new section
         if (/^[A-Z]/)
         {
-	    # Match section name with one of the predefined names 
-            $section = /$regex{section}/ ? $1 : "default";
+            # Match section name with one of the predefined names 
+            $section = /$regex{section}/o ? $1 : "default";
         } else {
-	    # If it's an internal line to a section, call the 
-	    # appropriate section processing function if it exists
-            # Remove whitespaces from the beginning of the line
-	    s/^\s+//;
-	    # Call appropriate processing function
+            # Line is internal to a section
+            # Remove leading whitespace
+            s/^\s+//;
+            # Call appropriate section processing function if it exists
             &{$proc{$section}} if exists $proc{$section};
         }
     }
@@ -279,27 +283,27 @@ foreach my $spec (sort @speclist)
 
     foreach my $ext (@{$extnames})
     {
-	my $info = "$ext_dir/" . $ext;
-	open EXT, ">$info";
-	print EXT $ext . "\n";
-	print EXT $reg_http . $spec . "\n";
-	
-	my $prefix = $ext;
-	$prefix =~ s/^(.+?)(_.+)$/$1/;
-	foreach my $token (sort { hex ${$tokens}{$a} <=> hex ${$tokens}{$b} } keys %{$tokens})
-	{
-	    if ($token =~ /^$prefix.*/i)
-	    {
-		print EXT "\t" . $token . " " . ${%{$tokens}}{$token} . "\n";
-	    }
-	}
-	foreach my $function (sort keys %{$functions})
-	{
-	    if ($function =~ /^$prefix.*/i)
-	    {
-		print EXT "\t" . ${$functions}{$function}{rtype} . " " . $function . " (" . ${$functions}{$function}{parms} . ")" . "\n";
-	    }
-	}
-	close EXT;
+        my $info = "$ext_dir/" . $ext;
+        open EXT, ">$info";
+        print EXT $ext . "\n";
+        print EXT $reg_http . $spec . "\n";
+
+        my $prefix = $ext;
+        $prefix =~ s/^(.+?)(_.+)$/$1/;
+        foreach my $token (sort { hex ${$tokens}{$a} <=> hex ${$tokens}{$b} } keys %{$tokens})
+        {
+            if ($token =~ /^$prefix.*/i)
+            {
+                print EXT "\t" . $token . " " . ${%{$tokens}}{$token} . "\n";
+            }
+        }
+        foreach my $function (sort keys %{$functions})
+        {
+            if ($function =~ /^$prefix.*/i)
+            {
+                print EXT "\t" . ${$functions}{$function}{rtype} . " " . $function . " (" . ${$functions}{$function}{parms} . ")" . "\n";
+            }
+        }
+        close EXT;
     }
 }
