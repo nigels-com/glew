@@ -15,7 +15,7 @@ const GLubyte* glewGetErrorString (GLenum error)
     "GLX 1.2 and up are not supported",
     "unknown error"
   };
-  if (error > sizeof(_glewErrorString)) error = sizeof(_glewErrorString);
+  if (error > 4) error = 4;
   return _glewErrorString[error];
 }
 
@@ -26,7 +26,7 @@ const GLubyte* glewGetString (GLenum name)
     NULL,
     "GLEW_VERSION_STRING"
   };
-  if (name > sizeof(_glewString)-1) return NULL;
+  if (name > 1) name = 0;
   return _glewString[name];
 }
 
