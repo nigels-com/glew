@@ -32,15 +32,19 @@ GLEW_VERSION = 1.0.6
 SYSTEM = $(strip $(shell uname -s))
 
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
-CC = \gcc-2 -mno-cygwin
-LD = \gcc-2 -mno-cygwin
+CC = \gcc -mno-cygwin
+LD = \gcc -mno-cygwin
 NAME = glew32
 DEFINE = -D'GLEW_STATIC'
+BIN.LIBS = -Llib -lglut -l$(NAME) -lglu32 -lopengl32 
+P.BIN = .exe
 else
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
 CC = \gcc
 LD = \ld
 NAME = GLEW
+BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -l$(NAME) -lGLU -lGL -lXmu -lX11
+P.BIN =
 else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
@@ -64,10 +68,9 @@ LIB.SO.LNK = lib$(NAME).so
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
 
-BIN = glewinfo
+BIN = glewinfo$(P.BIN)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -l$(NAME) -lGLU -lGL -lXmu -lX11
 
 all: bin/$(BIN) lib/$(LIB.SO) 
 
