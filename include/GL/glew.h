@@ -233,6 +233,7 @@ extern "C" {
 #define GL_ATI_pn_triangles 1
 #define GL_ATI_separate_stencil 1
 #define GL_ATI_text_fragment_shader 1
+#define GL_ATI_texture_env_combine3 1
 #define GL_ATI_texture_float 1
 #define GL_ATI_texture_mirror_once 1
 #define GL_ATI_vertex_array_object 1
@@ -3369,6 +3370,16 @@ extern GLEW_EXPORT PFNGLSTENCILFUNCSEPARATEATIPROC glStencilFuncSeparateATI;
 
 #endif /* GL_ATI_text_fragment_shader */
 
+/* ----------------------- ATI_texture_env_combine3 ----------------------- */
+
+#ifdef GL_ATI_texture_env_combine3
+
+#define GL_MODULATE_ADD_ATI                                     0x8744
+#define GL_MODULATE_SIGNED_ADD_ATI                              0x8745
+#define GL_MODULATE_SUBTRACT_ATI                                0x8746
+
+#endif /* GL_ATI_texture_env_combine3 */
+
 /* --------------------------- ATI_texture_float -------------------------- */
 
 #ifdef GL_ATI_texture_float
@@ -4502,6 +4513,7 @@ struct GLEW
   unsigned int ATI_pn_triangles : 1;
   unsigned int ATI_separate_stencil : 1;
   unsigned int ATI_text_fragment_shader : 1;
+  unsigned int ATI_texture_env_combine3 : 1;
   unsigned int ATI_texture_float : 1;
   unsigned int ATI_texture_mirror_once : 1;
   unsigned int ATI_vertex_array_object : 1;

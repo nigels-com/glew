@@ -1873,6 +1873,9 @@ static void glewInfo ()
 #ifdef GL_ATI_text_fragment_shader
   glewPrintExt("GL_ATI_text_fragment_shader", glew.ATI_text_fragment_shader);
 #endif
+#ifdef GL_ATI_texture_env_combine3
+  glewPrintExt("GL_ATI_texture_env_combine3", glew.ATI_texture_env_combine3);
+#endif
 #ifdef GL_ATI_texture_float
   glewPrintExt("GL_ATI_texture_float", glew.ATI_texture_float);
 #endif
