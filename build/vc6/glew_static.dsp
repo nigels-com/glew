@@ -49,7 +49,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"static/release/glew32.lib"
+# ADD LIB32 /nologo /out:"../../lib/static/glew32.lib"
 
 !ELSEIF  "$(CFG)" == "glew_static - Win32 Debug"
 
@@ -72,7 +72,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"static/debug/glew32.lib"
+# ADD LIB32 /nologo /out:"../../lib/static/glew32.lib"
 
 !ENDIF 
 
