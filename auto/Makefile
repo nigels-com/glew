@@ -113,8 +113,9 @@ $(S.DEST)/glew_gl.c: $(EXT)/.dummy
 
 $(S.DEST)/glew_wgl.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_wgl_head.c $@
-	$(BIN)/make_def.pl WGL $(EXT)/WGL_* >> $@
-	cat $(SRC)/glew_wgl_def.c >> $@
+	$(BIN)/make_def_fun.pl WGL $(EXT)/WGL_* >> $@
+	$(BIN)/make_def_var.pl WGL $(EXT)/WGL_* >> $@
+	cat $(SRC)/glew_wgl_var.c >> $@
 	$(BIN)/make_init.pl WGL $(EXT)/WGL_* >> $@
 	cat $(SRC)/glew_wgl_init.c >> $@
 	$(BIN)/make_list.pl $(EXT)/WGL_* >> $@
