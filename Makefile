@@ -91,10 +91,12 @@ ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
 NAME = GLEW
 CC = cc
 LD = ld
-CFLAGS.EXTRA = 
+CFLAGS.EXTRA =
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+LDFLAGS.STATIC = -Wl,-Bstatic
+LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 NAME = GLEW
 WARN = -Wall -W
 POPT = -O2
@@ -205,7 +207,7 @@ LIB.LIBS = $(GL_LDFLAGS)
 BIN = glewinfo$(BIN.SUFFIX)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
+BIN.LIBS = -Llib $(LDFLAGS.STATIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.DYNAMIC) $(LDFLAGS.GL)
 
 all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
