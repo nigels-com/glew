@@ -786,6 +786,7 @@ struct GLXEW
 };
 
 extern struct GLXEW glxew;
+extern GLboolean glxewGetExtension (const char* name);
 
 #ifdef __cplusplus
 }
