@@ -1,3 +1,3 @@
-separate building of static and shader object files
+separate build of static and shared object files
 web page and documentation update
 web poll on separating glew, glxew and wglew
