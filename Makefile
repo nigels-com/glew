@@ -32,7 +32,7 @@ GLEW_DEST ?= /usr
 
 GLEW_MAJOR = 1
 GLEW_MINOR = 2
-GLEW_MICRO = 3
+GLEW_MICRO = 4
 GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
 TARDIR = ../glew-$(GLEW_VERSION)
@@ -219,12 +219,15 @@ LIB.OBJS = $(LIB.SRCS:.c=.o)
 LIB.LDFLAGS = $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 LIB.LIBS = $(GL_LDFLAGS)
 
-BIN = glewinfo$(BIN.SUFFIX)
-BIN.SRCS = src/glewinfo.c
-BIN.OBJS = $(BIN.SRCS:.c=.o)
+GLEWINFO.BIN = glewinfo$(BIN.SUFFIX)
+GLEWINFO.BIN.SRCS = src/glewinfo.c
+GLEWINFO.BIN.OBJS = $(GLEWINFO_BIN.SRCS:.c=.o)
+VISUALINFO.BIN = visualinfo$(BIN.SUFFIX)
+VISUALINFO.BIN.SRCS = src/visualinfo.c
+VISUALINFO.BIN.OBJS = $(VISUALINFO_BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib $(LDFLAGS.STATIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.DYNAMIC) $(LDFLAGS.GL)
 
-all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
+all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN)
 
 lib:
 	mkdir lib
@@ -240,7 +243,10 @@ else
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 endif
 
-bin/$(BIN): $(BIN.SRCS)
+bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.SRCS)
+	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
+
+bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.SRCS)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
 
 %.o: %.c
@@ -284,7 +290,7 @@ else
   endif
 endif
 # utilities
-	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
+	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(GLEW_DEST)/bin/
 
 uninstall:
 	$(RM) $(GLEW_DEST)/include/GL/wglew.h
@@ -298,12 +304,12 @@ else
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
 	$(RM) $(GLEW_DEST)/lib/$(LIB.STATIC)
 endif
-	$(RM) $(GLEW_DEST)/bin/$(BIN)
+	$(RM) $(GLEW_DEST)/bin/$(GLEWINFO.BIN) $(GLEW_DEST)/bin/$(VISUALINFO.BIN)
 
 clean:
 	$(RM) $(LIB.OBJS)
 	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
-	$(RM) $(BIN.OBJS) bin/$(BIN)
+	$(RM) $(GLEWINFO.BIN.OBJS) bin/$(GLEWINFO.BIN) $(VISUALINFO.BIN.OBJS) bin/$(VISUALINFO.BIN)
 # Compiler droppings
 	$(RM) so_locations
 
