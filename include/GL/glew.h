@@ -190,6 +190,7 @@ extern "C" {
 #define GL_EXT_blend_subtract 1 /* (1.4) */
 #define GL_EXT_clip_volume_hint 1
 #define GL_EXT_compiled_vertex_array 1 
+#define GL_EXT_depth_bounds_test 1
 #define GL_EXT_draw_range_elements 1 /* (1.2) */
 #define GL_EXT_cull_vertex 1
 #define GL_EXT_fog_coord 1 /* (1.4) */
@@ -1682,7 +1683,7 @@ extern GLEW_EXPORT PFNGLWINDOWPOS3SVPROC glWindowPos3sv;
 #define GL_POST_COLOR_MATRIX_RED_BIAS                           0x80B8
 #define GL_POST_COLOR_MATRIX_GREEN_BIAS                         0x80B9
 #define GL_POST_COLOR_MATRIX_BLUE_BIAS                          0x80BA
-#define GL_POST_COLOR_MATIX_ALPHA_BIAS                          0x80BB
+#define GL_POST_COLOR_MATRIX_ALPHA_BIAS                         0x80BB
 #define GL_COLOR_TABLE                                          0x80D0
 #define GL_POST_CONVOLUTION_COLOR_TABLE                         0x80D1
 #define GL_POST_COLOR_MATRIX_COLOR_TABLE                        0x80D2
@@ -2591,28 +2592,41 @@ extern GLEW_EXPORT PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT;
 
 #ifdef GL_EXT_cull_vertex
 
+#define GL_CULL_VERTEX_EXT                                      0x81AA
+#define GL_CULL_VERTEX_EYE_POSITION_EXT                         0x81AB
+#define GL_CULL_VERTEX_OBJECT_POSITION_EXT                      0x81AC
+
 typedef void (APIENTRY * PFNGLCULLPARAMETERFVEXTPROC) (GLenum pname, GLfloat *params);
 typedef void (APIENTRY * PFNGLCULLPARAMETERDVEXTPROC) (GLenum pname, GLdouble *params);
 
 extern GLEW_EXPORT PFNGLCULLPARAMETERFVEXTPROC glCullParameterfvEXT;
 extern GLEW_EXPORT PFNGLCULLPARAMETERDVEXTPROC glCullParameterdvEXT;
  
-#define GL_CULL_VERTEX_EXT                                      0x81AA
-#define GL_CULL_VERTEX_EYE_POSITION_EXT                         0x81AB
-#define GL_CULL_VERTEX_OBJECT_POSITION_EXT                      0x81AC
-
 #endif /* GL_EXT_cull_vertex */
+
+/* ------------------------ GL_EXT_depth_bounds_test ----------------------- */
+
+#ifdef GL_EXT_depth_bounds_test
+
+#define GL_DEPTH_BOUNDS_TEST_EXT                                0x8890
+#define GL_DEPTH_BOUNDS_EXT                                     0x8891
+
+typedef void (GLAPIENTRY * PFNGLDEPTHBOUNDSEXTPROC) (GLclampd zmin, GLclampd zmax);
+
+extern GLEW_EXPORT PFNGLDEPTHBOUNDSEXTPROC glDepthBoundsEXT;
+
+#endif /* GL_EXT_depth_bounds_test */
 
 /* ------------------------ EXT_draw_range_elements ----------------------- */
 
 #ifdef GL_EXT_draw_range_elements
 
+#define GL_MAX_ELEMENTS_VERTICES_EXT                            0x80E8
+#define GL_MAX_ELEMENTS_INDICES_EXT                             0x80E9
+
 typedef void (APIENTRY * PFNGLDRAWRANGEELEMENTSEXTPROC) (GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid *indices);
 
 extern GLEW_EXPORT PFNGLDRAWRANGEELEMENTSEXTPROC glDrawRangeElementsEXT;
-
-#define GL_MAX_ELEMENTS_VERTICES_EXT                            0x80E8
-#define GL_MAX_ELEMENTS_INDICES_EXT                             0x80E9
 
 #endif /* GL_EXT_draw_range_elements */
 
@@ -3786,7 +3800,6 @@ extern GLEW_EXPORT PFNGLGETFENCEIVNVPROC glGetFenceivNV;
 #define GL_FLOAT_RGBA_NV                                        0x8883
 #define GL_FLOAT_R32_NV                                         0x8885
 #define GL_FLOAT_R16_NV                                         0x8884
-#define GL_FLOAT_R32_NV                                         0x8885
 #define GL_FLOAT_RG16_NV                                        0x8886
 #define GL_FLOAT_RG32_NV                                        0x8887
 #define GL_FLOAT_RGB16_NV                                       0x8888
@@ -4644,6 +4657,7 @@ struct GLEW
   unsigned int EXT_clip_volume_hint : 1;
   unsigned int EXT_compiled_vertex_array : 1;
   unsigned int EXT_cull_vertex : 1;
+  unsigned int EXT_depth_bounds_test : 1;
   unsigned int EXT_draw_range_elements : 1;
   unsigned int EXT_fog_coord : 1;
   unsigned int EXT_multi_draw_arrays : 1;

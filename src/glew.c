@@ -827,6 +827,19 @@ static GLboolean _glewInit_EXT_cull_vertex ()
 }
 #endif /* GL_EXT_cull_vertex */
 
+/* ------------------------ GL_EXT_depth_bounds_test ---------------------- */
+
+#ifdef GL_EXT_depth_bounds_test
+PFNGLDEPTHBOUNDSEXTPROC glDepthBoundsEXT = NULL;
+
+static GLboolean _glewInit_EXT_depth_bounds_test ()
+{
+  GLboolean r = GL_FALSE;
+  r = r || (glDepthBoundsEXT = (PFNGLDEPTHBOUNDSEXTPROC)glewGetProcAddress("glDepthBoundsEXT")) == NULL;
+  return r;
+}
+#endif /* GL_EXT_depth_bounds_test */
+
 /* ------------------------ EXT_draw_range_elements ----------------------- */
 
 #ifdef GL_EXT_draw_range_elements
@@ -2847,6 +2860,10 @@ static GLint _glewInit ()
 #ifdef GL_EXT_cull_vertex
   glew.EXT_cull_vertex = glewGetExtension("GL_EXT_cull_vertex");
   if (glewExperimental || glew.EXT_cull_vertex) glew.EXT_cull_vertex = !_glewInit_EXT_cull_vertex();
+#endif
+#ifdef GL_EXT_depth_bounds_test
+  glew.EXT_depth_bounds_test = glewGetExtension("GL_EXT_depth_bounds_test");
+  if (glewExperimental || glew.EXT_depth_bounds_test) glew.EXT_depth_bounds_test = !_glewInit_EXT_depth_bounds_test();
 #endif
 #ifdef GL_EXT_draw_range_elements
   glew.EXT_draw_range_elements = glewGetExtension("GL_EXT_draw_range_elements");

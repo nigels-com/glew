@@ -27,7 +27,7 @@
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
 GLEW_DEST ?= /usr
-GLEW_VERSION = 1.0.6
+GLEW_VERSION = 1.0.7
 
 SYSTEM = $(strip $(shell uname -s))
 

@@ -518,6 +518,16 @@ static void glewInfo_EXT_cull_vertex ()
 }
 #endif /* GL_EXT_cull_vertex */
 
+/* ------------------------ GL_EXT_depth_bounds_test ---------------------- */
+
+#ifdef GL_EXT_depth_bounds_test
+static void _glewInfo_EXT_depth_bounds_test ()
+{
+  char me[] = "GL_EXT_depth_bounds_test"; glewPrintExt(me, glew.EXT_depth_bounds_test);
+  glewInfoFunc(glDepthBoundsEXT == NULL, "glDepthBoundsEXT");
+}
+#endif /* GL_EXT_depth_bounds_test */
+
 /* ------------------------ EXT_draw_range_elements ----------------------- */
 
 #ifdef GL_EXT_draw_range_elements
@@ -1781,6 +1791,9 @@ static void glewInfo ()
 #endif
 #ifdef GL_EXT_cull_vertex
   glewInfo_EXT_cull_vertex();
+#endif
+#ifdef GL_EXT_depth_bounds_test
+  glewInfo_EXT_depth_bounds_test();
 #endif
 #ifdef GL_EXT_draw_range_elements
   glewInfo_EXT_draw_range_elements();
