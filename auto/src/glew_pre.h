@@ -118,6 +118,7 @@
 #define WINGDIAPI __declspec(dllimport)
 #endif
 /* <ctype.h> */
+#if !defined(__CYGWIN__) && !defined(__MINGW32__) && !defined(_WCHAR_T_DEFINED)
 #ifndef _WCHAR_T_DEFINED
 typedef unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
