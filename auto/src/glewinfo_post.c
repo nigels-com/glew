@@ -46,7 +46,8 @@ int main (int argc, char** argv)
 #ifdef _WIN32
   fprintf(f, "Reporting capabilities of PixelFormat %d\n", visual);
 #else
-  fprintf(f, "Reporting capabilities of Visual %d\n", visual);
+  fprintf(f, "Reporting capabilities of Display %s, Visual %d\n", 
+    display == NULL ? getenv("DISPLAY") : display, visual);
 #endif
   fprintf(f, "Running on a %s from %s\n", 
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
@@ -205,6 +206,7 @@ GLboolean glewCreateContext (const char* display, int* visual)
   /* choose visual */
   vi = glXChooseVisual(dpy, DefaultScreen(dpy), attrib);
   if (NULL == vi) return GL_TRUE;
+  *visual = vi->visualid;
   /* create context */
   ctx = glXCreateContext(dpy, vi, None, True);
   if (NULL == ctx) return GL_TRUE;
