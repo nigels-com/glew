@@ -1,0 +1,40 @@
+h1 
+{   
+	color: black;
+	font: 16pt "Verdana", "Arial", "Helvetica";
+	display: inline;
+	/* font-weight: bold */
+}
+
+h2
+{   
+	color: black;
+	font: 14pt "Verdana", "Arial", "Helvetica";
+}
+
+body, table, td, p, div
+{
+	color: black;
+	font: 10pt "Verdana", "Arial", "Helvetica"
+}
+
+a:link
+{    
+	color: darkblue;
+	text-decoration: none;
+
+}
+
+a:visited
+{    
+	color: darkblue;
+	text-decoration: none;
+
+}
+
+a:hover
+{    
+	color: crimson;
+	text-decoration: underline;
+
+}

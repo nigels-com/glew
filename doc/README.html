@@ -1,29 +1,26 @@
 <!--
-  Copyright (C) 2002 Milan Ikits
-  This documentation may not be modified or redistributed in any
-  form, except by the copyright holder.
+ Copyright (C) 2003, 2002, Milan Ikits <milan.ikits@ieee.org>
+ Copyright (C) 2003, 2002, Marcelo E. Magallon <mmagallo@debian.org>
+ This documentation may not be modified or redistributed in any
+ form, except by the copyright holder.
 -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html/4/loose.dtd"> 
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3.org/TR/html/4/loose.dtd">
 <html>
 <head>
 <title>
 GLEW: The OpenGL Extension Wrangler Library
 </title>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"> 
+<meta http-equiv="content-type" content="text/html; charset=US-ASCII"> 
+<link href="glew.css" type=text/css rel=stylesheet>
 </head>
-<body bgcolor="#ffffff" text="#000000" link="#1010f0" vlink="#000080" alink="#800000">
-
+<body bgcolor="#fff0d0">
 <center>
-<table border=0 width="50%" cellpadding="5" cellspacing="10">
+<table border=0 width="60%" cellpadding="5" cellspacing="10">
 <tr>
-<td align=center><img src="./glew.png" alt="glew" width="97" height="75"></td>
-</tr>
-<tr>
-<td align=center><font size="+2"><b>The OpenGL Extension Wrangler Library</b></font></td>
-</tr>
-<tr>
-<td width="80%">
+<td bgcolor="#ffffff" align=center><br><p><img src="./glew.png" alt="glew" width="97" height="75">
+<p>
+<font size="+2"><b>The OpenGL Extension Wrangler Library</b></font>
+<p>
 <table border=0 cellpadding=0 cellspacing=0 align=center>
 <tr><td align=center><a href="#Introduction"><font size="-1">Introduction</font></a></td></tr>
 <tr><td align=center><a href="#Download"><font size="-1">Obtaining GLEW</font></a></td></tr>
@@ -34,9 +31,8 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr><td align=center><a href="#Utilities"><font size="-1">Utilities</font></a></td></tr>
 <tr><td align=center><a href="#Issues"><font size="-1">Known Issues</font></a></td></tr>
 <tr><td align=center><a href="#Credits"><font size="-1">Credits, Copyright</font></a></td></tr>
+<tr><td align=center><br></td></tr>
 </table>
-<br>
-</td>
 </tr>
 
 <tr>
@@ -46,15 +42,15 @@ name="Introduction"><font size="+1"><b>Introduction</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 The goal of the OpenGL Extension Wrangler Library (GLEW) is to assist
 C/C++ OpenGL developers with two tedious tasks: initializing and
 using extensions and writing portable applications.  GLEW provides
 an efficient run-time mechanism to determine whether a certain
 extension is supported by the driver or not.  OpenGL core and
 extension functionality is exposed via a single header file.  GLEW
-currently supports the products of two commodity graphics card
-vendors, NVIDIA and ATI, on two operating systems, Windows and Linux.
+currently supports SGI systems and PCs with commodity graphics cards
+on three operating systems: Windows, Linux, and IRIX.
 <p>
 </td>
 </tr>
@@ -66,7 +62,7 @@ name="Download"><font size="+1"><b>Obtaining GLEW</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 The source and precompiled binaries are available at the <a
 href="http://glew.sourceforge.net/">project website</a>.
 
@@ -81,7 +77,7 @@ name="Supported"><font size="+1"><b>Supported Extensions</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td  bgcolor="#ffffff">
 <table border=0 cellpadding="0" cellspacing="0">
 <tr>
 <td>GLEW currently supports <a href="glew.html">OpenGL</a>,
@@ -101,12 +97,12 @@ name="Build"><font size="+1"><b>How to Build Your Project with GLEW</b></font></
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 
 There are two ways to build your project with GLEW.
 <p>
 
-<font size="+1"><b>Including the source files / project file</b></font>
+<font size="+1">Including the source files / project file</font>
 <p>
 
 The simpler but less flexible way is to include <tt>glew.h</tt> and
@@ -129,17 +125,16 @@ include <tt>glew.h</tt> first.  In addition, <tt>glew.h</tt> includes
 
 <p>
 On Windows you can also add the supplied project file
-(<tt>glew.dsp</tt> or <tt>glew.vcproj</tt>) to your workspace or
-solution and compile it together with your other projects.  In this
-case you need to change the <tt>GLEW_BUILD</tt> preprocessor constant
-to <tt>GLEW_STATIC</tt>, otherwise you get build errors. <b>Note that
-GLEW does not use the C runtime library, so it does not matter
-which version (single-threaded, multi-threaded or multi-threaded DLL) it
-is linked with</b>.
+<tt>glew_static.dsp</tt> to your workspace (solution) and compile it together
+with your other projects.  In this case you need to change the
+<tt>GLEW_BUILD</tt> preprocessor constant to <tt>GLEW_STATIC</tt>,
+otherwise you get build errors. <b>Note that GLEW does not use the C
+runtime library, so it does not matter which version (single-threaded,
+multi-threaded or multi-threaded DLL) it is linked with</b>.
 
 <p>
 
-<font size="+1"><b>Using GLEW as a shared library</b></font>
+<font size="+1">Using GLEW as a shared library</font>
 <p>
 
 Alternatively, you can use the provided project files / makefile to
@@ -170,7 +165,7 @@ or:
 Don't forget to link your project with <tt>glew32.lib</tt>,
 <tt>glu32.lib</tt>, and <tt>opengl32.lib</tt> on Windows and
 <tt>libGLEW.so</tt>, <tt>libGLU.so</tt>, and <tt>libGL.so</tt> on
-Linux (<tt>-lGLEW -lGLU -lGL</tt>).
+Linux and IRIX (<tt>-lGLEW -lGLU -lGL</tt>).
 
 <p>
 It is important to keep in mind that <tt>glew.h</tt> includes neither
@@ -188,7 +183,7 @@ name="Install"><font size="+1"><b>How to Install GLEW</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 
 <p>
 To install the shared library version of GLEW you need to copy the
@@ -199,9 +194,9 @@ for you).
 
 <center>
 <table border=0 cellpadding=0 cellspacing=0>
-<tr><td><tt>lib/glew32.dll</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<tr><td><tt>lib/shared/glew32.dll</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;</td>
 <td><tt>%SystemRoot%/system32</tt>, usually <tt>C:/WINDOWS/system32</tt></td></tr>
-<tr><td><tt>lib/glew32.lib</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<tr><td><tt>lib/shared/glew32.lib</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;</td>
 <td><tt>{VC Root}/Lib</tt></td></tr>
 <tr><td><tt>include/GL/glew.h</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;</td>
 <td><tt>{VC Root}/Include/GL</tt></td></tr>
@@ -214,13 +209,10 @@ for you).
 where <tt>{VC Root}</tt> is your Visual C++ directory, typically
 <tt>C:/Program Files/Microsoft Visual Studio/VC98</tt> for Visual
 Studio 6.0 or <tt>C:/Program Files/Microsoft Visual
-Studio/Vc7/PlatformSDK</tt> for Visual Studio .NET.  <b>However, if you
-build GLEW with Visual Studio .NET, the project file will
-automatically install it into these directories, so you
-don't have to worry about installation at all</b>.
+Studio/Vc7/PlatformSDK</tt> for Visual Studio .NET.
 
 <p>
-On Linux, typing <tt>"make install"</tt> will attempt to install GLEW
+On Linux and IRIX, typing <tt>"make install"</tt> will attempt to install GLEW
 into <tt>/usr/include/GL</tt> and <tt>/usr/lib</tt>.  You can 
 customize the installation target via the <tt>GLEW_DEST</tt>
 environment variable if you do not have write access
@@ -236,9 +228,9 @@ name="Use"><font size="+1"><b>How to Use GLEW</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 
-<font size="+1"><b>Initializing GLEW</b></font>
+<font size="+1">Initializing GLEW</font>
 <p>
 
 First you need to create a valid OpenGL rendering context and call
@@ -263,31 +255,41 @@ if (GLEW_OK != err)
 
 <p>
 
-<font size="+1"><b>Querying the available OpenGL extensions</b></font>
+<font size="+1">Querying the available OpenGL extensions</font>
 <p>
 
-To find out if a particular extension is available on your
-platform, use the globally defined structure <tt>glew</tt>:
+Starting from GLEW 1.1.0, you can find out if a particular extension
+is available on your platform by querying globally defined variables
+of the form <tt>GLEW_{extension_name}</tt>:
 
-<blockquote><pre>if (glew.ARB_vertex_program)
+<blockquote><pre>if (GLEW_ARB_vertex_program)
 {
   /* it is safe to use the ARB_vertex_program extension here */
   glGenProgramsARB(...);
 }
 </pre></blockquote>
 
-You can also check for core OpenGL functionality.  For example, to
-see if OpenGL 1.3 is supported you can use the following:
+<b>In GLEW 1.0.x, a global structure was used for this task. To ensure
+binary compatibility between releases, the struct was replaced with a
+set of variables.</b>
 
-<blockquote><pre>if (glew.GL_13)
+<p>
+
+You can also check for core OpenGL functionality.  For example, to
+see if OpenGL 1.3 is supported:
+
+<blockquote><pre>if (GLEW_VERSION_1_3)
 {
   /* Yay! OpenGL 1.3 is supported! */
 }
 </pre></blockquote>
 
-In general, you can check if <tt>glew.{extension_name}</tt> or
-<tt>glew.GL_{version}</tt> is set or not.  For extensions
-<tt>glewGetExtension</tt> provides a slower alternative:
+In general, you can check if <tt>GLEW_{extension_name}</tt> or
+<tt>GLEW_VERSION_{version}</tt> is set or not.
+
+<p>
+
+For extensions <tt>glewGetExtension</tt> provides a slower alternative:
 
 <blockquote><pre>if (GL_TRUE == glewGetExtension("GL_ARB_fragment_program"))
 {
@@ -295,9 +297,10 @@ In general, you can check if <tt>glew.{extension_name}</tt> or
 }
 </pre></blockquote>
 
+
 <p>
 
-<font size="+1"><b>Experimental drivers</b></font>
+<font size="+1">Experimental drivers</font>
 <p>
 
 GLEW works by querying the supported extensions from the graphics
@@ -310,20 +313,18 @@ sure that all extensions with valid entry points will be exposed.
 
 <p>
 
-<font size="+1"><b>Platform specific extensions</b></font>
+<font size="+1">Platform specific extensions</font>
 <p>
 
 Platform specific extensions are separated into two header files:
-<tt>wglew.h</tt> and <tt>glxew.h</tt>.  These files define the
-available <tt>WGL</tt> and <tt>GLX</tt> extensions as well as the
-global <tt>wglew</tt> and <tt>glxew</tt> structs, which work similarly
-to the <tt>glew</tt> structure.  To determine if a given <tt>WGL</tt> or
-<tt>GLX</tt> extension is supported, query <tt>wglew.{extension name}</tt> or
-<tt>glxew.{extension_name}</tt>.  For example:
+<tt>wglew.h</tt> and <tt>glxew.h</tt>, which define the available
+<tt>WGL</tt> and <tt>GLX</tt> extensions.  To determine if a certain
+extension is supported, query <tt>WGLEW_{extension name}</tt> or
+<tt>GLXEW_{extension_name}</tt>.  For example:
 
 <blockquote><pre>#include &lt;GL/wglew.h&gt;
 
-if (wglew.ARB_pbuffer)
+if (WGLEW_ARB_pbuffer)
 {
   /* OK, we can use pbuffers */
 }
@@ -340,7 +341,7 @@ name="Utilities"><font size="+1"><b>Utilities</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 
 GLEW provides two command line tools: one for creating a list of
 available extensions and visuals; and another for verification of extension
@@ -348,26 +349,26 @@ entry points.
 
 <p>
 
-<font size="+1"><b>wglinfo: extensions and visuals on Windows</b></font>
+<font size="+1">wglinfo: extensions and visuals on Windows</font>
 <p>
 
 <tt>wglinfo</tt> is the Windows version of <tt>glxinfo</tt>. By
 default it creates a file called <tt>wglinfo.txt</tt> that contains
 a list of available OpenGL, WGL, and GLU extensions
-as well as a table of visuals aka. pixelformats. PBuffer and multiple output
+as well as a table of visuals aka. pixelformats. Pbuffer and multiple output
 capable visuals are also included. The format of the table is 
 described <a href="wglinfo.txt">here</a>. For additional usage information, type
 <tt>wglinfo -h</tt>.
 
 <p>
 
-<font size="+1"><b>glewinfo: extension verification utility</b></font>
+<font size="+1">glewinfo: extension verification utility</font>
 <p>
 
 <tt>glewinfo</tt> allows you to verify the entry points for the
 extensions supported on your platform. It uses GLEW to find out which extensions
-and entry points are available and reports the results to a text file
-called <tt>glewinfo.txt</tt>.
+and entry points are available. On Windows it reports the results to a text file
+called <tt>glewinfo.txt</tt>, on Linux and IRIX it prints them to <tt>stdout</tt>.
 
 <p>
 </td>
@@ -380,13 +381,12 @@ name="Issues"><font size="+1"><b>Known Issues</b></font></a>
 </tr>
 
 <tr>
-<td>
+<td bgcolor="#ffffff">
 
 GLEW requires GLX 1.2 to assure compatibility with GLUT.  In addition,
-the SGI GLX video extensions are not supported, because they depend on
-external libraries.
+the SGI GLX video extensions are currently not supported.
 <p>
-Note that according to the <a
+Note that according to some <a
 href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/ntopnglr_6yer.asp">WGL documentation</a> you have to initialize the entry points
 for every rendering context you create.  GLEW ignores this
 requirement, and does not define per context entry points.  This means
@@ -405,24 +405,23 @@ name="Credits"><font size="+1"><b>Credits, Copyright</b></font></a>
 </tr>
 
 <tr>
-<td>
-GLEW was developed by Milan Ikits.  He also performs occasional
-maintainance to make sure that GLEW stays in mint condition.  Aaron
-Lefohn, Joe Kniss, and Chris Wyman were the first users and also
-assisted with the design and debugging process.  The acronym
-originates from Aaron Lefohn.  Pasi K&auml;rkk&auml;inen identified
-and fixed several problems with GLX and SDL.  The RPM packages are
-maintained by Karol
- Pietrzak. Nate Robins created the
-<tt>wglinfo</tt> utility,
- to which modifications were added by
-Michael Wimmer.
+<td bgcolor="#ffffff">
+GLEW has been developed by Milan Ikits and Marcelo Magallon.  They
+also perform occasional maintainance to make sure that GLEW stays in
+mint condition.  Aaron Lefohn, Joe Kniss, and Chris Wyman were the
+first users and also assisted with the design and debugging process.
+The acronym originates from Aaron Lefohn.  Pasi K&auml;rkk&auml;inen
+identified and fixed several problems with GLX and SDL.  The RPM
+packages are maintained by Karol Pietrzak. Nate Robins created the
+<tt>wglinfo</tt> utility, to which modifications were added by Michael
+Wimmer.
 <p>
 
 <p>
-GLEW is derived from the EXTGL project by Lev Povalahev.  The source code
-is licensed under the modified BSD license, the SGI Free Software
-License B, and the GLX Public License.
+GLEW is originally derived from the EXTGL project by Lev Povalahev.
+The source code is licensed under the modified BSD license, the <a
+href="sgi.txt">SGI Free Software License B</a>, and the <a
+href="glx.txt">GLX Public License</a>.
 
 <blockquote><pre></pre></blockquote>
 
@@ -430,8 +429,8 @@ License B, and the GLX Public License.
 <td bgcolor="#FFF0D0">
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
-<td align="left">
-<i>Last update: 05-01-03</i></td>
+<td align="right">
+<i>Last update: 07-07-03</i></td>
 </tr>
 </table>
 </td>
