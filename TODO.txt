@@ -1,3 +1,5 @@
+bug fix
+	ARB_shader_objects const correctness
 make install relinking (Darwin)
 Web page and documentation update
 Web poll on separating glew, glxew and wglew
