@@ -120,7 +120,7 @@ my %regex = (
     prefix   => qr/^(?:[aw]?gl|glX)/, # (agl,wgl,glX) + cluster wo/ capturing
     tprefix  => qr/^(?:[AW]?GL|GLX)_/, # (AGL,WGL,GLX) + cluster wo/ capturing
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
-    token    => qr/^([A-Z][A-Z0-9_]*):?\s+((?:0x)?[0-9A-F]+)(.*)$/, # define tokens
+    token    => qr/^([A-Z0-9][A-Z0-9_]*):?\s+((?:0x)?[0-9A-F]+)(.*)$/, # define tokens
     types    => compile_regex('\b(', join('|', keys %typemap), ')\b'), # var types
     voidtype => compile_regex('\b(', keys %voidtypemap, ')\b '), # void type
 );
