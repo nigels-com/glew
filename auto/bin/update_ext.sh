@@ -157,7 +157,7 @@ EOT
 # add typedefs to GL_ARB_shader_objects
     cat >> $1/GL_ARB_shader_objects <<EOT
 	typedef char GLcharARB
-	typedef int GLhandleARB
+	typedef unsigned int GLhandleARB
 EOT
 
 # fix const correctness in GL_ARB_shader_objects
