@@ -26,7 +26,7 @@
 ## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
-GLEW_TARGET ?= /usr
+GLEW_DEST ?= /usr
 GLEW_VERSION = 1.0.6
 
 SYSTEM = $(strip $(shell uname -s))
@@ -88,19 +88,19 @@ bin/$(BIN): $(BIN.SRCS) lib/$(LIB.A)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 install: all
-	$(INSTALL) -d -m 755 $(GLEW_TARGET)/include/GL
-	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_TARGET)/include/GL
-	$(INSTALL) -d -m 755 $(GLEW_TARGET)/lib
-	$(INSTALL) -s -m 755 lib/$(LIB.A) $(GLEW_TARGET)/lib
-	$(INSTALL) -s -m 755 lib/$(LIB.SO) $(GLEW_TARGET)/lib
-	$(LN) $(GLEW_TARGET)/lib/$(LIB.SO) $(GLEW_TARGET)/lib/$(LIB.SO.LNK)
-	$(INSTALL) -d -m 755 $(GLEW_TARGET)/bin
-	$(INSTALL) -s -m 755 bin/$(BIN) $(GLEW_TARGET)/bin
+	$(INSTALL) -d -m 755 $(GLEW_DEST)/include/GL
+	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_DEST)/include/GL
+	$(INSTALL) -d -m 755 $(GLEW_DEST)/lib
+	$(INSTALL) -s -m 755 lib/$(LIB.A) $(GLEW_DEST)/lib
+	$(INSTALL) -s -m 755 lib/$(LIB.SO) $(GLEW_DEST)/lib
+	$(LN) $(GLEW_DEST)/lib/$(LIB.SO) $(GLEW_DEST)/lib/$(LIB.SO.LNK)
+	$(INSTALL) -d -m 755 $(GLEW_DEST)/bin
+	$(INSTALL) -s -m 755 bin/$(BIN) $(GLEW_DEST)/bin
 
 uninstall:
-	$(RM) $(GLEW_TARGET)/include/GL/glew.h $(GLEW_TARGET)/include/GL/glxew.h
-	$(RM) $(GLEW_TARGET)/lib/$(LIB.SO.LNK) $(GLEW_TARGET)/lib/$(LIB.SO)
-	$(RM) $(GLEW_TARGET)/bin/$(BIN)
+	$(RM) $(GLEW_DEST)/include/GL/glew.h $(GLEW_DEST)/include/GL/glxew.h
+	$(RM) $(GLEW_DEST)/lib/$(LIB.SO.LNK) $(GLEW_DEST)/lib/$(LIB.SO)
+	$(RM) $(GLEW_DEST)/bin/$(BIN)
 
 clean:
 	$(RM) $(LIB.OBJS) lib/$(LIB.A) lib/$(LIB.SO) lib/$(LIB.SO.LNK) \
