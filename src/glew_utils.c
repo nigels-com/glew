@@ -1,7 +1,7 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2004, 2003, 2002, Milan Ikits <milan ikits[at]ieee org>
-** Copyright (C) 2004, 2003, 2002, Marcelo E. Magallon <mmagallo[at]debian org>
+** Copyright (C) 2002-2005, Milan Ikits <milan ikits[]ieee org>
+** Copyright (C) 2002-2005, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
 ** All rights reserved.
 ** 
@@ -36,32 +36,20 @@
 #  include <GL/glxew.h>
 #endif
 
-#if defined(_WIN32)
-#  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
-#else
-#  if defined(__APPLE__)
-#    define glewGetProcAddress(name) NSGLGetProcAddress(name)
-#  else
-#    if defined(__sgi) || defined(__sun)
-#      define glewGetProcAddress(name) dlGetProcAddress(name)
-#    else /* __linux */
-#      define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
-#    endif
-#  endif
-#endif
+#include "glew_utils.h"
 
 #if defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <stdlib.h>
 #include <string.h>
 
-static void *NSGLGetProcAddress (const GLubyte *name)
+void* NSGLGetProcAddress (const GLubyte *name)
 {
   NSSymbol symbol;
-  char *symbolName;
+  char* symbolName;
   /* prepend a '_' for the Unix C symbol mangling convention */
-  symbolName = malloc(strlen((const char *)name) + 2);
-  strcpy(symbolName+1, (const char *)name);
+  symbolName = malloc(strlen((const char*)name) + 2);
+  strcpy(symbolName+1, (const char*)name);
   symbolName[0] = '_';
   symbol = NULL;
   if (NSIsSymbolNameDefined(symbolName))
@@ -76,10 +64,10 @@ static void *NSGLGetProcAddress (const GLubyte *name)
 #include <stdio.h>
 #include <stdlib.h>
 
-static void *dlGetProcAddress (const GLubyte* name)
+void* dlGetProcAddress (const GLubyte* name)
 {
-  static void *h = NULL;
-  static void *gpa;
+  static void* h = NULL;
+  static void* gpa;
 
   if (h == NULL)
   {
@@ -88,43 +76,61 @@ static void *dlGetProcAddress (const GLubyte* name)
   }
 
   if (gpa != NULL)
-    return ((void *(*)(const GLubyte *))gpa)(name);
+    return ((void*(*)(const GLubyte*))gpa)(name);
   else
-    return dlsym(h, (const char *)name);
+    return dlsym(h, (const char*)name);
 }
 #endif /* __sgi || __sun */
 
-#ifdef GLEW_MX
-#define glewGetContext() ctx
-#define wglewGetContext() ctx
-#define glxewGetContext() ctx
-#ifdef _WIN32
-#define GLEW_CONTEXT_ARG_DEF_INIT GLEWContext* ctx
-#define WGLEW_CONTEXT_ARG_DEF_INIT WGLEWContext* ctx
-#define GLXEW_CONTEXT_ARG_DEF_INIT GLXEWContext* ctx
-#define GLEW_CONTEXT_ARG_VAR_INIT ctx
-#else /* _WIN32 */
-#define GLEW_CONTEXT_ARG_DEF_INIT void
-#define WGLEW_CONTEXT_ARG_DEF_INIT void
-#define GLXEW_CONTEXT_ARG_DEF_INIT void
-#define GLEW_CONTEXT_ARG_VAR_INIT
-#endif /* _WIN32 */
-#define GLEW_CONTEXT_ARG_DEF_LIST GLEWContext* ctx
-#define WGLEW_CONTEXT_ARG_DEF_LIST WGLEWContext* ctx
-#define GLXEW_CONTEXT_ARG_DEF_LIST GLXEWContext* ctx
-#else /* GLEW_MX */
-#define GLEW_CONTEXT_ARG_DEF_INIT void
-#define WGLEW_CONTEXT_ARG_DEF_INIT void
-#define GLXEW_CONTEXT_ARG_DEF_INIT void
-#define GLEW_CONTEXT_ARG_DEF_LIST void
-#define WGLEW_CONTEXT_ARG_DEF_LIST void
-#define GLXEW_CONTEXT_ARG_DEF_LIST void
-#define GLEW_CONTEXT_ARG_VAR_INIT
-#endif /* GLEW_MX */
+/*
+ * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
+ * These functions implement the functionality required in this file.
+ */
 
-#if !defined(_WIN32) || !defined(GLEW_MX)
+GLuint _glewStrLen (const GLubyte* s)
+{
+  GLuint i=0;
+  while (s+i != NULL && s[i] != '\0') i++;
+  return i;
+}
 
-GLboolean __GLEW_VERSION_1_1 = GL_FALSE;
-GLboolean __GLXEW_VERSION_1_0 = GL_FALSE;
-GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;
+GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
+{
+  GLuint i=0;
+  while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
+  return i;
+}
 
+GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
+{
+  GLuint i=0;
+  while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
+  return i == n ? GL_TRUE : GL_FALSE;
+}
+
+GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+{
+  if(*na >= nb)
+  {
+    GLuint i=0;
+    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
+	if(i == nb)
+	{
+		*a = *a + nb;
+		*na = *na - nb;
+		return GL_TRUE;
+	}
+  }
+  return GL_FALSE;
+}
+
+GLboolean _glewStrSame3 (const GLubyte* a, GLuint na, const GLubyte* b, GLuint nb)
+{
+  if(na == nb)
+  {
+    GLuint i=0;
+    while (i < nb && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
+	return i == nb ? GL_TRUE : GL_FALSE;
+  }
+  return GL_FALSE;
+}

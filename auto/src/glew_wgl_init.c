@@ -1,9 +1,5 @@
-  return GLEW_OK;
-}
 
 /* ------------------------------------------------------------------------- */
-
-#ifdef _WIN32
 
 static PFNWGLGETEXTENSIONSSTRINGARBPROC _wglewGetExtensionsStringARB = NULL;
 static PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglewGetExtensionsStringEXT = NULL;
@@ -31,9 +27,6 @@ GLboolean wglewGetExtension (const char* name)
   return GL_FALSE;
 }
 
-#ifndef GLEW_MX
-static
-#endif
 GLenum wglewContextInit (WGLEW_CONTEXT_ARG_DEF_LIST)
 {
   GLboolean crippled;

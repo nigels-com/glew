@@ -41,8 +41,8 @@ foreach my $ext (sort @extlist)
     my ($extname, $exturl, $types, $tokens, $functions, $exacts) = 
       parse_ext($ext);
 
-    make_separator($extname);
-    print "#ifdef $extname\n\n";
+    #make_separator($extname);
+    #print "#ifdef $extname\n\n";
     my $extvar = $extname;
     my $extvardef = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
@@ -51,8 +51,8 @@ foreach my $ext (sort @extlist)
 	print "static GLboolean _glewInit_$extname (" . $type . 
 	  "EW_CONTEXT_ARG_DEF_INIT)\n{\n  GLboolean r = GL_FALSE;\n";
 	output_decls($functions, \&make_pfn_def_init);
-	print "\n  return r;\n}\n";
+	print "\n  return r;\n}\n\n";
     }
     #print "\nGLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n\n";
-    print "#endif /* $extname */\n\n";
+    #print "#endif /* $extname */\n\n";
 }

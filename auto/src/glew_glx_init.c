@@ -1,7 +1,5 @@
-  return GLEW_OK;
-}
 
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
 
 GLboolean glxewGetExtension (const char* name)
 {    
@@ -23,35 +21,33 @@ GLboolean glxewGetExtension (const char* name)
   return GL_FALSE;
 }
 
-#ifndef GLEW_MX
-static
-#endif
 GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
 {
   int major, minor;
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR_INIT)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
-  GLXEW_VERSION_1_0 = GL_FALSE;
-  GLXEW_VERSION_1_1 = GL_FALSE;
-  GLXEW_VERSION_1_2 = GL_FALSE;
-  GLXEW_VERSION_1_3 = GL_FALSE;
-  GLXEW_VERSION_1_4 = GL_FALSE;
+  GLXEW_VERSION_1_0 = GL_TRUE;
+  GLXEW_VERSION_1_1 = GL_TRUE;
+  GLXEW_VERSION_1_2 = GL_TRUE;
+  GLXEW_VERSION_1_3 = GL_TRUE;
+  GLXEW_VERSION_1_4 = GL_TRUE;
   /* query GLX version */
   glXQueryVersion(glXGetCurrentDisplay(), &major, &minor);
-  switch (minor)
+  if (major == 1 && minor <= 3)
   {
-    case 4:
-    GLXEW_VERSION_1_4 = GL_TRUE;
-    case 3:
-    GLXEW_VERSION_1_3 = GL_TRUE;
-    case 2:
-    GLXEW_VERSION_1_2 = GL_TRUE;
-    GLXEW_VERSION_1_1 = GL_TRUE;
-    GLXEW_VERSION_1_0 = GL_TRUE;
-    break;
-    default:
-    return GLEW_ERROR_GLX_VERSION_11_ONLY;
-    break;
+    switch (minor)
+    {
+      case 3:
+      GLXEW_VERSION_1_4 = GL_FALSE;
+      break;
+      case 2:
+      GLXEW_VERSION_1_4 = GL_FALSE;
+      GLXEW_VERSION_1_3 = GL_FALSE;
+      break;
+      default:
+      return GLEW_ERROR_GLX_VERSION_11_ONLY;
+      break;
+    }
   }
   /* initialize extensions */

@@ -1,31 +1,5 @@
 /* ------------------------------------------------------------------------- */
 
-/*
- * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
- * These functions implement the functionality required in this file.
- */
-
-static GLuint _glewStrLen (const GLubyte* s)
-{
-  GLuint i=0;
-  while (s+i != NULL && s[i] != '\0') i++;
-  return i;
-}
-
-static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
-{
-  GLuint i=0;
-  while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
-  return i;
-}
-
-static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
-{
-  GLuint i=0;
-  while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
-  return i == n;
-}
-
 /* 
  * Search for name in the extensions string. Use of strstr()
  * is not sufficient because extension names can be prefixes of
