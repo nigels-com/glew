@@ -206,6 +206,7 @@ extern "C" {
 #define GL_EXT_stencil_two_side 1
 #define GL_EXT_stencil_wrap 1 /* (1.4) */
 #define GL_EXT_texture_compression_s3tc 1
+#define GL_EXT_texture_env_combine 1
 #define GL_EXT_texture_filter_anisotropic 1
 #define GL_EXT_texture_lod_bias 1 /* (1.4) */
 #define GL_EXT_texture_rectangle 1
@@ -3099,9 +3100,9 @@ extern GLEW_EXPORT glAddSwapHintRectWinPROC glAddSwapHintRectWin;
 #define GL_DRAW_BUFFER14_ATI                                    0x8833
 #define GL_DRAW_BUFFER15_ATI                                    0x8834
 
-typedef void (APIENTRY * glDrawBuffersPROC) (GLsizei n, const GLenum *bufs);
+typedef void (APIENTRY * glDrawBuffersATIPROC) (GLsizei n, const GLenum *bufs);
 
-extern GLEW_EXPORT glDrawBuffersPROC glDrawBuffers;
+extern GLEW_EXPORT glDrawBuffersATIPROC glDrawBuffersATI;
 
 #endif /* GL_ATI_draw_buffers */
 
@@ -3463,13 +3464,13 @@ extern GLEW_EXPORT glGetVariantArrayObjectivATIPROC glGetVariantArrayObjectivATI
 
 #ifdef GL_ATI_vertex_attrib_array_object
 
-typedef void (APIENTRY * glVertexAttribArratObjectATIPROC)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLuint buffer, GLuint offset);
-typedef void (APIENTRY * glGetVertexAttribArratObjectfvATIPROC)(GLuint index, GLenum pname, GLfloat *params);
-typedef void (APIENTRY * glGetVertexAttrubAttatObjectivATIPROC)(GLuint index, GLenum pname, GLint *params);
+typedef void (APIENTRY * glVertexAttribArrayObjectATIPROC)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLuint buffer, GLuint offset);
+typedef void (APIENTRY * glGetVertexAttribArrayObjectfvATIPROC)(GLuint index, GLenum pname, GLfloat *params);
+typedef void (APIENTRY * glGetVertexAttribArrayObjectivATIPROC)(GLuint index, GLenum pname, GLint *params);
 
-extern GLEW_EXPORT glVertexAttribArratObjectATIPROC glVertexAttribArratObjectATI;
-extern GLEW_EXPORT glGetVertexAttribArratObjectfvATIPROC glGetVertexAttribArratObjectfvATI;
-extern GLEW_EXPORT glGetVertexAttrubAttatObjectivATIPROC glGetVertexAttrubAttatObjectivATI;
+extern GLEW_EXPORT glVertexAttribArrayObjectATIPROC glVertexAttribArrayObjectATI;
+extern GLEW_EXPORT glGetVertexAttribArrayObjectfvATIPROC glGetVertexAttribArrayObjectfvATI;
+extern GLEW_EXPORT glGetVertexAttribArrayObjectivATIPROC glGetVertexAttribArrayObjectivATI;
 
 #endif /* GL_ATI_vertex_attrib_array_object */
 

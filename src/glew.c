@@ -1130,12 +1130,12 @@ static GLboolean _glewInit_WIN_swap_hint ()
 /* ---------------------------- ATI_draw_buffers -------------------------- */
 
 #ifdef GL_ATI_draw_buffers
-glDrawBuffersPROC glDrawBuffers = NULL;
+glDrawBuffersATIPROC glDrawBuffersATI = NULL;
 
 static GLboolean _glewInit_ATI_draw_buffers ()
 {
   GLboolean r = GL_FALSE;
-  r = r || (glDrawBuffers = (glDrawBuffersPROC)glewGetProcAddress("glDrawBuffers")) == NULL;
+  r = r || (glDrawBuffersATI = (glDrawBuffersATIPROC)glewGetProcAddress("glDrawBuffersATI")) == NULL;
   return r;
 }
 #endif /* GL_ATI_draw_buffers */
@@ -1332,16 +1332,16 @@ static GLboolean _glewInit_ATI_vertex_array_object ()
 /* -------------------- ATI_vertex_attrib_array_object -------------------- */
 
 #ifdef GL_ATI_vertex_attrib_array_object
-glVertexAttribArratObjectATIPROC glVertexAttribArratObjectATI = NULL;
-glGetVertexAttribArratObjectfvATIPROC glGetVertexAttribArratObjectfvATI = NULL;
-glGetVertexAttrubAttatObjectivATIPROC glGetVertexAttrubAttatObjectivATI = NULL;
+glVertexAttribArrayObjectATIPROC glVertexAttribArrayObjectATI = NULL;
+glGetVertexAttribArrayObjectfvATIPROC glGetVertexAttribArrayObjectfvATI = NULL;
+glGetVertexAttribArrayObjectivATIPROC glGetVertexAttribArrayObjectivATI = NULL;
 
 static GLboolean _glewInit_ATI_vertex_attrib_array_object ()
 {
   GLboolean r = GL_FALSE;
-  r = r || (glVertexAttribArratObjectATI = (glVertexAttribArratObjectATIPROC) glewGetProcAddress("glVertexAttribArratObjectATI")) == NULL;
-  r = r || (glGetVertexAttribArratObjectfvATI = (glGetVertexAttribArratObjectfvATIPROC) glewGetProcAddress("glGetVertexAttribArratObjectfvATI")) == NULL;
-  r = r || (glGetVertexAttrubAttatObjectivATI = (glGetVertexAttrubAttatObjectivATIPROC) glewGetProcAddress("glGetVertexAttrubAttatObjectivATI")) == NULL;
+  r = r || (glVertexAttribArrayObjectATI = (glVertexAttribArrayObjectATIPROC) glewGetProcAddress("glVertexAttribArrayObjectATI")) == NULL;
+  r = r || (glGetVertexAttribArrayObjectfvATI = (glGetVertexAttribArrayObjectfvATIPROC) glewGetProcAddress("glGetVertexAttribArrayObjectfvATI")) == NULL;
+  r = r || (glGetVertexAttribArrayObjectivATI = (glGetVertexAttribArrayObjectivATIPROC) glewGetProcAddress("glGetVertexAttribArrayObjectivATI")) == NULL;
   return r;
 }
 #endif /* GL_ATI_vertex_attrib_array_object */
@@ -2832,7 +2832,7 @@ static GLint _glewInit ()
   glew.EXT_texture_compression_s3tc = glewGetExtension("GL_EXT_texture_compression_s3tc");
 #endif
 #ifdef GL_EXT_texture_env_combine
-  glew.EXT_texture_filter_anisotropic = glewGetExtension("GL_EXT_texture_filter_anisotropic");
+  glew.EXT_texture_env_combine = glewGetExtension("GL_EXT_texture_env_combine");
 #endif
 #ifdef GL_EXT_texture_filter_anisotropic
   glew.EXT_texture_filter_anisotropic = glewGetExtension("GL_EXT_texture_filter_anisotropic");

@@ -723,7 +723,7 @@ static void glewInfo_WIN_swap_hint ()
 static void glewInfo_ATI_draw_buffers ()
 {
   char me[] = "GL_ATI_draw_buffers"; glewPrintExt(me, glew.ATI_draw_buffers);
-  glewInfoFunc(glDrawBuffers == NULL, "glDrawBuffers");
+  glewInfoFunc(glDrawBuffersATI == NULL, "glDrawBuffersATI");
 }
 #endif /* GL_ATI_draw_buffers */
 
@@ -859,9 +859,9 @@ static void glewInfo_ATI_vertex_array_object ()
 static void glewInfo_ATI_vertex_attrib_array_object ()
 {
   char me[] = "GL_ATI_vertex_attrib_array_object"; glewPrintExt(me, glew.ATI_vertex_attrib_array_object);
-  glewInfoFunc(glVertexAttribArratObjectATI == NULL, "glVertexAttribArratObjectATI");
-  glewInfoFunc(glGetVertexAttribArratObjectfvATI == NULL, "glGetVertexAttribArratObjectfvATI");
-  glewInfoFunc(glGetVertexAttrubAttatObjectivATI == NULL, "glGetVertexAttrubAttatObjectivATI");
+  glewInfoFunc(glVertexAttribArrayObjectATI == NULL, "glVertexAttribArrayObjectATI");
+  glewInfoFunc(glGetVertexAttribArrayObjectfvATI == NULL, "glGetVertexAttribArrayObjectfvATI");
+  glewInfoFunc(glGetVertexAttribArrayObjectivATI == NULL, "glGetVertexAttribArrayObjectivATI");
 }
 #endif /* GL_ATI_vertex_attrib_array_object */
 
