@@ -16,8 +16,12 @@ int main (int argc, char** argv)
     fprintf(stderr, "Error [main]: glewInit failed: %s\n", glewGetErrorString(err));
     return 1;
   }
+#ifdef _WIN32
   f = fopen("glewinfo.txt", "w");
   if (f == NULL) f = stdout;
+#else
+  f = stdout;
+#endif
   fprintf(f, "---------------------------\n");
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
