@@ -124,19 +124,15 @@
 #    define _WCHAR_T_DEFINED
 #  endif
 #endif
-
-/*
- * FIXME: the definition of ptrdiff_t is needed here, it's found in
- * stddef.h.
- *
- * Since Windows doesn't actually _run_ on anything but PCs this will do
- * for now.
- *
- * What does the compiler define when the target is a 64 bit platform
- * anyway?  WIN64?
- */
-
-typedef int                     ptrdiff_t;
+/* <stddef.h> */
+#ifndef _PTRDIFF_T_DEFINED
+#  ifdef  _WIN64
+typedef __int64 ptrdiff_t;
+#  else
+typedef _W64 int ptrdiff_t;
+#  endif
+#  define _PTRDIFF_T_DEFINED
+#endif
 
 #ifndef GLAPI
 #  if defined(__CYGWIN__) || defined(__MINGW32__)

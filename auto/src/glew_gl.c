@@ -70,6 +70,7 @@ static GLuint _glewInit ()
       GLEW_VERSION_1_2 = GL_TRUE;
       GLEW_VERSION_1_3 = GL_TRUE;
       GLEW_VERSION_1_4 = GL_TRUE;
+      GLEW_VERSION_1_5 = GL_TRUE;
     }
     if (s[2] == '4')
     {
