@@ -95,14 +95,18 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 
 $(S.DEST)/glew_gl.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_gl_head.c $@
-	$(BIN)/make_def.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	$(BIN)/make_def_fun.pl GL $(CORE)/GL_VERSION* >> $@
+	$(BIN)/make_def_fun.pl GL $(EXT)/GL_* >> $@
+	cat $(SRC)/glew_gl_fun.c >> $@
+	$(BIN)/make_def_var.pl GL $(CORE)/GL_VERSION* >> $@
+	$(BIN)/make_def_var.pl GL $(EXT)/GL_* >> $@
+	cat $(SRC)/glew_gl_var.c >> $@
 	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@
 	cat $(SRC)/glew_gl_init.c >> $@
 	$(BIN)/make_list.pl $(CORE)/GL_VERSION* | grep -v '\"GL_VERSION' >> $@
 	$(BIN)/make_list.pl $(EXT)/GL_* >> $@
 	cat $(SRC)/glew_gl_tail.c >> $@
-#	$(BIN)/fix_OML_sync_control.sh $@
 	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
 	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	rm -f $@.bak
@@ -110,19 +114,21 @@ $(S.DEST)/glew_gl.c: $(EXT)/.dummy
 $(S.DEST)/glew_wgl.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_wgl_head.c $@
 	$(BIN)/make_def.pl WGL $(EXT)/WGL_* >> $@
-	echo -e "\n#endif /* !GLEW_MX */\n" >> $@
+	cat $(SRC)/glew_wgl_def.c >> $@
 	$(BIN)/make_init.pl WGL $(EXT)/WGL_* >> $@
 	cat $(SRC)/glew_wgl_init.c >> $@
 	$(BIN)/make_list.pl $(EXT)/WGL_* >> $@
 	cat $(SRC)/glew_wgl_tail.c >> $@
-	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
 
 $(S.DEST)/glew_glx.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_glx_head.c $@
-	echo -e "#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)" >> $@
-	$(BIN)/make_def.pl GLX $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
-	echo -e "\n#endif /* !__APPLE__ */\n" >> $@
+	$(BIN)/make_def_fun.pl GLX $(CORE)/GLX_VERSION* >> $@
+	$(BIN)/make_def_fun.pl GLX $(EXT)/GLX_* >> $@
+	cat $(SRC)/glew_glx_fun.c >> $@
+	$(BIN)/make_def_var.pl GLX $(CORE)/GLX_VERSION* >> $@
+	$(BIN)/make_def_var.pl GLX $(EXT)/GLX_* >> $@
+	cat $(SRC)/glew_glx_var.c >> $@
 	$(BIN)/make_init.pl GLX $(CORE)/GLX_VERSION* >> $@
 	$(BIN)/make_init.pl GLX $(EXT)/GLX_* >> $@
 	cat $(SRC)/glew_glx_init.c >> $@

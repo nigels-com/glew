@@ -1,8 +1,6 @@
   return GLEW_OK;
 }
 
-#endif /* _WIN32 */
-
 /* ------------------------------------------------------------------------ */
 
 const GLubyte* glewGetErrorString (GLenum error)
@@ -54,9 +52,6 @@ GLenum glewInit ()
   return r;
 #endif /* _WIN32 */
 }
-
-#else
-
 
 #endif
 

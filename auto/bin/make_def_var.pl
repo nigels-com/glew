@@ -12,12 +12,6 @@ use warnings;
 
 do 'bin/make.pl';
 
-# function pointer declaration
-sub make_pfn_decl($%)
-{
-    return "PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . " = NULL;";
-}
-
 my @extlist = ();
 my %extensions = ();
 
@@ -30,14 +24,6 @@ if (@ARGV)
     local $/;
     @extlist = split "\n", (<>);
 }
-
-foreach my $ext (sort @extlist)
-{
-    my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-    output_decls($functions, \&make_pfn_decl);
-}
-
-print "\n";
 
 foreach my $ext (sort @extlist)
 {

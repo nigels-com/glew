@@ -1,6 +1,3 @@
-
-#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
-
 GLboolean glxewGetExtension (const char* name)
 {    
   GLubyte* p;

@@ -31,6 +31,4 @@
 
 #include "glew_utils.h"
 
-GLboolean __GLXEW_VERSION_1_0 = GL_FALSE;
-GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;
-
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)

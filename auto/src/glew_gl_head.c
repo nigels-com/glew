@@ -32,5 +32,3 @@
 #include "glew_utils.h"
 
 #if !defined(_WIN32) || !defined(GLEW_MX)
-
-GLboolean __GLEW_VERSION_1_1 = GL_FALSE;

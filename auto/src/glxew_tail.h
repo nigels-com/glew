@@ -4,6 +4,10 @@
 
 typedef struct GLXEWContextStruct GLXEWContext;
 extern GLenum glxewContextInit (GLXEWContext* ctx);
+extern GLboolean glxewContextIsSupported (GLXEWContext* ctx, const char* name);
+
+#define glxewInit() glxewContextInit(glxewGetContext())
+#define glxewIsSupported(x) glxewContextIsSupported(glxewGetContext(), x)
 
 #define GLXEW_GET_VAR(x) glxewGetContext()->x
 #define GLXEW_GET_FUN(x) x
@@ -12,6 +16,8 @@ extern GLenum glxewContextInit (GLXEWContext* ctx);
 
 #define GLXEW_GET_VAR(x) x
 #define GLXEW_GET_FUN(x) x
+
+extern GLboolean glxewIsSupported (const char* name);
 
 #endif /* GLEW_MX */
 
