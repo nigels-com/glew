@@ -1,4 +1,3 @@
-##
 ## Copyright (C) 2004, 2003 Marcelo E. Magallon <mmagallo[at]debian org>
 ## Copyright (C) 2004, 2003 Milan Ikits <milan ikits[at]ieee org>
 ##
