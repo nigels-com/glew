@@ -3,19 +3,19 @@
 
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
 
-GLboolean glxewGetExtension (const GLubyte* name)
+GLboolean glxewGetExtension (const char* name)
 {    
   GLubyte* p;
   GLubyte* end;
-  GLuint len = _glewStrLen(name);
-  if (glXQueryExtensionsString == NULL || glXGetCurrentDisplay == NULL) return GL_FALSE;
-  p = (GLubyte*)glXQueryExtensionsString(glXGetCurrentDisplay(), DefaultScreen(glXGetCurrentDisplay()));
+  GLuint len = _glewStrLen((const GLubyte*)name);
+  if (glXQueryExtensionsString == NULL || glxewDefaultContext->__glewXGetCurrentDisplay == NULL) return GL_FALSE;
+  p = (GLubyte*)glXQueryExtensionsString(glxewDefaultContext->__glewXGetCurrentDisplay(), DefaultScreen(glxewDefaultContext->__glewXGetCurrentDisplay()));
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
   {
     GLuint n = _glewStrCLen(p, ' ');
-    if (len == n && _glewStrSame(name, p, n)) return GL_TRUE;
+    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
     p += n+1;
   }
   return GL_FALSE;
@@ -26,6 +26,7 @@ GLenum glxewContextInit (GLXEWContext* ctx)
   int major, minor;
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2(ctx)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  glxewDefaultContext->__glewXGetCurrentDisplay = ctx->__glewXGetCurrentDisplay;
   /* query GLX version */
   glXQueryVersion(glXGetCurrentDisplay(), &major, &minor);
   ctx->__GLXEW_VERSION_1_0 = GL_FALSE;

@@ -44,9 +44,9 @@ int main (int argc, char** argv)
   fprintf(f, "---------------------------\n\n");
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
 #ifdef _WIN32
-  fprintf(f, "Reporting capabilities of PixelFormat %d\n", visual);
+  fprintf(f, "Reporting capabilities of pixelformat %d\n", visual);
 #else
-  fprintf(f, "Reporting capabilities of Display %s, Visual %d\n", 
+  fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n", 
     display == NULL ? getenv("DISPLAY") : display, visual);
 #endif
   fprintf(f, "Running on a %s from %s\n", 

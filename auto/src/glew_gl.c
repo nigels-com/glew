@@ -32,18 +32,18 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
-GLboolean glewGetExtension (const GLubyte* name)
+GLboolean glewGetExtension (const char* name)
 {    
   GLubyte* p;
   GLubyte* end;
-  GLuint len = _glewStrLen(name);
+  GLuint len = _glewStrLen((const GLubyte*)name);
   p = (GLubyte*)glGetString(GL_EXTENSIONS);
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
   {
     GLuint n = _glewStrCLen(p, ' ');
-    if (len == n && _glewStrSame(name, p, n)) return GL_TRUE;
+    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
     p += n+1;
   }
   return GL_FALSE;

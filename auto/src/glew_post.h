@@ -25,7 +25,7 @@ GLEWAPI GLboolean glewExperimental;
 GLEWAPI GLenum glewInit ();
 GLEWAPI GLenum glewContextInit (GLEWContext* ctx);
 
-GLEWAPI GLboolean glewGetExtension (const GLubyte* name);
+GLEWAPI GLboolean glewGetExtension (const char* name);
 GLEWAPI const GLubyte* glewGetErrorString (GLenum error);
 GLEWAPI const GLubyte* glewGetString (GLenum name);
 

@@ -11,7 +11,7 @@ extern GLXEWContext* glxewGetContext();
 #endif /* GLEW_MX */
 
 extern GLenum glxewContextInit (GLXEWContext* ctx);
-extern GLboolean glxewGetExtension (const GLubyte* name);
+extern GLboolean glxewGetExtension (const char* name);
 
 #ifdef __cplusplus
 }
