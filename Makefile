@@ -1,4 +1,4 @@
-#! gmake
+#!gmake
 ## The OpenGL Extension Wrangler Library
 ## Copyright (C) 2003, 2002, Milan Ikits <milan.ikits@ieee.org>
 ## Copyright (C) 2003, 2002, Marcelo E. Magallon <mmagallo@debian.org>
@@ -41,7 +41,6 @@ TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 SHELL = /bin/sh
 SYSTEM = $(strip $(shell uname -s))
 
-
 # ----------------------------------------------------------------------------
 # Cygwin
 # ----------------------------------------------------------------------------
@@ -53,10 +52,9 @@ CFLAGS.EXTRA = -DGLEW_STATIC
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA =
-
 WARN = -Wall -W
+POPT = -O2
 BIN.SUFFIX = .exe
-
 LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
 LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
@@ -76,6 +74,7 @@ LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -Wall -W
+POPT = -O2
 BIN.SUFFIX =
 LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
@@ -99,6 +98,7 @@ LDFLAGS.EXTRA =
 LDFLAGS.GL = -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn -woff 1110,1498
+POPT = -O2
 BIN.SUFFIX =
 LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
@@ -125,6 +125,7 @@ endif
 NAME = GLEW
 BIN.SUFFIX =
 WARN = -Wall -W
+POPT = -O2
 LIB.SONAME = lib$(NAME).$(GLEW_MAJOR).dylib
 LIB.DEVLNK = lib$(NAME).dylib
 LIB.SHARED = lib$(NAME).$(GLEW_VERSION).dylib
@@ -132,7 +133,28 @@ LIB.STATIC = lib$(NAME).a
 
 else
 # ----------------------------------------------------------------------------
+# Solaris
+# ----------------------------------------------------------------------------
+ifeq ($(patsubst SunOS%,SunOS,$(SYSTEM)), SunOS)
+NAME = GLEW
+CC = cc
+LD = ld
+CFLAGS.EXTRA = -I/usr/openwin/include
+LDFLAGS.SO = -shared
+LDFLAGS.EXTRA = -L/usr/openwin/lib
+LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+NAME = GLEW
+BIN.SUFFIX =
+WARN =
+POPT = -xO2
+LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.STATIC = lib$(NAME).a
+else
+# ----------------------------------------------------------------------------
 $(error "Platform '$(SYSTEM)' not supported")
+endif
 endif
 endif
 endif
@@ -146,7 +168,7 @@ ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
 STRIP =
 else
-OPT = -O2
+OPT = $(POPT)
 STRIP = -s
 endif
 INCLUDE = -Iinclude

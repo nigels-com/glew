@@ -75,7 +75,7 @@ my %typemap = (
 );
 
 my %voidtypemap = (
-    void     => "GLvoid ",
+    void    => "GLvoid",
 );
 
 my %taboo_tokens = (

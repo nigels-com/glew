@@ -42,7 +42,7 @@
 #  if defined(__APPLE__)
 #    define glewGetProcAddress(name) NSGLGetProcAddress(name)
 #  else
-#    if defined(__sgi)
+#    if defined(__sgi) || defined(__sun)
 #      define glewGetProcAddress(name) dlGetProcAddress(name)
 #    else /* __linux */
 #      define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
@@ -55,13 +55,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void* NSGLGetProcAddress (const char* name)
+static void *NSGLGetProcAddress (const GLubyte *name)
 {
   NSSymbol symbol;
-  char* symbolName;
+  char *symbolName;
   /* prepend a '_' for the Unix C symbol mangling convention */
-  symbolName = malloc(strlen(name) + 2);
-  strcpy(symbolName+1, name);
+  symbolName = malloc(strlen((const char *)name) + 2);
+  strcpy(symbolName+1, (const char *)name);
   symbolName[0] = '_';
   symbol = NULL;
   if (NSIsSymbolNameDefined(symbolName))
@@ -71,14 +71,14 @@ static void* NSGLGetProcAddress (const char* name)
 }
 #endif /* __APPLE__ */
 
-#if defined(__sgi)
+#if defined(__sgi) || defined (__sun)
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-static void* dlGetProcAddress (const char* name)
+static void *dlGetProcAddress (const GLubyte* name)
 {
-  static void* h = NULL;
+  static void *h = NULL;
   static void *gpa;
 
   if (h == NULL)
@@ -88,11 +88,11 @@ static void* dlGetProcAddress (const char* name)
   }
 
   if (gpa != NULL)
-    return ((void* (*)(const GLubyte*))gpa)((const GLubyte*)name);
+    return ((void *(*)(const GLubyte *))gpa)(name);
   else
-    return dlsym(h, name);
+    return dlsym(h, (const char *)name);
 }
-#endif /* __sgi */
+#endif /* __sgi || __sun */
 
 /* ----------------------------- GL_VERSION_1_1 ---------------------------- */
 

@@ -51,7 +51,7 @@ foreach my $ext (sort @extlist)
     $extpre =~ s/^(W?)GL(X?).*$/\l$1gl\l$2ew/;
     
     print "#ifdef $extname\n";
-    print "  $extvar = " . $extpre . "GetExtension(\"$extname\");\n";
+    print "  $extvar = " . $extpre . "GetExtension((const GLubyte*)\"$extname\");\n";
     if (keys %$functions)
     {
         if ($extname =~ /WGL_.*/)

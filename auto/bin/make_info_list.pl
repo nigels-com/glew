@@ -24,7 +24,7 @@ sub make_pfn_def($%)
 sub make_init_call($%)
 {
     my $name = prefixname($_[0]);
-    return "  r = r || (" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress(\"" . $name . "\")) == NULL;";
+    return "  r = r || (" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $name . "\")) == NULL;";
 }
 
 #---------------------------------------------------------------------------------------

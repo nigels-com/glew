@@ -75,7 +75,7 @@ static void glewInfoFunc (const GLubyte* name, GLint undefined)
 
 static void _glewInfo_GL_VERSION_1_1 (void)
 {
-  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1);
+  glewPrintExt((const GLubyte*)"GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1);
 }
 
 #endif /* GL_VERSION_1_1 */
