@@ -83,13 +83,13 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 
 $(S.DEST)/glew.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.c $@
-	$(BIN)/make_struct_def.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	$(BIN)/make_def.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	echo -e "\n#endif /* !_WIN32 || !GLEW_MX */\n" >> $@
 	echo -e "#if defined(_WIN32) && !defined(GLEW_MX)" >> $@
-	$(BIN)/make_struct_def.pl WGL $(EXT)/WGL_* >> $@
+	$(BIN)/make_def.pl WGL $(EXT)/WGL_* >> $@
 	echo -e "\n#endif /* _WIN32 && !GLEW_MX */\n" >> $@
 	echo -e "#if !(defined(_WIN32) || (defined(__APPLE__) && !defined(GLEW_APPLE_GLX)))" >> $@
-	$(BIN)/make_struct_def.pl GLX $(EXT)/GLX_* >> $@
+	$(BIN)/make_def.pl GLX $(EXT)/GLX_* >> $@
 	echo -e "\n#endif /* !_WIN32 */\n" >> $@
 	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@
