@@ -17,7 +17,7 @@ do 'bin/make.pl';
 # function pointer definition
 sub make_pfn_info($%)
 {
-    my $name = prefixname($_[0]);
+    my $name = $_[0];
     return "  glewInfoFunc((const GLubyte*)\"$_[0]\", $name == NULL);";
 }
 

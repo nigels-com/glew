@@ -19,7 +19,15 @@ my %regex = (
 sub prefixname($)
 {
     my $name = $_[0];
-    $name =~ s/^(.*)gl/$1glew/;
+    $name =~ s/^(.*)gl/__$1glew/;
+    return $name;
+}
+
+# prefix function name with glew
+sub prefix_varname($)
+{
+    my $name = $_[0];
+    $name =~ s/^(.*)GLEW/__$1GLEW/;
     return $name;
 }
 

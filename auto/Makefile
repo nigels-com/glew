@@ -13,7 +13,7 @@ GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
 SHELL = bash
 REGISTRY = registry
-REGISTRY_URL =  http://oss.sgi.com/projects/ogl-sample/registry/
+REGISTRY_URL = http://oss.sgi.com/projects/ogl-sample/registry/
 BIN = bin
 SRC = src
 CORE = core
@@ -58,16 +58,20 @@ endif
 $(I.DEST)/glew.h: $(EXT)/.dummy
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
 	cp -f $(SRC)/glew_pre.h $@
-	$(BIN)/make_header.pl GLAPIENTRY $(CORE)/GL_VERSION* >> $@
-	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
-	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
-	grep -v 'glBlendEquation' > $@; rm tmp;
-	$(BIN)/make_header.pl GLAPIENTRY $(EXT)/GL_* >> $@
+	$(BIN)/make_header_def.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
+# 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
+# 	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
+# 	grep -v 'glBlendEquation' > $@; rm tmp;
+	$(BIN)/make_header_def.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
+	$(BIN)/make_struct.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/\n  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
+	rm -f $@.bak
 	cat $(SRC)/glew_post.h >> $@
 
 $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cp -f $(SRC)/wglew_pre.h $@
-	$(BIN)/make_header.pl WINAPI $(EXT)/WGL_* >> $@
+	$(BIN)/make_header_def.pl WINAPI WGL $(EXT)/WGL_* >> $@
+	$(BIN)/make_struct.pl WGL $(EXT)/WGL_* >> $@
 	cat $(SRC)/wglew_post.h >> $@
 
 $(I.DEST)/glxew.h: $(EXT)/.dummy
@@ -79,17 +83,16 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 
 $(S.DEST)/glew.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.c $@
-	$(BIN)/make_init.pl $(CORE)/GL_VERSION* >> $@
-	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
-	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
-	grep -v 'glBlendEquation' > $@; rm tmp;
-	$(BIN)/make_init.pl $(EXT)/GL_* >> $@
+	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
+# 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
+# 	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
+# 	grep -v 'glBlendEquation' > $@; rm tmp;
+	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@
 	echo -e "#ifdef _WIN32\n" >> $@
-	$(BIN)/make_init.pl $(EXT)/WGL_* >> $@
+	$(BIN)/make_init.pl WGL $(EXT)/WGL_* >> $@
 	echo -e "#else /* _UNIX */\n\n" >> $@
-	cat $(SRC)/glew_init_glx.c >> $@
-	$(BIN)/make_init.pl $(CORE)/GLX_VERSION* >> $@
-	$(BIN)/make_init.pl $(EXT)/GLX_* >> $@
+	$(BIN)/make_init.pl GLX $(CORE)/GLX_VERSION* >> $@
+	$(BIN)/make_init.pl GLX $(EXT)/GLX_* >> $@
 	echo -e "#endif /* _WIN32 */\n" >> $@
 
 	cat $(SRC)/glew_gl.c >> $@

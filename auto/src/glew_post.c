@@ -37,11 +37,11 @@ GLboolean glewExperimental = GL_FALSE;
 GLenum glewInit ()
 {
   GLenum r;
-  if ( (r = _glewInit()) ) return r;
+  if ( (r = glewContextInit(glewDefaultContext)) ) return r;
 #if defined(_WIN32)
-  return _wglewInit();
+  return wglewContextInit(wglewDefaultContext);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
-  return _glxewInit();
+  return glxewContextInit(glxewDefaultContext);
 #else
   return r;
 #endif /* _WIN32 */

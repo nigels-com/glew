@@ -15,16 +15,10 @@ do 'bin/make.pl';
 #---------------------------------------------------------------------------------------
 
 # function pointer definition
-sub make_pfn_def($%)
-{
-    return "PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . " = NULL;";
-}
-
-# function pointer definition
 sub make_init_call($%)
 {
     my $name = prefixname($_[0]);
-    return "  r = r || (" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress(\"" . $name . "\")) == NULL;";
+    return "  r = r || (ctx->" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress(\"" . $name . "\")) == NULL;";
 }
 
 #---------------------------------------------------------------------------------------
@@ -49,18 +43,20 @@ foreach my $ext (sort @extlist)
 
     my $extpre = $extname;
     $extpre =~ s/^(W?)GL(X?).*$/\l$1gl\l$2ew/;
-    
+
+    my $pextvar = prefix_varname($extvar);
+
     print "#ifdef $extname\n";
-    print "  $extvar = " . $extpre . "GetExtension((const GLubyte*)\"$extname\");\n";
+    print "  ctx->" . $pextvar . "= " . $extpre . "GetExtension((const GLubyte*)\"$extname\");\n";
     if (keys %$functions)
     {
         if ($extname =~ /WGL_.*/)
         {
-            print "  if (glewExperimental || $extvar || crippled) $extvar = !_glewInit_$extname();\n";
+            print "  if (glewExperimental || ctx->" . $pextvar . "|| crippled) ctx->" . $pextvar . "= !_glewInit_$extname(ctx);\n";
         }
         else
         {
-            print "  if (glewExperimental || $extvar) $extvar = !_glewInit_$extname();\n";
+            print "  if (glewExperimental || ctx->" . $pextvar . ") ctx->" . $pextvar . " = !_glewInit_$extname(ctx);\n";
         }
     }
     print "#endif /* $extname */\n";

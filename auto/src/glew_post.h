@@ -11,8 +11,20 @@
 #define GLEW_VERSION 1
 
 /* API */
+#ifdef GLEW_MX
+#  define GLEW_GET_CONTEXT(x) glewGetContext()->##x
+#else
+#  define GLEW_GET_CONTEXT(x) glewDefaultContext->##x
+#endif /* GLEW_MX */
+
+typedef struct GLEWContextStruct GLEWContext;
+
+GLEWAPI GLEWContext* glewDefaultContext;
 GLEWAPI GLboolean glewExperimental;
+
 GLEWAPI GLenum glewInit ();
+GLEWAPI GLenum glewContextInit (GLEWContext* ctx);
+
 GLEWAPI GLboolean glewGetExtension (const GLubyte* name);
 GLEWAPI const GLubyte* glewGetErrorString (GLenum error);
 GLEWAPI const GLubyte* glewGetString (GLenum name);
@@ -37,6 +49,7 @@ GLEWAPI const GLubyte* glewGetString (GLenum name);
 #undef WINGDIAPI
 #endif
 
+/* #undef GLEW_GET_CONTEXT */
 #undef GLAPI
 /* #undef GLEWAPI */
 

@@ -36,7 +36,7 @@ sub make_pfn_type($%)
 # function name alias
 sub make_pfn_alias($%)
 {
-    return join(" ", "#define", $_[0], prefixname($_[0]))
+    return join(" ", "#define", $_[0], "GLEW_GET_CONTEXT(", $_[0], ")")
 }
 
 # function pointer declaration
@@ -73,6 +73,7 @@ foreach my $ext (sort @extlist)
 
     my $extvar = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
-    print "\nGLEWAPI GLboolean $extvar;\n\n";
-    print "#endif /* $extname */\n\n";
+    print "\nGLEWAPI GLboolean _$extvar;\n";
+    print "\n#define $extvar GLEW_GET_CONTEXT($extvar);\n";
+    print "\n#endif /* $extname */\n\n";
 }

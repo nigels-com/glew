@@ -5,21 +5,21 @@
  * These functions implement the functionality required in this file.
  */
 
-static GLuint _glewStrLen (const GLubyte *s)
+static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
   while (s+i != NULL && s[i] != '\0') i++;
   return i;
 }
 
-static GLuint _glewStrCLen (const GLubyte *s, GLubyte c)
+static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
 {
   GLuint i=0;
   while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
   return i;
 }
 
-static GLboolean _glewStrSame (const GLubyte *a, const GLubyte *b, GLuint n)
+static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
   while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
@@ -32,9 +32,10 @@ static GLboolean _glewStrSame (const GLubyte *a, const GLubyte *b, GLuint n)
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
-GLboolean glewGetExtension (const GLubyte *name)
+GLboolean glewGetExtension (const GLubyte* name)
 {    
-  GLubyte *p, *end;
+  GLubyte* p;
+  GLubyte* end;
   GLuint len = _glewStrLen(name);
   p = (GLubyte*)glGetString(GL_EXTENSIONS);
   if (0 == p) return GL_FALSE;
@@ -50,7 +51,7 @@ GLboolean glewGetExtension (const GLubyte *name)
 
 /* ------------------------------------------------------------------------- */
 
-static GLuint _glewInit ()
+GLenum glewContextInit (GLEWContext* ctx)
 {
   const GLubyte* s;
   GLuint i;
@@ -66,33 +67,43 @@ static GLuint _glewInit ()
   {
     if (s[3] >= '5')
     {
-      GLEW_VERSION_1_1 = GL_TRUE;
-      GLEW_VERSION_1_2 = GL_TRUE;
-      GLEW_VERSION_1_3 = GL_TRUE;
-      GLEW_VERSION_1_4 = GL_TRUE;
-      GLEW_VERSION_1_5 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_4 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_5 = GL_TRUE;
     }
     if (s[2] == '4')
     {
-      GLEW_VERSION_1_1 = GL_TRUE;
-      GLEW_VERSION_1_2 = GL_TRUE;
-      GLEW_VERSION_1_3 = GL_TRUE;
-      GLEW_VERSION_1_4 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_4 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] == '3')
     {
-      GLEW_VERSION_1_1 = GL_TRUE;
-      GLEW_VERSION_1_2 = GL_TRUE;
-      GLEW_VERSION_1_3 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_3 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] == '2')
     {
-      GLEW_VERSION_1_1 = GL_TRUE;
-      GLEW_VERSION_1_2 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_2 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_3 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
     }
     if (s[2] < '2')
     {
-      GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_1 = GL_TRUE;
+      ctx->__GLEW_VERSION_1_2 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_3 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_4 = GL_FALSE;
+      ctx->__GLEW_VERSION_1_5 = GL_FALSE;
     }
   }
   /* initialize extensions */

@@ -94,11 +94,14 @@ static void *dlGetProcAddress (const GLubyte* name)
 }
 #endif /* __sgi || __sun */
 
-/* ----------------------------- GL_VERSION_1_1 ---------------------------- */
+GLEWContext _glewDefaultContext;
+GLEWContext* glewDefaultContext = &_glewDefaultContext;
 
-#ifdef GL_VERSION_1_1
-
-GLboolean GLEW_VERSION_1_1 = GL_FALSE;
-
-#endif /* GL_VERSION_1_1 */
+#if defined(_WIN32)
+WGLEWContext _wglewDefaultContext;
+WGLEWContext* wglewDefaultContext = &_wglewDefaultContext;
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+GLXEWContext _glxewDefaultContext;
+GLXEWContext* glxewDefaultContext = &_glxewDefaultContext;
+#endif
 

@@ -15,22 +15,18 @@ do 'bin/make.pl';
 #---------------------------------------------------------------------------------------
 
 # function pointer definition
-sub make_pfn_def($%)
-{
-    return "PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . " = NULL;";
-}
-
-# function pointer definition
 sub make_pfn_def_init($%)
 {
     my $name = prefixname($_[0]);
-    return "  r = ((" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
+    return "  r = ((ctx->" . $name . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
 }
 
 #---------------------------------------------------------------------------------------
 
 my @extlist = ();
 my %extensions = ();
+
+our $type = shift;
 
 if (@ARGV)
 {
@@ -45,21 +41,16 @@ foreach my $ext (sort @extlist)
     my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
     make_separator($extname);
-    print "#ifdef $extname\n";
-    if (keys %$functions)
-    {
-	output_decls($functions, \&make_pfn_def);
-	print "\n";
-    }
+    print "#ifdef $extname\n\n";
     my $extvar = $extname;
     my $extvardef = $extname;
     $extvar =~ s/GL(X*)_/GL$1EW_/;
     if (keys %$functions)
     {
-	print "static GLboolean _glewInit_$extname (void)\n{\n  GLboolean r = GL_FALSE;\n";
+	print "static GLboolean _glewInit_$extname (" . $type . "EWContext* ctx)\n{\n  GLboolean r = GL_FALSE;\n";
 	output_decls($functions, \&make_pfn_def_init);
 	print "\n  return r;\n}\n";
     }
-    print "\nGLboolean $extvar = GL_FALSE;\n\n";
+    #print "\nGLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n\n";
     print "#endif /* $extname */\n\n";
 }

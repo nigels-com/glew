@@ -5,17 +5,18 @@
 
 #ifdef _WIN32
 
-GLboolean wglewGetExtension (const GLubyte *name)
+GLboolean wglewGetExtension (const GLubyte* name)
 {    
-  GLubyte *p, *end;
+  GLubyte* p;
+  GLubyte* end;
   GLuint len = _glewStrLen(name);
-  if (wglGetExtensionsStringARB == NULL)
-    if (wglGetExtensionsStringEXT == NULL)
+  if (wglewDefaultContext->__wglewGetExtensionsStringARB == NULL)
+    if (wglewDefaultContext->__wglewGetExtensionsStringEXT == NULL)
       return GL_FALSE;
     else
-      p = (GLubyte*)wglGetExtensionsStringEXT();
+      p = (GLubyte*)wglewDefaultContext->__wglewGetExtensionsStringEXT();
   else
-    p = (GLubyte*)wglGetExtensionsStringARB(wglGetCurrentDC());
+    p = (GLubyte*)wglewDefaultContext->__wglewGetExtensionsStringARB(wglGetCurrentDC());
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
@@ -27,13 +28,17 @@ GLboolean wglewGetExtension (const GLubyte *name)
   return GL_FALSE;
 }
 
-static GLuint _wglewInit ()
+GLenum wglewContextInit (WGLEWContext* ctx)
 {
   GLboolean crippled;
   /* find wgl extension string query functions */
-  _glewInit_WGL_ARB_extensions_string();
-  WGLEW_ARB_extensions_string = wglGetExtensionsStringARB != NULL;
-  _glewInit_WGL_EXT_extensions_string();
-  WGLEW_EXT_extensions_string = wglGetExtensionsStringEXT != NULL;
+  _glewInit_WGL_ARB_extensions_string(ctx);
+  ctx->__WGLEW_ARB_extensions_string = (ctx->__wglewGetExtensionsStringARB != NULL);
+  wglewDefaultContext->__wglewGetExtensionsStringARB = ctx->__wglewGetExtensionsStringARB;
+  wglewDefaultContext->__WGLEW_ARB_extensions_string = ctx->__WGLEW_ARB_extensions_string;
+  _glewInit_WGL_EXT_extensions_string(ctx);
+  ctx->__WGLEW_EXT_extensions_string = (ctx->__wglewGetExtensionsStringEXT != NULL);
+  wglewDefaultContext->__wglewGetExtensionsStringEXT = ctx->__wglewGetExtensionsStringEXT;
+  wglewDefaultContext->__WGLEW_EXT_extensions_string = ctx->__WGLEW_EXT_extensions_string;
   /* initialize extensions */
-  crippled = !(WGLEW_ARB_extensions_string || WGLEW_EXT_extensions_string);
+  crippled = !(ctx->__WGLEW_ARB_extensions_string || ctx->__WGLEW_EXT_extensions_string);

@@ -3,9 +3,10 @@
 
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
 
-GLboolean glxewGetExtension (const GLubyte *name)
+GLboolean glxewGetExtension (const GLubyte* name)
 {    
-  GLubyte *p, *end;
+  GLubyte* p;
+  GLubyte* end;
   GLuint len = _glewStrLen(name);
   if (glXQueryExtensionsString == NULL || glXGetCurrentDisplay == NULL) return GL_FALSE;
   p = (GLubyte*)glXQueryExtensionsString(glXGetCurrentDisplay(), DefaultScreen(glXGetCurrentDisplay()));
@@ -20,23 +21,28 @@ GLboolean glxewGetExtension (const GLubyte *name)
   return GL_FALSE;
 }
 
-static GLuint _glxewInit ()
+GLenum glxewContextInit (GLXEWContext* ctx)
 {
   int major, minor;
   /* initialize core GLX 1.2 */
-  if (_glewInit_GLX_VERSION_1_2()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  if (_glewInit_GLX_VERSION_1_2(ctx)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* query GLX version */
   glXQueryVersion(glXGetCurrentDisplay(), &major, &minor);
+  ctx->__GLXEW_VERSION_1_0 = GL_FALSE;
+  ctx->__GLXEW_VERSION_1_1 = GL_FALSE;
+  ctx->__GLXEW_VERSION_1_2 = GL_FALSE;
+  ctx->__GLXEW_VERSION_1_3 = GL_FALSE;
+  ctx->__GLXEW_VERSION_1_4 = GL_FALSE;
   switch (minor)
   {
     case 4:
-    GLXEW_VERSION_1_4 = GL_TRUE;
+    ctx->__GLXEW_VERSION_1_4 = GL_TRUE;
     case 3:
-    GLXEW_VERSION_1_3 = GL_TRUE;
+    ctx->__GLXEW_VERSION_1_3 = GL_TRUE;
     case 2:
-    GLXEW_VERSION_1_2 = GL_TRUE;
-    GLXEW_VERSION_1_1 = GL_TRUE;
-    GLXEW_VERSION_1_0 = GL_TRUE;
+    ctx->__GLXEW_VERSION_1_2 = GL_TRUE;
+    ctx->__GLXEW_VERSION_1_1 = GL_TRUE;
+    ctx->__GLXEW_VERSION_1_0 = GL_TRUE;
     break;
     default:
     return GLEW_ERROR_GLX_VERSION_11_ONLY;
