@@ -58,11 +58,11 @@ endif
 $(I.DEST)/glew.h: $(EXT)/.dummy
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
 	cp -f $(SRC)/glew_pre.h $@
-	$(BIN)/make_header_def.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
+	$(BIN)/make_header.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
 # 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
 # 	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
 # 	grep -v 'glBlendEquation' > $@; rm tmp;
-	$(BIN)/make_header_def.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
+	$(BIN)/make_header.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
 	$(BIN)/make_struct.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/\n  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
 	rm -f $@.bak
@@ -70,7 +70,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 
 $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cp -f $(SRC)/wglew_pre.h $@
-	$(BIN)/make_header_def.pl WINAPI WGL $(EXT)/WGL_* >> $@
+	$(BIN)/make_header.pl WINAPI WGL $(EXT)/WGL_* >> $@
 	$(BIN)/make_struct.pl WGL $(EXT)/WGL_* >> $@
 	cat $(SRC)/wglew_post.h >> $@
 

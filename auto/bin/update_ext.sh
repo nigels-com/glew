@@ -37,17 +37,14 @@ if [ ! -d $1 ] ; then
 # fix GL_NV_occlusion_query and GL_HP_occlusion_test
     grep -v '_HP' $1/GL_NV_occlusion_query > tmp
     mv tmp $1/GL_NV_occlusion_query
-    perl -e's/OCCLUSION_TEST_HP.*/OCCLUSION_TEST_HP 0x8165/' -pi.bak \
+    perl -e's/OCCLUSION_TEST_HP.*/OCCLUSION_TEST_HP 0x8165/' -pi \
 	$1/GL_HP_occlusion_test
-    rm -f $1/GL_HP_occlusion_test.bak
-    perl -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' -pi.bak \
+    perl -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' -pi \
 	$1/GL_HP_occlusion_test
-    rm -f $1/GL_HP_occlusion_test.bak
 
 # fix GLvoid in GL_ARB_vertex_buffer_objects
-    perl -e 's/ void\*/ GLvoid\*/g' -pi.bak \
+    perl -e 's/ void\*/ GLvoid\*/g' -pi \
         $1/GL_ARB_vertex_buffer_object
-    rm -f $1/GL_ARB_vertex_buffer_object.bak
 
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
@@ -111,14 +108,10 @@ EOT
     rm -f $1/GL_SUN_multi_draw_arrays
 
 # change variable names in GL_ARB_vertex_shader
-    perl -e 's/v0/x/g' -pi.bak $1/GL_ARB_vertex_shader
-    rm -f $1/GL_ARB_vertex_shader.bak
-    perl -e 's/v1/y/g' -pi.bak $1/GL_ARB_vertex_shader
-    rm -f $1/GL_ARB_vertex_shader.bak
-    perl -e 's/v2/z/g' -pi.bak $1/GL_ARB_vertex_shader
-    rm -f $1/GL_ARB_vertex_shader.bak
-    perl -e 's/v3/w/g' -pi.bak $1/GL_ARB_vertex_shader
-    rm -f $1/GL_ARB_vertex_shader.bak
+    perl -e 's/v0/x/g' -pi $1/GL_ARB_vertex_shader
+    perl -e 's/v1/y/g' -pi $1/GL_ARB_vertex_shader
+    perl -e 's/v2/z/g' -pi $1/GL_ARB_vertex_shader
+    perl -e 's/v3/w/g' -pi $1/GL_ARB_vertex_shader
 
 # remove triplicates in GL_ARB_shader_objects, GL_ARB_fragment_shader, 
 # and GL_ARB_vertex_shader
@@ -141,8 +134,7 @@ EOT
 # fix bugs in GL_ARB_vertex_shader
     grep -v "GL_FLOAT" $1/GL_ARB_vertex_shader > tmp
     mv tmp $1/GL_ARB_vertex_shader
-    perl -e 's/handle /GLhandleARB /g' -pi.bak $1/GL_ARB_vertex_shader
-    rm -f $1/GL_ARB_vertex_shader.bak
+    perl -e 's/handle /GLhandleARB /g' -pi $1/GL_ARB_vertex_shader
 
 # fix bugs in GL_ARB_shader_objects
     grep -v "GL_FLOAT " $1/GL_ARB_shader_objects > tmp
@@ -157,5 +149,9 @@ EOT
 EOT
 
 # fix const correctness in GL_ARB_shader_objects
+    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
+
+# clean up
+    rm -f $1/*.bak
 
 fi
