@@ -122,17 +122,17 @@ typedef unsigned short wchar_t;
 #endif
 
 /*
- * GLEW_DLL needs to be set when using the DLL version.
+ * GLEW_STATIC needs to be set when using the static version.
  * GLEW_BUILD is set when building the DLL version.
  */
-#ifdef GLEW_DLL
+#ifdef GLEW_STATIC
+#  define GLEW_EXPORT
+#else
 #  ifdef GLEW_BUILD
 #    define GLEW_EXPORT __declspec(dllexport)
 #  else
 #    define GLEW_EXPORT __declspec(dllimport)
 #  endif
-#else
-#  define GLEW_EXPORT
 #endif
 
 #else /* _UNIX */
@@ -2140,8 +2140,8 @@ extern GLEW_EXPORT PFNGLMULTTRANSPOSEMATRIXDARBPROC glMultTransposeMatrixdARB;
 #define GL_BUFFER_MAPPED_ARB                                    0x88BC
 #define GL_BUFFER_MAP_POINTER_ARB                               0x88BD
 
-typedef size_t GLsizeiptrARB;
-typedef size_t GLintptrARB;
+typedef int GLsizeiptrARB;
+typedef int GLintptrARB;
 
 typedef void (APIENTRY * PFNGLBINDBUFFERARBPROC) (GLenum target, GLuint buffer);
 typedef void (APIENTRY * PFNGLDELETEBUFFERSARBPROC) (GLsizei n, const GLuint *buffers);

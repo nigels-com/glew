@@ -74,17 +74,17 @@
 #endif
 
 /*
- * GLEW_DLL needs to be set when using the DLL version.
+ * GLEW_STATIC needs to be set when using the static version.
  * GLEW_BUILD is set when building the DLL version.
  */
-#ifdef GLEW_DLL
+#ifdef GLEW_STATIC
+#  define GLEW_EXPORT
+#else
 #  ifdef GLEW_BUILD
 #    define GLEW_EXPORT __declspec(dllexport)
 #  else
 #    define GLEW_EXPORT __declspec(dllimport)
 #  endif
-#else
-#  define GLEW_EXPORT
 #endif
 
 #ifdef __cplusplus

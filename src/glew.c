@@ -2640,28 +2640,28 @@ static GLboolean _glxewInit_SUN_get_transparent_index ()
  * These functions only implement the functionality required in this file.
  */
 
-int _glewStrLen (const char *s)
+static int _glewStrLen (const char *s)
 {
   int i=0;
   while (s+i != NULL && s[i] != '\0') i++;
   return i;
 }
 
-int _glewStrCLen (const char *s, char c)
+static int _glewStrCLen (const char *s, char c)
 {
   int i=0;
   while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
   return i;
 }
 
-int _glewStrSame (const char *a, const char *b, int n)
+static int _glewStrSame (const char *a, const char *b, int n)
 {
   int i=0;
   while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
   return i == n;
 }
 
-void* _glewMemSet (void *s, char c, int n)
+static void* _glewMemSet (void *s, char c, int n)
 {
   int i;
   char* d=(char*)s;

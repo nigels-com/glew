@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GLEW_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /W3 /O2 /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_DLL" /D "GLEW_BUILD" /YX /FD /c
+# ADD CPP /nologo /W3 /O2 /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_BUILD" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -53,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 opengl32.lib /nologo /dll /machine:I386 /out:"../../lib/shared/glew32.dll" /ignore:4089
+# ADD LINK32 opengl32.lib /nologo /dll /machine:I386 /def:"glew32.def" /out:"../../lib/shared/glew32.dll" /ignore:4089
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Debug"
@@ -70,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GLEW_EXPORTS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_BUILD" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_BUILD" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
