@@ -102,7 +102,7 @@ GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
     else if (!strcmp(argv[p], "-visual"))
     {
       if (++p >= argc) return GL_TRUE;
-      *visual = strtol(argv[p++], NULL, 0);
+      *visual = (int)strtol(argv[p++], NULL, 0);
     }
     else
       return GL_TRUE;
