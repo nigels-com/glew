@@ -47,7 +47,7 @@ foreach my $ext (sort @extlist)
     my $pextvar = prefix_varname($extvar);
 
     print "#ifdef $extname\n";
-    print "  ctx->" . $pextvar . "= " . $extpre . "GetExtension((const GLubyte*)\"$extname\");\n";
+    print "  ctx->" . $pextvar . "= " . $extpre . "GetExtension(\"$extname\");\n";
     if (keys %$functions)
     {
         if ($extname =~ /WGL_.*/)

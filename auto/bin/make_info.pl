@@ -18,7 +18,7 @@ do 'bin/make.pl';
 sub make_pfn_info($%)
 {
     my $name = $_[0];
-    return "  glewInfoFunc((const GLubyte*)\"$_[0]\", $name == NULL);";
+    return "  glewInfoFunc(\"$_[0]\", $name == NULL);";
 }
 
 #---------------------------------------------------------------------------------------
@@ -48,12 +48,12 @@ foreach my $ext (sort @extlist)
     print "static void _glewInfo_$extname (void)\n{\n";
     if ($extvar =~ /VERSION/)
     {
-        print "  glewPrintExt((const GLubyte*)\"$extname\", $extvar, $extvar);\n";
+        print "  glewPrintExt(\"$extname\", $extvar, $extvar);\n";
     }
     else
     {
-        print "  glewPrintExt((const GLubyte*)\"$extname\", $extvar, $extpre" .
-            "ewGetExtension((const GLubyte*)\"$extname\"));\n";
+        print "  glewPrintExt(\"$extname\", $extvar, $extpre" .
+            "ewGetExtension(\"$extname\"));\n";
     }
     output_decls($functions, \&make_pfn_info);
     print "}\n\n";

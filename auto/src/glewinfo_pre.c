@@ -57,26 +57,26 @@ void glewDestroyContext ();
 
 /* ------------------------------------------------------------------------- */
 
-static void glewPrintExt (const GLubyte* name, GLint def1, GLint def2)
+static void glewPrintExt (const char* name, GLint def1, GLint def2)
 {
   unsigned int i;
   fprintf(f, "\n%s:", name);
-  for (i=0; i<62-strlen((const char*)name); i++) fprintf(f, " ");
+  for (i=0; i<62-strlen(name); i++) fprintf(f, " ");
   fprintf(f, "%s ", def1 ? "OK" : "MISSING");
   if (def1 != def2)
     fprintf(f, "[%s]\n", def2 ? "OK" : "MISSING");
   else
     fprintf(f, "\n");
-  for (i=0; i<strlen((const char*)name)+1; i++) fprintf(f, "-");
+  for (i=0; i<strlen(name)+1; i++) fprintf(f, "-");
   fprintf(f, "\n");
   fflush(f);
 }
 
-static void glewInfoFunc (const GLubyte* name, GLint undefined)
+static void glewInfoFunc (const char* name, GLint undefined)
 {
   unsigned int i;
   fprintf(f, "  %s:", name);
-  for (i=0; i<60-strlen((const char*)name); i++) fprintf(f, " ");
+  for (i=0; i<60-strlen(name); i++) fprintf(f, " ");
   fprintf(f, "%s\n", undefined ? "MISSING" : "OK");
   fflush(f);
 }
@@ -87,7 +87,7 @@ static void glewInfoFunc (const GLubyte* name, GLint undefined)
 
 static void _glewInfo_GL_VERSION_1_1 (void)
 {
-  glewPrintExt((const GLubyte*)"GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1);
+  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1);
 }
 
 #endif /* GL_VERSION_1_1 */
