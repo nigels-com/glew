@@ -41,6 +41,12 @@
 
 static FILE* f;
 
+#ifdef GLEW_MX
+GLEWContext _ctx;
+GLEWContext* ctx = &_ctx;
+#define glewGetContext() ctx
+#endif
+
 #if defined(_WIN32)
 GLboolean glewCreateContext (int* pixelformat);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)

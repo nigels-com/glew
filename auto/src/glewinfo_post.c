@@ -40,7 +40,11 @@ int main (void)
     return 1;
   }
   glewExperimental = GL_TRUE;
+#ifdef GLEW_MX
+  err = glewContextInit(ctx);
+#else
   err = glewInit();
+#endif
   if (GLEW_OK != err)
   {
     fprintf(stderr, "Error [main]: glewInit failed: %s\n", glewGetErrorString(err));
