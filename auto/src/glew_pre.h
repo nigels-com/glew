@@ -125,6 +125,19 @@
 #  endif
 #endif
 
+/*
+ * FIXME: the definition of ptrdiff_t is needed here, it's found in
+ * stddef.h.
+ *
+ * Since Windows doesn't actually _run_ on anything but PCs this will do
+ * for now.
+ *
+ * What does the compiler define when the target is a 64 bit platform
+ * anyway?  WIN64?
+ */
+
+typedef int                     ptrdiff_t;
+
 #ifndef GLAPI
 #  if defined(__CYGWIN__) || defined(__MINGW32__)
 #    define GLAPI extern
@@ -152,6 +165,17 @@
 #endif
 
 #else /* _UNIX */
+
+/*
+ * Needed for ptrdiff_t in turn needed by VBO.  This is defined by ISO
+ * C.  On my system, this amounts to _3 lines_ of included code, all of
+ * them pretty much harmless.  If you know of a way of detecting 32 vs
+ * 64 _targets_ at compile time you are free to replace this with
+ * something that's portable.  For now, _this_ is the portable solution.
+ * (mem, 2004-01-04)
+ */
+
+#include <stddef.h>
 
 #define GLEW_APIENTRY_DEFINED
 #define APIENTRY
