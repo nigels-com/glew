@@ -21,6 +21,7 @@ EXT = extensions
 BLACKLIST = blacklist
 
 PARSE_SPEC = parse_spec.pl
+SYSTEM = $(strip $(shell uname -s))
 
 TOP = ..
 I.DEST = $(TOP)/include/GL
@@ -43,8 +44,13 @@ $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 $(EXT)/.dummy: $(REGISTRY)/.dummy
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs -J % cp % $(EXT)
+else
+	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs cp --target-directory=$(EXT)
+endif
 	touch $@
+
 
 $(I.DEST)/glew.h: $(EXT)/.dummy
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
