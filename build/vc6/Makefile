@@ -1,5 +1,5 @@
-MSDEV := \msdev
-RM := \rm -rf
+MSDEV := msdev
+RM := rm -rf
 
 default:
 	$(MSDEV) glew.dsw /make \

@@ -1,6 +1,7 @@
 ## The OpenGL Extension Wrangler Library
-## Copyright (C) 2003, 2002, Milan Ikits
-## Copyright (C) 2002, Lev Povalahev
+## Copyright (C) 2003, 2002, Milan Ikits <milan.ikits@ieee.org>
+## Copyright (C) 2003, 2002, Marcelo E. Magallon <mmagallo@debian.org>
+## Copyright (C) 2002, Lev Povalahev <levp@gmx.net>
 ## All rights reserved.
 ## 
 ## Redistribution and use in source and binary forms, with or without 
@@ -27,81 +28,162 @@
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
 GLEW_DEST ?= /usr
-GLEW_VERSION = 1.0.7
+
+GLEW_MAJOR = 1
+GLEW_MINOR = 1
+GLEW_MICRO = 0
+GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
+
+TARDIR = ../glew-$(GLEW_VERSION)
+TARBALL = ../glew_$(GLEW_VERSION).tar.gz
+
+SHELL = /bin/sh
 
 SYSTEM = $(strip $(shell uname -s))
 
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
-CC = \gcc -mno-cygwin
-LD = \gcc -mno-cygwin
+CC = gcc
+EXTRA_CCFLAGS = -mno-cygwin
+EXTRA_LDFALGS =
+EXTRA_CPPFLAGS = -D'GLEW_STATIC'
 NAME = glew32
-DEFINE = -D'GLEW_STATIC'
-BIN.LIBS = -Llib -lglut -l$(NAME) -lglu32 -lopengl32 
 P.BIN = .exe
+
+GL_LDFLAGS = -lopengl32
+GLU_LDFLAGS = -lglu32
+GLUT_LDFLAGS = -lglut $(GLU_LDFLAGS) $(GL_LDFLAGS)
+
 else
 ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
-CC = \gcc
-LD = \ld
+CC = cc
+EXTRA_CCFLAGS = 
+EXTRA_LDFALGS = -L/usr/X11R6/lib
+EXTRA_CPPFLAGS =
 NAME = GLEW
-BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -l$(NAME) -lGLU -lGL -lXmu -lX11
 P.BIN =
+
+# Support broken systems which don't include proper inter-library
+# dependency information (several versions of RedHat and SuSE among
+# others).  Stuff needed by both GLUT and GL is included only in GL's
+# LDFLAGS.  Same thnig for GLU and GL.  Include the stuff needed only by
+# GLUT *before* the GL flags.  This probably breaks down on IRIX since
+# their linker works "the other way arround", but since that POS doesn't
+# support glXGetProcAddress, GLEW is rather uninteresting on that
+# platform. (mem)
+
+GL_LDFLAGS = -lGL -lXext -lX11 -lm
+GLU_LDFLAGS = -lGLU
+GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
+
+else
+ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
+CC = cc
+EXTRA_CCFLAGS = 
+EXTRA_LDFALGS =
+EXTRA_CPPFLAGS =
+NAME = GLEW
+P.BIN =
+WARN = -fullwarn
+
+GL_LDFLAGS = -lGL -lXext -lX11 -lm
+GLU_LDFLAGS = -lGLU
+GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 endif
+endif
 
-AR = \ar
-INSTALL = \install
-RM = \rm -f
-LN = \ln -fs
+AR = ar
+LD = ld
+INSTALL = install
+RM = rm -f
+LN = ln -sf
 ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
+STRIP =
 else
-OPT = -O3 -fomit-frame-pointer
+OPT = -O2 # -fomit-frame-pointer
+STRIP = -s
 endif
+WARN ?= -Wall -W
 INCLUDE = -Iinclude
-CFLAGS = $(OPT) $(INCLUDE) $(DEFINE)
+CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(EXTRA_CPPFLAGS) $(EXTRA_CCFLAGS)
 
-LIB.A = lib$(NAME).a
-LIB.SO = lib$(NAME).so.$(GLEW_VERSION)
-LIB.SO.LNK = lib$(NAME).so
+LIB = lib$(NAME)
+LIB.SONAME = $(LIB).so.$(GLEW_MAJOR)
+LIB.DEVLNK = $(LIB).so
+LIB.SHARED = $(LIB).so.$(GLEW_VERSION)
+LIB.STATIC = $(LIB).a
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
+LIB.LDFLAGS = $(EXTRA_LDFALGS)
+LIB.LIBS = $(GL_LDFLAGS)
 
 BIN = glewinfo$(P.BIN)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
+BIN.LIBS = -Llib $(EXTRA_LDFALGS) $(GLUT_LDFLAGS) -l$(NAME)
 
-all: bin/$(BIN) lib/$(LIB.SO) 
+all: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
-lib/$(LIB.A): $(LIB.OBJS)
+lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
 
-lib/$(LIB.SO): $(LIB.OBJS)
-	$(LD) -shared -o $@ $^
-	$(LN) $(LIB.SO) lib/$(LIB.SO.LNK)
+lib/$(LIB.SHARED): $(LIB.OBJS)
+	$(LD) -shared -o $@ $^ -soname $(LIB.SONAME) $(LIB.LDFLAGS) $(LIB.LIBS)
+	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
+	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 
-bin/$(BIN): $(BIN.SRCS) lib/$(LIB.A)
-	$(CC) $(CFLAGS) -o $@ $< $(BIN.LIBS)
+bin/$(BIN): $(BIN.SRCS)
+	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 install: all
-	$(INSTALL) -d -m 755 $(GLEW_DEST)/include/GL
-	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_DEST)/include/GL
-	$(INSTALL) -d -m 755 $(GLEW_DEST)/lib
-	$(INSTALL) -s -m 755 lib/$(LIB.A) $(GLEW_DEST)/lib
-	$(INSTALL) -s -m 755 lib/$(LIB.SO) $(GLEW_DEST)/lib
-	$(LN) $(GLEW_DEST)/lib/$(LIB.SO) $(GLEW_DEST)/lib/$(LIB.SO.LNK)
-	$(INSTALL) -d -m 755 $(GLEW_DEST)/bin
-	$(INSTALL) -s -m 755 bin/$(BIN) $(GLEW_DEST)/bin
+# directories
+	$(INSTALL) -d -m 0755 $(GLEW_DEST)/bin
+	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
+	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
+# runtime
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
+# development files
+	$(INSTALL) -m 0644 include/GL/{wglew,glew,glxew}.h $(GLEW_DEST)/include/GL
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
+	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+# utilities
+	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
 
 uninstall:
-	$(RM) $(GLEW_DEST)/include/GL/glew.h $(GLEW_DEST)/include/GL/glxew.h
-	$(RM) $(GLEW_DEST)/lib/$(LIB.SO.LNK) $(GLEW_DEST)/lib/$(LIB.SO)
+	$(RM) $(GLEW_DEST)/include/GL/{wglew,glew,glxew}.h
+	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
+	$(RM) $(GLEW_DEST)/lib/$(LIB.STATIC)
 	$(RM) $(GLEW_DEST)/bin/$(BIN)
 
 clean:
-	$(RM) $(LIB.OBJS) lib/$(LIB.A) lib/$(LIB.SO) lib/$(LIB.SO.LNK) \
-	$(BIN.OBJS) bin/$(BIN)
+	$(RM) $(LIB.OBJS)
+	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
+	$(RM) $(BIN.OBJS) bin/$(BIN)
+
+distclean: clean
+	find -name \*~ | xargs -r rm
+	find -name .\*.sw\? | xargs -r rm
+
+tardist:
+	$(RM) -r $(TARDIR)
+	mkdir $(TARDIR)
+	cp -a . $(TARDIR)
+	$(MAKE) -C $(TARDIR) distclean
+	$(MAKE) -C $(TARDIR)
+	$(MAKE) -C $(TARDIR) distclean
+	$(RM) -r $(TARDIR)/doc/registry
+	env GZIP=-9 tar -C `dirname $(TARDIR)` -cvzf $(TARBALL) `basename $(TARDIR)`
+
+src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+.PHONY: clean
