@@ -84,6 +84,7 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	GL_STENCIL_BACK_VALUE_MASK 0x0000
 	GL_STENCIL_TEST_TWO_SIDE 0x8910
 	GL_ACTIVE_STENCIL_FACE 0x8911
+	typedef char GLchar
 	GLuint glCreateShader (GLenum type)
 	void glShaderSource (GLuint shader, GLsizei count, const GLchar** strings, const GLint* lengths)
 	GLboolean glIsShader (GLuint shader)
@@ -97,12 +98,12 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	void glUseProgram (GLuint program)
 	void glValidateProgram (GLuint program)
 	void glDeleteProgram (GLuint program)
-	void glGetProgramiv(GLuint program, GLenum pname, GLint* param);
-	void glGetProgramfv(GLuint program, GLenum pname, GLfloat* param);
-	void glGetShaderiv(GLuint shader, GLenum pname, GLint* param);
-	void glGetShaderfv(GLuint shader, GLenum pname, GLfloat* param);
-	getGetShaderInfoLog(GLuint shader, GLsizei bufSize, GLsizei* length, GLchar* infoLog);
-	getGetProgramInfoLog(GLuint program, GLsizei bufSize, GLsizei* length, GLchar* infoLog);
+	void glGetProgramiv(GLuint program, GLenum pname, GLint* param)
+	void glGetProgramfv(GLuint program, GLenum pname, GLfloat* param)
+	void glGetShaderiv(GLuint shader, GLenum pname, GLint* param)
+	void glGetShaderfv(GLuint shader, GLenum pname, GLfloat* param)
+	void glGetShaderInfoLog(GLuint shader, GLsizei bufSize, GLsizei* length, GLchar* infoLog)
+	void glGetProgramInfoLog(GLuint program, GLsizei bufSize, GLsizei* length, GLchar* infoLog)
 	void glGetAttachedShaders (GLuint program, GLsizei maxCount, GLsizei* count, GLuint* shaders)
 	void glGetShaderSource (GLint obj, GLsizei maxLength, GLsizei* length, GLchar* source)
 	void glUniform1f (GLint location, GLfloat v0)
@@ -167,9 +168,8 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	void glVertexAttribPointer (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer)
 	void glBindAttribLocation (GLuint program, GLuint index, const GLchar* name)
 	GLint glGetAttribLocation (GLuint program, const GLchar* name)
-	void glGetActiveAttrib (GLuint program, GLuint index, GLsizei maxLength, GLsizei* length, GLint *size, GLenum *type, GLchar* name)
+	void glGetActiveAttrib (GLuint program, GLuint index, GLsizei maxLength, GLsizei* length, GLint* size, GLenum* type, GLchar* name)
 	GLuint glGetHandle (GLenum pname)
-	typedef char GLchar
 	void glDrawBuffers (GLsizei n, const GLenum* bufs)
 	void glStencilFuncSeparate (GLenum frontfunc, GLenum backfunc, GLint ref, GLuint mask)
 	void glStencilOpSeparate (GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass)
