@@ -39,7 +39,7 @@ TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
 SHELL = /bin/sh
-SYSTEM = $(shell config/config.guess | cut -d - -f 3)
+SYSTEM = $(shell config/config.guess | cut -d - -f 3 | sed -e 's/[0-9\.]//g;')
 SYSTEM.SUPPORTED = $(shell test -f config/Makefile.$(SYSTEM) && echo 1)
 
 ifeq ($(SYSTEM.SUPPORTED), 1)
