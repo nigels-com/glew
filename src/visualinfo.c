@@ -182,9 +182,8 @@ main (int argc, char** argv)
 #else
   /* GLX extensions */
   fprintf(file, "GLX extensions (GLX_): \n");
-  const char* p = glXQueryExtensionsString(glXGetCurrentDisplay(), 
-                                           DefaultScreen(glXGetCurrentDisplay()));
-  PrintExtensions(p);
+  PrintExtensions(glXQueryExtensionsString(glXGetCurrentDisplay(), 
+                                           DefaultScreen(glXGetCurrentDisplay())));
 #endif
 
   /* ---------------------------------------------------------------------- */
@@ -228,7 +227,7 @@ void PrintExtensions (const char* s)
       *p = t[i] = '\0';
       fprintf(file, "    %s\n", t);
       p++;
-      i = strlen(p);
+      i = (int)strlen(p);
       strcpy(t, p);
     }
     s++;
