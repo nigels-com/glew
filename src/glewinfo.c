@@ -644,6 +644,17 @@ static void glewInfo_EXT_stencil_two_side ()
 }
 #endif /* GL_EXT_stencil_two_side */
 
+/* ----------------------------- EXT_texture3D ---------------------------- */
+
+#ifdef GL_EXT_texture3D
+static void glewInfo_EXT_texture3D ()
+{
+  char me[] = "GL_EXT_texture3D"; glewPrintExt(me, glew.EXT_texture3D);
+  glewInfoFunc(glTexImage3DEXT == NULL, "glTexImage3DEXT");
+  glewInfoFunc(glTexSubImage3DEXT == NULL, "glTexSubImage3DEXT");
+}
+#endif /* GL_EXT_texture3D */
+
 /* --------------------------- EXT_vertex_shader -------------------------- */
 
 #ifdef GL_EXT_vertex_shader
@@ -1825,6 +1836,9 @@ static void glewInfo ()
 #endif
 #ifdef GL_EXT_texture_rectangle
   glewPrintExt("GL_EXT_texture_rectangle", glew.EXT_texture_rectangle);
+#endif
+#ifdef GL_EXT_texture3D
+  glewInfo_EXT_texture3D();
 #endif
 #ifdef GL_EXT_vertex_shader
   glewInfo_EXT_vertex_shader();
