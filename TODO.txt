@@ -5,6 +5,7 @@ Major:
       *has* to call either of glewGetExtension or glewInit as the first
       GLEW function he uses.  If it's glewExtension, then that function
       performs the initialization.
+ - start designing GLEW 2.0
 
 Minor:
  - add support for all SUN, MTX, and OML extensions
