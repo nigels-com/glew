@@ -52,7 +52,7 @@ $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
-	test -d $(EXT) || mkdir $(EXT)
+	rm -r -f $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
 	ls -1 $(CORE)/* | grep -v VERSION | xargs cp --target-directory=$(EXT)
 	touch $@
