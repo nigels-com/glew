@@ -49,7 +49,7 @@ endif
 AR = \ar
 INSTALL = \install
 RM = \rm -f
-LN = \ln -s
+LN = \ln -fs
 ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
 else
@@ -88,6 +88,7 @@ install: all
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/include/GL
 	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_TARGET)/include/GL
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/lib
+	$(INSTALL) -s -m 755 lib/$(LIB.A) $(GLEW_TARGET)/lib
 	$(INSTALL) -s -m 755 lib/$(LIB.SO) $(GLEW_TARGET)/lib
 	$(LN) $(GLEW_TARGET)/lib/$(LIB.SO) $(GLEW_TARGET)/lib/$(LIB.SO.LNK)
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/bin
