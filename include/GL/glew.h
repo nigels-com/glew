@@ -230,14 +230,11 @@ extern "C" {
 #define GL_ATI_envmap_bumpmap 1
 #define GL_ATI_fragment_shader 1
 #define GL_ATI_map_object_buffer 1
-#define GL_ATI_mapped_texture 1
 #define GL_ATI_pn_triangles 1
-#define GL_ATI_point_cull_mode 1
 #define GL_ATI_separate_stencil 1
 #define GL_ATI_text_fragment_shader 1
 #define GL_ATI_texture_float 1
 #define GL_ATI_texture_mirror_once 1
-#define GL_ATI_timestamp 1
 #define GL_ATI_vertex_array_object 1
 #define GL_ATI_vertex_attrib_array_object 1
 #define GL_ATI_vertex_streams 1
@@ -3325,22 +3322,6 @@ extern GLEW_EXPORT PFNGLUNMAPOBJECTBUFFERATIPROC glUnmapObjectBufferATI;
 
 #endif /* GL_ATI_map_object_buffer */
 
-/* -------------------------- ATI_mapped_texture -------------------------- */
-
-#ifdef GL_ATI_mapped_texture
-
-#define GL_MAPPED_TEXTURE_PIXEL_STRIDE_ATI                      0x8820
-#define GL_MAPPED_TEXTURE_ROW_STRIDE_ATI                        0x8821
-#define GL_MAPPED_TEXTURE_LAYER_STRIDE_ATI                      0x8822
-
-typedef void (APIENTRY * PFNGLMAPTEXTURE3DPROC) (GLenum level, GLvoid **buffer);
-typedef void (APIENTRY * PFNGLUNMAPTEXTURE3DPROC) (void);
-
-extern GLEW_EXPORT PFNGLMAPTEXTURE3DPROC glMapTexture3D;
-extern GLEW_EXPORT PFNGLUNMAPTEXTURE3DPROC glUnmapTexture3D;
-
-#endif /* GL_ATI_mapped_texture */
-
 /* --------------------------- ATI_pn_triangles --------------------------- */
 
 #ifdef GL_ATI_pn_triangles
@@ -3362,16 +3343,6 @@ extern GLEW_EXPORT PFNGLPNTRIANGLESIATIPROC glPNTrianglesiATI;
 extern GLEW_EXPORT PFNGLPNTRIANGLESFATIPROC glPNTrianglesfATI;
 
 #endif /* GL_ATI_pn_triangles */
-
-/* -------------------------- ATI_point_cull_mode ------------------------- */
-
-#ifdef GL_ATI_point_cull_mode
-
-#define GL_POINT_CULL_MODE_ATI                                  0x60b3
-#define GL_POINT_CULL_CENTER_ATI                                0x60b4
-#define GL_POINT_CLIP_ATI                                       0x60b5
-
-#endif /* GL_ATI_point_cull_mode */
 
 /* -------------------------- ATI_separate_stencil ------------------------ */
 
@@ -3425,22 +3396,6 @@ extern GLEW_EXPORT PFNGLSTENCILFUNCSEPARATEATIPROC glStencilFuncSeparateATI;
 #define GL_MIRROR_CLAMP_TO_EDGE_ATI                             0x8743
 
 #endif
-
-/* ----------------------------- ATI_timestamp ---------------------------- */
-
-#ifdef GL_ATI_timestamp
-
-typedef void (APIENTRY * PFNGLNEWTIMESTAMPPROC) (GLvoid **);
-typedef void (APIENTRY * PFNGLDELETETIMESTAMPPROC) (GLvoid *);
-typedef void (APIENTRY * PFNGLSENDTIMESTAMPPROC) (GLvoid *);
-typedef void (APIENTRY * PFNGLWAITTIMESTAMPPROC) (GLvoid *);
-
-extern GLEW_EXPORT PFNGLNEWTIMESTAMPPROC glNewTimeStamp;
-extern GLEW_EXPORT PFNGLDELETETIMESTAMPPROC glDeleteTimeStamp;
-extern GLEW_EXPORT PFNGLSENDTIMESTAMPPROC glSendTimeStamp;
-extern GLEW_EXPORT PFNGLWAITTIMESTAMPPROC glWaitTimeStamp;
-
-#endif /* GL_ATI_timestamp */
 
 /* ------------------------ ATI_vertex_array_object ----------------------- */
 
@@ -4544,14 +4499,11 @@ struct GLEW
   unsigned int ATI_envmap_bumpmap : 1;
   unsigned int ATI_fragment_shader : 1;
   unsigned int ATI_map_object_buffer : 1;
-  unsigned int ATI_mapped_texture : 1;
   unsigned int ATI_pn_triangles : 1;
-  unsigned int ATI_point_cull_mode : 1;
   unsigned int ATI_separate_stencil : 1;
   unsigned int ATI_text_fragment_shader : 1;
   unsigned int ATI_texture_float : 1;
   unsigned int ATI_texture_mirror_once : 1;
-  unsigned int ATI_timestamp : 1;
   unsigned int ATI_vertex_array_object : 1;
   unsigned int ATI_vertex_attrib_array_object : 1;
   unsigned int ATI_vertex_streams : 1;

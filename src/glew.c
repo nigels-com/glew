@@ -1245,21 +1245,6 @@ static GLboolean _glewInit_ATI_map_object_buffer ()
 }
 #endif /* GL_ATI_map_object_buffer */
 
-/* --------------------------- ATI_mapped_texture ------------------------- */
-
-#ifdef GL_ATI_mapped_texture
-PFNGLMAPTEXTURE3DPROC glMapTexture3D;
-PFNGLUNMAPTEXTURE3DPROC glUnmapTexture3D;
-
-static GLboolean _glewInit_ATI_mapped_texture ()
-{
-  GLboolean r = GL_FALSE;
-  r = r || (glMapTexture3D = (PFNGLMAPTEXTURE3DPROC)glewGetProcAddress("glMapTexture3D")) == NULL;
-  r = r || (glUnmapTexture3D = (PFNGLUNMAPTEXTURE3DPROC)glewGetProcAddress("glUnmapTexture3D")) == NULL;
-  return r;
-}
-#endif /* GL_ATI_mapped_texture */
-
 /* --------------------------- ATI_pn_triangles --------------------------- */
 
 #ifdef GL_ATI_pn_triangles
@@ -1289,25 +1274,6 @@ static GLboolean _glewInit_ATI_separate_stencil ()
   return r;
 }
 #endif /* GL_ATI_separate_stencil */
-
-/* ----------------------------- ATI_timestamp ---------------------------- */
-
-#ifdef GL_ATI_timestamp
-PFNGLNEWTIMESTAMPPROC glNewTimeStamp = NULL;
-PFNGLDELETETIMESTAMPPROC glDeleteTimeStamp = NULL;
-PFNGLSENDTIMESTAMPPROC glSendTimeStamp = NULL;
-PFNGLWAITTIMESTAMPPROC glWaitTimeStamp = NULL;
-
-static GLboolean _glewInit_ATI_timestamp ()
-{
-  GLboolean r = GL_FALSE;
-  r = r || (glNewTimeStamp = (PFNGLNEWTIMESTAMPPROC) glewGetProcAddress("glNewTimeStamp")) == NULL;
-  r = r || (glDeleteTimeStamp = (PFNGLDELETETIMESTAMPPROC)glewGetProcAddress("glDeleteTimeStamp")) == NULL;
-  r = r || (glSendTimeStamp = (PFNGLSENDTIMESTAMPPROC)glewGetProcAddress("glSendTimeStamp")) == NULL;
-  r = r || (glWaitTimeStamp = (PFNGLWAITTIMESTAMPPROC)glewGetProcAddress("glWaitTimeStamp")) == NULL;
-  return r;
-}
-#endif /* GL_ATI_timestamp */
 
 /* ------------------------ ATI_vertex_array_object ----------------------- */
 
@@ -2923,9 +2889,6 @@ static GLint _glewInit ()
   glew.ATI_pn_triangles = glewGetExtension("GL_ATI_pn_triangles");
   if (glewExperimental || glew.ATI_pn_triangles) glew.ATI_pn_triangles = !_glewInit_ATI_pn_triangles();
 #endif
-#ifdef GL_ATI_point_cull_mode
-  glew.ATI_point_cull_mode = glewGetExtension("GL_ATI_point_cull_mode");
-#endif
 #ifdef GL_ATI_separate_stencil
   glew.ATI_separate_stencil = glewGetExtension("GL_ATI_separate_stencil");
   if (glewExperimental || glew.ATI_separate_stencil) glew.ATI_separate_stencil = !_glewInit_ATI_separate_stencil();
@@ -2938,10 +2901,6 @@ static GLint _glewInit ()
 #endif
 #ifdef GL_ATI_texture_mirror_once
   glew.ATI_texture_mirror_once = glewGetExtension("GL_ATI_texture_mirror_once");
-#endif
-#ifdef GL_ATI_timestamp
-  glew.ATI_timestamp = glewGetExtension("GL_ATI_timestamp");
-  if (glewExperimental || glew.ATI_timestamp) glew.ATI_timestamp = !_glewInit_ATI_timestamp();
 #endif
 #ifdef GL_ATI_vertex_array_object
   glew.ATI_vertex_array_object = glewGetExtension("GL_ATI_vertex_array_object");

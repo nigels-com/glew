@@ -797,17 +797,6 @@ static void glewInfo_ATI_map_object_buffer ()
 }
 #endif /* GL_ATI_map_object_buffer */
 
-/* --------------------------- ATI_mapped_texture ------------------------- */
-
-#ifdef GL_ATI_mapped_texture
-static void glewInfo_ATI_mapped_texture ()
-{
-  char me[] = "GL_ATI_mapped_texture"; glewPrintExt(me, glew.ATI_mapped_texture);
-  glewInfoFunc(glMapTexture3D == NULL, "glMapTexture3D");
-  glewInfoFunc(glUnmapTexture3D == NULL, "glUnmapTexture3D");
-}
-#endif /* GL_ATI_mapped_texture */
-
 /* --------------------------- ATI_pn_triangles --------------------------- */
 
 #ifdef GL_ATI_pn_triangles
@@ -829,19 +818,6 @@ static void glewInfo_ATI_separate_stencil ()
   glewInfoFunc(glStencilFuncSeparateATI == NULL, "glStencilFuncSeparateATI");
 }
 #endif /* GL_ATI_separate_stencil */
-
-/* ----------------------------- ATI_timestamp ---------------------------- */
-
-#ifdef GL_ATI_timestamp
-static void glewInfo_ATI_timestamp ()
-{
-  char me[] = "GL_ATI_timestamp"; glewPrintExt(me, glew.ATI_timestamp);
-  glewInfoFunc(glNewTimeStamp == NULL, "glNewTimeStamp");
-  glewInfoFunc(glDeleteTimeStamp == NULL, "glDeleteTimeStamp");
-  glewInfoFunc(glSendTimeStamp == NULL, "glSendTimeStamp");
-  glewInfoFunc(glWaitTimeStamp == NULL, "glWaitTimeStamp");
-}
-#endif /* GL_ATI_timestamp */
 
 /* ------------------------ ATI_vertex_array_object ----------------------- */
 
@@ -1888,9 +1864,6 @@ static void glewInfo ()
 #ifdef GL_ATI_mapped_texture
   glewInfo_ATI_mapped_texture();
 #endif
-#ifdef GL_ATI_point_cull_mode
-  glewPrintExt("GL_ATI_point_cull_mode", glew.ATI_point_cull_mode);
-#endif
 #ifdef GL_ATI_pn_triangles
   glewInfo_ATI_pn_triangles();
 #endif
@@ -1905,9 +1878,6 @@ static void glewInfo ()
 #endif
 #ifdef GL_ATI_texture_mirror_once
   glewPrintExt("GL_ATI_texture_mirror_once", glew.ATI_texture_mirror_once);
-#endif
-#ifdef GL_ATI_timestamp
-  glewInfo_ATI_timestamp();
 #endif
 #ifdef GL_ATI_vertex_array_object
   glewInfo_ATI_vertex_array_object();
