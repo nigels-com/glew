@@ -1,7 +1,7 @@
 /*
 ** The OpenGL Extension Wrangler Library
-** Copyright (C) 2004, 2003, 2002, Milan Ikits <milan ikits[at]ieee org>
-** Copyright (C) 2004, 2003, 2002, Marcelo E. Magallon <mmagallo[at]debian org>
+** Copyright (C) 2002-2005, Milan Ikits <milan ikits[]ieee org>
+** Copyright (C) 2002-2005, Marcelo E. Magallon <mmagallo[]debian org>
 ** Copyright (C) 2002, Lev Povalahev
 ** All rights reserved.
 ** 
@@ -29,6 +29,3 @@
 ** THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glew_utils.h"
-
-#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)

@@ -41,15 +41,33 @@ I.DEST = $(TOP)/include/GL
 S.DEST = $(TOP)/src
 D.DEST = $(TOP)/doc
 
-TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew_gl.c $(S.DEST)/glew_str.c $(S.DEST)/glew_wgl.c $(S.DEST)/glew_glx.c $(S.DEST)/glewinfo.c \
-	$(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
+I.TARGETS = \
+	$(I.DEST)/glew.h \
+	$(I.DEST)/wglew.h \
+	$(I.DEST)/glxew.h
 
-all custom: $(TARGETS)
+S.TARGETS = \
+	$(S.DEST)/glew.c \
+	$(S.DEST)/glewinfo.c
+
+#	$(S.DEST)/glew_def.c \
+#	$(S.DEST)/glew_init.c \
+#	$(S.DEST)/glew_str.c \
+
+D.TARGETS = \
+	$(D.DEST)/glew.html \
+	$(D.DEST)/wglew.html \
+	$(D.DEST)/glxew.html
+
+all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
 
 registry: $(REGISTRY)/.dummy
 ext: $(EXT)/.dummy
 
 $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
+	@echo "--------------------------------------------------------------------"
+	@echo "Downloading registry"
+	@echo "--------------------------------------------------------------------"
 	$(BIN)/update_registry.sh $(REGISTRY) $(REGISTRY_URL)
 	head -6 $(REGISTRY)/ATI/texture_env_combine3.txt > tmp
 	tail +7 $(REGISTRY)/ATI/texture_env_combine3.txt | \
@@ -58,6 +76,9 @@ $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating descriptors"
+	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
@@ -70,8 +91,13 @@ endif
 	touch $@
 
 $(I.DEST)/glew.h: $(EXT)/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glew.h"
+	@echo "--------------------------------------------------------------------"
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
-	cp -f $(SRC)/glew_head.h $@
+	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/sgi_license.h >> $@
+	cat $(SRC)/glew_head.h >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_EXT_SPEC) >> $@
 	echo -e "/* ------------------------------------------------------------------------- */\n\n#if defined(GLEW_MX) && defined(_WIN32)\n#define GLEW_FUN_EXPORT\n#else\n#define GLEW_FUN_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n" >> $@
@@ -86,7 +112,11 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	cat $(SRC)/glew_tail.h >> $@
 
 $(I.DEST)/wglew.h: $(EXT)/.dummy
-	cp -f $(SRC)/wglew_head.h $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating wglew.h"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/wglew_head.h >> $@
 	$(BIN)/make_header.pl WINAPI WGL $(WGL_EXT_SPEC) >> $@
 	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define WGLEW_EXPORT\n#else\n#define WGLEW_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
 	$(BIN)/make_struct_fun.pl WGLEW_EXPORT $(WGL_EXT_SPEC) >> $@
@@ -95,7 +125,12 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cat $(SRC)/wglew_tail.h >> $@
 
 $(I.DEST)/glxew.h: $(EXT)/.dummy
-	cp -f $(SRC)/glxew_head.h $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glxew.h"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/glx_license.h >> $@
+	cat $(SRC)/glxew_head.h >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_EXT_SPEC) >> $@
 	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define GLXEW_EXPORT\n#else\n#define GLXEW_EXPORT extern\n#endif /* GLEW_MX */" >> $@
@@ -107,54 +142,121 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cat $(SRC)/glxew_tail.h >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 
-$(S.DEST)/glew_gl.c: $(EXT)/.dummy
-	cp -f $(SRC)/glew_gl_head.c $@
+$(S.DEST)/glew.c: $(EXT)/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glew.c"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/glew_head.c >> $@
+	echo -e "\n#if !defined(_WIN32) || !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_gl_fun.c >> $@
+	echo -e "\n#endif /* !WIN32 || !GLEW_MX */" >> $@
+	echo -e "\n#if !defined(GLEW_MX)" >> $@;
+	echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_gl_var.c >> $@
+	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_gl_init.c >> $@
+	cat $(SRC)/glew_init_gl.c >> $@
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_gl_tail.c >> $@
-	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
-	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
-	rm -f $@.bak
-
-$(S.DEST)/glew_wgl.c: $(EXT)/.dummy
-	cp -f $(SRC)/glew_wgl_head.c $@
+	echo -e "\n  return GLEW_OK;\n}\n" >> $@
+	echo -e "\n#if defined(_WIN32)" >> $@
+	echo -e "\n#if !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_wgl_var.c >> $@
+	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_init.pl WGL $(WGL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_wgl_init.c >> $@
+	cat $(SRC)/glew_init_wgl.c >> $@
 	$(BIN)/make_list.pl $(WGL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_wgl_tail.c >> $@
-	rm -f $@.bak
-
-$(S.DEST)/glew_glx.c: $(EXT)/.dummy
-	cp -f $(SRC)/glew_glx_head.c $@
+	echo -e "\n  return GLEW_OK;\n}" >> $@;
+	echo -e "\n#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)" >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
-	cat $(SRC)/glew_glx_fun.c >> $@
+	echo -e "\n#if !defined(GLEW_MX)" >> $@;
+	echo -e "\nGLboolean __GLXEW_VERSION_1_0 = GL_FALSE;" >> $@
+	echo -e "GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GLX $(GLX_EXT_SPEC) >> $@
-	cat $(SRC)/glew_glx_var.c >> $@
+	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_init.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GLX $(GLX_EXT_SPEC) >> $@
-	cat $(SRC)/glew_glx_init.c >> $@
+	cat $(SRC)/glew_init_glx.c >> $@
 	$(BIN)/make_list.pl $(CORE)/GLX_VERSION_1_3 | grep -v '\"GLX_VERSION' >> $@
 	$(BIN)/make_list.pl $(GLX_EXT_SPEC) >> $@
-	cat $(SRC)/glew_glx_tail.c >> $@
+	echo -e "\n  return GLEW_OK;\n}" >> $@
+	echo -e "\n#endif /* !__APPLE__ || GLEW_APPLE_GLX */\n" >> $@;
+	cat $(SRC)/glew_init_tail.c >> $@
+	cat $(SRC)/glew_str_head.c >> $@
+	$(BIN)/make_str.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
+	cat $(SRC)/glew_str_wgl.c >> $@
+	$(BIN)/make_str.pl $(WGL_EXT_SPEC) >> $@
+	cat $(SRC)/glew_str_glx.c >> $@
+	$(BIN)/make_str.pl $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
+	cat $(SRC)/glew_str_tail.c >> $@
+	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
+	$(BIN)/fix_OML_sync_control.sh $@
+	rm -f $@.bak
+
+$(S.DEST)/glew_def.c: $(EXT)/.dummy
+	cp -f $(SRC)/glew_license.h $@
+	echo -e "#include \"glew_utils.h\"\n\n#if !defined(_WIN32) || !defined(GLEW_MX)" >> $@
+	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
+	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
+	echo -e "\n#endif /* !WIN32 || !GLEW_MX */" >> $@
+	echo -e "\n#if !defined(GLEW_MX)\n\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
+	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
+	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
+	echo -e "\n#if defined(_WIN32)" >> $@
+	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
+	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
+	echo -e "\n#endif /* _WIN32 */" >> $@
+	echo -e "\n#endif /* !GLEW_MX */" >> $@;
+	echo -e "\n#if !defined(_WIN32) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
+	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
+	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
+	echo -e "\n#if !defined(GLEW_MX)" >> $@;
+	echo -e "\nGLboolean __GLXEW_VERSION_1_0 = GL_FALSE;" >> $@
+	echo -e "GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;" >> $@
+	$(BIN)/make_def_var.pl GLX $(GLX_CORE_SPEC) >> $@
+	$(BIN)/make_def_var.pl GLX $(GLX_EXT_SPEC) >> $@
+	echo -e "\n#endif /* !GLEW_MX */" >> $@;
+	echo -e "\n#endif /* !__APPLE__ || GLEW_APPLE_GLX */" >> $@;
+	rm -f $@.bak
+
+$(S.DEST)/glew_init.c: $(EXT)/.dummy
+	cp -f $(SRC)/glew_license.h $@
+	echo -e "#include \"glew_utils.h\"\n" >> $@
+	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
+	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
+	cat $(SRC)/glew_init_gl.c >> $@
+	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
+	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
+	echo -e "\n  return GLEW_OK;\n}\n\n#if defined(_WIN32)\n" >> $@;
+	$(BIN)/make_init.pl WGL $(WGL_EXT_SPEC) >> $@
+	cat $(SRC)/glew_init_wgl.c >> $@
+	$(BIN)/make_list.pl $(WGL_EXT_SPEC) >> $@
+	echo -e "\n  return GLEW_OK;\n}\n\n" >> $@;
+	echo -e "\n#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)\n" >> $@
+	$(BIN)/make_init.pl GLX $(GLX_CORE_SPEC) >> $@
+	$(BIN)/make_init.pl GLX $(GLX_EXT_SPEC) >> $@
+	cat $(SRC)/glew_init_glx.c >> $@
+	$(BIN)/make_list.pl $(CORE)/GLX_VERSION_1_3 | grep -v '\"GLX_VERSION' >> $@
+	$(BIN)/make_list.pl $(GLX_EXT_SPEC) >> $@
+	echo -e "\n  return GLEW_OK;\n}\n\n#endif /* !__APPLE__ || GLEW_APPLE_GLX */\n" >> $@;
+	cat $(SRC)/glew_init_tail.c >> $@
+	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
 
 $(S.DEST)/glew_str.c: $(EXT)/.dummy
-	cp -f $(SRC)/glew_str_head.c $@
+	cp -f $(SRC)/glew_license.h $@
+	echo -e "\n#include \"glew_utils.h\"\n" >> $@
+	cat $(SRC)/glew_str_head.c >> $@
 	$(BIN)/make_str.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_str_wgl.c >> $@
 	$(BIN)/make_str.pl $(WGL_EXT_SPEC) >> $@
@@ -166,9 +268,12 @@ $(S.DEST)/glew_str.c: $(EXT)/.dummy
 #	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	rm -f $@.bak
 
-
 $(S.DEST)/glewinfo.c: $(EXT)/.dummy
-	cp -f $(SRC)/glewinfo_head.c $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glewinfo.c"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/glewinfo_head.c >> $@
 	$(BIN)/make_info.pl $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_info.pl $(GL_EXT_SPEC) >> $@
 	echo -e "#ifdef _WIN32\n" >> $@
@@ -190,23 +295,37 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	$(BIN)/fix_OML_sync_control.sh $@
 
 $(D.DEST)/glew.html: $(EXT)/.dummy
-	cp -f $(SRC)/glew_head.html $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glew.html"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/template.html $@
+	echo -e "<h2>Supported OpenGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_tail.html >> $@
+	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
 
 $(D.DEST)/wglew.html: $(EXT)/.dummy
-	cp -f $(SRC)/wglew_head.html $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating wglew.html"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/template.html $@
+	echo -e "<h2>Supported WGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(WGL_EXT_SPEC) >> $@
-	cat $(SRC)/glew_tail.html >> $@
+	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
 
 $(D.DEST)/glxew.html: $(EXT)/.dummy
-	cp -f $(SRC)/glxew_head.html $@
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glxew.html"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/template.html $@
+	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
-	cat $(SRC)/glew_tail.html >> $@
+	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
 
 clean:
-	rm -rf $(TARGETS)
-	rm -rf $(EXT)
+	rm -rf $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
 
 clobber: clean
+	rm -rf $(EXT)
+
+destroy: clobber
 	rm -rf $(REGISTRY)

@@ -49,10 +49,7 @@ our $type = shift;
 if (@ARGV)
 {
     @extlist = @ARGV;
-my $extstr = $extlist[0];
-printf STDERR "FASZI: $extstr \n";
-#if (length($extstr) > 1)
-{
+
 	foreach my $ext (sort @extlist)
 	{
 		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
@@ -72,10 +69,3 @@ printf STDERR "FASZI: $extstr \n";
 		print "\n#endif /* $extname */\n\n";
 	}
 }
-}
-
-#} else {
-#    local $/;
-#    @extlist = split "\n", (<>);
-#}
-

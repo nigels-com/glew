@@ -153,19 +153,7 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\src\glew_gl.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\glew_wgl.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\glew_str.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\glew_utils.c
+SOURCE=..\..\src\glew.c
 # End Source File
 # End Group
 # Begin Group "Header Files"

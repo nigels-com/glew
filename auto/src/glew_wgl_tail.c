@@ -1,2 +1,0 @@
-  return GLEW_OK;
-}

@@ -1,3 +1,5 @@
+/* ------------------------------------------------------------------------ */
+
 GLboolean glxewGetExtension (const char* name)
 {    
   GLubyte* p;

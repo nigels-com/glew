@@ -35,16 +35,19 @@ if (@ARGV)
 		$extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;
 		if ($cur_group ne $group)
 		{
+			if ($group ne "")
+			{
+				print "<br>\n";
+			}
 			$group = $cur_group;
-			print "<br>\n";
 		}
 		if ($exturl)
 		{
-			print "<a href=\"$exturl\">$extname</a><br>\n";
+			print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$exturl\">$extname</a><br>\n";
 		}
 		else
 		{
-			print "$extname<br>\n";
+			print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$extname<br>\n";
 		}
 	}
 }

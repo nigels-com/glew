@@ -1,6 +1,3 @@
-  return GLEW_OK;
-}
-
 /* ------------------------------------------------------------------------ */
 
 const GLubyte* glewGetErrorString (GLenum error)
@@ -32,7 +29,7 @@ const GLubyte* glewGetString (GLenum name)
 
 GLboolean glewExperimental = GL_FALSE;
 
-#ifndef GLEW_MX
+#if !defined(GLEW_MX)
 
 #if defined(_WIN32)
 extern GLenum wglewContextInit (void);
@@ -53,5 +50,4 @@ GLenum glewInit ()
 #endif /* _WIN32 */
 }
 
-#endif
-
+#endif /* !GLEW_MX */

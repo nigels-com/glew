@@ -1,4 +1,3 @@
-
 /* ------------------------------------------------------------------------- */
 
 static PFNWGLGETEXTENSIONSSTRINGARBPROC _wglewGetExtensionsStringARB = NULL;
