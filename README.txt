@@ -1,4 +1,4 @@
-See doc/README.html for more information.
+See doc/index.html for more information.
 
 If you downloaded the tarball from the GLEW website, you just need to:
 

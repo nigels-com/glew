@@ -1,67 +1,180 @@
 h1 
 {   
-	color: black;
-	font: 23px "Verdana", "Arial", "Helvetica";
-	display: inline;
-	font-weight: bold
+  color: black;
+  font: 23px "Verdana", "Arial", "Helvetica";
+  font-weight: bold;
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 18px;
 }
 
 h2
 {   
-	color: black;
-	font: 18px "Verdana", "Arial", "Helvetica";
-	font-weight: bold
+  color: black;
+  font: 18px "Verdana", "Arial", "Helvetica";
+  font-weight: bold;
+  text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 18px;
+  margin-bottom: 12px;
 }
 
 h3
 {   
-	color: black;
-	font: 18px "Verdana", "Arial", "Helvetica";
+  color: black;
+  font: 17px "Verdana", "Arial", "Helvetica";
+  text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 small
 {
-	font: 12px "Verdana", "Arial", "Helvetica";
+  font: 8pt "Verdana", "Arial", "Helvetica";
 }
 
-body, table, td, p, div
+body
 {
-	color: black;
-	font: 10pt "Verdana", "Arial", "Helvetica"
+  color: black;
+  font: 10pt "Verdana", "Arial", "Helvetica";
+  text-align: left;
 }
 
-tt, blockquote
+td
 {
-	color: maroon;
+  color: black;
+  font: 10pt "Verdana", "Arial", "Helvetica";
+}
+
+tt
+{
+  color: darkgreen;
+}
+/* color: maroon; */
+
+blockquote
+{
+  color: darkgreen;
+  background: #f0f0f0;
+  text-align: left;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 6px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  paddin-top: 6px;
+  border-top: 0px;
+  border-width: 0px;
+}
+
+pre
+{
+  color: darkgreen;
+  background: #f0f0f0;
+  text-align: left;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 6px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  paddin-top: 6px;
+  border-top: 0px;
+  border-width: 0px;
+}
+
+p
+{ 
+  color: black;
+  font: 10pt "Verdana", "Arial", "Helvetica";
+  text-align: left;
+  margin-bottom: 0px;
+  padding-bottom: 6px;
+  margin-top: 0px;
+  paddin-top: 6px;
+}
+
+p.right
+{ 
+  color: black;
+  font: 10pt "Verdana", "Arial", "Helvetica";
+  text-align: right;
+  margin-bottom: 0px;
+  padding-bottom: 6px;
+  margin-top: 0px;
+  paddin-top: 6px;
+}
+
+p.pre
+{
+  color: darkgreen;
+  font: 10pt "Courier New", "Courier";
+  background: #f0f0f0;
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 6px;
+  margin-left: 40px;
+  margin-right: 40px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-top: 0px;
+  border-width: 0px;
 }
 
 a:link
 {    
-	color: darkblue;
-	text-decoration: none;
-
+  color: darkblue;
+  text-decoration: none;
 }
 
 a:visited
 {    
-	color: darkblue;
-	text-decoration: none;
-
+  color: crimson;
+  text-decoration: none;
 }
 
 a:hover
 {    
-	color: crimson;
-	text-decoration: underline;
-
+  color: crimson;
+  text-decoration: underline;
 }
 
 ul
 {
-	list-style-type: square;
+  list-style-type: disc;
+  text-align: left;
+  margin-left: 40px;
+  margin-top: 0px;
+  padding-top: 3px;
+  margin-bottom: 0px;
+  padding-bottom: 3px;
 }
 
 ul.none
 {
-	list-style-type: none;
+  list-style-type: none;
+}
+
+ol
+{
+  text-align: left;
+  margin-left: 40px;
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 12px;
+}
+
+hr
+{
+  color: maroon;
+  background-color: maroon;
+  height: 1px;
+  border: 0px;
+  width: 85%;
+  align: center;
 }
