@@ -62,9 +62,7 @@ B.TARGETS = \
 	$(B.DEST)/glewinfo.rc \
 	$(B.DEST)/visualinfo.rc
 
-all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
-
-rc: $(B.TARGETS)
+all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS) $(B.TARGETS)
 
 registry: $(REGISTRY)/.dummy
 ext: $(EXT)/.dummy
@@ -330,7 +328,7 @@ $(B.DEST)/%.rc: src/%.rc $(EXT)/.dummy
 	perl -e "s/GLEW_MAJOR/$(GLEW_MAJOR)/g;s/GLEW_MINOR/$(GLEW_MINOR)/g;s/GLEW_MICRO/$(GLEW_MICRO)/g;" -p $< > $@
 
 clean:
-	rm -rf $(I.TARGETS) $(S.TARGETS) $(D.TARGETS)
+	rm -rf $(I.TARGETS) $(S.TARGETS) $(D.TARGETS) $(B.TARGETS)
 
 clobber: clean
 	rm -rf $(EXT)
