@@ -589,7 +589,7 @@ VisualInfo (GLContext* ctx)
     {
       /* print out the information for this fbc */
       /* visual id */
-      ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_VISUAL_ID, &value);
+      ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_FBCONFIG_ID, &value);
       if (ret != Success)
       {
         fprintf(file, "|  ?  |");
@@ -674,14 +674,32 @@ VisualInfo (GLContext* ctx)
       }
       else
       {
-        if (value & GLX_RGBA_FLOAT_ATI_BIT)
-          fprintf(file, " f ");
-        else if (value & GLX_RGBA_BIT)
-          fprintf(file, " i ");
-        else if (value & GLX_COLOR_INDEX_BIT)
-          fprintf(file, " c ");
+        if (GLXEW_NV_float_buffer)
+        {
+          int ret2, value2;
+          ret2 = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_FLOAT_COMPONENTS_NV, &value2);
+          if (Success == ret2 && GL_TRUE == value2)
+          {
+            fprintf(file, " f ");
+          }
+          else if (value & GLX_RGBA_BIT)
+            fprintf(file, " i ");
+          else if (value & GLX_COLOR_INDEX_BIT)
+            fprintf(file, " c ");
+          else
+            fprintf(file, " ? ");
+        }
         else
-          fprintf(file, " ? ");
+        {
+          if (value & GLX_RGBA_FLOAT_ATI_BIT)
+            fprintf(file, " f ");
+          else if (value & GLX_RGBA_BIT)
+            fprintf(file, " i ");
+          else if (value & GLX_COLOR_INDEX_BIT)
+            fprintf(file, " c ");
+          else
+            fprintf(file, " ? ");
+        }
       }
       /* double buffer */
       ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_DOUBLEBUFFER, &value);
