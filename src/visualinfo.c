@@ -30,6 +30,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
 #if defined(_WIN32)
@@ -72,10 +73,15 @@ GLboolean CreateContext (GLContext* ctx);
 void DestroyContext (GLContext* ctx);
 void VisualInfo (GLContext* ctx);
 void PrintExtensions (const char* s);
+GLboolean ParseArgs (int argc, char** argv);
 
 int showall = 0;
 int displaystdout = 0;
 int verbose = 0;
+
+char* display = NULL;
+int visual = -1;
+
 FILE* file = 0;
 GLContext ctx;
 GLenum err;
@@ -85,29 +91,14 @@ main (int argc, char** argv)
 {
   /* ---------------------------------------------------------------------- */
   /* parse arguments */
-  while (--argc)
+  if (GL_TRUE == ParseArgs(argc-1, argv+1))
   {
-    if (strcmp("-h", argv[argc]) == 0)
-    {
-      fprintf(stderr, "Usage: visualinfo [-v] [-a] [-s] [-h]\n");
-      fprintf(stderr, "        -v: print visual info in verbose form\n");
-      fprintf(stderr, "        -a: show all visuals\n");
-      fprintf(stderr, "        -s: display to stdout instead of visualinfo.txt (Windows only)\n");      
-      fprintf(stderr, "        -h: this screen\n");
-      return 1;
-    }
-    else if (strcmp("-v", argv[argc]) == 0)
-    {
-      verbose = 1;
-    }
-    else if (strcmp("-a", argv[argc]) == 0)
-    {
-      showall = 1;
-    }
-    else if (strcmp("-s", argv[argc]) == 0)
-    {
-      displaystdout = 1;
-    }
+    fprintf(stderr, "Usage: visualinfo [-v] [-a] [-s] [-h] [-display <display>] [-visual <id>]\n");
+    fprintf(stderr, "        -v: print visual info in verbose form\n");
+    fprintf(stderr, "        -a: show all visuals\n");
+    fprintf(stderr, "        -s: display to stdout instead of visualinfo.txt (Windows only)\n");      
+    fprintf(stderr, "        -h: this screen\n");
+    return 1;
   }
 
   /* ---------------------------------------------------------------------- */
@@ -1047,7 +1038,7 @@ GLboolean CreateContext (GLContext* ctx)
   /* check input */
   if (NULL == ctx) return GL_TRUE;
   /* open display */
-  ctx->dpy = XOpenDisplay(NULL);
+  ctx->dpy = XOpenDisplay(display);
   if (NULL == ctx->dpy) return GL_TRUE;
   /* query for glx */
   if (!glXQueryExtension(ctx->dpy, &erb, &evb)) return GL_TRUE;
@@ -1081,3 +1072,58 @@ void DestroyContext (GLContext* ctx)
 }
 
 #endif /* __UNIX || (__APPLE__ && GLEW_APPLE_GLX) */
+
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+GLboolean ParseArgs (int argc, char** argv)
+{
+  int p = 0;
+  while (p < argc)
+  {
+#if defined(_WIN32)
+    if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      display = NULL;
+      visual = strtol(argv[p++], NULL, 0);
+    }
+    else
+      return GL_TRUE;
+#else
+    if (!strcmp(argv[p], "-display"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      display = argv[p++];
+    }
+    else if (!strcmp(argv[p], "-visual"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      visual = (int)strtol(argv[p++], NULL, 0);
+    }
+    else
+      return GL_TRUE;
+#endif
+  }
+  return GL_FALSE;
+}
+#endif
+
+
+/*   while (--argc) */
+/*   { */
+/*     if (strcmp("-h", argv[argc]) == 0) */
+/*     { */
+/*     } */
+/*     else if (strcmp("-v", argv[argc]) == 0) */
+/*     { */
+/*       verbose = 1; */
+/*     } */
+/*     else if (strcmp("-a", argv[argc]) == 0) */
+/*     { */
+/*       showall = 1; */
+/*     } */
+/*     else if (strcmp("-s", argv[argc]) == 0) */
+/*     { */
+/*       displaystdout = 1; */
+/*     } */
+/*     else if (str */
+/*   } */
