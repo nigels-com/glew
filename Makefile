@@ -99,6 +99,7 @@ LD = ld
 ifneq (undefined, $(origin GLEW_MX))
 CFLAGS.EXTRA = -DGLEW_MX
 endif
+PICFLAG = -fPIC
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
@@ -112,6 +113,7 @@ LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
 LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
 LIB.STATIC = lib$(NAME).a
+SHARED_OBJ_EXT = pic_o
 
 else
 # ----------------------------------------------------------------------------
@@ -200,6 +202,10 @@ endif
 endif
 endif
 
+ifeq (undefined, $(origin SHARED_OBJ_EXT))
+SHARED_OBJ_EXT = o
+endif
+
 AR = ar
 INSTALL = install
 RM = rm -f
@@ -216,6 +222,7 @@ CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
 
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
+LIB.SOBJS = $(LIB.SRCS:.c=.pic_o)
 LIB.LDFLAGS = $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 LIB.LIBS = $(GL_LDFLAGS)
 
@@ -235,7 +242,7 @@ lib:
 lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
 
-lib/$(LIB.SHARED): $(LIB.OBJS)
+lib/$(LIB.SHARED): $(LIB.SOBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
 else
@@ -254,6 +261,9 @@ bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.SRCS)
 
 src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	$(CC) $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+src/glew.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
 install: all
 # directories
@@ -308,6 +318,7 @@ endif
 
 clean:
 	$(RM) $(LIB.OBJS)
+	$(RM) $(LIB.SOBJS)
 	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
 	$(RM) $(GLEWINFO.BIN.OBJS) bin/$(GLEWINFO.BIN) $(VISUALINFO.BIN.OBJS) bin/$(VISUALINFO.BIN)
 # Compiler droppings
