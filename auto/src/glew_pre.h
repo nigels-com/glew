@@ -77,6 +77,7 @@
 #define __glext_h_
 #define __GLEXT_H_
 #define __gl_ATI_h_
+#define __GLX_glx_h__
 
 #if defined(_WIN32)
 
@@ -118,11 +119,9 @@
 #define WINGDIAPI __declspec(dllimport)
 #endif
 /* <ctype.h> */
-#if !defined(__CYGWIN__) && !defined(_WCHAR_T_DEFINED)
-#  ifndef _WCHAR_T_DEFINED
-     typedef unsigned short wchar_t;
-#    define _WCHAR_T_DEFINED
-#  endif
+#if defined(_MSC_VER) && !defined(_WCHAR_T_DEFINED)
+typedef unsigned short wchar_t;
+#  define _WCHAR_T_DEFINED
 #endif
 /* <stddef.h> */
 #if !defined(_W64)
