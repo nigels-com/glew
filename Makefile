@@ -72,7 +72,7 @@ LD = ld
 CFLAGS.EXTRA = 
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
-LDFLAGS.GL = -lXmu -Xi -lGLU -lGL -lXext -lX11
+LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -Wall -W
 BIN.SUFFIX =
@@ -109,7 +109,7 @@ LD = cc
 CFLAGS.EXTRA = -dynamic -I/usr/X11R6/include
 LDFLAGS.SO = -dynamiclib
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
-LDFLAGS.GL = -lXmu -Xi -lGLU -lGL -lXext -lX11
+LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 BIN.SUFFIX =
 WARN = -Wall -W
@@ -150,7 +150,7 @@ BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 
-all: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
+all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
 lib:
 	mkdir lib
