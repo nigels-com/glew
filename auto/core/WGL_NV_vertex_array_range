@@ -1,0 +1,3 @@
+WGL_NV_vertex_array_range
+	void * wglAllocateMemoryNV (GLsizei size, GLfloat readFrequency, GLfloat writeFrequency, GLfloat priority)
+	void wglFreeMemoryNV (void *pointer)

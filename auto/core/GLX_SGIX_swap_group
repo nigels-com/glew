@@ -1,0 +1,2 @@
+GLX_SGIX_swap_group
+	void glXJoinSwapGroupSGIX (Display *dpy, GLXDrawable drawable, GLXDrawable member)

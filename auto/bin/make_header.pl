@@ -27,8 +27,8 @@ sub make_type($$)
 sub make_pfn_type($%)
 {
     our $api;
-    return join('', "typedef ", $_[1]->{rtype},
-        " ($api * PFN" . (uc $_[0]) . "PROC) ",
+    return join(' ', "typedef", $_[1]->{rtype},
+        "($api * PFN" . (uc $_[0]) . "PROC)",
         "(" . $_[1]->{parms} . ")") . ";";
 }
 

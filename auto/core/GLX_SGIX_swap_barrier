@@ -1,0 +1,3 @@
+GLX_SGIX_swap_barrier
+	void glXBindSwapBarrierSGIX (Display *dpy, GLXDrawable drawable, int barrier)
+	Bool glXQueryMaxSwapBarriersSGIX (Display *dpy, int screen, int *max)

@@ -1,0 +1,3 @@
+GL_ATI_map_object_buffer
+	void glMapObjectBufferATI (GLuint buffer)
+	void glUnmapObjectBufferATI (GLuint buffer)
