@@ -5,10 +5,7 @@
 ## General Public License Version 2 as published by the Free Software
 ## Foundation or, at your option, any later version.
 
-GLEW_MAJOR = 1
-GLEW_MINOR = 3
-GLEW_MICRO = 0
-GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
+include ../config/version
 
 SHELL = bash
 REGISTRY = registry
@@ -196,7 +193,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_str_glx.c >> $@
 	$(BIN)/make_str.pl $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glew_str_tail.c >> $@
-	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
 	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
@@ -248,7 +245,7 @@ $(S.DEST)/glew_init.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(GLX_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n\n#endif /* !__APPLE__ || GLEW_APPLE_GLX */\n" >> $@;
 	cat $(SRC)/glew_init_tail.c >> $@
-	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
 	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
@@ -264,7 +261,7 @@ $(S.DEST)/glew_str.c: $(EXT)/.dummy
 	$(BIN)/make_str.pl $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glew_str_tail.c >> $@
 #	$(BIN)/fix_OML_sync_control.sh $@
-#	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+#	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
 #	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	rm -f $@.bak
 

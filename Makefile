@@ -30,10 +30,7 @@
 
 GLEW_DEST ?= /usr
 
-GLEW_MAJOR = 1
-GLEW_MINOR = 3
-GLEW_MICRO = 0
-GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
+include config/version
 
 TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz

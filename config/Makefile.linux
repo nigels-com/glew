@@ -1,4 +1,4 @@
-NAME = GLEW
+NAME = $(GLEW_NAME)
 CC = cc
 LD = ld
 ifneq (undefined, $(origin GLEW_MX))
@@ -14,8 +14,8 @@ NAME = GLEW
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX =
-LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
-LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.SHARED = lib$(NAME).so.$(SO_VERSION)
 LIB.STATIC = lib$(NAME).a
 SHARED_OBJ_EXT = pic_o
