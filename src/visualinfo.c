@@ -663,6 +663,8 @@ VisualInfo (GLContext* ctx)
           fprintf(file, "gs ");
         else if (GLX_STATIC_GRAY == value)
           fprintf(file, "sg ");
+        else if (GLX_X_VISUAL_TYPE == value)
+          fprintf(file, " . ");
         else
           fprintf(file, " ? ");
       }
