@@ -39,29 +39,184 @@
 */
 
 #include <stdio.h>
-#include <windows.h> /* must include */
-#include <GL/gl.h>   /* OpenGL header */
-#include <GL/glu.h>  /* GLU header */
+#include <GL/glew.h> /* OpenGL header */
+#include <GL/wglew.h> /* GLU header */
 
 int drawableonly = 0;
+int showall = 0;
 int pixelformatok = 0;
 int dontcreatecontext = 0;
 int displaystdout = 0;
 int verbose = 0;
 FILE* file = stdout;
 
-#define WGL_DRAW_TO_PBUFFER_ARB                                 0x202D
-#define WGL_NUMBER_PIXEL_FORMATS_ARB                            0x2000
+void
+VisualInfoARB (HDC hDC, int verbose)
+{
+  int attrib[32], value[32], nAttrib;
+  int i, maxpf;
 
-typedef const char* (APIENTRY * wglGetExtensionsStringARBPROC) (HDC hdc);
-typedef const char* (APIENTRY * wglGetExtensionsStringEXTPROC) ();
-typedef BOOL (APIENTRY * wglGetPixelFormatAttribivARBPROC) (HDC hdc, int iPixelFormat, int iLayerPlane, UINT nAttributes, const int *piAttributes, int *piValues);
-typedef BOOL (APIENTRY * wglChoosePixelFormatARBPROC) (HDC hdc, const int *piAttribIList, const FLOAT *pfAttribFList, UINT nMaxFormats, int *piFormats, UINT *nNumFormats);
+  attrib[0] = WGL_NUMBER_PIXEL_FORMATS_ARB;
+  wglGetPixelFormatAttribivARB(hDC, 1, 0, 1, attrib, value);
+  maxpf = value[0];
 
-wglGetExtensionsStringARBPROC wglGetExtensionsStringARB = NULL;
-wglGetExtensionsStringEXTPROC wglGetExtensionsStringEXT = NULL;
-wglGetPixelFormatAttribivARBPROC wglGetPixelFormatAttribivARB = NULL;
-wglChoosePixelFormatARBPROC wglChoosePixelFormatARB = NULL;
+  attrib[0] = WGL_SUPPORT_OPENGL_ARB;
+  attrib[1] = WGL_DRAW_TO_WINDOW_ARB;
+  attrib[2] = WGL_DRAW_TO_BITMAP_ARB;
+  attrib[3] = WGL_ACCELERATION_ARB;
+  /* WGL_NO_ACCELERATION_ARB, WGL_GENERIC_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB */
+  attrib[4] = WGL_SWAP_METHOD_ARB;
+  /* WGL_SWAP_EXCHANGE_ARB, WGL_SWAP_COPY_ARB, WGL_SWAP_UNDEFINED_ARB */
+  attrib[5] = WGL_DOUBLE_BUFFER_ARB;
+  attrib[6] = WGL_STEREO_ARB;
+  attrib[7] = WGL_PIXEL_TYPE_ARB;
+  /* WGL_TYPE_RGBA_ARB, WGL_TYPE_COLORINDEX_ARB, WGL_TYPE_RGBA_FLOAT_ATI
+     (WGL_ATI_pixel_format_float) */
+  /* Color buffer information */
+  attrib[8] = WGL_COLOR_BITS_ARB;
+  attrib[9] = WGL_RED_BITS_ARB;
+  attrib[10] = WGL_GREEN_BITS_ARB;
+  attrib[11] = WGL_BLUE_BITS_ARB;
+  attrib[12] = WGL_ALPHA_BITS_ARB;
+  /* Accumulation buffer information */
+  attrib[13] = WGL_ACCUM_BITS_ARB;
+  attrib[14] = WGL_ACCUM_RED_BITS_ARB;
+  attrib[15] = WGL_ACCUM_GREEN_BITS_ARB;
+  attrib[16] = WGL_ACCUM_BLUE_BITS_ARB;
+  attrib[17] = WGL_ACCUM_ALPHA_BITS_ARB;
+  /* Depth, stencil, and aux buffer information */
+  attrib[18] = WGL_DEPTH_BITS_ARB;
+  attrib[19] = WGL_STENCIL_BITS_ARB;
+  attrib[20] = WGL_AUX_BUFFERS_ARB;
+  nAttrib = 21;
+  if (wglew.ARB_pbuffer)
+  {
+    attrib[nAttrib] = WGL_DRAW_TO_PBUFFER_ARB;
+    nAttrib++;
+  }
+  if (wglew.NV_float_buffer)
+  {
+    attrib[nAttrib] = WGL_FLOAT_COMPONENTS_NV;
+    nAttrib++;
+  }
+  
+  if (!verbose)
+  {
+    /* print table header */
+    fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
+    fprintf(file, " |     |     visual     |    color buff   | ax dp st |   accum buffs   |\n");
+    fprintf(file, " |  id | tp ac fm db st |  sz  r  g  b  a | bf th cl |  sz  r  g  b  a |\n");
+    fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
+
+    /* loop through all the pixel formats */
+    for(i = 1; i <= maxpf; i++)
+    {
+      wglGetPixelFormatAttribivARB(hDC, i, 0, nAttrib, attrib, value);
+      /* only describe this format if it supports OpenGL */
+      if (!value[0]) continue;
+      /* by default show only fully accelerated window or pbuffer capable visuals */
+      if (!showall
+	  && ((value[2] && !value[1])
+	  || (!wglew.ARB_pbuffer || !value[21])
+	  || (value[3] != WGL_FULL_ACCELERATION_ARB))) continue;
+      /* print out the information for this visual */
+      /* visual id */
+      fprintf(file, " |% 4d | ", i);
+      /* visual type */
+      if (value[1])
+      {
+	if (wglew.ARB_pbuffer && value[21]) fprintf(file, "wp ");
+	else fprintf(file, "wn ");
+      }
+      else
+      {
+	if (value[2]) fprintf(file, "bm ");
+	else if (wglew.ARB_pbuffer && value[21]) fprintf(file, "pb ");
+      }
+      /* acceleration */
+      fprintf(file, "%s", value[3] == WGL_FULL_ACCELERATION_ARB ? "fu" : 
+	      value[3] == WGL_GENERIC_ACCELERATION_ARB ? "ge" :
+	      value[3] == WGL_NO_ACCELERATION_ARB ? "no" : ". ");
+      /* format */
+      if (wglew.NV_float_buffer && value[nAttrib-1]) fprintf(file, "  f ");
+      else if (wglew.ATI_pixel_format_float && value[7] == WGL_TYPE_RGBA_FLOAT_ATI) fprintf(file, "  f ");
+      else if (value[7] == WGL_TYPE_RGBA_ARB) fprintf(file, "  i ");
+      else if (value[7] == WGL_TYPE_COLORINDEX_ARB) fprintf(file, "  c ");
+      /* double buffer */
+      fprintf(file, " %c ", value[5] ? 'y' : '.');
+      /* stereo */
+      fprintf(file, " %c | ", value[6] ? 'y' : '.');
+      /* color size */
+      if (value[8]) fprintf(file, "%3d ", value[8]);
+      else fprintf(file, "  . ");
+      /* red */
+      if (value[9]) fprintf(file, "%2d ", value[9]); 
+      else fprintf(file, " . ");
+      /* green */
+      if (value[10]) fprintf(file, "%2d ", value[10]); 
+      else fprintf(file, " . ");
+      /* blue */
+      if (value[11]) fprintf(file, "%2d ", value[11]);
+      else fprintf(file, " . ");
+      /* alpha */
+      if (value[12]) fprintf(file, "%2d | ", value[12]); 
+      else fprintf(file, " . | ");
+      /* aux buffers */
+      if (value[20]) fprintf(file, "%2d ", value[20]);
+      else fprintf(file, " . ");
+      /* depth */
+      if (value[18]) fprintf(file, "%2d ", value[18]);
+      else fprintf(file, " . ");
+      /* stencil */
+      if (value[19]) fprintf(file, "%2d | ", value[19]);
+      else fprintf(file, " . | ");
+      /* accum size */
+      if (value[13]) fprintf(file, "%3d ", value[13]);
+      else fprintf(file, "  . ");
+      /* accum red */
+      if (value[14]) fprintf(file, "%2d ", value[14]);
+      else fprintf(file, " . ");
+      /* accum green */
+      if (value[15]) fprintf(file, "%2d ", value[15]);
+      else fprintf(file, " . ");
+      /* accum blue */
+      if (value[16]) fprintf(file, "%2d ", value[16]);
+      else fprintf(file, " . ");
+      /* accum alpha */
+      if (value[17]) fprintf(file, "%2d ", value[17]);
+      else fprintf(file, " . ");
+      fprintf(file, "|\n");
+    }
+    /* print table footer */
+    fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
+    fprintf(file, " |     |     visual     |    color buff   | ax dp st |   accum buffs   |\n");
+    fprintf(file, " |  id | tp ac fm db st |  sz  r  g  b  a | bf th cl |  sz  r  g  b  a |\n");
+    fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
+  }
+  else /* verbose */
+  {
+#if 0
+    fprintf(file, "\n");
+    /* loop through all the pixel formats */
+    for(i = 1; i <= maxpf; i++)
+    {	    
+      DescribePixelFormat(hDC, i, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
+      /* only describe this format if it supports OpenGL */
+      if(!(pfd.dwFlags & PFD_SUPPORT_OPENGL)
+	 || (drawableonly && !(pfd.dwFlags & PFD_DRAW_TO_WINDOW))) continue;
+      fprintf(file, "Visual ID: %2d  depth=%d  class=%s\n", i, pfd.cDepthBits, 
+	     pfd.cColorBits <= 8 ? "PseudoColor" : "TrueColor");
+      fprintf(file, "    bufferSize=%d level=%d renderType=%s doubleBuffer=%d stereo=%d\n", pfd.cColorBits, pfd.bReserved, pfd.iPixelType == PFD_TYPE_RGBA ? "rgba" : "ci", pfd.dwFlags & PFD_DOUBLEBUFFER, pfd.dwFlags & PFD_STEREO);
+      fprintf(file, "    generic=%d generic accelerated=%d\n", (pfd.dwFlags & PFD_GENERIC_FORMAT) == PFD_GENERIC_FORMAT, (pfd.dwFlags & PFD_GENERIC_ACCELERATED) == PFD_GENERIC_ACCELERATED);
+      fprintf(file, "    rgba: redSize=%d greenSize=%d blueSize=%d alphaSize=%d\n", pfd.cRedBits, pfd.cGreenBits, pfd.cBlueBits, pfd.cAlphaBits);
+      fprintf(file, "    auxBuffers=%d depthSize=%d stencilSize=%d\n", pfd.cAuxBuffers, pfd.cDepthBits, pfd.cStencilBits);
+      fprintf(file, "    accum: redSize=%d greenSize=%d blueSize=%d alphaSize=%d\n", pfd.cAccumRedBits, pfd.cAccumGreenBits, pfd.cAccumBlueBits, pfd.cAccumAlphaBits);
+      fprintf(file, "    multiSample=%d multisampleBuffers=%d\n", 0, 0);
+      fprintf(file, "    Opaque.\n");
+    }
+#endif
+  }
+}
 
 void
 VisualInfo (HDC hDC, int verbose)
@@ -240,22 +395,18 @@ CreateGLWindow (char* title, int x, int y, int width, int height,
     wc.hbrBackground = NULL;
     wc.lpszMenuName  = NULL;
     wc.lpszClassName = "OpenGL";
-
     if (!RegisterClass(&wc))
     {
-      MessageBox(NULL, "RegisterClass() failed:  "
-		 "Cannot register window class.", "Error", MB_OK);
+      MessageBox(NULL, "Failed to register window class", "Error", MB_OK);
       return NULL;
     }
   }
   hWnd = CreateWindow("OpenGL", title, WS_OVERLAPPEDWINDOW |
 		      WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		      x, y, width, height, NULL, NULL, hInstance, NULL);
-
   if (hWnd == NULL)
   {
-    MessageBox(NULL, "CreateWindow() failed:  Cannot create a window.",
-	       "Error", MB_OK);
+    MessageBox(NULL, "Failed to create a window", "Error", MB_OK);
     return NULL;
   }
   hDC = GetDC(hWnd);
@@ -270,12 +421,12 @@ CreateGLWindow (char* title, int x, int y, int width, int height,
   pf = ChoosePixelFormat(hDC, &pfd);
   if (pf == 0)
   {
-    fprintf(stderr, "ChoosePixelFormat() failed - trying with Pixelformat 1!\n");
+    //fprintf(stderr, "ChoosePixelFormat() failed - trying with Pixelformat 1!\n");
     pf = 1;
   } 
   if (SetPixelFormat(hDC, pf, &pfd) == FALSE)
   {
-    fprintf(stderr, "SetPixelFormat(%d) failed! No Renderer data will be available!\n", pf);
+    //fprintf(stderr, "SetPixelFormat(%d) failed! No Renderer data will be available!\n", pf);
   } 
   else
   {
@@ -336,22 +487,16 @@ main (int argc, char** argv)
   HGLRC hRC;
   HWND hWnd;
   MSG msg;
+  int err;
 
   while (--argc)
   {
     if (strcmp("-h", argv[argc]) == 0) {
       //printf("Usage: wglinfo [-v] [-t] [-m] [-h] [-dispay <dname>] [-nfbc] [-fpcinfo]\n");
-      fprintf(stderr, "Usage: wglinfo [-d] [-v] [-w] [-s] [-h]\n");
+      fprintf(stderr, "Usage: wglinfo [-v] [-a] [-s] [-h]\n");
       fprintf(stderr, "        -d: no context (pixelformat enumeration, but no render string)\n");
-      fprintf(stderr, "        -v: print visuals info in verbose form\n");
-      /*
-	printf("        -t: Print verbose table (not implemented on Win32)\n");
-	printf("        -m: Don't print mid table headers (in long tables). (not on Win32)\n");
-	printf("        -display <dname>: Print GLX visuals on specified server. (not on Win32)\n");
-	printf("        -nfbc: Don't use fbconfig extension (not available on Win32)\n");
-	printf("        -fbcinfo: print out additional fbconfig information (not on Win32)\n");
-      */
-      fprintf(stderr, "        -w: show only visuals that can draw to the screen\n");
+      fprintf(stderr, "        -v: print visual info in verbose form\n");
+      fprintf(stderr, "        -a: show all visuals\n");
       fprintf(stderr, "        -s: display to stdout instead of wglinfo.txt\n");      
       fprintf(stderr, "        -h: this screen\n");
       return 1;
@@ -360,82 +505,55 @@ main (int argc, char** argv)
     {
       verbose = 1;
     }
-    else if (strcmp("-w", argv[argc]) == 0)
+    else if (strcmp("-a", argv[argc]) == 0)
     {
-      drawableonly = 1;
+      showall = 1;
     }
-    else if (strcmp("-d", argv[argc]) == 0)
-    {
-      dontcreatecontext = 1;
-    }	
     else if (strcmp("-s", argv[argc]) == 0)
     {
       displaystdout = 1;
     }
   }
-
-  if (!displaystdout) file = fopen("wglinfo.txt", "w");
-  if (file == NULL) file = stdout;
-
+  /* create window and OpenGL rendering context */
   hWnd = CreateGLWindow("wglinfo", 0, 0, 100, 100, PFD_TYPE_RGBA, PFD_DOUBLEBUFFER);
   if (hWnd == NULL) return 1;
   hDC = GetDC(hWnd);
-  pixelformatok = pixelformatok && !dontcreatecontext;
-  if (pixelformatok)
+  hRC = wglCreateContext(hDC);
+  wglMakeCurrent(hDC, hRC);
+  /* initialize GLEW */
+  err = glewInit();    
+  if (GLEW_OK != err)
   {
-    hRC = wglCreateContext(hDC);
-    wglMakeCurrent(hDC, hRC);
+    char errStr[128];
+    sprintf(errStr, "GLEW failed to initialize: %s", glewGetErrorString(err));
+    MessageBox(NULL, errStr, "Error", MB_OK);
+    return 1;
   }
   ShowWindow(hWnd, SW_HIDE);
-
-  if (pixelformatok)
+  /* open file */
+  if (!displaystdout) file = fopen("wglinfo.txt", "w");
+  if (file == NULL) file = stdout;
+  /* output header information */
+  /* OpenGL extensions */
+  fprintf(file, "OpenGL vendor string: %s\n", glGetString(GL_VENDOR));
+  fprintf(file, "OpenGL renderer string: %s\n", glGetString(GL_RENDERER));
+  fprintf(file, "OpenGL version string: %s\n", glGetString(GL_VERSION));
+  fprintf(file, "OpenGL extensions (GL_): \n");
+  PrintExtensions((char*)glGetString(GL_EXTENSIONS));
+  /* GLU extensions */
+  fprintf(file, "GLU version string: %s\n", gluGetString(GLU_VERSION));
+  fprintf(file, "GLU extensions (GLU_): \n");
+  PrintExtensions((char*)gluGetString(GLU_EXTENSIONS));
+  /* WGL extensions */
+  if (wglew.ARB_extensions_string || wglew.EXT_extensions_string)
   {
-    /* output header information */
-    /* OpenGL extensions */
-    /*
-      printf("display: N/A\n");
-      printf("server wgl vendor string: N/A\n");
-      printf("server wgl version string: N/A\n");
-      printf("server wgl extensions (WGL_): N/A\n");
-      printf("client wgl version: N/A\n");
-      printf("client wgl extensions (WGL_): none\n");
-    */
-    fprintf(file, "OpenGL vendor string: %s\n", glGetString(GL_VENDOR));
-    fprintf(file, "OpenGL renderer string: %s\n", glGetString(GL_RENDERER));
-    fprintf(file, "OpenGL version string: %s\n", glGetString(GL_VERSION));
-    fprintf(file, "OpenGL extensions (GL_): \n");
-    PrintExtensions((char*)glGetString(GL_EXTENSIONS));
-
-    /* GLU extensions */
-    fprintf(file, "GLU version string: %s\n", gluGetString(GLU_VERSION));
-    fprintf(file, "GLU extensions (GLU_): \n");
-    PrintExtensions((char*)gluGetString(GLU_EXTENSIONS));
-
-    /* WGL extensions */
-    wglGetExtensionsStringARB = (wglGetExtensionsStringARBPROC)
-      wglGetProcAddress("wglGetExtensionsStringARB");
-    if (!wglGetExtensionsStringARB)
-    {
-      wglGetExtensionsStringEXT = (wglGetExtensionsStringEXTPROC)
-	wglGetProcAddress("wglGetExtensionsStringEXT");
-    }
-    if (wglGetExtensionsStringARB || wglGetExtensionsStringEXT)
-    {
-      //fprintf(file, "WGL vendor string: %s\n", );
-      //fprintf(file, "WGL version string: %s\n", );
-      fprintf(file, "WGL extensions (WGL_): \n");
-      if (wglGetExtensionsStringARB)
-	PrintExtensions(wglGetExtensionsStringARB ? (char*)wglGetExtensionsStringARB(hDC):
-			(char*)wglGetExtensionsStringARB(hDC));
-    }
+    fprintf(file, "WGL extensions (WGL_): \n");
+    PrintExtensions(wglGetExtensionsStringARB ? (char*)wglGetExtensionsStringARB(hDC) :
+		    (char*)wglGetExtensionsStringEXT(hDC));
   }
-
   /* enumerate all the formats */
-  wglChoosePixelFormatARB = 
-    (wglChoosePixelFormatARBPROC)wglGetProcAddress("wglChoosePixelFormatARB");
-  wglGetPixelFormatAttribivARB =
-    (wglGetPixelFormatAttribivARBPROC)wglGetProcAddress("wglGetPixelFormatAttribivARB");
-  if (wglChoosePixelFormatARB != NULL && wglGetPixelFormatAttribivARB != NULL)
+#if 1
+  if (wglew.ARB_pixel_format)
   {
     int attrib[16], value[16], pf;
     unsigned int c;
@@ -445,21 +563,25 @@ main (int argc, char** argv)
     wglChoosePixelFormatARB(hDC, attrib, 0, 1, &pf, &c);
     attrib[0] = WGL_NUMBER_PIXEL_FORMATS_ARB;
     wglGetPixelFormatAttribivARB(hDC, 0, 0, 1, attrib, value);
+    VisualInfoARB(hDC, verbose);
   }
-  VisualInfo(hDC, verbose);
-
+  else
+#endif
+  {
+    VisualInfo(hDC, verbose);
+  }
+  /* quit event loop */
   PostQuitMessage(0);
   while (GetMessage(&msg, hWnd, 0, 0))
   {
     TranslateMessage(&msg);
     DispatchMessage(&msg);
   }
-
+  /* release resources */
   if (pixelformatok) wglMakeCurrent(NULL, NULL);
   ReleaseDC(hWnd, hDC);
   if (pixelformatok) wglDeleteContext(hRC);
   DestroyWindow(hWnd);
-
   if (file != stdout) fclose(file);
 
   return msg.wParam;

@@ -104,11 +104,16 @@
 #ifndef APIENTRY
 #define GLEW_APIENTRY_DEFINED
 #  if defined(__CYGWIN__) || defined(__MINGW32__)
-#    define APIENTRY __attribute__ ((__stdcall__))
+#    define APIENTRY __stdcall
 #  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
 #    define APIENTRY __stdcall
 #  else
 #    define APIENTRY
+#  endif
+#endif
+#ifndef GLAPI
+#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#    define GLAPI extern
 #  endif
 #endif
 /* <winnt.h> */

@@ -18,30 +18,53 @@
 GLEW_TARGET ?= /usr
 GLEW_VERSION = 1.0.5
 
-CC = \cc
+SYSTEM = $(strip $(shell uname -s))
+
+ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
+CC = \gcc-2 -mno-cygwin
+LD = \gcc-2 -mno-cygwin
+NAME = glew32
+DEFINE = -D'GLEW_STATIC'
+else
+ifeq ($(patsubst Linux%,Linux,$(SYSTEM)), Linux)
+CC = \gcc
 LD = \ld
+NAME = GLEW
+else
+$(error "Platform '$(SYSTEM)' not supported")
+endif
+endif
+
+AR = \ar
 INSTALL = \install
 RM = \rm -f
 LN = \ln -s
-OPT = -O2
+ifeq ($(MAKECMDGOALS), debug)
+OPT = -g
+else
+OPT = -O3 -fomit-frame-pointer
+endif
 INCLUDE = -Iinclude
-CFLAGS = $(OPT) $(INCLUDE)
+CFLAGS = $(OPT) $(INCLUDE) $(DEFINE)
 
-LIB = libGLEW.so.$(GLEW_VERSION)
-LIB.LNK = libGLEW.so
+LIB.A = lib$(NAME).a
+LIB.SO = lib$(NAME).so.$(GLEW_VERSION)
+LIB.SO.LNK = lib$(NAME).so
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
-LIB.LIBS =
 
 BIN = glewinfo
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -lGLEW -lGLU -lGL -lXmu -lX11
+BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -l$(NAME) -lGLU -lGL -lXmu -lX11
 
-all: lib/$(LIB) bin/$(BIN)
+all: lib/$(LIB.A) bin/$(BIN)
 
-lib/$(LIB): $(LIB.OBJS)
-	$(LD) -shared -o $@ $^ $(LIB.LIBS)
+lib/$(LIB.A): $(LIB.OBJS)
+	$(AR) cr $@ $^
+
+lib/$(LIB.SO): $(LIB.OBJS)
+	$(LD) -shared -o $@ $^
 	$(LN) $(LIB) lib/$(LIB.LNK)
 
 bin/$(BIN): $(BIN.SRCS)
@@ -54,15 +77,16 @@ install: all
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/include/GL
 	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_TARGET)/include/GL
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/lib
-	$(INSTALL) -s -m 755 lib/$(LIB) $(GLEW_TARGET)/lib
-	$(LN) $(GLEW_TARGET)/lib/$(LIB) $(GLEW_TARGET)/lib/$(LIB.LNK)
+	$(INSTALL) -s -m 755 lib/$(LIB.SO) $(GLEW_TARGET)/lib
+	$(LN) $(GLEW_TARGET)/lib/$(LIB.SO) $(GLEW_TARGET)/lib/$(LIB.SO.LNK)
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/bin
 	$(INSTALL) -s -m 755 bin/$(BIN) $(GLEW_TARGET)/bin
 
 uninstall:
 	$(RM) $(GLEW_TARGET)/include/GL/glew.h $(GLEW_TARGET)/include/GL/glxew.h
-	$(RM) $(GLEW_TARGET)/lib/$(LIB.LNK) $(GLEW_TARGET)/lib/$(LIB)
+	$(RM) $(GLEW_TARGET)/lib/$(LIB.SO.LNK) $(GLEW_TARGET)/lib/$(LIB.SO)
 	$(RM) $(GLEW_TARGET)/bin/$(BIN)
 
 clean:
-	$(RM) $(LIB.OBJS) lib/$(LIB) lib/$(LIB.LNK) $(BIN.OBJS) bin/$(BIN)
+	$(RM) $(LIB.OBJS) lib/$(LIB.A) lib/$(LIB.SO) lib/$(LIB.SO.LNK) \
+	$(BIN.OBJS) bin/$(BIN)
