@@ -139,7 +139,7 @@ EOT
 # fix bugs in GL_ARB_shader_objects
     grep -v "GL_FLOAT " $1/GL_ARB_shader_objects > tmp
     mv tmp $1/GL_ARB_shader_objects
-    grep -v "GL_INT" $1/GL_ARB_shader_objects > tmp
+    grep -v "GL_INT " $1/GL_ARB_shader_objects > tmp
     mv tmp $1/GL_ARB_shader_objects
 
 # add typedefs to GL_ARB_shader_objects

@@ -122,6 +122,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 	perl -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" -pi $@
+	perl -e "s/_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT);/g" -pi $@
 	rm -f $@.bak
 
 $(S.DEST)/glewinfo.c: $(EXT)/.dummy
