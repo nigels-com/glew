@@ -11,7 +11,7 @@ extern WGLEWContext* wglewGetContext();
 #endif /* GLEW_MX */
 
 GLEWAPI GLenum wglewContextInit (WGLEWContext* ctx);
-GLEWAPI GLboolean wglewGetExtension (const GLubyte* name);
+GLEWAPI GLboolean wglewGetExtension (const char* name);
 
 #ifdef __cplusplus
 }
