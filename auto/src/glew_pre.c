@@ -39,13 +39,15 @@
 #ifdef _WIN32
 #  define glewGetProcAddress(name) wglGetProcAddress(name)
 #else
-#ifdef __APPLE__
-#  define glewGetProcAddress(name) NSGLGetProcAddress(name)
-#else
-#ifdef __sgi
-#  define glewGetProcAddress(name) dlGetProcAddress(name)
-#else /* __linux */
-#  define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
+#  ifdef __APPLE__
+#    define glewGetProcAddress(name) NSGLGetProcAddress(name)
+#  else
+#    ifdef __sgi
+#      define glewGetProcAddress(name) dlGetProcAddress(name)
+#    else /* __linux */
+#      define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
+#    endif
+#  endif
 #endif
 
 #ifdef __APPLE__

@@ -45,7 +45,7 @@ my %typemap = (
     ushort   => "GLushort",
     DMbuffer => "void *",
 
-    # ARB VBO introduces this, no idea how to handle it properly.  The spec
+    # ARB VBO introduces these, no idea how to handle them properly.  The spec
     # file babbles about how great this will be on 64 bit systems, but doesn't
     # actually say how to define this nor how to detect that this has been
     # defined (i.e., is this tied to the VBO spec or not?).  For now I'll just
@@ -54,6 +54,11 @@ my %typemap = (
     sizeiptrARB => "GLsizeiptrARB",
     intptrARB   => "GLintptrARB",
 
+    # ARB shader objects introduces these, charARB is at least 8 bits,
+    # handleARB is at least 32 bits
+    charARB => "GLcharARB",
+    handleARB => "GLhandleARB",           
+               
     # GLX 1.3 defines new types which might not be available at compile time
 
     #GLXFBConfig   => "void*",

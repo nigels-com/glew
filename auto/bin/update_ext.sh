@@ -17,10 +17,10 @@ if [ ! -d $1 ] ; then
     grep -v EXT $1/GL_NV_texture_compression_vtc > tmp; \
 	mv tmp $1/GL_NV_texture_compression_vtc
 # remove duplicates from GL_ARB_vertex_program and GL_ARB_fragment_program
-    grep -v -f $1/GL_ARB_vertex_program $1/GL_ARB_fragment_program > tmp; \
+    grep -v -F -f $1/GL_ARB_vertex_program $1/GL_ARB_fragment_program > tmp; \
 	mv tmp $1/GL_ARB_fragment_program
 # remove duplicates from GLX_EXT_visual_rating and GLX_EXT_visual_info
-    grep -v -f $1/GLX_EXT_visual_info $1/GLX_EXT_visual_rating > tmp; \
+    grep -v -F -f $1/GLX_EXT_visual_info $1/GLX_EXT_visual_rating > tmp; \
 	mv tmp $1/GLX_EXT_visual_rating
 # fix GL_NV_occlusion_query and GL_HP_occlusion_test
     grep -v '_HP' $1/GL_NV_occlusion_query > tmp; \
@@ -55,4 +55,37 @@ if [ ! -d $1 ] ; then
     echo -e "\tDECLARE_HANDLE(HPBUFFEREXT);" >> $1/WGL_EXT_pbuffer
 # get rid of GL_SUN_multi_draw_arrays
     rm -f $1/GL_SUN_multi_draw_arrays
+# change variable names in GL_ARB_vertex_shader
+    sed -i -e 's/v0/x/g' $1/GL_ARB_vertex_shader
+    sed -i -e 's/v1/y/g' $1/GL_ARB_vertex_shader
+    sed -i -e 's/v2/z/g' $1/GL_ARB_vertex_shader
+    sed -i -e 's/v3/w/g' $1/GL_ARB_vertex_shader
+# remove triplicates in GL_ARB_shader_objects, GL_ARB_fragment_shader, 
+# and GL_ARB_vertex_shader
+    grep -v -F -f $1/GL_ARB_shader_objects $1/GL_ARB_fragment_shader > tmp; \
+	mv tmp $1/GL_ARB_fragment_shader
+    grep -v -F -f $1/GL_ARB_shader_objects $1/GL_ARB_vertex_shader > tmp; \
+	mv tmp $1/GL_ARB_vertex_shader
+# remove duplicates in GL_ARB_vertex_program and GL_ARB_vertex_shader
+    grep -v -F -f $1/GL_ARB_vertex_program $1/GL_ARB_vertex_shader > tmp; \
+	mv tmp $1/GL_ARB_vertex_shader
+# remove triplicates in GL_ARB_fragment_program, GL_ARB_fragment_shader, 
+# and GL_ARB_vertex_shader
+    grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_fragment_shader > tmp; \
+	mv tmp $1/GL_ARB_fragment_shader
+    grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_vertex_shader > tmp; \
+	mv tmp $1/GL_ARB_vertex_shader
+# fix bugs in GL_ARB_vertex_shader
+    grep -v "GL_FLOAT" $1/GL_ARB_vertex_shader > tmp; \
+        mv tmp $1/GL_ARB_vertex_shader
+    sed -i -e 's/handle /GLhandleARB /g' $1/GL_ARB_vertex_shader
+# fix bugs in GL_ARB_shader_objects
+    grep -v "GL_FLOAT" $1/GL_ARB_shader_objects > tmp; \
+        mv tmp $1/GL_ARB_shader_objects
+    grep -v "GL_INT" $1/GL_ARB_shader_objects > tmp; \
+        mv tmp $1/GL_ARB_shader_objects
+# add typedefs to GL_ARB_shader_objects
+    echo -e "\ttypedef char GLcharARB" >> $1/GL_ARB_shader_objects
+    echo -e "\ttypedef int GLhandleARB" >> $1/GL_ARB_shader_objects
 fi
+
