@@ -96,6 +96,8 @@ static void *dlGetProcAddress (const GLubyte* name)
 
 #ifdef GLEW_MX
 #define glewGetContext() ctx
+#define wglewGetContext() ctx
+#define glxewGetContext() ctx
 #define GLEW_CONTEXT_ARG_DEF GLEWContext* ctx
 #define WGLEW_CONTEXT_ARG_DEF WGLEWContext* ctx
 #define GLXEW_CONTEXT_ARG_DEF GLXEWContext* ctx
