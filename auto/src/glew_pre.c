@@ -34,10 +34,44 @@
 #include <GL/glxew.h>
 
 #ifdef _WIN32
-#define glewGetProcAddress(name) wglGetProcAddress(name)
+#  define glewGetProcAddress(name) wglGetProcAddress(name)
 #else
-#define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
-#endif
+#  ifdef GLEW_NEEDS_CUSTOM_GET_PROCADDRESS
+#    define glewGetProcAddress(name) __dlopenGetProcAddress(name)
+#  else
+#    define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
+#  endif /* GLEW_NEEDS_CUSTOM_GET_PROCADDRESS */
+#endif /* _WIN32 */
+
+#ifdef GLEW_NEEDS_CUSTOM_GET_PROCADDRESS
+#include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+static void * __dlopenGetProcAddress(const GLubyte *procName)
+{
+    static void *h = NULL;
+    static void *gpa;
+
+    if (!h)
+    {
+        if (!(h = dlopen(GLEW_OPENGL_LIB_PATH, RTLD_LAZY | RTLD_LOCAL)))
+        {
+            fprintf(stderr,
+                    "E: GLEW failed to dlopen %s: %s.\nAbort.\n",
+                    GLEW_OPENGL_LIB_PATH, dlerror());
+            exit(100);
+        }
+
+        gpa = dlsym(h, "glXGetProcAddress");
+    }
+
+    if (gpa != NULL)
+        return ((void* (*)(const GLubyte*))gpa)(procName);
+    else
+        return dlsym(h, (const char *)procName);
+}
+#endif /* GLEW_NEEDS_CUSTOM_GET_PROCADDRESS */
 
 /* ----------------------------- GL_VERSION_1_1 ---------------------------- */
 
