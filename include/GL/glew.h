@@ -97,7 +97,7 @@
 
 /*
  * GLEW does not include <windows.h> to avoid name space pollution.
- * GL needs APIENTRY, GLU needs CALLBACK, wchar_t, and GL_API
+ * GL needs APIENTRY and WINGDIAPI, GLU needs CALLBACK, wchar_t, and GL_API
  * defined properly.
  */
 /* <windef.h> */
@@ -123,17 +123,15 @@
 #  endif
 #endif
 /* <wingdi.h> and <winnt.h> */
-//#ifndef WINGDIAPI
-//#define GLEW_WINGDIAPI_DEFINED
-//#define WINGDIAPI __declspec(dllimport)
-//#endif
+#ifndef WINGDIAPI
+#define GLEW_WINGDIAPI_DEFINED
+#define WINGDIAPI __declspec(dllimport)
+#endif
 /* <ctype.h> */
 #ifndef _WCHAR_T_DEFINED
 typedef unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
-/* <glu.h> */
-#define GLAPI extern
 
 /*
  * GLEW_STATIC needs to be set when including the
@@ -154,11 +152,12 @@ typedef unsigned short wchar_t;
 
 #define GLEW_APIENTRY_DEFINED
 #define APIENTRY
-#define GLAPI extern
-#define GLAPIENTRY
 #define GLEW_EXPORT
 
 #endif /* _WIN32 */
+
+/* <glu.h> */
+#define GLAPI extern
 
 #ifdef __cplusplus
 extern "C" {
@@ -4603,11 +4602,12 @@ extern GLEW_EXPORT const char* glewGetErrorString (GLint error);
 #undef CALLBACK
 #endif
 
-//#ifdef GLEW_WINGDIAPI_DEFINED
-//#undef GLEW_WINGDIAPI_DEFINED
-//#undef WINGDIAPI
-//#endif
+#ifdef GLEW_WINGDIAPI_DEFINED
+#undef GLEW_WINGDIAPI_DEFINED
+#undef WINGDIAPI
+#endif
 
+#undef GL_API
 #undef GLEW_EXPORT
 
 #endif /* __glew_h__ */
