@@ -38,7 +38,8 @@ ext: $(EXT)/.dummy
 
 $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 	$(BIN)/update_registry.sh $(REGISTRY) $(REGISTRY_URL)
-	sed -i -e '7s/\<ATI_/GL_ATI_/' $(REGISTRY)/ATI/texture_env_combine3.txt
+	sed -e '7s/\<ATI_/GL_ATI_/' $(REGISTRY)/ATI/texture_env_combine3.txt > tmp
+	mv tmp $(REGISTRY)/ATI/texture_env_combine3.txt
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
@@ -99,7 +100,8 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(EXT)/GLX_* >> $@
 	cat $(SRC)/glew_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
-	sed -i -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" $@
+	sed -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" $@ > tmp
+	mv tmp $@
 
 $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	cp -f $(SRC)/glewinfo_pre.c $@

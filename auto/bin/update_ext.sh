@@ -37,11 +37,12 @@ if [ ! -d $1 ] ; then
 # fix GL_NV_occlusion_query and GL_HP_occlusion_test
     grep -v '_HP' $1/GL_NV_occlusion_query > tmp
     mv tmp $1/GL_NV_occlusion_query
-
-    sed -i -e's/OCCLUSION_TEST_HP.*/OCCLUSION_TEST_HP 0x8165/' \
-	$1/GL_HP_occlusion_test
-    sed -i -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' \
-	$1/GL_HP_occlusion_test
+    sed -e's/OCCLUSION_TEST_HP.*/OCCLUSION_TEST_HP 0x8165/' \
+	$1/GL_HP_occlusion_test > tmp
+    mv tmp $1/GL_HP_occlusion_test
+    sed -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' \
+	$1/GL_HP_occlusion_test > tmp
+    mv tmp $1/GL_HP_occlusion_test
 
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
@@ -105,10 +106,14 @@ EOT
     rm -f $1/GL_SUN_multi_draw_arrays
 
 # change variable names in GL_ARB_vertex_shader
-    sed -i -e 's/v0/x/g' $1/GL_ARB_vertex_shader
-    sed -i -e 's/v1/y/g' $1/GL_ARB_vertex_shader
-    sed -i -e 's/v2/z/g' $1/GL_ARB_vertex_shader
-    sed -i -e 's/v3/w/g' $1/GL_ARB_vertex_shader
+    sed -e 's/v0/x/g' $1/GL_ARB_vertex_shader > tmp
+    mv tmp $1/GL_ARB_vertex_shader
+    sed -e 's/v1/y/g' $1/GL_ARB_vertex_shader > tmp
+    mv tmp $1/GL_ARB_vertex_shader
+    sed -e 's/v2/z/g' $1/GL_ARB_vertex_shader > tmp
+    mv tmp $1/GL_ARB_vertex_shader
+    sed -e 's/v3/w/g' $1/GL_ARB_vertex_shader > tmp
+    mv tmp $1/GL_ARB_vertex_shader
 
 # remove triplicates in GL_ARB_shader_objects, GL_ARB_fragment_shader, 
 # and GL_ARB_vertex_shader
@@ -131,7 +136,8 @@ EOT
 # fix bugs in GL_ARB_vertex_shader
     grep -v "GL_FLOAT" $1/GL_ARB_vertex_shader > tmp
     mv tmp $1/GL_ARB_vertex_shader
-    sed -i -e 's/handle /GLhandleARB /g' $1/GL_ARB_vertex_shader
+    sed -e 's/handle /GLhandleARB /g' $1/GL_ARB_vertex_shader > tmp
+    mv tmp $1/GL_ARB_vertex_shader
 
 # fix bugs in GL_ARB_shader_objects
     grep -v "GL_FLOAT" $1/GL_ARB_shader_objects > tmp
