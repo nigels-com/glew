@@ -104,7 +104,7 @@ HWND wnd = NULL;
 HDC dc = NULL;
 HGLRC rc = NULL;
 
-GLboolean glewCreateContext (const char* display, int* visual)
+GLboolean glewCreateContext (int* visual)
 {
   WNDCLASS wc;
   PIXELFORMATDESCRIPTOR pfd;
@@ -158,7 +158,7 @@ void glewDestroyContext ()
 
 AGLContext ctx, octx;
 
-GLboolean glewCreateContext (const char* display, int* visual)
+GLboolean glewCreateContext ()
 {
   int attrib[] = { AGL_RGBA, AGL_NONE };
   AGLPixelFormat pf;
