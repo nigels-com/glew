@@ -69,5 +69,5 @@ http://www.opengl.org/documentation/specs/version1.5/glspec15.pdf
 	GLboolean glUnmapBuffer (GLenum target)
 	void glGetBufferParameteriv (GLenum target, GLenum pname, GLint* params)
 	void glGetBufferPointerv (GLenum target, GLenum pname, GLvoid** params)
-	typedef ptrdiff_t GLsizeiptrARB
-	typedef ptrdiff_t GLintptrARB
+	typedef ptrdiff_t GLsizeiptr
+	typedef ptrdiff_t GLintptr

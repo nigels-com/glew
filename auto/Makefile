@@ -7,8 +7,8 @@
 # Foundation or, at your option, any later version.
 
 GLEW_MAJOR = 1
-GLEW_MINOR = 1
-GLEW_MICRO = 5
+GLEW_MINOR = 2
+GLEW_MICRO = 0
 GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
 SHELL = bash

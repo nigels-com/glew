@@ -44,10 +44,15 @@ if [ ! -d $1 ] ; then
 	$1/GL_HP_occlusion_test
     rm -f $1/GL_HP_occlusion_test.bak
 
+# fix GLvoid in GL_ARB_vertex_buffer_objects
+    perl -e 's/ void\*/ GLvoid\*/g' -pi.bak \
+        $1/GL_ARB_vertex_buffer_object
+    rm -f $1/GL_ARB_vertex_buffer_object.bak
+
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
 	GL_RGBA_FLOAT_MODE_ATI 0x8820
-	GL_COLOR_CLEAR_UNCLAMPED_VALUE_ATI 0x8835i
+	GL_COLOR_CLEAR_UNCLAMPED_VALUE_ATI 0x8835
 EOT
 
 # add typedefs to GL_ARB_vertex_buffer_object; (from personal communication
