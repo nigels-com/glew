@@ -32,7 +32,7 @@ static int _glewStrSame (const char *a, const char *b, int n)
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
-GLboolean glewGetExtension (const char *name)
+GLboolean glewGetExtension (const GLubyte *name)
 {    
   char *p, *end;
   int len = _glewStrLen(name);

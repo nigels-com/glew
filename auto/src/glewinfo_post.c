@@ -28,6 +28,7 @@ int main (int argc, char** argv)
   fprintf(f, "Running on a %s from %s\n", 
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
+  fprintf(f, "GLEW version %s is supported\n", glewGetString(GLEW_VERSION));
   glewInfo();
 #ifdef _WIN32
   wglewInfo();

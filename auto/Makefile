@@ -6,20 +6,25 @@
 # General Public License Version 2 as published by the Free Software
 # Foundation or, at your option, any later version.
 
-SHELL := bash
-REGISTRY := registry
-BIN := bin
-SRC := src
-CORE := core
-EXT := extensions
-BLACKLIST := blacklist
+GLEW_MAJOR = 1
+GLEW_MINOR = 1
+GLEW_MICRO = 2
+GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
-PARSE_SPEC := parse_spec.pl
+SHELL = bash
+REGISTRY = registry
+BIN = bin
+SRC = src
+CORE = core
+EXT = extensions
+BLACKLIST = blacklist
 
-TOP := ..
-I.DEST := $(TOP)/include/GL
-S.DEST := $(TOP)/src
-D.DEST := $(TOP)/doc
+PARSE_SPEC = parse_spec.pl
+
+TOP = ..
+I.DEST = $(TOP)/include/GL
+S.DEST = $(TOP)/src
+D.DEST = $(TOP)/doc
 
 TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew.c $(S.DEST)/glewinfo.c $(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
 
@@ -84,6 +89,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(EXT)/GLX_* >> $@
 	cat $(SRC)/glew_post.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
+	sed -i -e "s/GLEW_VERSION_STRING/$(GLEW_MAJOR)\.$(GLEW_MINOR)\.$(GLEW_MICRO)/g" $@
 
 $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	cp -f $(SRC)/glewinfo_pre.c $@

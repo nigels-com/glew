@@ -48,28 +48,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void * __dlopenGetProcAddress(const GLubyte *procName)
+static void* __dlopenGetProcAddress (const GLubyte *procName)
 {
-    static void *h = NULL;
-    static void *gpa;
+  static void *h = NULL;
+  static void *gpa;
 
-    if (!h)
-    {
-        if (!(h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)))
-        {
-            fprintf(stderr,
-                    "E: GLEW failed to dlopen myself: %s.\nAbort.\n",
-                    dlerror());
-            exit(100);
-        }
+  if (!h)
+  {
+    if (!(h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL))) return NULL;
+    gpa = dlsym(h, "glXGetProcAddress");
+  }
 
-        gpa = dlsym(h, "glXGetProcAddress");
-    }
-
-    if (gpa != NULL)
-        return ((void* (*)(const GLubyte*))gpa)(procName);
-    else
-        return dlsym(h, (const char *)procName);
+  if (gpa != NULL)
+    return ((void* (*)(const GLubyte*))gpa)(procName);
+  else
+    return dlsym(h, (const char *)procName);
 }
 #endif /* GLEW_NEEDS_CUSTOM_GET_PROCADDRESS */
 

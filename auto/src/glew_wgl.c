@@ -34,6 +34,4 @@ static GLuint _wglewInit ()
   WGLEW_ARB_extensions_string = wglGetExtensionsStringARB != NULL;
   _glewInit_WGL_EXT_extensions_string();
   WGLEW_EXT_extensions_string = wglGetExtensionsStringEXT != NULL;
-  if (WGLEW_ARB_extensions_string == GL_FALSE && 
-      WGLEW_EXT_extensions_string == GL_FALSE) return GLEW_ERROR_NO_EXTENSIONS_STRING;
   /* initialize extensions */
