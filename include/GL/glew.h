@@ -3420,7 +3420,7 @@ extern GLEW_EXPORT PFNGLSTENCILFUNCSEPARATEATIPROC glStencilFuncSeparateATI;
 
 #ifdef GL_ATI_vertex_array_object
 
-#define GL_EXTERN GLEW_EXPORT_ATI                                           0x8760
+#define GL_STATIC_ATI                                           0x8760
 #define GL_DYNAMIC_ATI                                          0x8761
 #define GL_PRESERVE_ATI                                         0x8762
 #define GL_DISCARD_ATI                                          0x8763
