@@ -49,7 +49,8 @@ NAME = glew32
 CC = gcc
 LD = ld
 CFLAGS.EXTRA = -mno-cygwin -DGLEW_STATIC
-LDFLAGS.EXTRA = -shared -soname $(LIB.SONAME)
+LDFLAGS.SO = -shared -soname $(LIB.SONAME)
+LDFLAGS.EXTRA =
 WARN = -Wall -W
 BIN.SUFFIX = .exe
 
@@ -71,7 +72,8 @@ NAME = GLEW
 CC = cc
 LD = ld
 CFLAGS.EXTRA = 
-LDFLAGS.EXTRA = -shared -soname $(LIB.SONAME) -L/usr/X11R6/lib
+LDFLAGS.SO = -shared -soname $(LIB.SONAME)
+LDFLAGS.EXTRA = -L/usr/X11R6/lib
 NAME = GLEW
 WARN = -Wall -W
 BIN.SUFFIX =
@@ -100,7 +102,8 @@ CC = cc
 LD = ld
 ABI = -64 # -n32
 CFLAGS.EXTRA = -woff 1110,1498 $(ABI)
-LDFLAGS.EXTRA = $(ABI) -shared -soname $(LIB.SONAME)
+LDFLAGS.SO = -shared -soname $(LIB.SONAME)
+LDFLAGS.EXTRA = $(ABI)
 NAME = GLEW
 WARN = -fullwarn
 BIN.SUFFIX =
@@ -116,8 +119,9 @@ ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 NAME = GLEW
 CC = cc
 LD = cc
-CFLAGS.EXTRA = -I/usr/X11R6/include -I/sw/include -dynamic -fno-common
-LDFLAGS.EXTRA = -dynamiclib -L/usr/X11R6/lib 
+CFLAGS.EXTRA = -dynamic -I/usr/X11R6/include
+LDFLAGS.SO = -dynamiclib
+LDFLAGS.EXTRA = -L/usr/X11R6/lib
 NAME = GLEW
 BIN.SUFFIX =
 WARN = -Wall -W
@@ -128,7 +132,7 @@ LIB.STATIC = lib$(NAME).a
 
 GL_LDFLAGS = -lGL -lXext -lX11
 GLU_LDFLAGS = -lGLU
-GLUT_LDFLAGS = -L/sw/lib -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
+GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
 # ----------------------------------------------------------------------------
 $(error "Platform '$(SYSTEM)' not supported")
@@ -170,7 +174,7 @@ lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
 
 lib/$(LIB.SHARED): $(LIB.OBJS)
-	$(LD) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
+	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 
