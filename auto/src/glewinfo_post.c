@@ -57,28 +57,28 @@ GLboolean glewCreateContext ()
   PIXELFORMATDESCRIPTOR pfd;
   int pf;
   HGLRC rc;
-  // register window class
+  /* register window class */
   ZeroMemory(&wc, sizeof(WNDCLASS));
   wc.hInstance = GetModuleHandle(NULL);
   wc.lpfnWndProc = DefWindowProc;
   wc.lpszClassName = "GLEW";
   if (0 == RegisterClass(&wc)) return GL_TRUE;
-  // create window
+  /* create window */
   wnd = CreateWindow("GLEW", "GLEW", 0, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, GetModuleHandle(NULL), NULL);
   if (NULL == wnd) return GL_TRUE;
-  // get the device context
+  /* get the device context */
   dc = GetDC(wnd);
   if (NULL == dc) return GL_TRUE;
-  // find pixel format
+  /* find pixel format */
   ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
   pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
   pfd.nVersion = 1;
   pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL;
   pf = ChoosePixelFormat(dc, &pfd);
   if (pf == 0) return GL_TRUE;
-  // set the pixel format for the dc
+  /* set the pixel format for the dc */
   if (FALSE == SetPixelFormat(dc, pf, &pfd)) return GL_TRUE;
-  // create rendering context
+  /* create rendering context */
   rc = wglCreateContext(dc);
   if (NULL == rc) return GL_TRUE;
   if (FALSE == wglMakeCurrent(dc, rc)) return GL_TRUE;
@@ -115,15 +115,50 @@ void glewDestroyContext ()
 
 /* ------------------------------------------------------------------------ */
 
+Display* dpy;
+XVisualInfo* vi;
+GLXContext context;
+Window window;
+
 GLboolean glewCreateContext ()
 {
+  Colormap cmap;
+  XSetWindowAttributes swa;
+  int erb, evb;
+  int attrib[] = { None };
+  /* open display */
+  dpy = XOpenDisplay(NULL);
+  if (NULL == dpy) return GL_TRUE;
+  /* query for glx */
+  if (!glXQueryExtension(display, &erb, &evb)) return GL_TRUE;
+  /* choose visual */
+  vi = glXChooseVisual(dpy, DefaultScreen(dpy), attrib);
+  if (NULL == vi) return GL_TRUE;
+  /* create context */
+  ctx = glXCreateContext(dpy, vi, None, True);
+  if (NULL == ctx) return GL_TRUE;
+  /* create colormap */
+  //cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
+  /* create window */
+  //swa.colormap = cmap;
+  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 1, 1, 0, vi->depth,
+                      InputOutput, vi->visual, 0, &swa);
+  //XMapWindow(dpy, wnd);
+  if (!glXMakeCurrent(dpy, wnd, ctx)) return GL_TRUE;
+  return GL_FALSE;
 }
 
 void glewDestroyContext ()
 {
+  XUnmapWindow(dpy, wnd);
+  XDestroyWindow(dpy, wnd);
+  //XFreeColormap(dpy, cmap);
+  glXDestroyContext(dpy, ctx);
+  XFree(vi);
+  XCloseDisplay(dpy);
 }
 
-#  endif
+#  endif /* __linux || __sgi */
 
 #endif
 
