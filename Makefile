@@ -117,6 +117,32 @@ SHARED_OBJ_EXT = pic_o
 
 else
 # ----------------------------------------------------------------------------
+# FreeBSD
+# ----------------------------------------------------------------------------
+ifeq ($(patsubst FreeBSD%,FreeBSD,$(SYSTEM)), FreeBSD)
+NAME = GLEW
+CC = cc
+LD = ld
+ifneq (undefined, $(origin GLEW_MX))
+CFLAGS.EXTRA = -DGLEW_MX
+endif
+LDFLAGS.SO = -shared -soname $(LIB.SONAME)
+LDFLAGS.EXTRA = -L/usr/X11R6/lib
+LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+LDFLAGS.STATIC = -Wl,-Bstatic
+LDFLAGS.DYNAMIC = -Wl,-Bdynamic
+CFLAGS.EXTRA += -I/usr/X11R6/include
+NAME = GLEW
+WARN = -Wall -W
+POPT = -O2
+BIN.SUFFIX =
+LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.STATIC = lib$(NAME).a
+
+else
+# ----------------------------------------------------------------------------
 # Irix
 # ----------------------------------------------------------------------------
 ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
@@ -195,6 +221,7 @@ LIB.STATIC = lib$(NAME).a
 else
 # ----------------------------------------------------------------------------
 $(error "Platform '$(SYSTEM)' not supported")
+endif
 endif
 endif
 endif
