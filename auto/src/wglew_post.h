@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------- */
 
-GLEWAPI GLboolean wglewGetExtension (const char* name);
+GLEWAPI GLboolean wglewGetExtension (const GLubyte* name);
 
 #ifdef __cplusplus
 }

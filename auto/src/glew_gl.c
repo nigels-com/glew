@@ -5,23 +5,23 @@
  * These functions implement the functionality required in this file.
  */
 
-static int _glewStrLen (const char *s)
+static GLuint _glewStrLen (const GLubyte *s)
 {
-  int i=0;
+  GLuint i=0;
   while (s+i != NULL && s[i] != '\0') i++;
   return i;
 }
 
-static int _glewStrCLen (const char *s, char c)
+static GLuint _glewStrCLen (const GLubyte *s, GLubyte c)
 {
-  int i=0;
+  GLuint i=0;
   while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
   return i;
 }
 
-static int _glewStrSame (const char *a, const char *b, int n)
+static GLboolean _glewStrSame (const GLubyte *a, const GLubyte *b, GLuint n)
 {
-  int i=0;
+  GLuint i=0;
   while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
   return i == n;
 }
@@ -34,14 +34,14 @@ static int _glewStrSame (const char *a, const char *b, int n)
  */
 GLboolean glewGetExtension (const GLubyte *name)
 {    
-  char *p, *end;
-  int len = _glewStrLen(name);
-  p = (char*)glGetString(GL_EXTENSIONS);
+  GLubyte *p, *end;
+  GLuint len = _glewStrLen(name);
+  p = glGetString(GL_EXTENSIONS);
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
   {
-    int n = _glewStrCLen(p, ' ');
+    GLuint n = _glewStrCLen(p, ' ');
     if (len == n && _glewStrSame(name, p, n)) return GL_TRUE;
     p += n+1;
   }
@@ -52,10 +52,10 @@ GLboolean glewGetExtension (const GLubyte *name)
 
 static GLuint _glewInit ()
 {
-  char* s;
-  int i;
+  GLubyte* s;
+  GLuint i;
   /* query opengl version */
-  s = (char*)glGetString(GL_VERSION);
+  s = glGetString(GL_VERSION);
   if (!s) return GLEW_ERROR_NO_GL_VERSION;
   i=_glewStrCLen(s, '.')+1;
   if (s+i == NULL || s[i] < '1')

@@ -5,22 +5,22 @@
 
 #ifdef _WIN32
 
-GLboolean wglewGetExtension (const char *name)
+GLboolean wglewGetExtension (const GLubyte *name)
 {    
-  char *p, *end;
-  int len = _glewStrLen(name);
+  GLubyte *p, *end;
+  GLuint len = _glewStrLen(name);
   if (wglGetExtensionsStringARB == NULL)
     if (wglGetExtensionsStringEXT == NULL)
       return GL_FALSE;
     else
-      p = (char*)wglGetExtensionsStringEXT();
+      p = (GLubyte*)wglGetExtensionsStringEXT();
   else
-    p = (char*)wglGetExtensionsStringARB(wglGetCurrentDC());
+    p = (GLubyte*)wglGetExtensionsStringARB(wglGetCurrentDC());
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
   {
-    int n = _glewStrCLen(p, ' ');
+    GLuint n = _glewStrCLen(p, ' ');
     if (len == n && _glewStrSame(name, p, n)) return GL_TRUE;
     p += n+1;
   }

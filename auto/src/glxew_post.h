@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------ */
 
-extern GLboolean glxewGetExtension (const char* name);
+extern GLboolean glxewGetExtension (const GLubyte* name);
 
 #ifdef __cplusplus
 }
