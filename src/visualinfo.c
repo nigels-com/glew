@@ -42,13 +42,13 @@
 #endif
 
 #ifdef GLEW_MX
-extern GLEWContext _glewctx;
+GLEWContext _glewctx;
 #  define glewGetContext() (&_glewctx)
 #  ifdef _WIN32
-extern WGLEWContext _wglewctx;
+WGLEWContext _wglewctx;
 #    define wglewGetContext() (&_wglewctx)
 #  elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-extern GLXEWContext _glxewctx;
+GLXEWContext _glxewctx;
 #    define glxewGetContext() (&_glxewctx)
 #  endif
 #endif /* GLEW_MX */
