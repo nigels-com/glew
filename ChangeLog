@@ -1,0 +1,1502 @@
+2005-01-05 14:19  mem
+
+	* Makefile, auto/Makefile, config/Makefile.darwin,
+	  config/Makefile.freebsd, config/Makefile.irix,
+	  config/Makefile.linux, config/Makefile.solaris, config/version:
+	  Fix soname, ABI broke
+
+2005-01-04 19:55  ikits
+
+	* doc/gpl.txt: documentation update
+
+2005-01-04 19:32  ikits
+
+	* doc/index.html: documentation update
+
+2005-01-04 19:17  ikits
+
+	* doc/glew.css: documentation update
+
+2005-01-04 19:10  ikits
+
+	* auto/src/template.html, doc/README.html, doc/advanced.html,
+	  doc/basic.html, doc/credits.html, doc/index.html,
+	  doc/install.html, doc/log.html: documentation update
+
+2005-01-04 19:01  ikits
+
+	* README.txt, auto/src/template.html, doc/glew.css: documentation
+	  update
+
+2005-01-04 09:02  ikits
+
+	* auto/src/glew_head.c: bug fixes
+
+2005-01-04 00:00  ikits
+
+	* auto/src/template.html: web crap
+
+2005-01-03 23:30  ikits
+
+	* auto/: bin/make_str.pl, src/glew_head.c, src/glew_str_glx.c,
+	  src/glew_str_head.c, src/glew_str_tail.c, src/glew_str_wgl.c,
+	  src/glew_utils.c, src/glew_utils.h: extended glewIsSupported
+
+2005-01-03 22:17  ikits
+
+	* config/: Makefile.solaris, Makefile.sunos: makefile fixes
+
+2005-01-03 22:11  ikits
+
+	* Makefile, config/Makefile.cygwin, config/Makefile.mingw32:
+	  makefile fixes
+
+2005-01-03 21:57  ikits
+
+	* Makefile, config/Makefile.darwin: added darwin makefile
+
+2005-01-03 21:29  ikits
+
+	* auto/: Makefile, bin/make_info.pl, bin/make_list.pl,
+	  bin/make_str.pl: bug fixes
+
+2005-01-03 21:05  ikits
+
+	* auto/: Makefile, bin/make_init.pl, src/glew_head.c,
+	  src/glew_utils.c, src/glew_utils.h: bug fixes
+
+2005-01-03 01:32  ikits
+
+	* Makefile, TODO.txt, auto/Makefile,
+	  auto/bin/fix_OML_sync_control.sh, auto/bin/make.pl,
+	  auto/bin/make_def_fun.pl, auto/bin/make_def_var.pl,
+	  auto/bin/make_header.pl, auto/bin/make_html.pl,
+	  auto/bin/make_info.pl, auto/bin/make_info_list.pl,
+	  auto/bin/make_init.pl, auto/bin/make_list.pl,
+	  auto/bin/make_str.pl, auto/bin/make_struct_fun.pl,
+	  auto/bin/make_struct_var.pl, auto/bin/parse_spec.pl,
+	  auto/bin/update_ext.sh, auto/bin/update_registry.sh,
+	  auto/src/glew_head.html, auto/src/glew_tail.html,
+	  auto/src/glxew_head.html, auto/src/wglew_head.html,
+	  auto/src/wglew_tail.html, src/visualinfo.c: Year bump in
+	  copyright message. Removed obsolete files from auto/src.
+
+2005-01-03 01:09  ikits
+
+	* build/vc6/: glew_shared.dsp, glew_static.dsp: Single file now
+	  compiles with VC71. Kept multi-file split for future use.
+
+2005-01-03 01:05  ikits
+
+	* auto/Makefile, auto/bin/make_header.pl, auto/bin/make_html.pl,
+	  auto/src/glew_gl_fun.c, auto/src/glew_gl_head.c,
+	  auto/src/glew_gl_init.c, auto/src/glew_gl_tail.c,
+	  auto/src/glew_gl_var.c, auto/src/glew_glx_fun.c,
+	  auto/src/glew_glx_head.c, auto/src/glew_glx_init.c,
+	  auto/src/glew_glx_tail.c, auto/src/glew_glx_var.c,
+	  auto/src/glew_head.c, auto/src/glew_head.h,
+	  auto/src/glew_init_gl.c, auto/src/glew_init_glx.c,
+	  auto/src/glew_init_tail.c, auto/src/glew_init_wgl.c,
+	  auto/src/glew_license.h, auto/src/glew_str_head.c,
+	  auto/src/glew_utils.c, auto/src/glew_utils.h,
+	  auto/src/glew_wgl_head.c, auto/src/glew_wgl_init.c,
+	  auto/src/glew_wgl_tail.c, auto/src/glew_wgl_var.c,
+	  auto/src/glewinfo_head.c, auto/src/glx_license.h,
+	  auto/src/glxew_head.h, auto/src/sgi_license.h,
+	  auto/src/template.html, auto/src/wglew_head.h,
+	  build/vc6/glew_shared.dsp, build/vc6/glew_static.dsp,
+	  src/glew_utils.c, src/glew_utils.h: Single file now compiles with
+	  VC71. Kept multi-file split for future use.
+
+2004-12-31 02:49  ikits
+
+	* auto/Makefile, auto/bin/make_def_fun.pl,
+	  auto/bin/make_def_var.pl, auto/bin/make_header.pl,
+	  auto/bin/make_html.pl, auto/bin/make_info.pl,
+	  auto/bin/make_info_list.pl, auto/bin/make_init.pl,
+	  auto/bin/make_list.pl, auto/bin/make_str.pl,
+	  auto/bin/make_struct_fun.pl, auto/bin/make_struct_var.pl,
+	  auto/custom.txt, TODO.txt: added customized subset selection
+
+2004-12-29 21:11  ikits
+
+	* auto/src/glew_tail.h: added longer alias
+
+2004-12-29 21:05  ikits
+
+	* auto/core/GL_VERSION_2_0: bug fixes
+
+2004-12-29 20:59  ikits
+
+	* auto/core/GL_VERSION_2_0: added core 2.0 spec file
+
+2004-12-29 01:45  ikits
+
+	* auto/core/WGL_ATI_render_texture_rectangle: the drivers seem to
+	  support it; no public spec yet, though
+
+2004-12-29 01:22  ikits
+
+	* auto/Makefile, auto/src/glew_gl_head.c, auto/src/glew_gl_tail.c,
+	  auto/src/glew_glx_head.c, auto/src/glew_glx_init.c,
+	  auto/src/glew_glx_tail.c, auto/src/glew_str_glx.c,
+	  auto/src/glew_str_tail.c, auto/src/glew_str_wgl.c,
+	  auto/src/glxew_tail.h, auto/src/wglew_tail.h, build/vc6/Makefile,
+	  build/vc6/glew_shared.dsp, build/vc6/glew_static.dsp,
+	  auto/bin/make_def.pl, auto/bin/make_def_fun.pl,
+	  auto/bin/make_def_var.pl, auto/src/glew_gl_fun.c,
+	  auto/src/glew_gl_var.c, auto/src/glew_glx_fun.c,
+	  auto/src/glew_glx_var.c, auto/src/glew_wgl_var.c: fixed problems
+	  with mx builds; update project files
+
+2004-12-28 23:42  ikits
+
+	* Makefile, auto/Makefile, auto/bin/make_info.pl,
+	  auto/bin/make_init.pl, auto/bin/make_list.pl, auto/src/glew_gl.c,
+	  auto/src/glew_gl_head.c, auto/src/glew_gl_init.c,
+	  auto/src/glew_gl_tail.c, auto/src/glew_glx.c,
+	  auto/src/glew_glx_head.c, auto/src/glew_glx_init.c,
+	  auto/src/glew_glx_tail.c, auto/src/glew_head.h,
+	  auto/src/glew_head.html, auto/src/glew_init_glx.c,
+	  auto/src/glew_post.c, auto/src/glew_post.h,
+	  auto/src/glew_post.html, auto/src/glew_pre.c,
+	  auto/src/glew_pre.h, auto/src/glew_pre.html,
+	  auto/src/glew_str_glx.c, auto/src/glew_str_head.c,
+	  auto/src/glew_str_tail.c, auto/src/glew_str_wgl.c,
+	  auto/src/glew_tail.h, auto/src/glew_tail.html,
+	  auto/src/glew_wgl.c, auto/src/glew_wgl_head.c,
+	  auto/src/glew_wgl_init.c, auto/src/glew_wgl_tail.c,
+	  auto/src/glewinfo_head.c, auto/src/glewinfo_post.c,
+	  auto/src/glewinfo_pre.c, auto/src/glewinfo_tail.c,
+	  auto/src/glxew_head.h, auto/src/glxew_head.html,
+	  auto/src/glxew_post.h, auto/src/glxew_pre.h,
+	  auto/src/glxew_pre.html, auto/src/glxew_tail.h,
+	  auto/src/wglew_head.h, auto/src/wglew_head.html,
+	  auto/src/wglew_post.h, auto/src/wglew_pre.h,
+	  auto/src/wglew_pre.html, auto/src/wglew_tail.h,
+	  auto/src/wglew_tail.html, src/glew_utils.c, src/glew_utils.h,
+	  auto/bin/make_str.pl: Version bump; added glewIsSupported; split
+	  source file, it is too big for VC7.1
+
+2004-12-21 21:17  ikits
+
+	* auto/core/GL_VERSION_1_5: fixed getQueryiv bug
+
+2004-12-12 01:45  ikits
+
+	* build/vc6/: glew_shared.dsp, glew_static.dsp, glewinfo.dsp,
+	  visualinfo.dsp: added MX build targets
+
+2004-12-11 22:38  ikits
+
+	* auto/src/: glew_pre.h, glxew_pre.h: moved GLX token to glxew.h
+
+2004-12-07 11:28  mem
+
+	* Makefile, config/Makefile.cygwin, config/Makefile.freebsd,
+	  config/Makefile.irix, config/Makefile.linux,
+	  config/Makefile.mingw32, config/Makefile.sunos,
+	  config/config.guess, doc/README.html: Makefile is getting out of
+	  hand.  Use GNU tools' config.guess to obtain the canonical system
+	  name and include the corresponding Makefile snippet from config/.
+	   config.guess has been written with portability in mind, so it
+	  should work properly on all supported systems.  Should its
+	  licence (GPL) become a problem, it can be replaced with a simpler
+	  script that supports only the systems we know something about.
+
+	  Adding support for a new system is just a matter of running
+	  config/config.guess and writing the matching
+	  config/Makefile.$system file.
+
+2004-12-06 03:00  ikits
+
+	* TODO.txt: [no log message]
+
+2004-12-06 02:39  ikits
+
+	* Makefile, auto/Makefile: version bump
+
+2004-12-06 02:14  ikits
+
+	* auto/bin/parse_spec.pl: fixed GLX_ token in glew.h bug
+
+2004-12-06 01:52  ikits
+
+	* Makefile, auto/src/glew_post.html: [no log message]
+
+2004-12-06 01:35  ikits
+
+	* doc/README.html: [no log message]
+
+2004-12-06 01:16  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-12-06 00:53  ikits
+
+	* Makefile: added FreeBSD support
+
+2004-12-06 00:40  ikits
+
+	* auto/src/glew_pre.h: fixed mingw and wxwindows problem
+
+2004-12-06 00:29  ikits
+
+	* auto/core/GL_EXT_Cg_shader: [no log message]
+
+2004-12-05 23:57  ikits
+
+	* auto/core/GL_KTX_buffer_region: [no log message]
+
+2004-12-05 23:39  ikits
+
+	* auto/bin/update_ext.sh: fixed ATI_fragment_shader problem
+
+2004-11-13 20:34  mem
+
+	* Makefile: Add PIC flags to Linux build
+
+2004-11-04 20:55  ikits
+
+	* TODO.txt, auto/core/GL_VERSION_1_5, auto/core/GL_VERSION_2_0: [no
+	  log message]
+
+2004-09-28 14:25  ikits
+
+	* auto/: core/GL_VERSION_2_0, src/glew_gl.c, src/glew_pre.h: added
+	  GL_VERSION_2_0
+
+2004-09-28 11:35  ikits
+
+	* auto/core/GL_ATI_texture_compression_3dc: added
+	  GL_ATI_texture_compression_3dc
+
+2004-09-28 11:29  ikits
+
+	* auto/: blacklist, core/GL_EXT_draw_range_elements: fixed
+	  draw_range_elements bug
+
+2004-09-06 15:07  ikits
+
+	* Makefile, auto/Makefile: version bump
+
+2004-09-06 14:56  ikits
+
+	* auto/src/glew_post.html, doc/README.html: [no log message]
+
+2004-09-06 14:27  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-09-06 13:58  ikits
+
+	* Makefile: fixed IRIX bugs
+
+2004-09-06 13:52  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-09-06 13:51  ikits
+
+	* build/vc6/Makefile: retired wglinfo
+
+2004-09-06 13:41  ikits
+
+	* build/vc6/: glew.dsw, visualinfo.dsp, wglinfo.dsp: retired
+	  wglinfo
+
+2004-09-06 13:31  ikits
+
+	* src/visualinfo.c: fixed IRIX warnings
+
+2004-09-06 13:29  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-09-06 10:05  ikits
+
+	* src/visualinfo.c: fixed visualinfo on Linux
+
+2004-09-06 10:03  ikits
+
+	* TODO.txt, auto/blacklist: removed SGI hyperpipe extension
+
+2004-09-06 09:39  ikits
+
+	* doc/: README.html, visualinfo.txt: got rid of visualinfo.txt
+
+2004-09-06 09:36  ikits
+
+	* doc/README.html, doc/visualinfo.txt, doc/wglinfo.txt,
+	  src/wglinfo.c: retired wglinfo
+
+2004-09-06 09:09  ikits
+
+	* src/visualinfo.c, auto/src/glew_pre.h: fixed visualinfo and
+	  ptrdiff bug
+
+2004-09-05 19:13  ikits
+
+	* auto/bin/update_ext.sh: removed const correctness fix in
+	  GL_ARB_shader_objects
+
+2004-07-02 13:21  ikits
+
+	* auto/blacklist: added GLU extensions to blacklist
+
+2004-06-27 16:36  mem
+
+	* auto/Makefile: Whitespace change
+
+2004-06-27 16:34  mem
+
+	* auto/bin/parse_spec.pl: Add some comments; some whitespace
+	  changes
+
+2004-06-24 09:07  ikits
+
+	* auto/src/glew_glx.c: [no log message]
+
+2004-06-17 11:16  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-06-17 11:11  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-06-17 10:54  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-06-17 10:40  ikits
+
+	* src/visualinfo.c: [no log message]
+
+2004-06-17 10:33  ikits
+
+	* Makefile, auto/Makefile, src/visualinfo.c: added visualinfo
+
+2004-06-10 04:03  ikits
+
+	* auto/src/glew_post.html, doc/README.html: getting ready to the
+	  1.2.3 release
+
+2004-06-10 03:46  ikits
+
+	* auto/core/GL_ARB_vertex_blend: fixed bug in ARB_vertex_blend
+
+2004-05-19 01:23  ikits
+
+	* Makefile, auto/Makefile: bumped up version numbers
+
+2004-05-19 00:44  ikits
+
+	* TODO.txt: [no log message]
+
+2004-05-19 00:17  ikits
+
+	* auto/core/: GL_NV_fragment_program2,
+	  GL_NV_fragment_program_option, GL_NV_vertex_program2_option,
+	  GL_NV_vertex_program3: added nvidia vertex/fragment program
+	  extensions
+
+2004-05-09 16:19  ikits
+
+	* TODO.txt: [no log message]
+
+2004-05-09 03:35  ikits
+
+	* auto/src/glewinfo_post.c, auto/src/glewinfo_pre.c,
+	  doc/README.html: [no log message]
+
+2004-05-09 03:30  ikits
+
+	* Makefile: [no log message]
+
+2004-05-09 03:26  ikits
+
+	* auto/: bin/fix_OML_sync_control.sh, src/glewinfo_post.c,
+	  src/glewinfo_pre.c: fixed GLEW_MX bugs
+
+2004-05-09 03:09  ikits
+
+	* Makefile: [no log message]
+
+2004-05-09 03:08  ikits
+
+	* auto/src/: glewinfo_post.c, glewinfo_pre.c: added GLEW_MX to
+	  glewinfo
+
+2004-05-09 03:02  ikits
+
+	* auto/Makefile: fixed GLEW_MX bug on unix
+
+2004-05-09 02:21  ikits
+
+	* Makefile: fixed shared flag on Solaris
+
+2004-05-09 01:39  ikits
+
+	* auto/src/glew_post.html, doc/README.html: [no log message]
+
+2004-05-08 22:41  ikits
+
+	* Makefile: [no log message]
+
+2004-04-27 00:51  ikits
+
+	* Makefile, auto/Makefile, src/wglinfo.c: version upgrade and minor
+	  fix in wglinfo
+
+2004-04-21 20:24  ikits
+
+	* auto/core/: GL_EXT_pixel_buffer_object, GL_NV_element_array:
+	  retired NV_element_array
+
+2004-03-23 22:56  ikits
+
+	* doc/README.html: updated glew mx doc
+
+2004-03-22 17:50  ikits
+
+	* auto/core/GL_EXT_texture_rectangle: fixed token definitions
+
+2004-03-19 15:27  ikits
+
+	* auto/Makefile: [no log message]
+
+2004-03-19 14:22  ikits
+
+	* auto/Makefile, auto/src/glew_post.html, doc/README.html: ready to
+	  release
+
+2004-03-18 19:12  ikits
+
+	* auto/src/glew_pre.c: [no log message]
+
+2004-03-18 18:53  ikits
+
+	* Makefile, auto/Makefile: updated version number
+
+2004-03-18 18:52  ikits
+
+	* auto/: Makefile, bin/make_list.pl, bin/update_ext.sh: fixed
+	  problem with ARB_shader_objects and ARB_vertex_shader
+
+2004-03-18 15:59  ikits
+
+	* src/wglinfo.c: added gdi flag to wglinfo
+
+2004-03-18 15:20  ikits
+
+	* src/wglinfo.c: added multisample flag
+
+2004-03-02 21:54  ikits
+
+	* TODO.txt: [no log message]
+
+2004-02-23 14:35  ikits
+
+	* auto/src/glew_gl.c: [no log message]
+
+2004-02-22 18:10  ikits
+
+	* Makefile: [no log message]
+
+2004-02-19 12:02  ikits
+
+	* auto/: Makefile, bin/fix_OML_sync_control.sh: [no log message]
+
+2004-02-19 11:51  ikits
+
+	* auto/: Makefile, bin/make_struct_fun.pl, bin/make_struct_var.pl,
+	  bin/make_struct.pl: [no log message]
+
+2004-02-19 03:43  ikits
+
+	* auto/: Makefile, bin/make_init.pl, bin/make_list.pl,
+	  src/glew_gl.c, src/glew_glx.c, src/glew_pre.c, src/glew_wgl.c:
+	  [no log message]
+
+2004-02-19 03:24  ikits
+
+	* auto/src/glew_pre.c: [no log message]
+
+2004-02-19 02:50  ikits
+
+	* doc/README.html: [no log message]
+
+2004-02-19 02:17  ikits
+
+	* auto/: Makefile, bin/fix_OML_sync_control.sh, src/glew_glx.c,
+	  src/glew_pre.c: [no log message]
+
+2004-02-19 01:49  ikits
+
+	* auto/: bin/make_init.pl, bin/make_list.pl, src/glew_gl.c,
+	  src/glew_glx.c, src/glew_post.c, src/glew_pre.c, src/glew_pre.h,
+	  src/glew_wgl.c, src/glewinfo_post.c: [no log message]
+
+2004-02-19 01:37  ikits
+
+	* auto/: bin/fix_OML_sync_control.sh, src/glxew_pre.h: [no log
+	  message]
+
+2004-02-19 01:28  ikits
+
+	* auto/: Makefile, bin/make_def.pl: [no log message]
+
+2004-02-19 00:32  ikits
+
+	* auto/src/glew_post.html, doc/README.html: [no log message]
+
+2004-02-19 00:22  ikits
+
+	* auto/src/: glew_pre.html, glxew_pre.html, wglew_pre.html: [no log
+	  message]
+
+2004-02-19 00:18  ikits
+
+	* doc/README.html: [no log message]
+
+2004-02-19 00:17  ikits
+
+	* doc/README.html: updated the documentation
+
+2004-02-18 22:37  ikits
+
+	* auto/: Makefile, bin/make_header.pl, bin/make_init.pl,
+	  bin/make_list.pl, bin/make_struct.pl, src/glew_gl.c,
+	  src/glew_glx.c, src/glew_post.c, src/glew_post.h, src/glew_pre.c,
+	  src/glew_pre.h, src/glew_wgl.c, src/glxew_post.h,
+	  src/wglew_post.h: added binary compatibility for the single pipe
+	  version (through global variables) -- GLEW_MX is not a
+	  compilation switch
+
+2004-02-05 17:14  ikits
+
+	* auto/Makefile, TODO.txt: [no log message]
+
+2004-02-05 15:59  ikits
+
+	* auto/core/GL_VERSION_1_4: blending bug fix
+
+2004-02-01 21:07  ikits
+
+	* TODO.txt: [no log message]
+
+2004-02-01 21:01  ikits
+
+	* auto/bin/make_info.pl, auto/bin/make_list.pl, TODO.txt: [no log
+	  message]
+
+2004-02-01 20:56  ikits
+
+	* auto/src/: glewinfo_gl.c, glewinfo_pre.c, glewinfo_wgl.c,
+	  glewinfo_glx.c: [no log message]
+
+2004-02-01 20:41  ikits
+
+	* auto/src/glewinfo_post.c: [no log message]
+
+2004-02-01 20:30  ikits
+
+	* auto/src/: glewinfo_post.c, glewinfo_pre.c: [no log message]
+
+2004-02-01 20:25  ikits
+
+	* auto/src/: glewinfo_post.c, glewinfo_pre.c: [no log message]
+
+2004-02-01 20:13  ikits
+
+	* Makefile, auto/src/glewinfo_post.c: [no log message]
+
+2004-02-01 19:57  ikits
+
+	* auto/src/glewinfo_post.c: [no log message]
+
+2004-02-01 17:07  ikits
+
+	* TODO.txt: [no log message]
+
+2004-02-01 17:05  ikits
+
+	* auto/src/glewinfo_post.c: fixed parsing bug
+
+2004-02-01 16:59  ikits
+
+	* auto/src/glewinfo_post.c: added visual selection to glewinfo
+
+2004-02-01 16:29  ikits
+
+	* auto/src/wglew_post.h: fixed wglew bug
+
+2004-02-01 16:27  ikits
+
+	* auto/src/: glew_gl.c, glew_glx.c, glew_post.h, glew_wgl.c,
+	  glewinfo_post.c, glxew_post.h, glxew_pre.h: fixed glxew bugs
+
+2004-02-01 16:10  ikits
+
+	* auto/: Makefile, bin/fix_OML_sync_control.sh, src/glew_post.h,
+	  src/glxew_post.h, src/wglew_post.h: fixed glxew problems
+
+2004-02-01 15:34  ikits
+
+	* auto/src/glewinfo_post.c: [no log message]
+
+2004-02-01 15:26  ikits
+
+	* auto/src/: glewinfo_post.c, glewinfo_pre.c: added command line
+	  flags to glewinfo
+
+2004-02-01 14:03  ikits
+
+	* Makefile, README.txt, TODO.txt, auto/Makefile,
+	  auto/bin/fix_OML_sync_control.sh, auto/bin/make.pl,
+	  auto/bin/make_header.pl, auto/bin/make_html.pl,
+	  auto/bin/make_info.pl, auto/bin/make_info_list.pl,
+	  auto/bin/make_init.pl, auto/bin/make_list.pl,
+	  auto/bin/make_struct.pl, auto/bin/parse_spec.pl,
+	  auto/bin/update_ext.sh, auto/bin/update_registry.sh,
+	  auto/src/glew_pre.c, auto/src/glew_pre.h,
+	  auto/src/glewinfo_pre.c, auto/src/glxew_post.h,
+	  auto/src/glxew_pre.h, auto/src/wglew_pre.h: updated copyright
+	  notices
+
+2004-02-01 13:21  ikits
+
+	* auto/: Makefile, bin/update_ext.sh: shader objects const bug fix
+
+2004-02-01 12:18  ikits
+
+	* auto/bin/update_ext.sh, TODO.txt: [no log message]
+
+2004-02-01 12:11  ikits
+
+	* auto/: bin/make.pl, bin/make_header.pl, bin/make_info.pl,
+	  bin/make_init.pl, bin/make_list.pl, bin/make_struct.pl, Makefile,
+	  core/GL_ARB_imaging, src/glew_gl.c, src/glew_glx.c,
+	  src/glew_post.c, src/glew_post.h, src/glew_pre.c, src/glew_pre.h,
+	  src/glew_wgl.c, src/wglew_post.h: added glew mx
+
+2004-01-27 20:51  ikits
+
+	* auto/bin/make.pl: [no log message]
+
+2004-01-27 15:33  ikits
+
+	* auto/core/GLX_SUN_video_resize: [no log message]
+
+2004-01-27 15:21  ikits
+
+	* auto/core/GL_SUN_read_video_pixels: [no log message]
+
+2004-01-27 14:35  ikits
+
+	* auto/Makefile, auto/bin/update_ext.sh, auto/core/GL_VERSION_1_5,
+	  auto/src/glew_pre.h, Makefile: fix bugs created by adding GL 1.5
+
+2004-01-27 13:55  ikits
+
+	* auto/src/: glew_gl.c, glew_pre.h: added ptrdiff_t definition on
+	  windows
+
+2004-01-27 13:48  ikits
+
+	* auto/core/GL_VERSION_1_5: added OpenGL 1.5 spec file
+
+2004-01-20 17:32  ikits
+
+	* auto/bin/update_ext.sh: fixed missing defines in
+	  GL_ARB_shader_objects
+
+2004-01-19 15:18  ikits
+
+	* auto/src/glew_gl.c: added GL 1.5 branch is version test
+
+2004-01-13 12:59  ikits
+
+	* auto/: Makefile, bin/update_ext.sh: replaced sed with perl
+
+2004-01-13 01:15  mem
+
+	* Makefile, README.txt: Fix wording in README regarding how to
+	  build GLEW.  It is not necessary to regenerate the extension data
+	  if then only thing you want is to build the library
+
+2004-01-11 05:45  ikits
+
+	* Makefile: added MinGW patch
+
+2004-01-06 15:58  ikits
+
+	* auto/bin/fix_OML_sync_control.sh: replaced sed with perl
+
+2004-01-06 15:17  ikits
+
+	* auto/: Makefile, bin/fix_OML_sync_control.sh, bin/update_ext.sh:
+	  fixed sed problems
+
+2004-01-05 17:29  ikits
+
+	* Makefile: more OSX bug fixes
+
+2004-01-05 17:09  ikits
+
+	* Makefile, auto/src/glew_pre.h: OSX bug fixes
+
+2004-01-05 16:25  ikits
+
+	* auto/bin/update_ext.sh: bug fix; missing '> tmp'
+
+2004-01-05 13:33  ikits
+
+	* auto/Makefile, Makefile: changed version number
+
+2004-01-04 08:20  mem
+
+	* auto/: bin/parse_spec.pl, bin/update_ext.sh, src/glew_pre.h:
+	  Mostly formatting and documentation noops.
+
+	  For VBO:
+
+	      typedef ptrdiff_t GLsizeiptrARB;
+	      typedef ptrdiff_t GLintptrARB;
+
+	  as per email discussion with Marco Fabbricatore.  See
+	  argumentation in auto/bin/update_ext.sh and auto/src/glew_pre.h.
+
+	  Windows needs to get this fixed.  See glew_pre.h.
+
+2003-12-15 10:43  ikits
+
+	* doc/: README.html: [no log message]
+
+2003-12-15 10:40  ikits
+
+	* auto/core/GL_APPLE_texture_range: [no log message]
+
+2003-12-15 10:23  ikits
+
+	* README.txt: [no log message]
+
+2003-12-15 10:19  ikits
+
+	* doc/README.html: [no log message]
+
+2003-12-15 10:05  ikits
+
+	* doc/README.html: [no log message]
+
+2003-12-15 10:00  ikits
+
+	* README.txt, auto/src/glew_post.html, doc/README.html: [no log
+	  message]
+
+2003-12-14 09:21  ikits
+
+	* Makefile: [no log message]
+
+2003-12-13 20:16  ikits
+
+	* auto/core/GL_EXT_texture_cube_map: [no log message]
+
+2003-12-13 20:02  ikits
+
+	* auto/core/: GL_APPLE_float_pixels, GL_EXT_texture_edge_clamp,
+	  GL_EXT_texture_edge_clamp.txt: [no log message]
+
+2003-12-13 12:01  ikits
+
+	* auto/core/GL_APPLE_float_pixels: [no log message]
+
+2003-12-13 11:52  ikits
+
+	* auto/core/GL_EXT_texture_cube_map: [no log message]
+
+2003-12-13 11:44  ikits
+
+	* auto/bin/parse_spec.pl: fixed 2X_BIT bug
+
+2003-12-13 11:36  ikits
+
+	* auto/core/GL_EXT_texture_edge_clamp.txt: [no log message]
+
+2003-12-09 06:59  ikits
+
+	* auto/core/GLX_ATI_render_texture: [no log message]
+
+2003-12-09 06:52  ikits
+
+	* auto/core/: GLX_ATI_pixel_format_float, GLX_ATI_render_texture:
+	  added extensions from glxATI.h
+
+2003-11-12 14:58  ikits
+
+	* auto/core/GL_ATI_map_object_buffer: fixed bug in
+	  ATI_map_object_buffer
+
+2003-11-10 02:50  ikits
+
+	* auto/Makefile: [no log message]
+
+2003-11-06 17:11  ikits
+
+	* README.txt: [no log message]
+
+2003-11-06 17:06  ikits
+
+	* README.txt, TODO.txt: [no log message]
+
+2003-11-06 16:56  ikits
+
+	* TODO.txt: added TODO list
+
+2003-11-06 16:40  ikits
+
+	* auto/Makefile: made the auto generation scripts work on Darwin
+
+2003-10-30 21:08  ikits
+
+	* auto/src/: glew_pre.h: [no log message]
+
+2003-10-30 15:51  ikits
+
+	* auto/src/glew_pre.c: added string pointer cast in
+	  wglGetProcAddress to make glew.c compile with a c++ compiler
+
+2003-10-30 10:52  ikits
+
+	* Makefile, auto/Makefile, auto/core/GL_WIN_swap_hint: on to the
+	  next release
+
+2003-10-28 22:28  ikits
+
+	* auto/src/glew_post.html, doc/README.html: [no log message]
+
+2003-10-27 02:57  ikits
+
+	* Makefile, auto/src/glewinfo_post.c: [no log message]
+
+2003-10-26 23:28  ikits
+
+	* Makefile, auto/bin/make_info.pl, auto/bin/make_info_list.pl,
+	  auto/bin/make_init.pl, auto/bin/make_list.pl,
+	  auto/bin/parse_spec.pl, auto/src/glew_post.c,
+	  auto/src/glew_pre.c, auto/src/glewinfo_pre.c: added Solaris
+	  support
+
+2003-10-26 21:11  ikits
+
+	* auto/: bin/make_info.pl, core/GL_WIN_swap_hint,
+	  src/glewinfo_pre.c: [no log message]
+
+2003-10-26 20:34  ikits
+
+	* auto/: bin/make_info.pl, src/glew_pre.c, src/glewinfo_pre.c,
+	  src/glxew_post.h, src/glxew_pre.h, src/wglew_post.h,
+	  src/wglew_pre.h: [no log message]
+
+2003-10-26 19:13  ikits
+
+	* Makefile, auto/src/glew_glx.c: [no log message]
+
+2003-10-26 19:06  ikits
+
+	* Makefile, auto/src/glew_post.c, auto/src/glewinfo_post.c:
+	  extended Darwin support
+
+2003-10-03 00:44  ikits
+
+	* auto/src/glew_post.c: removed signed/unsigned mismatch error
+
+2003-10-03 00:28  ikits
+
+	* Makefile: added . to find
+
+2003-10-02 03:49  mem
+
+	* auto/src/glew_post.c: Guard against people updating the string
+	  lists but forgetting to update the magic constants sprinkled in
+	  the code.  Any reasonable compiler should be able to optimize
+	  this away.
+
+2003-09-30 21:41  ikits
+
+	* auto/src/glew_post.c: [no log message]
+
+2003-09-30 21:23  ikits
+
+	* auto/src/glew_post.c: fixed sizeof bug in glew_post.c
+
+2003-09-29 04:30  ikits
+
+	* auto/blacklist: [no log message]
+
+2003-09-27 00:56  ikits
+
+	* auto/src/glewinfo_post.c: [no log message]
+
+2003-09-26 10:33  ikits
+
+	* auto/src/: glewinfo_post.c: [no log message]
+
+2003-09-26 10:10  ikits
+
+	* Makefile, auto/src/glewinfo_post.c: [no log message]
+
+2003-09-26 10:07  ikits
+
+	* Makefile, auto/src/glew_pre.c, auto/src/glewinfo_post.c: [no log
+	  message]
+
+2003-09-26 08:44  ikits
+
+	* Makefile, auto/src/glewinfo_post.c: [no log message]
+
+2003-09-26 08:17  ikits
+
+	* auto/src/glewinfo_post.c: [no log message]
+
+2003-09-26 07:56  ikits
+
+	* Makefile: [no log message]
+
+2003-09-26 07:48  ikits
+
+	* auto/src/glew_pre.c, auto/src/glewinfo_post.c,
+	  auto/src/glewinfo_pre.c, build/vc6/glewinfo.dsp: removed GLUT
+	  dependency
+
+2003-09-26 06:24  ikits
+
+	* Makefile: [no log message]
+
+2003-09-26 06:13  ikits
+
+	* Makefile: fixed Makefile for MACOSX compilation
+
+2003-09-26 05:34  ikits
+
+	* auto/: bin/parse_spec.pl, bin/update_ext.sh, src/glew_pre.c:
+	  added support for GL_ARB_vertex_shader, GL_ARB_fragment_shader,
+	  and GL_ARB_shader_objects
+
+2003-09-25 17:30  ikits
+
+	* Makefile, auto/Makefile: added Darwin architecture
+
+2003-09-19 17:39  ikits
+
+	* auto/src/glew_pre.c: added support for maxosx
+
+2003-09-17 11:52  ikits
+
+	* doc/README.html: [no log message]
+
+2003-09-15 11:19  ikits
+
+	* auto/src/glewinfo_pre.c: [no log message]
+
+2003-09-15 11:01  ikits
+
+	* auto/src/: glew_gl.c, glewinfo_pre.c: [no log message]
+
+2003-09-15 10:53  ikits
+
+	* auto/src/: glew_gl.c, glew_glx.c, glew_wgl.c, glewinfo_pre.c,
+	  glxew_post.h, wglew_post.h: [no log message]
+
+2003-09-15 10:13  ikits
+
+	* doc/: README.html: [no log message]
+
+2003-09-15 10:04  ikits
+
+	* auto/src/glew_post.html, doc/README.html: [no log message]
+
+2003-09-15 09:35  ikits
+
+	* auto/: Makefile, bin/make_list.pl, bin/update_registry.sh,
+	  src/glew_wgl.c: removed WGL_{ARB,EXT}_extensions_string
+	  dependency
+
+2003-09-15 09:15  ikits
+
+	* auto/core/GL_OML_interlace: GL_OML_interlace made it to the
+	  registry
+
+2003-09-11 22:46  ikits
+
+	* auto/bin/make_list.pl: [no log message]
+
+2003-09-11 21:50  ikits
+
+	* Makefile, auto/Makefile, auto/src/glew_gl.c,
+	  auto/src/glew_post.c, auto/src/glew_post.h, auto/src/glew_pre.c,
+	  auto/src/glew_wgl.c, auto/src/glewinfo_post.c: fixed problems
+	  with WGL_{ARB,EXT}_extensions_string
+
+2003-08-27 13:54  ikits
+
+	* auto/bin/make_init.pl: changed order of boolean propagation to
+	  make sure partial extensions are initialized properly
+
+2003-08-11 13:16  ikits
+
+	* doc/README.html, auto/src/glew_post.html: [no log message]
+
+2003-08-11 13:03  ikits
+
+	* Makefile: [no log message]
+
+2003-08-11 12:27  ikits
+
+	* Makefile: [no log message]
+
+2003-07-29 02:47  mem
+
+	* auto/core/GLX_NV_float_buffer: The extremely elusive
+	  GLX_NV_float_buffer extension magic.
+
+2003-07-29 02:41  mem
+
+	* Makefile, auto/src/glew_pre.c: Use a NULL for the path passed to
+	  dlopen, that means 'give me a handle to the loaded image' which
+	  at the point where this function is called already included all
+	  libGL's symbols.  Makes the whole thing easier to maintain.
+
+2003-07-16 01:49  ikits
+
+	* auto/bin/parse_spec.pl: [no log message]
+
+2003-07-16 01:32  ikits
+
+	* Makefile: changed version number for next release
+
+2003-07-16 01:28  ikits
+
+	* auto/bin/parse_spec.pl: fixed void * problem
+
+2003-07-15 09:40  ikits
+
+	* build/vc6/: glew_shared.dsp, glew_static.dsp, glewinfo.dsp,
+	  wglinfo.dsp: [no log message]
+
+2003-07-08 19:29  ikits
+
+	* doc/README.html, doc/glew.css, auto/src/glew_pre.html: [no log
+	  message]
+
+2003-07-08 12:39  ikits
+
+	* doc/README.html, auto/src/glew_post.html: [no log message]
+
+2003-07-08 12:29  ikits
+
+	* doc/README.html: [no log message]
+
+2003-07-08 12:24  ikits
+
+	* doc/: README.html, glew.css: [no log message]
+
+2003-07-08 11:56  ikits
+
+	* auto/Makefile, auto/bin/make_list.pl, src/wglinfo.c: [no log
+	  message]
+
+2003-07-08 11:17  ikits
+
+	* doc/: README.html, gpl.txt: [no log message]
+
+2003-07-08 10:43  ikits
+
+	* auto/: Makefile, bin/fix_OML_sync_control.sh, bin/make.pl,
+	  bin/make_header.pl, bin/make_html.pl, bin/make_info.pl,
+	  bin/make_info_list.pl, bin/make_init.pl, bin/make_list.pl,
+	  bin/parse_spec.pl, bin/update_ext.sh, bin/update_registry.sh,
+	  src/glew_post.html, src/glew_pre.html, src/glxew_pre.html,
+	  src/wglew_pre.html: [no log message]
+
+2003-07-08 09:15  ikits
+
+	* doc/: README.html, glew.css: [no log message]
+
+2003-07-07 21:19  ikits
+
+	* doc/: README.html, glew.html, glxew.html, wglew.html, glew.css:
+	  [no log message]
+
+2003-07-07 20:14  ikits
+
+	* auto/: core/GLX_ARB_get_proc_address,
+	  core/GLX_NV_vertex_array_range, core/GLX_SGIX_swap_barrier,
+	  core/GLX_SGIX_swap_group, core/GL_ATIX_point_sprites,
+	  core/GL_ATIX_texture_env_combine3,
+	  core/GL_ATIX_texture_env_route,
+	  core/GL_ATIX_vertex_shader_output_point_size,
+	  core/GL_ATI_envmap_bumpmap, core/GL_ATI_map_object_buffer,
+	  core/GL_ATI_pn_triangles, core/GL_ATI_separate_stencil,
+	  core/GL_ATI_vertex_streams, core/GL_EXT_depth_bounds_test,
+	  core/GL_EXT_fog_coord, core/GL_EXT_secondary_color,
+	  core/GL_EXT_texture_rectangle, core/GL_EXT_vertex_shader,
+	  core/GL_NV_element_array, core/GL_OML_interlace,
+	  core/WGL_NV_vertex_array_range, src/glew_post.html,
+	  src/glew_pre.html, src/glxew_pre.html, src/wglew_pre.html: [no
+	  log message]
+
+2003-07-07 19:26  ikits
+
+	* auto/core/: GL_ATIX_point_sprites, GL_ATIX_texture_env_combine3:
+	  [no log message]
+
+2003-07-07 19:17  ikits
+
+	* auto/core/: GL_ARB_matrix_palette, GL_ARB_multitexture,
+	  GL_ARB_vertex_blend, GL_ATIX_point_sprites,
+	  GL_ATIX_texture_env_combine3: [no log message]
+
+2003-07-07 05:29  mem
+
+	* auto/bin/update_registry.sh: cd to the directory even if it
+	  already existed :-P
+
+2003-07-06 15:17  mem
+
+	* auto/Makefile: Ignore CVS stuff
+
+2003-07-06 15:14  mem
+
+	* auto/: bin/make_header.pl, core/GLX_ARB_get_proc_address,
+	  core/GLX_NV_vertex_array_range, core/GLX_SGIS_shared_multisample,
+	  core/GLX_SGIX_swap_barrier, core/GLX_SGIX_swap_group,
+	  core/GLX_VERSION_1_2, core/GLX_VERSION_1_3, core/GLX_VERSION_1_4,
+	  core/GL_ARB_imaging, core/GL_ARB_matrix_palette,
+	  core/GL_ARB_multitexture, core/GL_ARB_vertex_blend,
+	  core/GL_ATIX_point_sprites, core/GL_ATIX_texture_env_combine3,
+	  core/GL_ATIX_texture_env_route,
+	  core/GL_ATIX_vertex_shader_output_point_size,
+	  core/GL_ATI_envmap_bumpmap, core/GL_ATI_map_object_buffer,
+	  core/GL_ATI_pn_triangles, core/GL_ATI_separate_stencil,
+	  core/GL_ATI_vertex_streams, core/GL_EXT_depth_bounds_test,
+	  core/GL_EXT_fog_coord, core/GL_EXT_secondary_color,
+	  core/GL_EXT_texture_rectangle, core/GL_EXT_vertex_shader,
+	  core/GL_NV_element_array, core/GL_VERSION_1_2,
+	  core/GL_VERSION_1_3, core/GL_VERSION_1_4, core/GL_WIN_swap_hint,
+	  core/WGL_NV_vertex_array_range: Forgot this
+
+2003-07-06 14:21  mem
+
+	* Makefile: Real Bourne Shells do not like {foo,bar,baz} notation
+	  and IRIX's make likes to be given a hint to get out of the way
+
+2003-07-06 14:03  mem
+
+	* auto/src/glewinfo_post.c: Be more UNIX-like if running on
+	  non-Windows OSes; overwriting files with a predefined name is
+	  very impolite
+
+2003-07-06 14:00  mem
+
+	* auto/Makefile: Sorry, got the logic backwards
+
+2003-07-06 13:27  mem
+
+	* Makefile: Fix some portability problems; clean up some compiler
+	  droppings (IRIX); remove CVS stuff from the tarball; really
+	  remove the extension registry from the tarball
+
+2003-07-06 10:41  mem
+
+	* Makefile, auto/src/glew_pre.c: Add support for IRIX; tested on
+	  IRIX 6.5.18 with an Infinite Reality 3
+
+2003-07-06 09:06  mem
+
+	* auto/.cvsignore, src/.cvsignore, .cvsignore: Ignore list
+
+2003-07-06 09:05  mem
+
+	* auto/Makefile: Make sure include/GL exists before attempting to
+	  use it
+
+2003-07-06 09:01  mem
+
+	* Makefile, auto/Makefile, auto/blacklist,
+	  auto/bin/fix_OML_sync_control.sh, auto/bin/make.pl,
+	  auto/bin/make_header.pl, auto/bin/make_info.pl,
+	  auto/bin/make_info_list.pl, auto/bin/make_init.pl,
+	  auto/bin/make_list.pl, auto/bin/parse_spec.pl,
+	  auto/bin/update_ext.sh, auto/bin/update_registry.sh,
+	  auto/src/glew_gl.c, auto/src/glew_glx.c,
+	  auto/src/glew_init_glx.c, auto/src/glew_post.c,
+	  auto/src/glew_post.h, auto/src/glew_pre.c, auto/src/glew_pre.h,
+	  auto/src/glew_wgl.c, auto/src/glewinfo_gl.c,
+	  auto/src/glewinfo_glx.c, auto/src/glewinfo_post.c,
+	  auto/src/glewinfo_pre.c, auto/src/glewinfo_wgl.c,
+	  auto/src/glxew_post.h, auto/src/glxew_pre.h,
+	  auto/src/wglew_post.h, auto/src/wglew_pre.h, build/vc6/Makefile,
+	  doc/glew.html, src/glew.c, src/glewinfo.c, src/wglinfo.c: Merge
+	  Milan's 1.1.x
+
+2003-06-30 16:43  ikits
+
+	* doc/glew.html, src/glewinfo.c: [no log message]
+
+2003-06-30 05:33  ikits
+
+	* src/glew.c, src/glewinfo.c, Makefile: [no log message]
+
+2003-06-18 13:14  mem
+
+	* doc/IDEAS: Some old ideas I forgot to check in
+
+2003-05-19 05:58  mem
+
+	* doc/glew.info: Current state of the info file.  It's not useful
+	  as it is since it contains too much redundant information (wrt
+	  registry/) but there are some valuable pieces (e.g., version
+	  information).
+
+2003-05-19 05:36  mem
+
+	* doc/.cvsignore: Ignore registry directory, we don't want to
+	  redistribute this stuff
+
+2003-05-19 05:35  mem
+
+	* bin/update_registry: Forgot about GNUmakefile -> Makefile rename
+
+2003-05-19 05:33  mem
+
+	* src/: Makefile, glew.c, glewinfo.c, malloc.c: Sync with local
+	  tree
+
+2003-05-19 05:26  mem
+
+	* Makefile, bin/parse_info.pl, bin/parse_spec.pl,
+	  bin/update_registry, doc/IDEAS, doc/blacklist,
+	  doc/info_format.txt: Sync with local tree
+
+2003-05-04 14:11  ikits
+
+	* doc/README.html: [no log message]
+
+2003-05-04 13:54  ikits
+
+	* Makefile: [no log message]
+
+2003-05-04 13:47  ikits
+
+	* src/glew.c: [no log message]
+
+2003-05-02 03:42  ikits
+
+	* src/wglinfo.c: [no log message]
+
+2003-05-02 02:33  ikits
+
+	* build/vc6/Makefile, src/wglinfo.c: [no log message]
+
+2003-05-02 01:53  ikits
+
+	* src/glew.c: [no log message]
+
+2003-05-01 17:40  ikits
+
+	* Makefile: [no log message]
+
+2003-05-01 14:12  ikits
+
+	* Makefile: [no log message]
+
+2003-05-01 14:02  ikits
+
+	* Makefile, src/glew.c: [no log message]
+
+2003-05-01 13:49  ikits
+
+	* doc/: README.html, glew.html: [no log message]
+
+2003-05-01 13:41  ikits
+
+	* doc/: README.html, glew.html: [no log message]
+
+2003-05-01 13:35  ikits
+
+	* src/wglinfo.c: [no log message]
+
+2003-05-01 13:31  ikits
+
+	* build/vc6/: glew.dsw, glew_shared.dsp, glewinfo.dsp, wglinfo.dsp:
+	  [no log message]
+
+2003-05-01 13:25  ikits
+
+	* build/vc6/glew_shared.dsp, build/vc6/glew_static.dsp,
+	  build/vc6/glewinfo.dsp, build/vc6/wglinfo.dsp, src/glew.c: [no
+	  log message]
+
+2003-05-01 12:55  ikits
+
+	* build/vc6/: glew_shared.dsp, glew_static.dsp, glewinfo.dsp,
+	  wglinfo.dsp: [no log message]
+
+2003-05-01 12:39  ikits
+
+	* Makefile, build/vc6/glew.dsw, build/vc6/glew_shared.dsp,
+	  build/vc6/glew_static.dsp, build/vc6/glewinfo.dsp,
+	  build/vc6/wglinfo.dsp, src/glew.c, src/glewinfo.c, src/wglinfo.c,
+	  doc/lgpl.txt: [no log message]
+
+2003-05-01 10:39  ikits
+
+	* bin/.cvsignore, bin/.do.not.remove, lib/.cvsignore,
+	  lib/.do.not.remove, GNUmakefile, Makefile: [no log message]
+
+2003-04-04 12:13  ikits
+
+	* GNUmakefile, src/wglinfo.c: [no log message]
+
+2003-02-21 12:47  ikits
+
+	* src/: glew.c, glewinfo.c: added linux patch
+
+2003-02-18 00:45  ikits
+
+	* doc/README.html: added documentation
+
+2003-02-03 13:47  ikits
+
+	* doc/README.html: [no log message]
+
+2003-02-03 13:46  ikits
+
+	* GNUmakefile: getting ready for 1.0.5
+
+2003-02-03 13:44  ikits
+
+	* src/wglinfo.c: added wglinfo
+
+2003-02-03 13:34  ikits
+
+	* doc/: README.html, wglinfo.txt: added wglinfo
+
+2003-02-03 12:33  ikits
+
+	* doc/glew.html: [no log message]
+
+2003-02-03 02:34  ikits
+
+	* GNUmakefile, doc/glew.html, src/glew.c, src/glewinfo.c: added
+	  NV_texture_expand_normal
+
+2003-01-25 12:27  ikits
+
+	* GNUmakefile: [no log message]
+
+2003-01-25 12:06  ikits
+
+	* doc/: glew.html, wglew.html: [no log message]
+
+2003-01-10 15:31  ikits
+
+	* doc/glew.html, src/glew.c, src/glewinfo.c: cleaned up ATI
+	  extensions
+
+2003-01-10 15:07  ikits
+
+	* doc/glew.html, src/glew.c, src/glewinfo.c: took out not
+	  implemented ATI extensions
+
+2003-01-10 07:41  ikits
+
+	* doc/glew.html, src/glew.c, src/glewinfo.c: changed function
+	  prototypes to match .glext.h; added EXT_texture3D
+
+2003-01-10 05:47  ikits
+
+	* GNUmakefile, doc/README.html, doc/glew.html, doc/wglew.html,
+	  src/glew.c, src/glewinfo.c: Bug fixes: VertexAttribArray typos,
+	  EXT_texture_env_combine missing, DrawBuffersATI typo; Added ATI
+	  reference doc
+
+2002-12-25 14:41  ikits
+
+	* src/: glew.c, glewinfo.c: fixed blend_func_separate typo
+
+2002-12-22 02:16  ikits
+
+	* doc/README.html: [no log message]
+
+2002-12-22 01:49  ikits
+
+	* GNUmakefile: [no log message]
+
+2002-12-22 01:37  ikits
+
+	* doc/: glew.html, glxew.html, wglew.html: [no log message]
+
+2002-12-22 01:34  ikits
+
+	* doc/: README.html, glew.html, glxew.html, wglew.html: [no log
+	  message]
+
+2002-12-22 01:05  ikits
+
+	* doc/wglew.html: [no log message]
+
+2002-12-22 00:53  ikits
+
+	* doc/: README.html, glew.html, glxew.html, wglew.html: [no log
+	  message]
+
+2002-12-22 00:28  ikits
+
+	* doc/glew.html, src/glew.c, src/glewinfo.c: [no log message]
+
+2002-12-21 23:50  ikits
+
+	* doc/: glew.html, glxew.html, wglew.html: [no log message]
+
+2002-12-21 19:03  ikits
+
+	* doc/: README.html, glew.html, glxew.html, wglew.html: added list
+	  of extensions to documentation
+
+2002-12-18 13:35  ikits
+
+	* GNUmakefile: version change in GNUmakefile
+
+2002-12-15 02:30  ikits
+
+	* GNUmakefile: added -lGLU to glewinfo and library version in
+	  GNUmakefile
+
+2002-12-15 02:08  ikits
+
+	* GNUmakefile: bug fix in GNUmakefile
+
+2002-12-15 01:36  ikits
+
+	* doc/README.html, src/glew.c, src/glewinfo.c: added
+	  glewGetExtension and updated documentation
+
+2002-12-13 15:33  ikits
+
+	* doc/README.html: [no log message]
+
+2002-12-13 02:31  ikits
+
+	* GNUmakefile, bin/.do.not.remove, doc/glew.png, doc/glx.txt,
+	  doc/README.html, doc/lgpl.txt, doc/sgi.txt, lib/.do.not.remove,
+	  src/glew.c, src/glewinfo.c: Initial revision
+
+2002-12-13 02:31  ikits
+
+	* GNUmakefile, bin/.do.not.remove, doc/glew.png, doc/glx.txt,
+	  doc/README.html, doc/lgpl.txt, doc/sgi.txt, lib/.do.not.remove,
+	  src/glew.c, src/glewinfo.c: glew initial import
+
