@@ -3265,7 +3265,7 @@ GLboolean glxewGetExtension (const char *name)
 {    
   char *p, *end;
   int len = _glewStrLen(name);
-  if (glXQueryExtensionsString == NULL) return GL_FALSE;
+  if (glXQueryExtensionsString == NULL || glXGetCurrentDisplay == NULL) return GL_FALSE;
   p = (char*)glXQueryExtensionsString(glXGetCurrentDisplay(), DefaultScreen(glXGetCurrentDisplay()));
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
@@ -3284,7 +3284,7 @@ static GLint _glxewInit ()
   /* intialize glxew struct */
   _glewMemSet(&glxew, 0, sizeof(glxew));
   /* initialize core GLX 1.0-1.2 */
-  if (_glxewInit_10() || _glxewInit_11() || _glxewInit_12()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  if (_glxewInit_10() || _glxewInit_11() || _glxewInit_12() || glXGetCurrentDisplay == NULL) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* query GLX version */
   glXQueryVersion(glXGetCurrentDisplay(), &major, &minor);
   switch (minor)

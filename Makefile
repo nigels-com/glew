@@ -69,7 +69,7 @@ BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -l$(NAME) -lGLU -lGL -lXmu -lX11
 
-all: lib/$(LIB.A) bin/$(BIN)
+all: lib/$(LIB.A) lib/$(LIB.SO) bin/$(BIN)
 
 lib/$(LIB.A): $(LIB.OBJS)
 	$(AR) cr $@ $^
