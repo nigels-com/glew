@@ -1,3 +1,51 @@
+2005-02-03 00:21  ikits
+
+	* config/version: version bump
+
+2005-02-03 00:18  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, glew.css,
+	  glew.html, glxew.html, index.html, install.html, log.html,
+	  wglew.html: [no log message]
+
+2005-02-03 00:13  ikits
+
+	* doc/log.html: oops
+
+2005-02-02 23:28  ikits
+
+	* doc/index.html: added reference
+
+2005-02-02 22:49  ikits
+
+	* doc/install.html: ready for release
+
+2005-02-02 22:34  ikits
+
+	* htdocs/advanced.html, auto/Makefile, auto/src/template.html,
+	  doc/advanced.html, doc/basic.html, doc/credits.html,
+	  doc/glew.css, doc/index.html, doc/install.html, doc/log.html:
+	  prepare for release
+
+2005-01-30 17:26  ikits
+
+	* doc/advanced.html, doc/basic.html, doc/credits.html,
+	  doc/index.html, doc/install.html, doc/log.html,
+	  auto/src/template.html: ,
+
+2005-01-30 17:12  ikits
+
+	* doc/install.html: corrected VS.NET install location
+
+2005-01-30 01:46  ikits
+
+	* auto/src/: glew.rc, glewinfo.rc, visualinfo.rc: added description
+	  fields
+
+2005-01-30 01:35  ikits
+
+	* ChangeLog, doc/log.html: update logs
+
 2005-01-29 20:48  ikits
 
 	* auto/Makefile, auto/src/glew.rc, auto/src/glewinfo.rc,
@@ -40,6 +88,10 @@
 	  install.html, log.html, ogl_sm.jpg, new.png: sync up webpage and
 	  docs
 
+2005-01-06 01:33  ikits
+
+	* htdocs/: glew.css, index.html: [no log message]
+
 2005-01-06 01:26  ikits
 
 	* TODO.txt: one more item
@@ -67,6 +119,19 @@
 	  config/Makefile.linux, config/Makefile.solaris, config/version:
 	  Fix soname, ABI broke
 
+2005-01-04 21:57  ikits
+
+	* htdocs/basic.html: [no log message]
+
+2005-01-04 21:49  ikits
+
+	* htdocs/index.html: [no log message]
+
+2005-01-04 21:23  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, index.html,
+	  install.html, log.html: [no log message]
+
 2005-01-04 20:55  ikits
 
 	* doc/gpl.txt: documentation update
@@ -75,9 +140,17 @@
 
 	* doc/index.html: documentation update
 
+2005-01-04 20:30  ikits
+
+	* htdocs/index.html: [no log message]
+
 2005-01-04 20:17  ikits
 
 	* doc/glew.css: documentation update
+
+2005-01-04 20:14  ikits
+
+	* htdocs/: glew.html, glxew.html, wglew.html: [no log message]
 
 2005-01-04 20:10  ikits
 
@@ -90,6 +163,15 @@
 	* README.txt, auto/src/template.html, doc/glew.css: documentation
 	  update
 
+2005-01-04 19:58  ikits
+
+	* htdocs/: glew.css, install.html, log.html: [no log message]
+
+2005-01-04 19:44  ikits
+
+	* htdocs/: credits.html, index.html, install.html, log.html: [no
+	  log message]
+
 2005-01-04 10:02  ikits
 
 	* auto/src/glew_head.c: bug fixes
@@ -98,11 +180,29 @@
 
 	* auto/src/template.html: web crap
 
+2005-01-04 00:58  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, index.html,
+	  install.html, log.html, template.html: [no log message]
+
+2005-01-04 00:33  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, index.html,
+	  log.html, template.html: [no log message]
+
 2005-01-04 00:30  ikits
 
 	* auto/: bin/make_str.pl, src/glew_head.c, src/glew_str_glx.c,
 	  src/glew_str_head.c, src/glew_str_tail.c, src/glew_str_wgl.c,
 	  src/glew_utils.c, src/glew_utils.h: extended glewIsSupported
+
+2005-01-03 23:48  ikits
+
+	* htdocs/basic.html: [no log message]
+
+2005-01-03 23:26  ikits
+
+	* htdocs/log.html: [no log message]
 
 2005-01-03 23:17  ikits
 
@@ -126,6 +226,14 @@
 
 	* auto/: Makefile, bin/make_init.pl, src/glew_head.c,
 	  src/glew_utils.c, src/glew_utils.h: bug fixes
+
+2005-01-03 02:40  ikits
+
+	* htdocs/advanced.html: [no log message]
+
+2005-01-03 02:36  ikits
+
+	* htdocs/basic.html: [no log message]
 
 2005-01-03 02:32  ikits
 
@@ -169,6 +277,18 @@
 	  build/vc6/glew_shared.dsp, build/vc6/glew_static.dsp,
 	  src/glew_utils.c, src/glew_utils.h: Single file now compiles with
 	  VC71. Kept multi-file split for future use.
+
+2005-01-03 01:57  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, glew.css,
+	  glew.png, index.html, install.html, log.html, new.png, ogl.png,
+	  ogl_sm.jpg, template.html: Happy New Year!
+
+2005-01-03 01:57  ikits
+
+	* htdocs/: advanced.html, basic.html, credits.html, glew.css,
+	  glew.png, index.html, install.html, log.html, new.png, ogl.png,
+	  ogl_sm.jpg, template.html: Initial revision
 
 2004-12-31 03:49  ikits
 
