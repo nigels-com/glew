@@ -1,7 +1,7 @@
 h1 
 {   
   color: black;
-  font: 23px "Verdana", "Arial", "Helvetica";
+  font: 23px "Verdana", "Arial", "Helvetica", sans-serif;
   font-weight: bold;
   text-align: center;
   margin-top: 12px;
@@ -11,7 +11,7 @@ h1
 h2
 {   
   color: black;
-  font: 18px "Verdana", "Arial", "Helvetica";
+  font: 18px "Verdana", "Arial", "Helvetica", sans-serif;
   font-weight: bold;
   text-align: left;
   padding-top: 0px;
@@ -23,7 +23,7 @@ h2
 h3
 {   
   color: black;
-  font: 17px "Verdana", "Arial", "Helvetica";
+  font: 17px "Verdana", "Arial", "Helvetica", sans-serif;
   text-align: left;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -33,31 +33,31 @@ h3
 
 small
 {
-  font: 8pt "Verdana", "Arial", "Helvetica";
+  font: 8pt "Verdana", "Arial", "Helvetica", sans-serif;
 }
 
 body
 {
   color: black;
-  font: 10pt "Verdana", "Arial", "Helvetica";
+  font: 10pt "Verdana", "Arial", "Helvetica", sans-serif;
   text-align: left;
 }
 
 td
 {
   color: black;
-  font: 10pt "Verdana", "Arial", "Helvetica";
+  font: 10pt "Verdana", "Arial", "Helvetica", sans-serif;
 }
 
 tt
 {
-  color: darkgreen;
+  color: rgb(0,120,0);
 }
 /* color: maroon; */
 
 blockquote
 {
-  color: darkgreen;
+  color: rgb(0,120,0);
   background: #f0f0f0;
   text-align: left;
   margin-left: 40px;
@@ -65,14 +65,14 @@ blockquote
   margin-bottom: 6px;
   padding-bottom: 0px;
   margin-top: 0px;
-  paddin-top: 6px;
+  padding-top: 0px;
   border-top: 0px;
   border-width: 0px;
 }
 
 pre
 {
-  color: darkgreen;
+  color: rgb(0,120,0);
   background: #f0f0f0;
   text-align: left;
   margin-left: 40px;
@@ -80,7 +80,7 @@ pre
   margin-bottom: 6px;
   padding-bottom: 0px;
   margin-top: 0px;
-  paddin-top: 6px;
+  padding-top: 0px;
   border-top: 0px;
   border-width: 0px;
 }
@@ -88,36 +88,36 @@ pre
 p
 { 
   color: black;
-  font: 10pt "Verdana", "Arial", "Helvetica";
+  font: 10pt "Verdana", "Arial", "Helvetica", sans-serif;
   text-align: left;
   margin-bottom: 0px;
   padding-bottom: 6px;
   margin-top: 0px;
-  paddin-top: 6px;
+  padding-top: 0px;
 }
 
 p.right
 { 
   color: black;
-  font: 10pt "Verdana", "Arial", "Helvetica";
+  font: 10pt "Verdana", "Arial", "Helvetica", sans-serif;
   text-align: right;
   margin-bottom: 0px;
   padding-bottom: 6px;
   margin-top: 0px;
-  paddin-top: 6px;
+  padding-top: 0px;
 }
 
 p.pre
 {
-  color: darkgreen;
-  font: 10pt "Courier New", "Courier";
+  color: rgb(0,120,0);
+  font: 10pt "Courier New", "Courier", monospace;
   background: #f0f0f0;
   text-align: left;
   margin-top: 0px;
   margin-bottom: 6px;
   margin-left: 40px;
   margin-right: 40px;
-  padding-top: 6px;
+  padding-top: 0px;
   padding-bottom: 6px;
   padding-left: 6px;
   padding-right: 6px;
@@ -127,19 +127,19 @@ p.pre
 
 a:link
 {    
-  color: darkblue;
+  color: rgb(0,0,139);
   text-decoration: none;
 }
 
 a:visited
 {    
-  color: crimson;
+  color: rgb(220,20,60);
   text-decoration: none;
 }
 
 a:hover
 {    
-  color: crimson;
+  color: rgb(220,20,60);
   text-decoration: underline;
   background: "#e8e8e8";
 }
@@ -150,7 +150,7 @@ ul
   text-align: left;
   margin-left: 40px;
   margin-top: 0px;
-  padding-top: 3px;
+  padding-top: 0px;
   margin-bottom: 0px;
   padding-bottom: 3px;
 }
@@ -177,5 +177,4 @@ hr
   height: 1px;
   border: 0px;
   width: 80%;
-  align: center;
 }
