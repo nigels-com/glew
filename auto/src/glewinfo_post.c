@@ -4,10 +4,27 @@
 
 /* ------------------------------------------------------------------------ */
 
-int main ()
+int main (int argc, char** argv)
 {
   GLuint err;
-  if (GL_TRUE == glewCreateContext())
+  char* display = NULL;
+  int visual = -1;
+#ifdef _WIN32
+  const char* visual_str = "PixelFormat";
+#else
+  const char* visual_str = "Visual";
+#endif
+
+  if (glewParseArgs(argc-1, argv+1, &display, &visual))
+  {
+#ifdef _WIN32
+    fprintf(stderr, "Usage: glewinfo [-pf <id>]\n");
+#else
+    fprintf(stderr, "Usage: glewinfo [-display <display>] [-visual <id>]\n");
+#endif
+    return 1;
+  }
+  if (GL_TRUE == glewCreateContext(display, &visual))
   {
     fprintf(stderr, "Error: glewCreateContext failed\n");
     glewDestroyContext();
@@ -30,10 +47,11 @@ int main ()
   fprintf(f, "---------------------------\n");
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
+  fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
+  fprintf(f, "Reporting capabilities of %s %d\n", visual_str, visual);
   fprintf(f, "Running on a %s from %s\n", 
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
-  fprintf(f, "GLEW version %s is supported\n", glewGetString(GLEW_VERSION));
   glewInfo();
 #ifdef _WIN32
   wglewInfo();
@@ -47,17 +65,49 @@ int main ()
 
 /* ------------------------------------------------------------------------ */
 
+GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
+{
+  int p = 0;
+  while (p < argc)
+  {
+#ifdef _WIN32
+    if (!strcmp(argv[p], "-pf"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      *visual = atoi(argv[p++]);
+    }
+    else
+      return GL_TRUE;
+#else
+    if (!strcmp(argv[p], "-display"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      *display = argv[p++];
+    }
+    else if (!strcmp(argv[p], "-visual") || !strcmp(argv[p], "-pf"))
+    {
+      if (++p >= argc) return GL_TRUE;
+      *visual = atoi(argv[p++]);
+    }
+    else
+      return GL_TRUE;
+#endif
+  }
+  return GL_FALSE;
+}
+
+/* ------------------------------------------------------------------------ */
+
 #ifdef _WIN32
 
 HWND wnd = NULL;
 HDC dc = NULL;
 HGLRC rc = NULL;
 
-GLboolean glewCreateContext ()
+GLboolean glewCreateContext (const char* display, int* visual)
 {
   WNDCLASS wc;
   PIXELFORMATDESCRIPTOR pfd;
-  int pf;
   /* register window class */
   ZeroMemory(&wc, sizeof(WNDCLASS));
   wc.hInstance = GetModuleHandle(NULL);
@@ -72,13 +122,16 @@ GLboolean glewCreateContext ()
   if (NULL == dc) return GL_TRUE;
   /* find pixel format */
   ZeroMemory(&pfd, sizeof(PIXELFORMATDESCRIPTOR));
-  pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-  pfd.nVersion = 1;
-  pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL;
-  pf = ChoosePixelFormat(dc, &pfd);
-  if (pf == 0) return GL_TRUE;
+  if (*visual == -1) /* find default */
+  {
+    pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+    pfd.nVersion = 1;
+    pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL;
+    *visual = ChoosePixelFormat(dc, &pfd);
+    if (*visual == 0) return GL_TRUE;
+  }
   /* set the pixel format for the dc */
-  if (FALSE == SetPixelFormat(dc, pf, &pfd)) return GL_TRUE;
+  if (FALSE == SetPixelFormat(dc, *visual, &pfd)) return GL_TRUE;
   /* create rendering context */
   rc = wglCreateContext(dc);
   if (NULL == rc) return GL_TRUE;
@@ -105,7 +158,7 @@ void glewDestroyContext ()
 
 AGLContext ctx, octx;
 
-GLboolean glewCreateContext ()
+GLboolean glewCreateContext (const char* display, int* visual)
 {
   int attrib[] = { AGL_RGBA, AGL_NONE };
   AGLPixelFormat pf;
@@ -140,13 +193,13 @@ GLXContext ctx = NULL;
 Window wnd;
 Colormap cmap;
 
-GLboolean glewCreateContext ()
+GLboolean glewCreateContext (const char* display, int* visual)
 {
   int attrib[] = { GLX_RGBA, GLX_DOUBLEBUFFER, None };
   int erb, evb;
   XSetWindowAttributes swa;
   /* open display */
-  dpy = XOpenDisplay(NULL);
+  dpy = XOpenDisplay(display);
   if (NULL == dpy) return GL_TRUE;
   /* query for glx */
   if (!glXQueryExtension(dpy, &erb, &evb)) return GL_TRUE;

@@ -30,6 +30,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
 #if defined(_WIN32)
@@ -40,7 +41,8 @@
 
 static FILE* f;
 
-GLboolean glewCreateContext ();
+GLboolean glewCreateContext (const char* display, int* visual);
+GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
 void glewDestroyContext ();
 
 /* ------------------------------------------------------------------------- */
