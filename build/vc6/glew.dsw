@@ -42,7 +42,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "wglinfo"=.\wglinfo.dsp - Package Owner=<4>
+Project: "visualinfo"=.\visualinfo.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
