@@ -51,6 +51,9 @@ VisualInfoARB (HDC hDC, int verbose)
   wglGetPixelFormatAttribivARB(hDC, 1, 0, 1, attrib, value);
   maxpf = value[0];
 
+  for (i=0; i<32; i++)
+    value[i] = 0;
+
   attrib[0] = WGL_SUPPORT_OPENGL_ARB;
   attrib[1] = WGL_DRAW_TO_WINDOW_ARB;
   attrib[2] = WGL_DRAW_TO_BITMAP_ARB;
@@ -153,7 +156,7 @@ VisualInfoARB (HDC hDC, int verbose)
       fprintf(file, " %c ", value[6] ? 'y' : '.');
       /* multisample */
       if (value[24] > 0)
-	fprintf(file, " %d | ", value[24]);
+	fprintf(file, "%2d | ", value[24]);
       else
 	fprintf(file, " . | ", value[24]);
       /* color size */
