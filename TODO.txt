@@ -1,5 +1,3 @@
-Multithreading GL context issues (GLX)
 make install relinking (Darwin)
-GL 1.5 spec file
 Web page and documentation update
 Web poll on separating glew, glxew and wglew

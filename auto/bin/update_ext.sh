@@ -155,4 +155,7 @@ EOT
 	typedef char GLcharARB
 	typedef int GLhandleARB
 EOT
+
+# fix const correctness in GL_ARB_shader_objects
+
 fi
