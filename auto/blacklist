@@ -8,6 +8,7 @@ SGIS/texture_color_mask.txt
 SGIX/dmbuffer.txt
 SGIX/instruments.txt
 SGIX/video_source.txt
+SGIX/hyperpipe_group.txt
 OES/byte_coordinates.txt
 OES/compressed_paletted_texture.txt
 OES/fixed_point.txt
