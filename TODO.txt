@@ -1,4 +1,6 @@
 Major:
+ - fix documentation (copy changes from webpage)
+ - add documentation to cvs (glew-doc module)
  - add support for windows mini-client drivers
  - add support for initialization on first use
     - This is probably a simple change: just define that the programmer
