@@ -103,16 +103,16 @@ static void *dlGetProcAddress (const GLubyte* name)
 #define WGLEW_CONTEXT_ARG_DEF_INIT WGLEWContext* ctx
 #define GLXEW_CONTEXT_ARG_DEF_INIT GLXEWContext* ctx
 #define GLEW_CONTEXT_ARG_VAR_INIT ctx
-#else
+#else /* _WIN32 */
 #define GLEW_CONTEXT_ARG_DEF_INIT void
 #define WGLEW_CONTEXT_ARG_DEF_INIT void
 #define GLXEW_CONTEXT_ARG_DEF_INIT void
 #define GLEW_CONTEXT_ARG_VAR_INIT
-#endif
+#endif /* _WIN32 */
 #define GLEW_CONTEXT_ARG_DEF_LIST GLEWContext* ctx
 #define WGLEW_CONTEXT_ARG_DEF_LIST WGLEWContext* ctx
 #define GLXEW_CONTEXT_ARG_DEF_LIST GLXEWContext* ctx
-#else
+#else /* GLEW_MX */
 #define GLEW_CONTEXT_ARG_DEF_INIT void
 #define WGLEW_CONTEXT_ARG_DEF_INIT void
 #define GLXEW_CONTEXT_ARG_DEF_INIT void
@@ -120,7 +120,7 @@ static void *dlGetProcAddress (const GLubyte* name)
 #define WGLEW_CONTEXT_ARG_DEF_LIST void
 #define GLXEW_CONTEXT_ARG_DEF_LIST void
 #define GLEW_CONTEXT_ARG_VAR_INIT
-#endif
+#endif /* GLEW_MX */
 
 #if !defined(_WIN32) || !defined(GLEW_MX)
 
