@@ -43,7 +43,7 @@ $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 $(EXT)/.dummy: $(REGISTRY)/.dummy
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
-	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs cp --target-directory=$(EXT)
+	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs -J % cp % $(EXT)
 	touch $@
 
 $(I.DEST)/glew.h: $(EXT)/.dummy
