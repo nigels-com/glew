@@ -211,13 +211,23 @@ install: all
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
 # runtime
+ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+	strip -x lib/$(LIB.SHARED)
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
+else
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
+endif
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
 # development files
 	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
+ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+	strip -x lib/$(LIB.STATIC)
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
+else
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
+endif
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
 # utilities
 	$(INSTALL) -s -m 0755 bin/$(BIN) $(GLEW_DEST)/bin/
