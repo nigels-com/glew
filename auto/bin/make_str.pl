@@ -41,8 +41,10 @@ if (@ARGV)
 			print "    {\n";
 			$curexttype = $exttype;
 		}
+		print "#ifdef $extname\n";
 		print "      if (_glewStrSame3(pos, len, (const GLubyte*)\"$extrem\", ". length($extrem) . "))\n";
 		print "        return $extvar;\n";
+		print "#endif\n";
 	}
 
 	print "    }\n";

@@ -30,7 +30,7 @@ GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | gr
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
-GLX_EXT_SPEC := $(shell echo $(EXT)/GLX_* | grep -v GLX_OML_sync_control)
+GLX_EXT_SPEC := $(EXT)/GLX_*
 endif
 
 PARSE_SPEC = parse_spec.pl

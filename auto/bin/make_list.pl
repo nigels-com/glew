@@ -42,7 +42,7 @@ if (@ARGV)
 
 		#my $pextvar = prefix_varname($extvar);
 
-		#print "#ifdef $extname\n";
+		print "#ifdef $extname\n";
 		print "  " . $extvar . " = " . $extpre . "GetExtension(\"$extname\");\n";
 		if (keys %$functions)
 		{
@@ -55,7 +55,7 @@ if (@ARGV)
 				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
 			}
 		}
-		#print "#endif /* $extname */\n";
+		print "#endif /* $extname */\n";
 	}
 
 }
