@@ -8,39 +8,29 @@
 ** wglinfo is a small utility that displays all available visuals,
 ** aka. pixelformats, in an OpenGL system along with renderer version
 ** information. It shows a table of all the visuals that support OpenGL
-** and their capabilities. The format of the table is similar to glxinfo
-** on Unix systems:
+** along with their capabilities. The format of the table is similar to
+** that of glxinfo on Unix systems:
 **
-** visual  ~= pixel format descriptor
+** visual ~= pixel format descriptor
 ** id       = visual id (integer from 1 - max visuals)
-** dep      = cColorBits - color depth
-** tp       = dwFlags - visual type (wn: window, pb: pbuffer, bm: bitmap)
-** xsp      = no analog - transparent pixel (currently always ".")
-** bfsz     = cColorBits - framebuffer size
-** lvl      = bReserved - overlay (>0), underlay (<0), main plane (0)
-** rgci     = iPixelType - rb = rgba mode, ci = color index mode
-** db       = dwFlags & PFD_DOUBLEBUFFER - double buffer flag (y = yes)
-** stro     = dwFlags & PFD_STEREO - stereo flag (y = yes)
-** gene	    = dwFlags & PFD_GENERIC - software generic (y = yes) or ICD
-** geac	    = dwFlags & PFD_GENERIC_ACCELERATED - generic with hardware (MCD)
-** rsz      = cRedBits - # bits of red
-** gsz      = cGreenBits - # bits of green
-** bsz      = cBlueBits - # bits of blue
-** asz      = cAlphaBits - # bits of alpha
-** axbf     = cAuxBuffers - # of aux buffers
-** dpth     = cDepthBits - # bits of depth
-** stcl     = cStencilBits - # bits of stencil
-** accum sz = cAccumBits - total # of bits in accumulation buffer
-** accum r  = cAccumRedBits - # bits of red in accumulation buffer
-** accum g  = cAccumGreenBits - # bits of green in accumulation buffer
-** accum b  = cAccumBlueBits  - # bits of blue in accumulation buffer
-** accum a  = cAccumAlphaBits - # bits of alpha in accumulation buffer
-** ms ns/b  = no analog  - multisample buffers (currently always ".")
+** tp       = type (wn: window, pb: pbuffer, wp: window & pbuffer, bm: bitmap)
+** ac	    = acceleration (ge: generic, fu: full, no: none)
+** fm	    = format (i: integer, f: float, c: color index)
+** db	    = double buffer (y = yes)
+** st	    = stereo (y = yes)
+** sz       = total # bits
+** r        = # bits of red
+** g        = # bits of green
+** b        = # bits of blue
+** a        = # bits of alpha
+** axbf     = # aux buffers
+** dpth     = # bits of depth
+** stcl     = # bits of stencil
 */
 
 #include <stdio.h>
-#include <GL/glew.h> /* OpenGL header */
-#include <GL/wglew.h> /* GLU header */
+#include <GL/glew.h>
+#include <GL/wglew.h>
 
 int drawableonly = 0;
 int showall = 0;
@@ -104,7 +94,7 @@ VisualInfoARB (HDC hDC, int verbose)
   {
     /* print table header */
     fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
-    fprintf(file, " |     |     visual     |    color buff   | ax dp st |   accum buffs   |\n");
+    fprintf(file, " |     |     visual     |      color      | ax dp st |      accum      |\n");
     fprintf(file, " |  id | tp ac fm db st |  sz  r  g  b  a | bf th cl |  sz  r  g  b  a |\n");
     fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
 
@@ -189,7 +179,7 @@ VisualInfoARB (HDC hDC, int verbose)
     }
     /* print table footer */
     fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
-    fprintf(file, " |     |     visual     |    color buff   | ax dp st |   accum buffs   |\n");
+    fprintf(file, " |     |     visual     |      color      | ax dp st |      accum      |\n");
     fprintf(file, " |  id | tp ac fm db st |  sz  r  g  b  a | bf th cl |  sz  r  g  b  a |\n");
     fprintf(file, " +-----+----------------+-----------------+----------+-----------------+\n");
   }
@@ -552,7 +542,6 @@ main (int argc, char** argv)
 		    (char*)wglGetExtensionsStringEXT(hDC));
   }
   /* enumerate all the formats */
-#if 1
   if (wglew.ARB_pixel_format)
   {
     int attrib[16], value[16], pf;
@@ -566,7 +555,6 @@ main (int argc, char** argv)
     VisualInfoARB(hDC, verbose);
   }
   else
-#endif
   {
     VisualInfo(hDC, verbose);
   }
