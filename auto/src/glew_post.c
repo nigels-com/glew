@@ -38,9 +38,11 @@ GLenum glewInit ()
 {
   GLenum r;
   if ( (r = _glewInit()) ) return r;
-#ifdef _WIN32
+#if defined(_WIN32)
   return _wglewInit();
-#else /* _UNIX */
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) /* _UNIX */
   return _glxewInit();
+#else
+  return r;
 #endif /* _WIN32 */
 }

@@ -99,51 +99,38 @@ void glewDestroyContext ()
 
 /* ------------------------------------------------------------------------ */
 
-#  ifdef __APPLE__
+#  if defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 
-Display* dpy = NULL;
-XVisualInfo* vi = NULL;
-GLXContext ctx = NULL;
-Window wnd;
-Colormap cmap;
+#include <AGL/agl.h>
+
+AGLContext ctx, octx;
 
 GLboolean glewCreateContext ()
 {
-  int attrib[] = { GLX_RGBA, None };
-  int erb, evb;
-  XSetWindowAttributes swa;
-  /* open display */
-  dpy = XOpenDisplay(NULL);
-  if (NULL == dpy) return GL_TRUE;
-  /* query for glx */
-  if (!glXQueryExtension(dpy, &erb, &evb)) return GL_TRUE;
-  /* choose visual */
-  vi = glXChooseVisual(dpy, DefaultScreen(dpy), attrib);
-  if (NULL == vi) return GL_TRUE;
-  /* create context */
-  ctx = glXCreateContext(dpy, vi, None, True);
-  if (NULL == ctx) return GL_TRUE;
-  /* create window */
-  /*wnd = XCreateSimpleWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 1, 1, 1, 0, 0);*/
-  cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
-  swa.border_pixel = 0;
-  swa.colormap = cmap;
-  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 256, 256, 0, vi->depth, InputOutput, vi->visual, CWBorderPixel | CWColormap, &swa);
-  /* make context current */
-  if (!glXMakeCurrent(dpy, wnd, ctx)) return GL_TRUE;
+  int attrib[] = { AGL_RGBA, AGL_NONE };
+  AGLPixelFormat pf;
+  //int major, minor;
+  //SetPortWindowPort(wnd);
+  //aglGetVersion(&major, &minor);
+  //fprintf(stderr, "GL %d.%d\n", major, minor);
+  pf = aglChoosePixelFormat(NULL, 0, attrib);
+  if (NULL == pf) return GL_TRUE;
+  ctx = aglCreateContext(pf, NULL);
+  if (NULL == ctx || AGL_NO_ERROR != aglGetError()) return GL_TRUE;
+  aglDestroyPixelFormat(pf);
+  //aglSetDrawable(ctx, GetWindowPort(wnd));
+  octx = aglGetCurrentContext();
+  if (NULL == aglSetCurrentContext(ctx)) return GL_TRUE;
   return GL_FALSE;
 }
 
 void glewDestroyContext ()
 {
-  if (NULL != dpy && NULL != ctx) glXDestroyContext(dpy, ctx);
-  if (NULL != dpy) XDestroyWindow(dpy, wnd);
-  if (NULL != dpy) XFreeColormap(dpy, cmap);
-  if (NULL != vi) XFree(vi);
-  if (NULL != dpy) XCloseDisplay(dpy);
+  aglSetCurrentContext(octx);
+  if (NULL != ctx) aglDestroyContext(ctx);
 }
 
-#  else /* __linux || __sgi */
+#  else /* __linux || __sgi || (__APPLE__ && GLEW_APPLE_GLX) */
 
 /* ------------------------------------------------------------------------ */
 
