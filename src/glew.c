@@ -3412,18 +3412,17 @@ static GLint _glxewInit ()
 
 /* ------------------------------------------------------------------------ */
 
-static char _glewErrorString[6][40] =
-{
-  "no error",
-  "missing GL version",
-  "missing {ARB,EXT}_extensions_string",
-  "GL 1.1 and up are not supported",
-  "GLX 1.2 and up are not supported",
-  "unknown error"
-};
-
 const char* glewGetErrorString (GLint error)
 {
+  static const char* _glewErrorString[] =
+  {
+    "no error",
+    "missing GL version",
+    "missing {ARB,EXT}_extensions_string",
+    "GL 1.1 and up are not supported",
+    "GLX 1.2 and up are not supported",
+    "unknown error"
+  };
   if (error > 5) error = 5;
   return _glewErrorString[error];
 }
