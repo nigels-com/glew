@@ -42,9 +42,9 @@ static void glewPrintExt (const GLubyte* name, GLboolean defined)
 {
   unsigned int i;
   fprintf(f, "\n%s:", name);
-  for (i=0; i<62-strlen(name); i++) fprintf(f, " ");
+  for (i=0; i<62-strlen((const char*)name); i++) fprintf(f, " ");
   fprintf(f, "%s\n", defined ? "OK" : "MISSING");
-  for (i=0; i<strlen(name)+1; i++) fprintf(f, "-");
+  for (i=0; i<strlen((const char*)name)+1; i++) fprintf(f, "-");
   fprintf(f, "\n");
   fflush(f);
 }
@@ -53,7 +53,7 @@ static void glewInfoFunc (const GLubyte* name, GLboolean undefined)
 {
   unsigned int i;
   fprintf(f, "  %s:", name);
-  for (i=0; i<60-strlen(name); i++) fprintf(f, " ");
+  for (i=0; i<60-strlen((const char*)name); i++) fprintf(f, " ");
   fprintf(f, "%s\n", undefined ? "MISSING" : "OK");
   fflush(f);
 }

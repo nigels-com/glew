@@ -36,7 +36,7 @@ GLboolean glewGetExtension (const GLubyte *name)
 {    
   GLubyte *p, *end;
   GLuint len = _glewStrLen(name);
-  p = glGetString(GL_EXTENSIONS);
+  p = (GLubyte*)glGetString(GL_EXTENSIONS);
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
@@ -52,7 +52,7 @@ GLboolean glewGetExtension (const GLubyte *name)
 
 static GLuint _glewInit ()
 {
-  GLubyte* s;
+  const GLubyte* s;
   GLuint i;
   /* query opengl version */
   s = glGetString(GL_VERSION);
