@@ -167,10 +167,6 @@ SOURCE=..\..\include\GL\glew.h
 
 SOURCE=..\..\include\GL\wglew.h
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\src\glew_utils.h
-# End Source File
 # End Group
 # End Target
 # End Project
