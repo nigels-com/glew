@@ -100,38 +100,38 @@ void* dlGetProcAddress (const GLubyte* name)
  * These functions implement the functionality required in this file.
  */
 
-GLuint _glewStrLen (const GLubyte* s)
+static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
   while (s+i != NULL && s[i] != '\0') i++;
   return i;
 }
 
-GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
+static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
 {
   GLuint i=0;
   while (s+i != NULL && s[i] != '\0' && s[i] != c) i++;
   return i;
 }
 
-GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
+static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
   while (i < n && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
 
-GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   while (*na > 0 && (**a == ' ' || **a == '\n' || **a == '\r' || **a == '\t'))
   {
-    *a++;
-    *na--;
+    (*a)++;
+    (*na)--;
   }
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
 	if(i == nb)
 	{
 		*a = *a + nb;
@@ -142,12 +142,12 @@ GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
   return GL_FALSE;
 }
 
-GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
 	if(i == nb)
 	{
 		*a = *a + nb;
@@ -158,13 +158,13 @@ GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
   return GL_FALSE;
 }
 
-GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+static GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
-    if (i == nb && (*na == nb || *a[i] == ' ' || *a[i] == '\n' || *a[i] == '\r' || *a[i] == '\t'))
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    if (i == nb && (*na == nb || (*a)[i] == ' ' || (*a)[i] == '\n' || (*a)[i] == '\r' || (*a)[i] == '\t'))
     {
       *a = *a + nb;
       *na = *na - nb;
