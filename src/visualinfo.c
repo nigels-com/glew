@@ -204,7 +204,7 @@ void PrintExtensions (const char* s)
 {
   char t[80];
   int i=0;
-  char* p = 0;
+  char* p=0;
 
   t[79] = '\0';
   while (*s)
