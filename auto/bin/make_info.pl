@@ -46,7 +46,15 @@ foreach my $ext (sort @extlist)
     make_separator($extname);
     print "#ifdef $extname\n\n";
     print "static void _glewInfo_$extname (void)\n{\n";
-    print "  glewPrintExt(\"$extname\", $extvar, $extpre" . "ewGetExtension(\"$extname\"));\n";
+    if ($extvar =~ /VERSION/)
+    {
+        print "  glewPrintExt(\"$extname\", $extvar, $extvar);\n";
+    }
+    else
+    {
+        print "  glewPrintExt(\"$extname\", $extvar, $extpre" .
+            "ewGetExtension(\"$extname\"));\n";
+    }
     output_decls($functions, \&make_pfn_info);
     print "}\n\n";
     print "#endif /* $extname */\n\n";

@@ -1,2 +1,2 @@
 GL_WIN_swap_hint
-	void glAddSwapHintRectWin (GLint x, GLint y, GLsizei width, GLsizei height)
+	void glAddSwapHintRectWIN (GLint x, GLint y, GLsizei width, GLsizei height)
