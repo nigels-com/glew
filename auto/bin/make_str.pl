@@ -15,8 +15,6 @@ do 'bin/make.pl';
 my @extlist = ();
 my %extensions = ();
 
-our $export = shift;
-
 if (@ARGV)
 {
     @extlist = @ARGV;
@@ -35,17 +33,21 @@ if (@ARGV)
 		{
 			if(length($curexttype) > 0)
 			{
-				print "    }\n";
+				print "      }\n";
 			}
-			print "    if (_glewStrSame2(&pos, &len, (const GLubyte*)\"$exttype\", " . length($exttype) . "))\n";
-			print "    {\n";
+			print "      if (_glewStrSame2(&pos, &len, (const GLubyte*)\"$exttype\", " . length($exttype) . "))\n";
+			print "      {\n";
 			$curexttype = $exttype;
 		}
 		print "#ifdef $extname\n";
-		print "      if (_glewStrSame3(pos, len, (const GLubyte*)\"$extrem\", ". length($extrem) . "))\n";
-		print "        return $extvar;\n";
+		print "        if (_glewStrSame3(&pos, &len, (const GLubyte*)\"$extrem\", ". length($extrem) . "))\n";
+		#print "        return $extvar;\n";
+		print "        {\n";
+		print "          ret = $extvar;\n";
+		print "          continue;\n";
+		print "        }\n";
 		print "#endif\n";
 	}
 
-	print "    }\n";
+	print "      }\n";
 }

@@ -1,5 +1,7 @@
+    }
+    ret = (len == 0);
   }
-  return GL_FALSE;
+  return ret;
 }
 
 #endif /* _WIN32 */

@@ -6,5 +6,8 @@ GLboolean glewIsSupported (const char* name)
 {
   GLubyte* pos = (GLubyte*)name;
   GLuint len = _glewStrLen(pos);
-  if(_glewStrSame2(&pos, &len, (const GLubyte*)"GL_", 3))
+  GLboolean ret = GL_TRUE;
+  while (ret && len > 0)
   {
+    if (_glewStrSame1(&pos, &len, (const GLubyte*)"GL_", 3))
+    {

@@ -1,5 +1,7 @@
+    }
+    ret = (len == 0);
   }
-  return GL_FALSE;
+  return ret;
 }
 
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
@@ -12,5 +14,8 @@ GLboolean glxewIsSupported (const char* name)
 {
   GLubyte* pos = (GLubyte*)name;
   GLuint len = _glewStrLen(pos);
-  if(_glewStrSame2(&pos, &len, (const GLubyte*)"GLX_", 4))
+  GLboolean ret = GL_TRUE;
+  while (ret && len > 0)
   {
+    if(_glewStrSame1(&pos, &len, (const GLubyte*)"GLX_", 4))
+    {

@@ -121,6 +121,27 @@ GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   return i == n ? GL_TRUE : GL_FALSE;
 }
 
+GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+{
+  while (*na > 0 && (**a == ' ' || **a == '\n' || **a == '\r' || **a == '\t'))
+  {
+    *a++;
+    *na--;
+  }
+  if(*na >= nb)
+  {
+    GLuint i=0;
+    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
+	if(i == nb)
+	{
+		*a = *a + nb;
+		*na = *na - nb;
+		return GL_TRUE;
+	}
+  }
+  return GL_FALSE;
+}
+
 GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
@@ -137,13 +158,18 @@ GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
   return GL_FALSE;
 }
 
-GLboolean _glewStrSame3 (const GLubyte* a, GLuint na, const GLubyte* b, GLuint nb)
+GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
-  if(na == nb)
+  if(*na >= nb)
   {
     GLuint i=0;
-    while (i < nb && a+i != NULL && b+i != NULL && a[i] == b[i]) i++;
-	return i == nb ? GL_TRUE : GL_FALSE;
+    while (i < nb && *a+i != NULL && b+i != NULL && *a[i] == b[i]) i++;
+    if (i == nb && (*na == nb || *a[i] == ' ' || *a[i] == '\n' || *a[i] == '\r' || *a[i] == '\t'))
+    {
+      *a = *a + nb;
+      *na = *na - nb;
+      return GL_TRUE;
+    }
   }
   return GL_FALSE;
 }
