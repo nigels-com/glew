@@ -90,7 +90,7 @@ lib/$(LIB.STATIC): $(LIB.OBJS)
 
 lib/$(LIB.SHARED): $(LIB.SOBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 else
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
@@ -117,10 +117,10 @@ install: all
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
 # runtime
-ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/bin/
 else
-  ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+  ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
@@ -133,10 +133,10 @@ endif
 	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
-ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(GLEW_DEST)/lib/
 else
-  ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
+  ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.STATIC)
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
 	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
@@ -153,7 +153,7 @@ uninstall:
 	$(RM) $(GLEW_DEST)/include/GL/glew.h
 	$(RM) $(GLEW_DEST)/include/GL/glxew.h
 	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
-ifeq ($(patsubst MINGW32%,MINGW32,$(SYSTEM)), MINGW32)
+ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(RM) $(GLEW_DEST)/bin/$(LIB.SHARED)
 else
 	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
