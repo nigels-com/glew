@@ -16,7 +16,7 @@
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 GLEW_TARGET ?= /usr
-GLEW_VERSION = 1.0
+GLEW_VERSION = 1.0.1
 
 CC = \cc
 LD = \ld
