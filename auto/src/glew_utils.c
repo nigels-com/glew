@@ -108,7 +108,7 @@ GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   return i == n ? GL_TRUE : GL_FALSE;
 }
 
-GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
   if(*na >= nb)
   {

@@ -26,11 +26,11 @@ ifeq (custom,$(MAKECMDGOALS))
 GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 #GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | sed -e 's/\(.*\)/$(CORE)\/\1/g;')
-GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
+GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | grep -v GLX_OML_sync_control | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
-GLX_EXT_SPEC := $(EXT)/GLX_*
+GLX_EXT_SPEC := $(shell echo $(EXT)/GLX_* | grep -v GLX_OML_sync_control)
 endif
 
 PARSE_SPEC = parse_spec.pl

@@ -38,7 +38,7 @@ if (@ARGV)
 			parse_ext($ext);
 
 		#make_separator($extname);
-		#print "#ifdef $extname\n\n";
+		print "#ifdef $extname\n\n";
 		my $extvar = $extname;
 		my $extvardef = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
@@ -50,6 +50,6 @@ if (@ARGV)
 			print "\n  return r;\n}\n\n";
 		}
 		#print "\nGLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n\n";
-		#print "#endif /* $extname */\n\n";
+		print "#endif /* $extname */\n\n";
 	}
 }

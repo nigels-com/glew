@@ -94,7 +94,7 @@
 extern GLuint _glewStrLen (const GLubyte* s);
 extern GLuint _glewStrCLen (const GLubyte* s, GLubyte c);
 extern GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n);
-extern GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb);
+extern GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb);
 extern GLboolean _glewStrSame3 (const GLubyte* a, GLuint na, const GLubyte* b, GLuint nb);
 
 #endif /* __glew_utils_h__ */
