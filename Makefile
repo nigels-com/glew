@@ -46,11 +46,13 @@ SYSTEM = $(strip $(shell uname -s))
 # ----------------------------------------------------------------------------
 ifeq ($(patsubst CYGWIN%,CYGWIN,$(SYSTEM)), CYGWIN)
 NAME = glew32
-CC = gcc
+CC = gcc -mno-cygwin
 LD = ld
-CFLAGS.EXTRA = -mno-cygwin -DGLEW_STATIC
+CFLAGS.EXTRA = -DGLEW_STATIC
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
+LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA =
+
 WARN = -Wall -W
 BIN.SUFFIX = .exe
 
@@ -58,10 +60,6 @@ LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
 LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
 LIB.STATIC = lib$(NAME).a
-
-GL_LDFLAGS = -lopengl32
-GLU_LDFLAGS = -lglu32
-GLUT_LDFLAGS = -lglut32 $(GLU_LDFLAGS) $(GL_LDFLAGS)
 
 else
 # ----------------------------------------------------------------------------
@@ -74,6 +72,7 @@ LD = ld
 CFLAGS.EXTRA = 
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
+LDFLAGS.GL = -lXmu -Xi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -Wall -W
 BIN.SUFFIX =
@@ -81,16 +80,6 @@ LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
 LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
 LIB.STATIC = lib$(NAME).a
-
-# Support broken systems which don't include proper inter-library
-# dependency information (several versions of RedHat and SuSE among
-# others).  Stuff needed by both GLUT and GL is included only in GL's
-# LDFLAGS.  Same thnig for GLU and GL.  Include the stuff needed only by
-# GLUT *before* the GL flags.  This probably breaks down on IRIX. (mem)
-
-GL_LDFLAGS = -lGL -lXext -lX11
-GLU_LDFLAGS = -lGLU
-GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 
 else
 # ----------------------------------------------------------------------------
@@ -104,13 +93,11 @@ ABI = -64 # -n32
 CFLAGS.EXTRA = -woff 1110,1498 $(ABI)
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA = $(ABI)
+LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn
 BIN.SUFFIX =
 
-GL_LDFLAGS = -lGL -lXext -lX11
-GLU_LDFLAGS = -lGLU
-GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
 # ----------------------------------------------------------------------------
 # Darwin
@@ -122,6 +109,7 @@ LD = cc
 CFLAGS.EXTRA = -dynamic -I/usr/X11R6/include
 LDFLAGS.SO = -dynamiclib
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
+LDFLAGS.GL = -lXmu -Xi -lGLU -lGL -lXext -lX11
 NAME = GLEW
 BIN.SUFFIX =
 WARN = -Wall -W
@@ -130,9 +118,6 @@ LIB.DEVLNK = lib$(NAME).dylib
 LIB.SHARED = lib$(NAME).$(GLEW_VERSION).dylib
 LIB.STATIC = lib$(NAME).a
 
-GL_LDFLAGS = -lGL -lXext -lX11
-GLU_LDFLAGS = -lGLU
-GLUT_LDFLAGS = -lglut -lXmu -lXi $(GLU_LDFLAGS) $(GL_LDFLAGS)
 else
 # ----------------------------------------------------------------------------
 $(error "Platform '$(SYSTEM)' not supported")
@@ -157,13 +142,13 @@ CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
 
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
-LIB.LDFLAGS = $(LDFLAGS.EXTRA)
+LIB.LDFLAGS = $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 LIB.LIBS = $(GL_LDFLAGS)
 
 BIN = glewinfo$(BIN.SUFFIX)
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -l$(NAME) $(LDFLAGS.EXTRA) $(GLUT_LDFLAGS)
+BIN.LIBS = -Llib -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 
 all: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(BIN)
 
