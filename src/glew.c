@@ -1,52 +1,6 @@
 /*
-** License Applicability. Except to the extent portions of this file are
-** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.1 (the "License"), the contents of this
-** file are subject only to the provisions of the License. You may not use
-** this file except in compliance with the License. You may obtain a copy
-** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
-** Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
-** 
-** http://oss.sgi.com/projects/FreeB
-** 
-** Note that, as provided in the License, the Software is distributed on an
-** "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
-** DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
-** CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
-** PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-** 
-** Original Code. The Original Code is: OpenGL Sample Implementation,
-** Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
-** Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
-** Copyright in any portions created by third parties is as indicated
-** elsewhere herein. All Rights Reserved.
-** 
-** Additional Notice Provisions: This software was created using the
-** OpenGL(R) version 1.2.1 Sample Implementation published by SGI, but has
-** not been independently verified as being compliant with the OpenGL(R)
-** version 1.2.1 Specification.
-*/
-
-/*
-** The contents of this file are subject to the GLX Public License Version 1.0
-** (the "License"). You may not use this file except in compliance with the
-** License. You may obtain a copy of the License at Silicon Graphics, Inc.,
-** attn: Legal Services, 2011 N. Shoreline Blvd., Mountain View, CA 94043
-** or at http://www.sgi.com/software/opensource/glx/license.html.
-**
-** Software distributed under the License is distributed on an "AS IS"
-** basis. ALL WARRANTIES ARE DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY
-** IMPLIED WARRANTIES OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR
-** PURPOSE OR OF NON- INFRINGEMENT. See the License for the specific
-** language governing rights and limitations under the License.
-**
-** The Original Software is GLX version 1.2 source code, released February,
-** 1999. The developer of the Original Software is Silicon Graphics, Inc.
-** Those portions of the Subject Software created by Silicon Graphics, Inc.
-** are Copyright (c) 1991-9 Silicon Graphics, Inc. All Rights Reserved.
-*/
-
-/*
+** The OpenGL Extension Wrangler Library
+** Copyright (C) 2003, 2002, Milan Ikits
 ** Copyright (C) 2002, Lev Povalahev
 ** All rights reserved.
 ** 
@@ -72,25 +26,6 @@
 ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ** THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-/*
-** The OpenGL Extension Wrangler Library
-** Copyright (C) 2002 Milan Ikits
-**
-** This library is free software; you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation; either
-** version 2.1 of the License, or (at your option) any later version.
-**
-** This library is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with this library; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 #include <GL/glew.h>
@@ -611,6 +546,39 @@ static GLboolean _glewInit_ARB_vertex_blend ()
   return r;
 }
 #endif /* GL_ARB_vertex_blend */
+
+/* ---------------------- ARB_vertex_buffer_object ------------------------ */
+
+#ifdef GL_ARB_vertex_buffer_object 
+PFNGLBINDBUFFERARBPROC glBindBufferARB;
+PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;
+PFNGLGENBUFFERSARBPROC glGenBuffersARB;
+PFNGLISBUFFERARBPROC glIsBufferARB;
+PFNGLBUFFERDATAARBPROC glBufferDataARB;
+PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB;
+PFNGLGETBUFFERSUBDATAARBPROC glGetBufferSubDataARB;
+PFNGLMAPBUFFERARBPROC glMapBufferARB;
+PFNGLUNMAPBUFFERARBPROC glUnmapBufferARB;
+PFNGLGETBUFFERPARAMETERIVARBPROC glGetBufferParameterivARB;
+PFNGLGETBUFFERPOINTERVARBPROC glGetBufferPointervARB;
+
+static GLboolean _glewInit_ARB_vertex_buffer_object ()
+{
+  GLboolean r = GL_FALSE;
+  r = r || (glBindBufferARB = (PFNGLBINDBUFFERARBPROC)glewGetProcAddress("glBindBufferARB")) == NULL;
+  r = r || (glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC)glewGetProcAddress("glDeleteBuffersARB")) == NULL;
+  r = r || (glGenBuffersARB = (PFNGLGENBUFFERSARBPROC)glewGetProcAddress("glGenBuffersARB")) == NULL;
+  r = r || (glIsBufferARB = (PFNGLISBUFFERARBPROC)glewGetProcAddress("glIsBufferARB")) == NULL;
+  r = r || (glBufferDataARB = (PFNGLBUFFERDATAARBPROC)glewGetProcAddress("glBufferDataARB")) == NULL;
+  r = r || (glBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC)glewGetProcAddress("glBufferSubDataARB")) == NULL;
+  r = r || (glGetBufferSubDataARB = (PFNGLGETBUFFERSUBDATAARBPROC)glewGetProcAddress("glGetBufferSubDataARB")) == NULL;
+  r = r || (glMapBufferARB = (PFNGLMAPBUFFERARBPROC)glewGetProcAddress("glMapBufferARB")) == NULL;
+  r = r || (glUnmapBufferARB = (PFNGLUNMAPBUFFERARBPROC)glewGetProcAddress("glUnmapBufferARB")) == NULL;
+  r = r || (glGetBufferParameterivARB = (PFNGLGETBUFFERPARAMETERIVARBPROC)glewGetProcAddress("glGetBufferParameterivARB")) == NULL;
+  r = r || (glGetBufferPointervARB = (PFNGLGETBUFFERPOINTERVARBPROC)glewGetProcAddress("glGetBufferPointervARB")) == NULL;
+  return r;
+}
+#endif /* GL_ARB_vertex_buffer_object */
 
 /* -------------------------- ARB_vertex_program -------------------------- */
 
@@ -1525,6 +1493,109 @@ static GLboolean _glewInit_NV_fence ()
   return r;
 }
 #endif /* GL_NV_fence */
+
+/* ----------------------------- NV_half_float ---------------------------- */
+
+#ifdef GL_NV_half_float
+PFNGLVERTEX2HNVPROC glVertex2hNV;
+PFNGLVERTEX2HVNVPROC glVertex2hvNV;
+PFNGLVERTEX3HNVPROC glVertex3hNV;
+PFNGLVERTEX3HVNVPROC glVertex3hvNV;
+PFNGLVERTEX4HNVPROC glVertex4hNV;
+PFNGLVERTEX4HVNVPROC glVertex4hvNV;
+PFNGLNORMAL3HNVPROC glNormal3hNV;
+PFNGLNORMAL3HVNVPROC glNormal3hvNV;
+PFNGLCOLOR3HNVPROC glColor3hNV;
+PFNGLCOLOR3HVNVPROC glColor3hvNV;
+PFNGLCOLOR4HNVPROC glColor4hNV;
+PFNGLCOLOR4HVNVPROC glColor4hvNV;
+PFNGLTEXCOORD1HNVPROC glTexCoord1hNV;
+PFNGLTEXCOORD1HVNVPROC glTexCoord1hvNV;
+PFNGLTEXCOORD2HNVPROC glTexCoord2hNV;
+PFNGLTEXCOORD2HVNVPROC glTexCoord2hvNV;
+PFNGLTEXCOORD3HNVPROC glTexCoord3hNV;
+PFNGLTEXCOORD3HVNVPROC glTexCoord3hvNV;
+PFNGLTEXCOORD4HNVPROC glTexCoord4hNV;
+PFNGLTEXCOORD4HVNVPROC glTexCoord4hvNV;
+PFNGLMULTITEXCOORD1HNVPROC glMultiTexCoord1hNV;
+PFNGLMULTITEXCOORD1HVNVPROC glMultiTexCoord1hvNV;
+PFNGLMULTITEXCOORD2HNVPROC glMultiTexCoord2hNV;
+PFNGLMULTITEXCOORD2HVNVPROC glMultiTexCoord2hvNV;
+PFNGLMULTITEXCOORD3HNVPROC glMultiTexCoord3hNV;
+PFNGLMULTITEXCOORD3HVNVPROC glMultiTexCoord3hvNV;
+PFNGLMULTITEXCOORD4HNVPROC glMultiTexCoord4hNV;
+PFNGLMULTITEXCOORD4HVNVPROC glMultiTexCoord4hvNV;
+PFNGLFOGCOORDHNVPROC glFogCoordhNV;
+PFNGLFOGCOORDHVNVPROC glFogCoordhvNV;
+PFNGLSECONDARYCOLOR3HNVPROC glSecondaryColor3hNV;
+PFNGLSECONDARYCOLOR3HVNVPROC glSecondaryColor3hvNV;
+PFNGLVERTEXWEIGHTHNVPROC glVertexWeighthNV;
+PFNGLVERTEXWEIGHTHVNVPROC glVertexWeighthvNV;
+PFNGLVERTEXATTRIB1HNVPROC glVertexAttrib1hNV;
+PFNGLVERTEXATTRIB1HVNVPROC glVertexAttrib1hvNV;
+PFNGLVERTEXATTRIB2HNVPROC glVertexAttrib2hNV;
+PFNGLVERTEXATTRIB2HVNVPROC glVertexAttrib2hvNV;
+PFNGLVERTEXATTRIB3HNVPROC glVertexAttrib3hNV;
+PFNGLVERTEXATTRIB3HVNVPROC glVertexAttrib3hvNV;
+PFNGLVERTEXATTRIB4HNVPROC glVertexAttrib4hNV;
+PFNGLVERTEXATTRIB4HVNVPROC glVertexAttrib4hvNV;
+PFNGLVERTEXATTRIBS1HVNVPROC glVertexAttribs1hvNV;
+PFNGLVERTEXATTRIBS2HVNVPROC glVertexAttribs2hvNV;
+PFNGLVERTEXATTRIBS3HVNVPROC glVertexAttribs3hvNV;
+PFNGLVERTEXATTRIBS4HVNVPROC glVertexAttribs4hvNV;
+
+static GLboolean _glewInit_NV_half_float ()
+{
+  GLboolean r = GL_FALSE;
+  r = r || (glVertex2hNV = (PFNGLVERTEX2HNVPROC)glewGetProcAddress("glVertex2hNV")) == NULL;
+  r = r || (glVertex2hvNV = (PFNGLVERTEX2HVNVPROC)glewGetProcAddress("glVertex2hvNV")) == NULL;
+  r = r || (glVertex3hNV = (PFNGLVERTEX3HNVPROC)glewGetProcAddress("glVertex3hNV")) == NULL;
+  r = r || (glVertex3hvNV = (PFNGLVERTEX3HVNVPROC)glewGetProcAddress("glVertex3hvNV")) == NULL;
+  r = r || (glVertex4hNV = (PFNGLVERTEX4HNVPROC)glewGetProcAddress("glVertex4hNV")) == NULL;
+  r = r || (glVertex4hvNV = (PFNGLVERTEX4HVNVPROC)glewGetProcAddress("glVertex4hvNV")) == NULL;
+  r = r || (glNormal3hNV = (PFNGLNORMAL3HNVPROC)glewGetProcAddress("glNormal3hNV")) == NULL;
+  r = r || (glNormal3hvNV = (PFNGLNORMAL3HVNVPROC)glewGetProcAddress("glNormal3hvNV")) == NULL;
+  r = r || (glColor3hNV = (PFNGLCOLOR3HNVPROC)glewGetProcAddress("glColor3hNV")) == NULL;
+  r = r || (glColor3hvNV = (PFNGLCOLOR3HVNVPROC)glewGetProcAddress("glColor3hvNV")) == NULL;
+  r = r || (glColor4hNV = (PFNGLCOLOR4HNVPROC)glewGetProcAddress("glColor4hNV")) == NULL;
+  r = r || (glColor4hvNV = (PFNGLCOLOR4HVNVPROC)glewGetProcAddress("glColor4hvNV")) == NULL;
+  r = r || (glTexCoord1hNV = (PFNGLTEXCOORD1HNVPROC)glewGetProcAddress("glTexCoord1hNV")) == NULL;
+  r = r || (glTexCoord1hvNV = (PFNGLTEXCOORD1HVNVPROC)glewGetProcAddress("glTexCoord1hvNV")) == NULL;
+  r = r || (glTexCoord2hNV = (PFNGLTEXCOORD2HNVPROC)glewGetProcAddress("glTexCoord2hNV")) == NULL;
+  r = r || (glTexCoord2hvNV = (PFNGLTEXCOORD2HVNVPROC)glewGetProcAddress("glTexCoord2hvNV")) == NULL;
+  r = r || (glTexCoord3hNV = (PFNGLTEXCOORD3HNVPROC)glewGetProcAddress("glTexCoord3hNV")) == NULL;
+  r = r || (glTexCoord3hvNV = (PFNGLTEXCOORD3HVNVPROC)glewGetProcAddress("glTexCoord3hvNV")) == NULL;
+  r = r || (glTexCoord4hNV = (PFNGLTEXCOORD4HNVPROC)glewGetProcAddress("glTexCoord4hNV")) == NULL;
+  r = r || (glTexCoord4hvNV = (PFNGLTEXCOORD4HVNVPROC)glewGetProcAddress("glTexCoord4hvNV")) == NULL;
+  r = r || (glMultiTexCoord1hNV = (PFNGLMULTITEXCOORD1HNVPROC)glewGetProcAddress("glMultiTexCoord1hNV")) == NULL;
+  r = r || (glMultiTexCoord1hvNV = (PFNGLMULTITEXCOORD1HVNVPROC)glewGetProcAddress("glMultiTexCoord1hvNV")) == NULL;
+  r = r || (glMultiTexCoord2hNV = (PFNGLMULTITEXCOORD2HNVPROC)glewGetProcAddress("glMultiTexCoord2hNV")) == NULL;
+  r = r || (glMultiTexCoord2hvNV = (PFNGLMULTITEXCOORD2HVNVPROC)glewGetProcAddress("glMultiTexCoord2hvNV")) == NULL;
+  r = r || (glMultiTexCoord3hNV = (PFNGLMULTITEXCOORD3HNVPROC)glewGetProcAddress("glMultiTexCoord3hNV")) == NULL;
+  r = r || (glMultiTexCoord3hvNV = (PFNGLMULTITEXCOORD3HVNVPROC)glewGetProcAddress("glMultiTexCoord3hvNV")) == NULL;
+  r = r || (glMultiTexCoord4hNV = (PFNGLMULTITEXCOORD4HNVPROC)glewGetProcAddress("glMultiTexCoord4hNV")) == NULL;
+  r = r || (glMultiTexCoord4hvNV = (PFNGLMULTITEXCOORD4HVNVPROC)glewGetProcAddress("glMultiTexCoord4hvNV")) == NULL;
+  r = r || (glFogCoordhNV = (PFNGLFOGCOORDHNVPROC)glewGetProcAddress("glFogCoordhNV")) == NULL;
+  r = r || (glFogCoordhvNV = (PFNGLFOGCOORDHVNVPROC)glewGetProcAddress("glFogCoordhvNV")) == NULL;
+  r = r || (glSecondaryColor3hNV = (PFNGLSECONDARYCOLOR3HNVPROC)glewGetProcAddress("glSecondaryColor3hNV")) == NULL;
+  r = r || (glSecondaryColor3hvNV = (PFNGLSECONDARYCOLOR3HVNVPROC)glewGetProcAddress("glSecondaryColor3hvNV")) == NULL;
+  r = r || (glVertexWeighthNV = (PFNGLVERTEXWEIGHTHNVPROC)glewGetProcAddress("glVertexWeighthNV")) == NULL;
+  r = r || (glVertexWeighthvNV = (PFNGLVERTEXWEIGHTHVNVPROC)glewGetProcAddress("glVertexWeighthvNV")) == NULL;
+  r = r || (glVertexAttrib1hNV = (PFNGLVERTEXATTRIB1HNVPROC)glewGetProcAddress("glVertexAttrib1hNV")) == NULL;
+  r = r || (glVertexAttrib1hvNV = (PFNGLVERTEXATTRIB1HVNVPROC)glewGetProcAddress("glVertexAttrib1hvNV")) == NULL;
+  r = r || (glVertexAttrib2hNV = (PFNGLVERTEXATTRIB2HNVPROC)glewGetProcAddress("glVertexAttrib2hNV")) == NULL;
+  r = r || (glVertexAttrib2hvNV = (PFNGLVERTEXATTRIB2HVNVPROC)glewGetProcAddress("glVertexAttrib2hvNV")) == NULL;
+  r = r || (glVertexAttrib3hNV = (PFNGLVERTEXATTRIB3HNVPROC)glewGetProcAddress("glVertexAttrib3hNV")) == NULL;
+  r = r || (glVertexAttrib3hvNV = (PFNGLVERTEXATTRIB3HVNVPROC)glewGetProcAddress("glVertexAttrib3hvNV")) == NULL;
+  r = r || (glVertexAttrib4hNV = (PFNGLVERTEXATTRIB4HNVPROC)glewGetProcAddress("glVertexAttrib4hNV")) == NULL;
+  r = r || (glVertexAttrib4hvNV = (PFNGLVERTEXATTRIB4HVNVPROC)glewGetProcAddress("glVertexAttrib4hvNV")) == NULL;
+  r = r || (glVertexAttribs1hvNV = (PFNGLVERTEXATTRIBS1HVNVPROC)glewGetProcAddress("glVertexAttribs1hvNV")) == NULL;
+  r = r || (glVertexAttribs2hvNV = (PFNGLVERTEXATTRIBS2HVNVPROC)glewGetProcAddress("glVertexAttribs2hvNV")) == NULL;
+  r = r || (glVertexAttribs3hvNV = (PFNGLVERTEXATTRIBS3HVNVPROC)glewGetProcAddress("glVertexAttribs3hvNV")) == NULL;
+  r = r || (glVertexAttribs4hvNV = (PFNGLVERTEXATTRIBS4HVNVPROC)glewGetProcAddress("glVertexAttribs4hvNV")) == NULL;
+  return r;
+}
+#endif /* GL_NV_half_float */
 
 /* -------------------------- NV_occlusion_query -------------------------- */
 
@@ -2732,6 +2803,10 @@ static GLint _glewInit ()
   glew.ARB_vertex_blend = glewGetExtension("GL_ARB_vertex_blend");
   if (glewExperimental || glew.ARB_vertex_blend) glew.ARB_vertex_blend = !_glewInit_ARB_vertex_blend();
 #endif
+#ifdef GL_ARB_vertex_buffer_object
+  glew.ARB_vertex_buffer_object = glewGetExtension("GL_ARB_vertex_buffer_object");
+  if (glewExperimental || glew.ARB_vertex_buffer_object) glew.ARB_vertex_buffer_object = !_glewInit_ARB_vertex_buffer_object();
+#endif
 #ifdef GL_ARB_vertex_program
   glew.ARB_vertex_program = glewGetExtension("GL_ARB_vertex_program");
   if (glewExperimental || glew.ARB_vertex_program) glew.ARB_vertex_program = !_glewInit_ARB_vertex_program();
@@ -2961,8 +3036,9 @@ static GLint _glewInit ()
   glew.NV_fragment_program = glewGetExtension("GL_NV_fragment_program");
   if (glewExperimental || glew.NV_fragment_program) glew.NV_fragment_program = !_glewInit_NV_fragment_program();
 #endif
-#ifdef GL_NV_light_max_exponent
+#ifdef GL_NV_half_float
   glew.NV_half_float = glewGetExtension("GL_NV_half_float");
+  if (glewExperimental || glew.NV_half_float) glew.NV_half_float = !_glewInit_NV_half_float();
 #endif
 #ifdef GL_NV_light_max_exponent
   glew.NV_light_max_exponent = glewGetExtension("GL_NV_light_max_exponent");

@@ -1,52 +1,6 @@
 /*
-** License Applicability. Except to the extent portions of this file are
-** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.1 (the "License"), the contents of this
-** file are subject only to the provisions of the License. You may not use
-** this file except in compliance with the License. You may obtain a copy
-** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
-** Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
-** 
-** http://oss.sgi.com/projects/FreeB
-** 
-** Note that, as provided in the License, the Software is distributed on an
-** "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
-** DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
-** CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
-** PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-** 
-** Original Code. The Original Code is: OpenGL Sample Implementation,
-** Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
-** Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
-** Copyright in any portions created by third parties is as indicated
-** elsewhere herein. All Rights Reserved.
-** 
-** Additional Notice Provisions: This software was created using the
-** OpenGL(R) version 1.2.1 Sample Implementation published by SGI, but has
-** not been independently verified as being compliant with the OpenGL(R)
-** version 1.2.1 Specification.
-*/
-
-/*
-** The contents of this file are subject to the GLX Public License Version 1.0
-** (the "License"). You may not use this file except in compliance with the
-** License. You may obtain a copy of the License at Silicon Graphics, Inc.,
-** attn: Legal Services, 2011 N. Shoreline Blvd., Mountain View, CA 94043
-** or at http://www.sgi.com/software/opensource/glx/license.html.
-**
-** Software distributed under the License is distributed on an "AS IS"
-** basis. ALL WARRANTIES ARE DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY
-** IMPLIED WARRANTIES OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR
-** PURPOSE OR OF NON- INFRINGEMENT. See the License for the specific
-** language governing rights and limitations under the License.
-**
-** The Original Software is GLX version 1.2 source code, released February,
-** 1999. The developer of the Original Software is Silicon Graphics, Inc.
-** Those portions of the Subject Software created by Silicon Graphics, Inc.
-** are Copyright (c) 1991-9 Silicon Graphics, Inc. All Rights Reserved.
-*/
-
-/*
+** The OpenGL Extension Wrangler Library
+** Copyright (C) 2003, 2002, Milan Ikits
 ** Copyright (C) 2002, Lev Povalahev
 ** All rights reserved.
 ** 
@@ -72,25 +26,6 @@
 ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ** THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-/*
-** The OpenGL Extension Wrangler Library
-** Copyright (C) 2002 Milan Ikits
-**
-** This library is free software; you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation; either
-** version 2.1 of the License, or (at your option) any later version.
-**
-** This library is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with this library; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 #include <stdio.h>
@@ -414,6 +349,26 @@ static void glewInfo_ARB_vertex_blend ()
   glewInfoFunc(glVertexBlendARB == NULL, "glVertexBlendARB");
 }
 #endif /* GL_ARB_vertex_blend */
+
+/* ---------------------- ARB_vertex_buffer_object ------------------------ */
+
+#ifdef GL_ARB_vertex_buffer_object 
+static void glewInfo_ARB_vertex_buffer_object ()
+{
+  char me[] = "GL_ARB_vertex_buffer_object"; glewPrintExt(me, glew.ARB_vertex_buffer_object);
+  glewInfoFunc(glBindBufferARB == NULL, "glBindBufferARB");
+  glewInfoFunc(glDeleteBuffersARB == NULL, "glDeleteBuffersARB");
+  glewInfoFunc(glGenBuffersARB == NULL, "glGenBuffersARB");
+  glewInfoFunc(glIsBufferARB == NULL, "glIsBufferARB");
+  glewInfoFunc(glBufferDataARB == NULL, "glBufferDataARB");
+  glewInfoFunc(glBufferSubDataARB == NULL, "glBufferSubDataARB");
+  glewInfoFunc(glGetBufferSubDataARB == NULL, "glGetBufferSubDataARB");
+  glewInfoFunc(glMapBufferARB == NULL, "glMapBufferARB");
+  glewInfoFunc(glUnmapBufferARB == NULL, "glUnmapBufferARB");
+  glewInfoFunc(glGetBufferParameterivARB == NULL, "glGetBufferParameterivARB");
+  glewInfoFunc(glGetBufferPointervARB == NULL, "glGetBufferPointervARB");
+}
+#endif /* GL_ARB_vertex_buffer_object */
 
 /* -------------------------- ARB_vertex_program -------------------------- */
 
@@ -970,6 +925,61 @@ static void glewInfo_NV_fence ()
   glewInfoFunc(glGetFenceivNV == NULL, "glGetFenceivNV");
 }
 #endif /* GL_NV_fence */
+
+/* ----------------------------- NV_half_float ---------------------------- */
+
+#ifdef GL_NV_half_float
+static void glewInfo_NV_half_float ()
+{
+  char me[] = "GL_NV_half_float"; glewPrintExt(me, glew.NV_half_float);
+  glewInfoFunc(glVertex2hNV == NULL, "glVertex2hNV");
+  glewInfoFunc(glVertex2hvNV == NULL, "glVertex2hvNV");
+  glewInfoFunc(glVertex3hNV == NULL, "glVertex3hNV");
+  glewInfoFunc(glVertex3hvNV == NULL, "glVertex3hvNV");
+  glewInfoFunc(glVertex4hNV == NULL, "glVertex4hNV");
+  glewInfoFunc(glVertex4hvNV == NULL, "glVertex4hvNV");
+  glewInfoFunc(glNormal3hNV == NULL, "glNormal3hNV");
+  glewInfoFunc(glNormal3hvNV == NULL, "glNormal3hvNV");
+  glewInfoFunc(glColor3hNV == NULL, "glColor3hNV");
+  glewInfoFunc(glColor3hvNV == NULL, "glColor3hvNV");
+  glewInfoFunc(glColor4hNV == NULL, "glColor4hNV");
+  glewInfoFunc(glColor4hvNV == NULL, "glColor4hvNV ");
+  glewInfoFunc(glTexCoord1hNV == NULL, "glTexCoord1hNV");
+  glewInfoFunc(glTexCoord1hvNV == NULL, "glTexCoord1hvNV");
+  glewInfoFunc(glTexCoord2hNV == NULL, "glTexCoord2hNV");
+  glewInfoFunc(glTexCoord2hvNV == NULL, "glTexCoord2hvNV");
+  glewInfoFunc(glTexCoord3hNV == NULL, "glTexCoord3hNV");
+  glewInfoFunc(glTexCoord3hvNV == NULL, "glTexCoord3hvNV");
+  glewInfoFunc(glTexCoord4hNV == NULL, "glTexCoord4hNV");
+  glewInfoFunc(glTexCoord4hvNV == NULL, "glTexCoord4hvNV");
+  glewInfoFunc(glMultiTexCoord1hNV == NULL, "glMultiTexCoord1hNV");
+  glewInfoFunc(glMultiTexCoord1hvNV == NULL, "glMultiTexCoord1hvNV");
+  glewInfoFunc(glMultiTexCoord2hNV == NULL, "glMultiTexCoord2hNV");
+  glewInfoFunc(glMultiTexCoord2hvNV == NULL, "glMultiTexCoord2hvNV");
+  glewInfoFunc(glMultiTexCoord3hNV == NULL, "glMultiTexCoord3hNV");
+  glewInfoFunc(glMultiTexCoord3hvNV == NULL, "glMultiTexCoord3hvNV");
+  glewInfoFunc(glMultiTexCoord4hNV == NULL, "glMultiTexCoord4hNV");
+  glewInfoFunc(glMultiTexCoord4hvNV == NULL, "glMultiTexCoord4hvNV");
+  glewInfoFunc(glFogCoordhNV == NULL, "glFogCoordhNV");
+  glewInfoFunc(glFogCoordhvNV == NULL, "glFogCoordhvNV");
+  glewInfoFunc(glSecondaryColor3hNV == NULL, "glSecondaryColor3hNV");
+  glewInfoFunc(glSecondaryColor3hvNV == NULL, "glSecondaryColor3hvNV");
+  glewInfoFunc(glVertexWeighthNV == NULL, "glVertexWeighthNV");
+  glewInfoFunc(glVertexWeighthvNV == NULL, "glVertexWeighthvNV");
+  glewInfoFunc(glVertexAttrib1hNV == NULL, "glVertexAttrib1hNV");
+  glewInfoFunc(glVertexAttrib1hvNV == NULL, "glVertexAttrib1hvNV");
+  glewInfoFunc(glVertexAttrib2hNV == NULL, "glVertexAttrib2hNV");
+  glewInfoFunc(glVertexAttrib2hvNV == NULL, "glVertexAttrib2hvNV");
+  glewInfoFunc(glVertexAttrib3hNV == NULL, "glVertexAttrib3hNV");
+  glewInfoFunc(glVertexAttrib3hvNV == NULL, "glVertexAttrib3hvNV");
+  glewInfoFunc(glVertexAttrib4hNV == NULL, "glVertexAttrib4hNV");
+  glewInfoFunc(glVertexAttrib4hvNV == NULL, "glVertexAttrib4hvNV");
+  glewInfoFunc(glVertexAttribs1hvNV == NULL, "glVertexAttribs1hvNV");
+  glewInfoFunc(glVertexAttribs2hvNV == NULL, "glVertexAttribs2hvNV");
+  glewInfoFunc(glVertexAttribs3hvNV == NULL, "glVertexAttribs3hvNV");
+  glewInfoFunc(glVertexAttribs4hvNV == NULL, "glVertexAttribs4hvNV");
+}
+#endif /* GL_NV_half_float */
 
 /* -------------------------- NV_occlusion_query -------------------------- */
 
@@ -1735,6 +1745,9 @@ static void glewInfo ()
 #ifdef GL_ARB_vertex_blend
   glewInfo_ARB_vertex_blend();
 #endif
+#ifdef GL_ARB_vertex_buffer_object
+  glewInfo_ARB_vertex_buffer_object();
+#endif
 #ifdef GL_ARB_vertex_program
   glewInfo_ARB_vertex_program();
 #endif
@@ -1933,7 +1946,7 @@ static void glewInfo ()
   glewInfo_NV_fragment_program();
 #endif
 #ifdef GL_NV_half_float
-  glewPrintExt("GL_NV_half_float", glew.NV_half_float);
+  glewInfo_NV_half_float();
 #endif
 #ifdef GL_NV_light_max_exponent
   glewPrintExt("GL_NV_light_max_exponent", glew.NV_light_max_exponent);

@@ -28,6 +28,8 @@
 */
 
 /*
+** The OpenGL Extension Wrangler Library
+** Copyright (C) 2003, 2002, Milan Ikits
 ** Copyright (C) 2002, Lev Povalahev
 ** All rights reserved.
 ** 
@@ -53,25 +55,6 @@
 ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ** THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-/*
-** The OpenGL Extension Wrangler Library
-** Copyright (C) 2002 Milan Ikits
-**
-** This library is free software; you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation; either
-** version 2.1 of the License, or (at your option) any later version.
-**
-** This library is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with this library; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 #ifndef __glew_h__
@@ -193,6 +176,7 @@ extern "C" {
 #define GL_ARB_texture_env_dot3 1 /* (1.3) */
 #define GL_ARB_texture_mirrored_repeat 1 /* (1.4) */
 #define GL_ARB_transpose_matrix 1 /* (1.3) */
+#define GL_ARB_vertex_buffer_object 1
 #define GL_ARB_vertex_blend 1
 #define GL_ARB_vertex_program 1
 #define GL_ARB_window_pos 1 /* (1.4) */
@@ -2120,6 +2104,71 @@ extern GLEW_EXPORT PFNGLMULTTRANSPOSEMATRIXDARBPROC glMultTransposeMatrixdARB;
 
 #endif /* GL_ARB_transpose_matrix */
 
+/* ---------------------- ARB_vertex_buffer_object ------------------------ */
+
+#ifdef GL_ARB_vertex_buffer_object 
+
+#define GL_ARRAY_BUFFER_ARB                                     0x8892
+#define GL_ELEMENT_ARRAY_BUFFER_ARB                             0x8893
+#define GL_ARRAY_BUFFER_BINDING_ARB                             0x8894
+#define GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB                     0x8895
+#define GL_VERTEX_ARRAY_BUFFER_BINDING_ARB                      0x8896
+#define GL_NORMAL_ARRAY_BUFFER_BINDING_ARB                      0x8897
+#define GL_COLOR_ARRAY_BUFFER_BINDING_ARB                       0x8898
+#define GL_INDEX_ARRAY_BUFFER_BINDING_ARB                       0x8899
+#define GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING_ARB               0x889A
+#define GL_EDGE_FLAG_ARRAY_BUFFER_BINDING_ARB                   0x889B
+#define GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING_ARB             0x889C
+#define GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING_ARB              0x889D
+#define GL_WEIGHT_ARRAY_BUFFER_BINDING_ARB                      0x889E
+#define GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_ARB               0x889F
+#define GL_STREAM_DRAW_ARB                                      0x88E0
+#define GL_STREAM_READ_ARB                                      0x88E1
+#define GL_STREAM_COPY_ARB                                      0x88E2
+#define GL_STATIC_DRAW_ARB                                      0x88E4
+#define GL_STATIC_READ_ARB                                      0x88E5
+#define GL_STATIC_COPY_ARB                                      0x88E6
+#define GL_DYNAMIC_DRAW_ARB                                     0x88E8
+#define GL_DYNAMIC_READ_ARB                                     0x88E9
+#define GL_DYNAMIC_COPY_ARB                                     0x88EA
+#define GL_READ_ONLY_ARB                                        0x88B8
+#define GL_WRITE_ONLY_ARB                                       0x88B9
+#define GL_READ_WRITE_ARB                                       0x88BA
+#define GL_BUFFER_SIZE_ARB                                      0x8764
+#define GL_BUFFER_USAGE_ARB                                     0x8765
+#define GL_BUFFER_ACCESS_ARB                                    0x88BB
+#define GL_BUFFER_MAPPED_ARB                                    0x88BC
+#define GL_BUFFER_MAP_POINTER_ARB                               0x88BD
+
+typedef size_t GLsizeiptrARB;
+typedef size_t GLintptrARB;
+
+typedef void (APIENTRY * PFNGLBINDBUFFERARBPROC) (GLenum target, GLuint buffer);
+typedef void (APIENTRY * PFNGLDELETEBUFFERSARBPROC) (GLsizei n, const GLuint *buffers);
+typedef void (APIENTRY * PFNGLGENBUFFERSARBPROC) (GLsizei n, GLuint *buffers);
+typedef GLboolean (APIENTRY * PFNGLISBUFFERARBPROC) (GLuint buffer);
+typedef void (APIENTRY * PFNGLBUFFERDATAARBPROC) (GLenum target, GLsizeiptrARB size, const GLvoid *data, GLenum usage);
+typedef void (APIENTRY * PFNGLBUFFERSUBDATAARBPROC) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, const GLvoid *data);
+typedef void (APIENTRY * PFNGLGETBUFFERSUBDATAARBPROC) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, GLvoid *data);
+typedef GLvoid * (APIENTRY * PFNGLMAPBUFFERARBPROC) (GLenum target, GLenum access);
+typedef GLboolean (APIENTRY * PFNGLUNMAPBUFFERARBPROC) (GLenum target);
+typedef void (APIENTRY * PFNGLGETBUFFERPARAMETERIVARBPROC) (GLenum target, GLenum pname, GLint *params);
+typedef void (APIENTRY * PFNGLGETBUFFERPOINTERVARBPROC) (GLenum target, GLenum pname, GLvoid **params);
+
+extern GLEW_EXPORT PFNGLBINDBUFFERARBPROC glBindBufferARB;
+extern GLEW_EXPORT PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;
+extern GLEW_EXPORT PFNGLGENBUFFERSARBPROC glGenBuffersARB;
+extern GLEW_EXPORT PFNGLISBUFFERARBPROC glIsBufferARB;
+extern GLEW_EXPORT PFNGLBUFFERDATAARBPROC glBufferDataARB;
+extern GLEW_EXPORT PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB;
+extern GLEW_EXPORT PFNGLGETBUFFERSUBDATAARBPROC glGetBufferSubDataARB;
+extern GLEW_EXPORT PFNGLMAPBUFFERARBPROC glMapBufferARB;
+extern GLEW_EXPORT PFNGLUNMAPBUFFERARBPROC glUnmapBufferARB;
+extern GLEW_EXPORT PFNGLGETBUFFERPARAMETERIVARBPROC glGetBufferParameterivARB;
+extern GLEW_EXPORT PFNGLGETBUFFERPOINTERVARBPROC glGetBufferPointervARB;
+
+#endif /* GL_ARB_vertex_buffer_object */
+
 /* --------------------------- ARB_vertex_blend --------------------------- */
 
 #ifdef GL_ARB_vertex_blend
@@ -3811,6 +3860,102 @@ extern GLEW_EXPORT PFNGLGETPROGRAMLOCALPARAMETERFVARBPROC glGetProgramLocalParam
 
 #define GL_HALF_FLOAT_NV                                        0x140B
 
+typedef unsigned short GLhalf;
+
+typedef void (APIENTRY * PFNGLVERTEX2HNVPROC) (GLhalf x, GLhalf y);
+typedef void (APIENTRY * PFNGLVERTEX2HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEX3HNVPROC) (GLhalf x, GLhalf y, GLhalf z);
+typedef void (APIENTRY * PFNGLVERTEX3HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEX4HNVPROC) (GLhalf x, GLhalf y, GLhalf z, GLhalf w);
+typedef void (APIENTRY * PFNGLVERTEX4HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLNORMAL3HNVPROC) (GLhalf nx, GLhalf ny, GLhalf nz);
+typedef void (APIENTRY * PFNGLNORMAL3HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLCOLOR3HNVPROC) (GLhalf red, GLhalf green, GLhalf blue);
+typedef void (APIENTRY * PFNGLCOLOR3HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLCOLOR4HNVPROC) (GLhalf red, GLhalf green, GLhalf blue, GLhalf alpha);
+typedef void (APIENTRY * PFNGLCOLOR4HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLTEXCOORD1HNVPROC) (GLhalf s);
+typedef void (APIENTRY * PFNGLTEXCOORD1HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLTEXCOORD2HNVPROC) (GLhalf s, GLhalf t);
+typedef void (APIENTRY * PFNGLTEXCOORD2HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLTEXCOORD3HNVPROC) (GLhalf s, GLhalf t, GLhalf r);
+typedef void (APIENTRY * PFNGLTEXCOORD3HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLTEXCOORD4HNVPROC) (GLhalf s, GLhalf t, GLhalf r, GLhalf q);
+typedef void (APIENTRY * PFNGLTEXCOORD4HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD1HNVPROC) (GLenum target, GLhalf s);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD1HVNVPROC) (GLenum target, const GLhalf *v);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD2HNVPROC) (GLenum target, GLhalf s, GLhalf t);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD2HVNVPROC) (GLenum target, const GLhalf *v);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD3HNVPROC) (GLenum target, GLhalf s, GLhalf t, GLhalf r);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD3HVNVPROC) (GLenum target, const GLhalf *v);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD4HNVPROC) (GLenum target, GLhalf s, GLhalf t, GLhalf r, GLhalf q);
+typedef void (APIENTRY * PFNGLMULTITEXCOORD4HVNVPROC) (GLenum target, const GLhalf *v);
+typedef void (APIENTRY * PFNGLFOGCOORDHNVPROC) (GLhalf fog);
+typedef void (APIENTRY * PFNGLFOGCOORDHVNVPROC) (const GLhalf *fog);
+typedef void (APIENTRY * PFNGLSECONDARYCOLOR3HNVPROC) (GLhalf red, GLhalf green, GLhalf blue);
+typedef void (APIENTRY * PFNGLSECONDARYCOLOR3HVNVPROC) (const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXWEIGHTHNVPROC) (GLhalf weight);
+typedef void (APIENTRY * PFNGLVERTEXWEIGHTHVNVPROC) (const GLhalf *weight);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB1HNVPROC) (GLuint index, GLhalf x);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB1HVNVPROC) (GLuint index, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB2HNVPROC) (GLuint index, GLhalf x, GLhalf y);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB2HVNVPROC) (GLuint index, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB3HNVPROC) (GLuint index, GLhalf x, GLhalf y, GLhalf z);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB3HVNVPROC) (GLuint index, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB4HNVPROC) (GLuint index, GLhalf x, GLhalf y, GLhalf z, GLhalf w);
+typedef void (APIENTRY * PFNGLVERTEXATTRIB4HVNVPROC) (GLuint index, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIBS1HVNVPROC) (GLuint index, GLsizei n, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIBS2HVNVPROC) (GLuint index, GLsizei n, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIBS3HVNVPROC) (GLuint index, GLsizei n, const GLhalf *v);
+typedef void (APIENTRY * PFNGLVERTEXATTRIBS4HVNVPROC) (GLuint index, GLsizei n, const GLhalf *v);
+
+extern PFNGLVERTEX2HNVPROC glVertex2hNV;
+extern PFNGLVERTEX2HVNVPROC glVertex2hvNV;
+extern PFNGLVERTEX3HNVPROC glVertex3hNV;
+extern PFNGLVERTEX3HVNVPROC glVertex3hvNV;
+extern PFNGLVERTEX4HNVPROC glVertex4hNV;
+extern PFNGLVERTEX4HVNVPROC glVertex4hvNV;
+extern PFNGLNORMAL3HNVPROC glNormal3hNV;
+extern PFNGLNORMAL3HVNVPROC glNormal3hvNV;
+extern PFNGLCOLOR3HNVPROC glColor3hNV;
+extern PFNGLCOLOR3HVNVPROC glColor3hvNV;
+extern PFNGLCOLOR4HNVPROC glColor4hNV;
+extern PFNGLCOLOR4HVNVPROC glColor4hvNV;
+extern PFNGLTEXCOORD1HNVPROC glTexCoord1hNV;
+extern PFNGLTEXCOORD1HVNVPROC glTexCoord1hvNV;
+extern PFNGLTEXCOORD2HNVPROC glTexCoord2hNV;
+extern PFNGLTEXCOORD2HVNVPROC glTexCoord2hvNV;
+extern PFNGLTEXCOORD3HNVPROC glTexCoord3hNV;
+extern PFNGLTEXCOORD3HVNVPROC glTexCoord3hvNV;
+extern PFNGLTEXCOORD4HNVPROC glTexCoord4hNV;
+extern PFNGLTEXCOORD4HVNVPROC glTexCoord4hvNV;
+extern PFNGLMULTITEXCOORD1HNVPROC glMultiTexCoord1hNV;
+extern PFNGLMULTITEXCOORD1HVNVPROC glMultiTexCoord1hvNV;
+extern PFNGLMULTITEXCOORD2HNVPROC glMultiTexCoord2hNV;
+extern PFNGLMULTITEXCOORD2HVNVPROC glMultiTexCoord2hvNV;
+extern PFNGLMULTITEXCOORD3HNVPROC glMultiTexCoord3hNV;
+extern PFNGLMULTITEXCOORD3HVNVPROC glMultiTexCoord3hvNV;
+extern PFNGLMULTITEXCOORD4HNVPROC glMultiTexCoord4hNV;
+extern PFNGLMULTITEXCOORD4HVNVPROC glMultiTexCoord4hvNV;
+extern PFNGLFOGCOORDHNVPROC glFogCoordhNV;
+extern PFNGLFOGCOORDHVNVPROC glFogCoordhvNV;
+extern PFNGLSECONDARYCOLOR3HNVPROC glSecondaryColor3hNV;
+extern PFNGLSECONDARYCOLOR3HVNVPROC glSecondaryColor3hvNV;
+extern PFNGLVERTEXWEIGHTHNVPROC glVertexWeighthNV;
+extern PFNGLVERTEXWEIGHTHVNVPROC glVertexWeighthvNV;
+extern PFNGLVERTEXATTRIB1HNVPROC glVertexAttrib1hNV;
+extern PFNGLVERTEXATTRIB1HVNVPROC glVertexAttrib1hvNV;
+extern PFNGLVERTEXATTRIB2HNVPROC glVertexAttrib2hNV;
+extern PFNGLVERTEXATTRIB2HVNVPROC glVertexAttrib2hvNV;
+extern PFNGLVERTEXATTRIB3HNVPROC glVertexAttrib3hNV;
+extern PFNGLVERTEXATTRIB3HVNVPROC glVertexAttrib3hvNV;
+extern PFNGLVERTEXATTRIB4HNVPROC glVertexAttrib4hNV;
+extern PFNGLVERTEXATTRIB4HVNVPROC glVertexAttrib4hvNV;
+extern PFNGLVERTEXATTRIBS1HVNVPROC glVertexAttribs1hvNV;
+extern PFNGLVERTEXATTRIBS2HVNVPROC glVertexAttribs2hvNV;
+extern PFNGLVERTEXATTRIBS3HVNVPROC glVertexAttribs3hvNV;
+extern PFNGLVERTEXATTRIBS4HVNVPROC glVertexAttribs4hvNV;
+
 #endif /* GL_NV_half_float */
 
 /* ------------------------- NV_light_max_exponent ------------------------ */
@@ -4486,6 +4631,7 @@ struct GLEW
   unsigned int ARB_texture_mirrored_repeat : 1;
   unsigned int ARB_transpose_matrix : 1;
   unsigned int ARB_vertex_blend : 1;
+  unsigned int ARB_vertex_buffer_object : 1;
   unsigned int ARB_vertex_program : 1;
   unsigned int ARB_window_pos : 1;
 
