@@ -127,6 +127,7 @@ sub normalize_prototype
     $fnc =~ s/\s+/ /g;
     $fnc =~ s/\s*\(\s*/ \(/;
     $fnc =~ s/\s*\)\s*/\)/;
+    $fnc =~ s/\s*\*([a-zA-Z])/\* $1/;
     $fnc =~ s/\*wgl/\* wgl/;
     $fnc =~ s/\*glX/\* glX/;
     $fnc =~ s/\.\.\./void/;
@@ -175,21 +176,22 @@ sub parse_spec($)
 		# add line to function list
                 push @fnc, $_;
 
-		#my $f = normalize_prototype(@fnc);
-		#print STDERR "$f\n";
+		my $f = normalize_prototype(@fnc);
+		print STDERR "$f\n";
 
 		# if normalized version of function looks like a function
                 if (normalize_prototype(@fnc) =~ /$regex{function}/)
                 {
 		    # get return type, name, and arguments, add them to functions hash
                     my ($return, $name, $parms) = ($1, $2, $3);
-		    # print STDERR "$1 | $2 | $3\n";
+		    print STDERR "$1 | $2 | $3\n";
                     if (!ignore_function($name, $extname))
                     {
                         $name =~ s/^/gl/ unless $name =~ /$regex{prefix}/;
 			if ($name =~ /^gl/ && $name !~ /^glX/)
 			{
 			    $return =~ s/$regex{types}/$typemap{$1}/og;
+			    $return =~ s/void\*/GLvoid */og;
 			    $parms =~ s/$regex{types}/$typemap{$1}/og;
 			    $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
 			}
