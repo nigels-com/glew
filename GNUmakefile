@@ -16,31 +16,35 @@
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 GLEW_TARGET ?= /usr
+GLEW_VERSION = 1.0
 
 CC = \cc
 LD = \ld
 INSTALL = \install
 RM = \rm -f
+LN = \ln -s
 OPT = -O2
 INCLUDE = -Iinclude
 CFLAGS = $(OPT) $(INCLUDE)
 
-LIB = lib/libGLEW.so
+LIB = libGLEW.so.$(GLEW_VERSION)
+LIB.LNK = libGLEW.so
 LIB.SRCS = src/glew.c
 LIB.OBJS = $(LIB.SRCS:.c=.o)
 LIB.LIBS =
 
-BIN = bin/glewinfo
+BIN = glewinfo
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -lGLEW -lGLU -lGL -lXmu -lX11
 
-all: $(LIB) $(BIN)
+all: lib/$(LIB) bin/$(BIN)
 
-$(LIB): $(LIB.OBJS)
+lib/$(LIB): $(LIB.OBJS)
 	$(LD) -shared -o $@ $^ $(LIB.LIBS)
+	$(LN) $(LIB) lib/$(LIB.LNK)
 
-$(BIN): $(BIN.SRCS)
+bin/$(BIN): $(BIN.SRCS)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
 
 %.o: %.c
@@ -50,14 +54,15 @@ install: all
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/include/GL
 	$(INSTALL) -m 644 include/GL/glew.h include/GL/glxew.h $(GLEW_TARGET)/include/GL
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/lib
-	$(INSTALL) -s -m 755 lib/libGLEW.so $(GLEW_TARGET)/lib
+	$(INSTALL) -s -m 755 lib/$(LIB) $(GLEW_TARGET)/lib
+	$(LN) $(GLEW_TARGET)/lib/$(LIB) $(GLEW_TARGET)/lib/$(LIB.LNK)
 	$(INSTALL) -d -m 755 $(GLEW_TARGET)/bin
-	$(INSTALL) -s -m 755 lib/glewinfo $(GLEW_TARGET)/bin
+	$(INSTALL) -s -m 755 bin/$(BIN) $(GLEW_TARGET)/bin
 
 uninstall:
 	$(RM) $(GLEW_TARGET)/include/GL/glew.h $(GLEW_TARGET)/include/GL/glxew.h
-	$(RM) $(GLEW_TARGET)/lib/libGLEW.so
-	$(RM) $(GLEW_TARGET)/bin/glewinfo
+	$(RM) $(GLEW_TARGET)/lib/$(LIB.LNK) $(GLEW_TARGET)/lib/$(LIB)
+	$(RM) $(GLEW_TARGET)/bin/$(BIN)
 
 clean:
-	$(RM) $(LIB.OBJS) $(LIB) $(BIN.OBJS) $(BIN)
+	$(RM) $(LIB.OBJS) lib/$(LIB) lib/$(LIB.LNK) $(BIN.OBJS) bin/$(BIN)

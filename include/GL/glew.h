@@ -146,6 +146,8 @@ typedef unsigned short wchar_t;
 #else /* _UNIX */
 
 #define APIENTRY
+#define GLAPI extern
+#define GLAPIENTRY
 #define GLEW_EXPORT
 
 #endif /* _WIN32 */
