@@ -1,4 +1,3 @@
-
 ##
 ## Copyright (C) 2004, 2003 Marcelo E. Magallon <mmagallo[at]debian org>
 ## Copyright (C) 2004, 2003 Milan Ikits <milan ikits[at]ieee org>
@@ -49,20 +48,18 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
-	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs -J % cp % $(EXT)
+	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
+	xargs -J % cp % $(EXT)
 else
-	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs cp --target-directory=$(EXT)
+	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
+	xargs cp --target-directory=$(EXT)
 endif
 	touch $@
-
 
 $(I.DEST)/glew.h: $(EXT)/.dummy
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
 	cp -f $(SRC)/glew_pre.h $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
-# 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
-# 	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
-# 	grep -v 'glBlendEquation' > $@; rm tmp;
 	$(BIN)/make_header.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
 	$(BIN)/make_struct.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
@@ -87,9 +84,6 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 $(S.DEST)/glew.c: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.c $@
 	$(BIN)/make_init.pl GL $(CORE)/GL_VERSION* >> $@
-# 	mv $@ tmp; grep -v 'PFNGLBLENDCOLORPROC' tmp | \
-# 	grep -v 'PFNGLBLENDEQUATIONPROC' | grep -v 'glBlendColor' | \
-# 	grep -v 'glBlendEquation' > $@; rm tmp;
 	$(BIN)/make_init.pl GL $(EXT)/GL_* >> $@
 	echo -e "#ifdef _WIN32\n" >> $@
 	$(BIN)/make_init.pl WGL $(EXT)/WGL_* >> $@
