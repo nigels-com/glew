@@ -3264,9 +3264,16 @@ static GLint _wglewInit ()
 GLboolean glxewGetExtension (const char *name)
 {    
   char *p, *end;
+  Display *dpy;
   int len = _glewStrLen(name);
-  if (glXQueryExtensionsString == NULL || glXGetCurrentDisplay == NULL) return GL_FALSE;
-  p = (char*)glXQueryExtensionsString(glXGetCurrentDisplay(), DefaultScreen(glXGetCurrentDisplay()));
+  if (glXQueryExtensionsString == NULL) return GL_FALSE;
+  /* if (glXQueryExtensionsString == NULL || glXGetCurrentDisplay == NULL) return GL_FALSE;
+     p = (char*)glXQueryExtensionsString(glXGetCurrentDisplay(), DefaultScreen(glXGetCurrentDisplay())); */
+  /* Temporary fix to avoid using glXGetCurrentDisplay, which crashes GLEW on some configurations. */
+  dpy = XOpenDisplay(NULL);
+  if (dpy == NULL) return GL_FALSE;
+  p = (char*)glXQueryExtensionsString(dpy, DefaultScreen(dpy));
+  XCloseDisplay(dpy);
   if (0 == p) return GL_FALSE;
   end = p + _glewStrLen(p);
   while (p < end)
@@ -3281,12 +3288,18 @@ GLboolean glxewGetExtension (const char *name)
 static GLint _glxewInit ()
 {
   int major, minor;
+  Display* dpy;
   /* intialize glxew struct */
   _glewMemSet(&glxew, 0, sizeof(glxew));
   /* initialize core GLX 1.0-1.2 */
-  if (_glxewInit_10() || _glxewInit_11() || _glxewInit_12() || glXGetCurrentDisplay == NULL) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  if (_glxewInit_10() || _glxewInit_11() || _glxewInit_12()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* query GLX version */
-  glXQueryVersion(glXGetCurrentDisplay(), &major, &minor);
+  /* glXQueryVersion(glXGetCurrentDisplay(), &major, &minor); */
+  /* Temporary fix to avoid using glXGetCurrentDisplay, which crashes GLEW on some configurations. */
+  dpy = XOpenDisplay(NULL);
+  if (dpy == NULL) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  glXQueryVersion(dpy, &major, &minor);
+  XCloseDisplay(dpy);
   switch (minor)
   {
     case 2:
