@@ -1,4 +1,7 @@
-How to build GLEW:
+
+See doc/README.html for more information.
+
+Here's how to build GLEW from scratch:
 
   cd auto; make
 
@@ -9,5 +12,3 @@ How to build GLEW:
   use the project file in build/vc6/
 
 NOTE: You need wget and a reasonable set of binutils (e.g. sed v4)
-
-See doc/README.html for more information.
