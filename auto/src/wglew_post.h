@@ -5,9 +5,9 @@ GLEWAPI WGLEWContext* wglewDefaultContext;
 
 #ifdef GLEW_MX
 extern WGLEWContext* wglewGetContext();
-#  define WGLEW_GET_CONTEXT(x) wglewGetContext()->##x
+#  define WGLEW_GET_CONTEXT(x) wglewGetContext()->x
 #else
-#  define WGLEW_GET_CONTEXT(x) wglewDefaultContext->##x
+#  define WGLEW_GET_CONTEXT(x) wglewDefaultContext->x
 #endif /* GLEW_MX */
 
 GLEWAPI GLenum wglewContextInit (WGLEWContext* ctx);
