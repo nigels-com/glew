@@ -149,7 +149,7 @@ EOT
 EOT
 
 # fix const correctness in GL_ARB_shader_objects
-    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
+#    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 
 # clean up
     rm -f $1/*.bak
