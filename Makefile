@@ -66,10 +66,7 @@ P.BIN =
 # dependency information (several versions of RedHat and SuSE among
 # others).  Stuff needed by both GLUT and GL is included only in GL's
 # LDFLAGS.  Same thnig for GLU and GL.  Include the stuff needed only by
-# GLUT *before* the GL flags.  This probably breaks down on IRIX since
-# their linker works "the other way arround", but since that POS doesn't
-# support glXGetProcAddress, GLEW is rather uninteresting on that
-# platform. (mem)
+# GLUT *before* the GL flags.  This probably breaks down on IRIX. (mem)
 
 GL_LDFLAGS = -lGL -lXext -lX11 -lm
 GLU_LDFLAGS = -lGLU
@@ -141,6 +138,9 @@ bin/$(BIN): $(BIN.SRCS)
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
+src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) $(CFLAGS) -o $@ -c $<
+
 install: all
 # directories
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/bin
@@ -168,22 +168,22 @@ clean:
 	$(RM) $(LIB.OBJS)
 	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
 	$(RM) $(BIN.OBJS) bin/$(BIN)
+# Compiler droppings
+	$(RM) so_locations
 
 distclean: clean
-	find -name \*~ | xargs -r rm
-	find -name .\*.sw\? | xargs -r rm
+	find -name \*~ | xargs $(RM)
+	find -name .\*.sw\? | xargs $(RM)
 
 tardist:
 	$(RM) -r $(TARDIR)
 	mkdir $(TARDIR)
 	cp -a . $(TARDIR)
+	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	$(MAKE) -C $(TARDIR) distclean
 	$(MAKE) -C $(TARDIR)
 	$(MAKE) -C $(TARDIR) distclean
-	$(RM) -r $(TARDIR)/doc/registry
+	$(RM) -r $(TARDIR)/auto/registry
 	env GZIP=-9 tar -C `dirname $(TARDIR)` -cvzf $(TARBALL) `basename $(TARDIR)`
 
-src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-.PHONY: clean
+.PHONY: clean distclean tardist
