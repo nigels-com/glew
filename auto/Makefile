@@ -61,12 +61,14 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	cp -f $(SRC)/glew_pre.h $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(CORE)/GL_VERSION* >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
-	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define GLEW_EXPORT\n#else\n#define GLEW_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n\n#if defined(GLEW_MX) && defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
-	$(BIN)/make_struct_fun.pl GLEW_EXPORT $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	echo -e "/* ------------------------------------------------------------------------- */\n\n#if defined(GLEW_MX) && defined(_WIN32)\n#define GLEW_FUN_EXPORT\n#else\n#define GLEW_FUN_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n" >> $@
+	echo -e "#if defined(GLEW_MX)\n#define GLEW_VAR_EXPORT\n#else\n#define GLEW_VAR_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n" >> $@
+	echo -e "#if defined(GLEW_MX) && defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
+	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	echo -e "\n#if defined(GLEW_MX) && !defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
-	$(BIN)/make_struct_var.pl GLEW_EXPORT $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
+	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
-	perl -e 's/GLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi $@
+	perl -e 's/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi $@
 	rm -f $@.bak
 	cat $(SRC)/glew_post.h >> $@
 
@@ -84,7 +86,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	$(BIN)/make_header.pl '' GLX $(CORE)/GLX_VERSION* >> $@
 	$(BIN)/make_header.pl '' GLX $(EXT)/GLX_* >> $@
 	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define GLXEW_EXPORT\n#else\n#define GLXEW_EXPORT extern\n#endif /* GLEW_MX */" >> $@
-	$(BIN)/make_struct_fun.pl GLXEW_EXPORT $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
+	$(BIN)/make_struct_fun.pl extern $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
 	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLXEW_EXPORT $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
