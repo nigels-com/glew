@@ -35,6 +35,9 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr><td align=center>
 <a href="#Namespace"><small>Separate Namespace</small></a>
 </td></tr>
+<tr><td align=center>
+<a href="#Context"><small>Multiple Rendering Contexts (GLEW MX)</small></a>
+</td></tr>
 <tr><td align=center><a href="#Issues"><small>Known Issues</small></a></td></tr>
 <tr><td align=center><a href="#Credits"><small>Credits, Copyright</small></a></td></tr>
 <tr><td align=center><a href="#Log"><small>Change Log</small></a></td></tr>
@@ -49,14 +52,15 @@ GLEW: The OpenGL Extension Wrangler Library
 <td bgcolor="#ffffff">
 <center><a name="Introduction"><h2>Introduction</h2></a></center>
 <p>
+
 The goal of the OpenGL Extension Wrangler Library (GLEW) is to assist
-C/C++ OpenGL developers with two tedious tasks: initializing and
-using extensions and writing portable applications.  GLEW provides
-an efficient run-time mechanism to determine whether a certain
-extension is supported by the driver or not.  OpenGL core and
-extension functionality is exposed via a single header file.  GLEW
-currently supports SGI systems and PCs with commodity graphics cards
-on three operating systems: Windows, Linux, and IRIX.
+C/C++ OpenGL developers with two tedious tasks: initializing and using
+extensions and writing portable applications. GLEW provides an
+efficient run-time mechanism to determine whether a certain extension
+is supported by the driver or not. OpenGL core and extension
+functionality is exposed via a single header file. GLEW currently
+supports a variety of platforms and operating systems, including
+Windows, Linux, Darwin, Irix, and Solaris.
 <p>
 </td>
 </tr>
@@ -385,9 +389,20 @@ href="wglinfo.txt">here</a>. For additional usage information, type
 <tt>glewinfo</tt> allows you to verify the entry points for the
 extensions supported on your platform. It uses GLEW to find out which
 extensions and entry points are available. On Windows it reports the
-results to a text file called <tt>glewinfo.txt</tt>, on Linux and IRIX
-it prints them to <tt>stdout</tt>.
+results to a text file called <tt>glewinfo.txt</tt>, on Unix it prints
+them to <tt>stdout</tt>.  <p>
 
+Windows Usage: <blockquote><pre>glewinfo [-pf &lt;id&gt;]</pre></blockquote>
+
+where <tt>&lt;id&gt;</tt> is the pixelformat id for which the
+capabilities are displayed.
+
+<p>
+Unix Usage:
+<blockquote><pre>glewinfo [-display &lt;dpy&gt;] [-visual &lt;id&gt;]</pre></blockquote>
+
+where <tt>&lt;dpy&gt;</tt> is the X11 display and <tt>&lt;id&gt;</tt> is
+the visual id for which the capabilities are displayed.
 <p>
 </td>
 </tr>
@@ -401,7 +416,7 @@ it prints them to <tt>stdout</tt>.
 <center><a name="Auto"><h2>Automatic Code Generation</h2></a></center>
 <p>
 
-Starting from release 1.1.0, the source code and parts of the
+Starting with release 1.1.0, the source code and parts of the
 documentation are automatically generated from the extension
 specifications via a two-step process.  In the first step,
 specification files from the OpenGL registry are parsed and skeleton
@@ -445,19 +460,55 @@ effect token and function pointer definitions.
 <tr>
 <td bgcolor="#ffffff">
 
+<center><a name="Context"><h2>Multiple Rendering
+Contexts (GLEW MX)</h2></a></center> 
+<p>
+
+Starting with release 1.2.0, thread-safe support for multiple
+rendering contexts (possibly with different capabilities) is
+available. Since this is not required by most users, it is not added
+to the binary releases to maintain compatibility between different
+versions. To include multi-context support, you have to do the
+following:
+
+<ol>
+<li>Compile and use GLEW with the <tt>GLEW_MX</tt> preprocessor token defined.</li>
+<li>Replace the global <tt>glewInit()</tt> call with <tt>glewContextInit(GLEWContext* ctx)</tt>. Note, that <tt>ctx</tt> has to reside in global or thread-local memory.</li>
+<li>Define the <tt>glewGetContext()</tt> macro or function that retrieves the GLEW context for the thread from which the OpenGL/WGL/GLX call is issued. This dispatch mechanism is primitive, but generic.</li>
+</ol>
+
+<p> Note that according to <a
+href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/ntopnglr_6yer.asp">WGL
+documentation</a>, you have to initialize the entry points for every
+rendering context you create using pixel formats with different
+capabilities (for example the pixel formats provided by the generic
+software OpenGL implementation by Microsoft vs. the hardware
+accelerated pixel formats).  <b>GLEW by default ignores this
+requirement, and does not define per-context entry points (you can
+however do this using the steps described above).</b> Assuming a
+global namespace for the entry points works in most situations,
+because typically all hardware accelerated pixel formats provide the
+same entry points and capabilities (and why would anyone want to use
+the software renderer when hardware acceleration is available?). This
+means that unless you use the multi-context version of GLEW, you need
+to call <tt>glewInit()</tt> only once in your program, or more
+precisely, once per process.
+
+<p>
+
+</td>
+</tr>
+
+<tr><td bgcolor="#fff0d0" align="center"></td></tr>
+
+<tr>
+<td bgcolor="#ffffff">
+
 <center><a name="Issues"><h2>Known Issues</h2></a></center>
 <p>
 
-GLEW requires GLX 1.2 to assure compatibility with GLUT.  In addition,
+GLEW requires GLX 1.2 to assure compatibility with GLUT.  Also,
 the SGI GLX video extensions are currently not supported.
-<p>
-Note that according to <a
-href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/ntopnglr_6yer.asp">WGL documentation</a> you have to initialize the entry points
-for every rendering context you create.  <b>GLEW ignores this
-requirement, and does not define per-context entry points.</b>  This means
-that you need to call <tt>glewInit()</tt> only once in your program,
-or more precisely, once per process.  We have not noticed any problems
-so far from ignoring the specification.
 <p>
 
 </td>
@@ -482,8 +533,7 @@ Wimmer.
 <p>
 
 <p>
-GLEW is originally derived from the <a
-href="http://www.levp.de/3d/">EXTGL</a> project by Lev Povalahev.  The
+GLEW is originally derived from the EXTGL project by Lev Povalahev.  The
 source code is licensed under the modified BSD license, the <a
 href="sgi.txt">SGI Free Software License B</a>, and the <a
 href="glx.txt">GLX Public License</a>. The automatic code
@@ -502,6 +552,16 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <p>
 
 <ul class="none">
+<li><b>1.2.0</b> [02-19-04]
+<ul>
+<li> Added full OpenGL 1.5 support
+<li> Added support for multiple rendering contexts with different capabilities
+<li> Added command line flags to <tt>glewinfo</tt> for selecting displays and visuals
+<li> Added GLX_SGIS_multisample, GLX_SUN_video_resize, and GL_SUN_read_video_pixels
+<li> Added MinGW/MSYS support
+<li> Bug fixes in GL_ARB_shader_objects and the OS X build
+</ul>
+<p>
 <li><b>1.1.4</b> [12-15-03]
 <ul>
 <li> Added GL_APPLE_float_pixels, GL_APPLE_texture_range, 
@@ -603,7 +663,7 @@ GL_ARB_vertex_shader
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
 <td align="right">
-<i>Last update: 12-15-03</i></td>
+<i>Last update: 02-19-04</i></td>
 </tr>
 </table>
 </td>
