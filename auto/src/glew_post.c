@@ -9,13 +9,14 @@ const GLubyte* glewGetErrorString (GLenum error)
 {
   static const GLubyte* _glewErrorString[] =
   {
-    "no error",
-    "missing GL version",
+    "No error",
+    "Missing GL version",
     "GL 1.1 and up are not supported",
     "GLX 1.2 and up are not supported",
-    "unknown error"
+    "Unknown error"
   };
-  return _glewErrorString[error > 4 ? 4 : error];
+  const int max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
+  return _glewErrorString[error > max_error ? max_error : error];
 }
 
 const GLubyte* glewGetString (GLenum name)
@@ -25,7 +26,8 @@ const GLubyte* glewGetString (GLenum name)
     NULL,
     "GLEW_VERSION_STRING"
   };
-  return _glewString[name > 1 ? 0 : name];
+  const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
+  return _glewString[name > max_string ? max_string : name];
 }
 
 /* ------------------------------------------------------------------------ */
