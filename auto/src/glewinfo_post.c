@@ -9,11 +9,6 @@ int main (int argc, char** argv)
   GLuint err;
   char* display = NULL;
   int visual = -1;
-#ifdef _WIN32
-  const char* visual_str = "PixelFormat";
-#else
-  const char* visual_str = "Visual";
-#endif
 
   if (glewParseArgs(argc-1, argv+1, &display, &visual))
   {
@@ -48,7 +43,11 @@ int main (int argc, char** argv)
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
-  fprintf(f, "Reporting capabilities of %s %d\n", visual_str, visual);
+#ifdef _WIN32
+  fprintf(f, "Reporting capabilities of PixelFormat %d\n", visual);
+#else
+  fprintf(f, "Reporting capabilities of Visual %d\n", visual);
+#endif
   fprintf(f, "Running on a %s from %s\n", 
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
