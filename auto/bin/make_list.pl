@@ -56,7 +56,7 @@ foreach my $ext (sort @extlist)
     {
         if ($extname =~ /WGL_.*/)
         {
-            print "  if (glewExperimental || $extvar || (!WGLEW_EXT_extensions_string && !WGLEW_ARB_extensions_string)) $extvar = !_glewInit_$extname();\n";
+            print "  if (glewExperimental || $extvar || crippled) $extvar = !_glewInit_$extname();\n";
         }
         else
         {

@@ -13,6 +13,7 @@ GLEW_VERSION = $(GLEW_MAJOR).$(GLEW_MINOR).$(GLEW_MICRO)
 
 SHELL = bash
 REGISTRY = registry
+REGISTRY_URL =  http://oss.sgi.com/projects/ogl-sample/registry/
 BIN = bin
 SRC = src
 CORE = core
@@ -26,18 +27,21 @@ I.DEST = $(TOP)/include/GL
 S.DEST = $(TOP)/src
 D.DEST = $(TOP)/doc
 
-TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew.c $(S.DEST)/glewinfo.c $(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
+TARGETS = $(I.DEST)/glew.h $(I.DEST)/wglew.h $(I.DEST)/glxew.h $(S.DEST)/glew.c $(S.DEST)/glewinfo.c \
+	$(D.DEST)/glew.html $(D.DEST)/wglew.html $(D.DEST)/glxew.html
 
 all: $(TARGETS)
 
+registry: $(REGISTRY)/.dummy
 ext: $(EXT)/.dummy
 
 $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
-	$(BIN)/update_registry.sh $(REGISTRY)
+	$(BIN)/update_registry.sh $(REGISTRY) $(REGISTRY_URL)
+	sed -i -e '7s/\<ATI_/GL_ATI_/' $(REGISTRY)/ATI/texture_env_combine3.txt
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
-	rm -r -f $(EXT)
+	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | xargs cp --target-directory=$(EXT)
 	touch $@

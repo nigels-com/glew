@@ -29,9 +29,11 @@ GLboolean wglewGetExtension (const char *name)
 
 static GLuint _wglewInit ()
 {
+  GLboolean crippled;
   /* find wgl extension string query functions */
   _glewInit_WGL_ARB_extensions_string();
   WGLEW_ARB_extensions_string = wglGetExtensionsStringARB != NULL;
   _glewInit_WGL_EXT_extensions_string();
   WGLEW_EXT_extensions_string = wglGetExtensionsStringEXT != NULL;
   /* initialize extensions */
+  crippled = !(WGLEW_ARB_extensions_string || WGLEW_EXT_extensions_string);

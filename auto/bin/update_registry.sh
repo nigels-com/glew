@@ -20,6 +20,5 @@ wget                                                    \
     --no-host-directories                               \
     --cut-dirs=3                                        \
     --accept=txt,html                                   \
-    http://oss.sgi.com/projects/ogl-sample/registry/
+    $2
 
-sed -i -e '7s/\<ATI_/GL_ATI_/' ATI/texture_env_combine3.txt
