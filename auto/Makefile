@@ -1,10 +1,10 @@
-#
-# Copyright (C) 2003 Marcelo E. Magallon <mmagallo@debian.org>
-# Copyright (C) 2003 Milan Ikits <milan.ikits@ieee.org>
-#
-# This program is distributed under the terms and conditions of the GNU
-# General Public License Version 2 as published by the Free Software
-# Foundation or, at your option, any later version.
+##
+## Copyright (C) 2004, 2003 Marcelo E. Magallon <mmagallo[at]debian org>
+## Copyright (C) 2004, 2003 Milan Ikits <milan ikits[at]ieee org>
+##
+## This program is distributed under the terms and conditions of the GNU
+## General Public License Version 2 as published by the Free Software
+## Foundation or, at your option, any later version.
 
 GLEW_MAJOR = 1
 GLEW_MINOR = 2
@@ -64,7 +64,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 # 	grep -v 'glBlendEquation' > $@; rm tmp;
 	$(BIN)/make_header.pl GLAPIENTRY GL $(EXT)/GL_* >> $@
 	$(BIN)/make_struct.pl GL $(CORE)/GL_VERSION* $(EXT)/GL_* >> $@
-	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/\n  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
+	perl -e 's/  GLboolean __GLEW_VERSION_1_2;/  GLboolean __GLEW_VERSION_1_1;\n  GLboolean __GLEW_VERSION_1_2;/' -pi.bak $@
 	rm -f $@.bak
 	cat $(SRC)/glew_post.h >> $@
 
@@ -76,8 +76,9 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 
 $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cp -f $(SRC)/glxew_pre.h $@
-	$(BIN)/make_header.pl '' $(CORE)/GLX_VERSION* >> $@
-	$(BIN)/make_header.pl '' $(EXT)/GLX_* >> $@
+	$(BIN)/make_header.pl '' GLX $(CORE)/GLX_VERSION* >> $@
+	$(BIN)/make_header.pl '' GLX $(EXT)/GLX_* >> $@
+	$(BIN)/make_struct.pl GLX $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
 	cat $(SRC)/glxew_post.h >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 

@@ -1,17 +1,17 @@
 #!/bin/bash
-#
-# Copyright (C) 2003-2004 Marcelo E. Magallon <mmagallo@debian.org>
-# Copyright (C) 2003-2004 Milan Ikits <milan.ikits@ieee.org>
-#
-# This program is distributed under the terms and conditions of the GNU
-# General Public License Version 2 as published by the Free Software
-# Foundation or, at your option, any later version.
-#
-# Parameters:
-#
-#       $1: Extensions directory
-#       $2: Registry directory
-#       $3: The black list
+##
+## Copyright (C) 2004, 2003 Marcelo E. Magallon <mmagallo[at]debian org>
+## Copyright (C) 2004, 2003 Milan Ikits <milan ikits[at]ieee org>
+##
+## This program is distributed under the terms and conditions of the GNU
+## General Public License Version 2 as published by the Free Software
+## Foundation or, at your option, any later version.
+##
+## Parameters:
+##
+##       $1: Extensions directory
+##       $2: Registry directory
+##       $3: The black list
 
 set -e
 

@@ -12,7 +12,7 @@ If you downloaded the tarball from the GLEW website, you just need to:
 
 If you wish to build GLEW from scratch (update the extension data from
 the net or add your own extension information), you need a Unix
-environment (wget and a reasonable set of binutils -- e.g. sed v4).  The
-extension data is regenerated from the top level source directory with:
+environment (including wget, perl, and GNU make).  The extension data
+is regenerated from the top level source directory with:
 
         make extensions
