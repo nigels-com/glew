@@ -57,13 +57,20 @@ static GLuint _glewInit ()
   /* query opengl version */
   s = glGetString(GL_VERSION);
   if (!s) return GLEW_ERROR_NO_GL_VERSION;
-  i=_glewStrCLen(s, '.')+1;
+  i = _glewStrCLen(s, '.')+1;
   if (s+i == NULL || s[i] < '1')
   {
     return GLEW_ERROR_GL_VERSION_10_ONLY;
   }
   else
   {
+    if (s[3] >= '5')
+    {
+      GLEW_VERSION_1_1 = GL_TRUE;
+      GLEW_VERSION_1_2 = GL_TRUE;
+      GLEW_VERSION_1_3 = GL_TRUE;
+      GLEW_VERSION_1_4 = GL_TRUE;
+    }
     if (s[2] == '4')
     {
       GLEW_VERSION_1_1 = GL_TRUE;
