@@ -536,10 +536,9 @@ perform occasional maintainance to make sure that GLEW stays in mint
 condition.  Aaron Lefohn, Joe Kniss, and Chris Wyman were the first
 users and also assisted with the design and debugging process.  The
 acronym GLEW originates from Aaron Lefohn.  Pasi K&auml;rkk&auml;inen
-identified and fixed several problems with GLX and SDL.  The RPM
-packages are maintained by Karol Pietrzak. Nate Robins created the
-<tt>wglinfo</tt> utility, to which modifications were added by Michael
-Wimmer.
+identified and fixed several problems with GLX and SDL.  Nate Robins
+created the <tt>wglinfo</tt> utility, to which modifications were
+added by Michael Wimmer.
 <p>
 
 <p>
@@ -559,6 +558,27 @@ generation scripts are released under the <a href="gpl.txt">GPL</a>.
 <tr>
 <td bgcolor="#ffffff">
 <center><a name="Log"><h2>Change Log</h2></a></center>
+<p>
+<ul class="none">
+<li><b>1.2.5</b> [12-06-04]
+<ul>
+<li> New extensions:
+<ul>
+<li>GL_ATI_texture_compression_3dc
+<li>GL_EXT_Cg_shader
+<li>GL_EXT_draw_range_elements
+<li>GL_KTX_buffer_region
+</ul>
+<li> Bug fixes:
+<ul>
+<li> OpenGL version detection bug
+<li> Problems with wxWindows and MinGW compilation
+<li> <tt>visualinfo</tt> compilation problem with GLEW_MX specified
+<li> Wrong token name in OpenGL 1.5 core
+</ul>
+<li> Support for FreeBSD
+</ul>
+</ul>
 <p>
 <ul class="none">
 <li><b>1.2.4</b> [09-06-04]
@@ -698,7 +718,7 @@ GL_ARB_vertex_shader
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
 <td align="right">
-<i>Last update: 09-06-04</i></td>
+<i>Last update: 12-06-04</i></td>
 </tr>
 </table>
 </td>
