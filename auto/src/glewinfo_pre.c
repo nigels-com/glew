@@ -41,7 +41,14 @@
 
 static FILE* f;
 
+#if defined(_WIN32)
+GLboolean glewCreateContext (int* pixelformat);
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLboolean glewCreateContext (const char* display, int* visual);
+#else
+GLboolean glewCreateContext ();
+#endif
+
 GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
 void glewDestroyContext ();
 
