@@ -589,10 +589,10 @@ VisualInfo (GLContext* ctx)
   if (!verbose)
   {
     /* print table header */
-    fprintf(file, " +-----+----------------------+-----------------+----------+-------------+-------+------+\n");
-    fprintf(file, " |     |        visual        |      color      | ax dp st |    accum    |   ms  |  cav |\n");
-    fprintf(file, " |  id | tp xr cl fm db st lv |  sz  r  g  b  a | bf th cl | r  g  b  a  | ns  b |  eat |\n");
-    fprintf(file, " +-----+----------------------+-----------------+----------+-------------+-------+------+\n");
+    fprintf(file, " +-----+-------------------------+-----------------+----------+-------------+-------+------+\n");
+    fprintf(file, " |     |        visual           |      color      | ax dp st |    accum    |   ms  |  cav |\n");
+    fprintf(file, " |  id | tp xr cl fm db st lv xp |  sz  r  g  b  a | bf th cl | r  g  b  a  | ns  b |  eat |\n");
+    fprintf(file, " +-----+-------------------------+-----------------+----------+-------------+-------+------+\n");
     /* loop through all the fbcs */
     for (i=0; i<n_fbc; i++)
     {
@@ -702,11 +702,28 @@ VisualInfo (GLContext* ctx)
       ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_LEVEL, &value);
       if (Success != ret)
       {
+        fprintf(file, " ? ");
+      }
+      else
+      {
+        fprintf(file, "%2d ", value);
+      }
+      /* transparency */
+      ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_TRANSPARENT_TYPE, &value);
+      if (Success != ret)
+      {
         fprintf(file, " ? | ");
       }
       else
       {
-        fprintf(file, "%2d | ", value);
+        if (GLX_TRANSPARENT_RGB == value)
+          fprintf(file, " r | ");
+        else if (GLX_TRANSPARENT_INDEX == value)
+          fprintf(file, " i | ");
+        else if (GLX_NONE == value)
+          fprintf(file, " . | ");
+        else
+          fprintf(file, " ? | ");
       }
       /* color size */
       ret = glXGetFBConfigAttrib(ctx->dpy, fbc[i], GLX_BUFFER_SIZE, &value);
@@ -902,10 +919,10 @@ VisualInfo (GLContext* ctx)
       }
     }
     /* print table footer */
-    fprintf(file, " +-----+----------------------+-----------------+----------+-------------+-------+------+\n");
-    fprintf(file, " |  id | tp xr cl fm db st lv |  sz  r  g  b  a | bf th cl | r  g  b  a  | ns  b |  eat |\n");
-    fprintf(file, " |     |        visual        |      color      | ax dp st |    accum    |   ms  |  cav |\n");
-    fprintf(file, " +-----+----------------------+-----------------+----------+-------------+-------+------+\n");
+    fprintf(file, " +-----+-------------------------+-----------------+----------+-------------+-------+------+\n");
+    fprintf(file, " |  id | tp xr cl fm db st lv xp |  sz  r  g  b  a | bf th cl | r  g  b  a  | ns  b |  eat |\n");
+    fprintf(file, " |     |        visual           |      color      | ax dp st |    accum    |   ms  |  cav |\n");
+    fprintf(file, " +-----+-------------------------+-----------------+----------+-------------+-------+------+\n");
   }
 }
 
