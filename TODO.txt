@@ -1,9 +1,12 @@
-TODO:
+
+Major:
  - add OpenGL 2.0 support
- - fix SGI hyperpipe stuff
  - add support for initialization on first use
  - add text file for selecting a subset of the extensions
+
+Minor:
  - add support for all SUN, MTX, and OML extensions
+ - fix SGI hyperpipe stuff
  - make auto/Makefile more robust against auto/core/*~ mistakes
  - separate build of static and shared object files
  - web page and documentation update
