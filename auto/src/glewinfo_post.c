@@ -189,9 +189,10 @@ void glewDestroyContext ()
 
 Display* dpy = NULL;
 XVisualInfo* vi = NULL;
+XVisualInfo* vis = NULL;
 GLXContext ctx = NULL;
-Window wnd;
-Colormap cmap;
+Window wnd = 0;
+Colormap cmap = 0;
 
 GLboolean glewCreateContext (const char* display, int* visual)
 {
@@ -204,9 +205,23 @@ GLboolean glewCreateContext (const char* display, int* visual)
   /* query for glx */
   if (!glXQueryExtension(dpy, &erb, &evb)) return GL_TRUE;
   /* choose visual */
-  vi = glXChooseVisual(dpy, DefaultScreen(dpy), attrib);
-  if (NULL == vi) return GL_TRUE;
-  *visual = vi->visualid;
+  if (*visual == -1)
+  {
+    vi = glXChooseVisual(dpy, DefaultScreen(dpy), attrib);
+    if (NULL == vi) return GL_TRUE;
+    *visual = (int)XVisualIDFromVisual(vi->visual);
+  }
+  else
+  {
+    int n_vis, i;
+    vis = XGetVisualInfo(dpy, 0, NULL, &n_vis);
+    for (i=0; i<n_vis; i++)
+    {
+      if ((int)XVisualIDFromVisual(vis[i].visual) == *visual)
+        vi = &vis[i];
+    }
+    if (vi == NULL) return GL_TRUE;
+  }
   /* create context */
   ctx = glXCreateContext(dpy, vi, None, True);
   if (NULL == ctx) return GL_TRUE;
@@ -224,9 +239,12 @@ GLboolean glewCreateContext (const char* display, int* visual)
 void glewDestroyContext ()
 {
   if (NULL != dpy && NULL != ctx) glXDestroyContext(dpy, ctx);
-  if (NULL != dpy) XDestroyWindow(dpy, wnd);
-  if (NULL != dpy) XFreeColormap(dpy, cmap);
-  if (NULL != vi) XFree(vi);
+  if (NULL != dpy && 0 != wnd) XDestroyWindow(dpy, wnd);
+  if (NULL != dpy && cmap != 0) XFreeColormap(dpy, cmap);
+  if (NULL != vis)
+    XFree(vis);
+  else if (NULL != vi)
+    XFree(vi);
   if (NULL != dpy) XCloseDisplay(dpy);
 }
 
