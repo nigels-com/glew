@@ -1,7 +1,10 @@
-
 Major:
  - separate build of static and shared object files
  - add support for initialization on first use
+    - This is probably a simple change: just define that the programmer
+      *has* to call either of glewGetExtension or glewInit as the first
+      GLEW function he uses.  If it's glewExtension, then that function
+      performs the initialization.
 
 Minor:
  - add support for all SUN, MTX, and OML extensions
