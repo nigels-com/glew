@@ -77,7 +77,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	$(BIN)/make_header.pl '' GLX $(CORE)/GLX_VERSION* >> $@
 	$(BIN)/make_header.pl '' GLX $(EXT)/GLX_* >> $@
 	$(BIN)/make_struct.pl GLX $(CORE)/GLX_VERSION* $(EXT)/GLX_* >> $@
-	perl -e 's/  GLboolean __GLXEW_VERSION_1_2;/  GLboolean __GLXEW_VERSION_1_0;\n  GLboolean __GLXEW_VERSION_1_1;\n  GLboolean __GLXEW_VERSION_1_2;/' -pi.bak $@
+	perl -e 's/GLEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLEW_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLEW_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/' -pi.bak $@
 	cat $(SRC)/glxew_post.h >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 

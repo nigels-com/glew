@@ -52,11 +52,11 @@ foreach my $ext (sort @extlist)
     {
         if ($extname =~ /WGL_.*/)
         {
-            print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR);\n";
+            print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
         }
         else
         {
-            print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR);\n";
+            print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
         }
     }
     print "#endif /* $extname */\n";

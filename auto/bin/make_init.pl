@@ -49,7 +49,7 @@ foreach my $ext (sort @extlist)
     if (keys %$functions)
     {
 	print "static GLboolean _glewInit_$extname (" . $type . 
-	  "EW_CONTEXT_ARG_DEF)\n{\n  GLboolean r = GL_FALSE;\n";
+	  "EW_CONTEXT_ARG_DEF_INIT)\n{\n  GLboolean r = GL_FALSE;\n";
 	output_decls($functions, \&make_pfn_def_init);
 	print "\n  return r;\n}\n";
     }

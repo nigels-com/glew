@@ -24,11 +24,11 @@ GLboolean glxewGetExtension (const char* name)
 #ifndef GLEW_MX
 static
 #endif
-GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF)
+GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
 {
   int major, minor;
   /* initialize core GLX 1.2 */
-  if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
+  if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR_INIT)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
   GLXEW_VERSION_1_0 = GL_FALSE;
   GLXEW_VERSION_1_1 = GL_FALSE;
