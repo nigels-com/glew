@@ -97,36 +97,43 @@
 
 /*
  * GLEW does not include <windows.h> to avoid name space pollution.
- * GL needs APIENTRY and WINGDIAPI, GLU needs CALLBACK and wchar_t 
+ * GL needs APIENTRY, GLU needs CALLBACK, wchar_t, and GL_API
  * defined properly.
  */
 /* <windef.h> */
 #ifndef APIENTRY
 #define GLEW_APIENTRY_DEFINED
-#if (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
-#define APIENTRY __stdcall
-#else
-#define APIENTRY
-#endif
+#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#    define APIENTRY __attribute__ ((__stdcall__))
+#  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
+#    define APIENTRY __stdcall
+#  else
+#    define APIENTRY
+#  endif
 #endif
 /* <winnt.h> */
 #ifndef CALLBACK
-#if (defined(_M_MRX000) || defined(_M_IX86) || defined(_M_ALPHA) || defined(_M_PPC)) && !defined(MIDL_PASS)
-#define CALLBACK __stdcall
-#else
-#define CALLBACK
-#endif
+#define GLEW_CALLBACK_DEFINED
+#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#    define CALLBACK __attribute__ ((__stdcall__))
+#  elif (defined(_M_MRX000) || defined(_M_IX86) || defined(_M_ALPHA) || defined(_M_PPC)) && !defined(MIDL_PASS)
+#    define CALLBACK __stdcall
+#  else
+#    define CALLBACK
+#  endif
 #endif
 /* <wingdi.h> and <winnt.h> */
-#ifndef WINGDIAPI
-#define GLEW_WINGDIAPI_DEFINED
-#define WINGDIAPI __declspec(dllimport)
-#endif
+//#ifndef WINGDIAPI
+//#define GLEW_WINGDIAPI_DEFINED
+//#define WINGDIAPI __declspec(dllimport)
+//#endif
 /* <ctype.h> */
 #ifndef _WCHAR_T_DEFINED
 typedef unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
+/* <glu.h> */
+#define GLAPI extern
 
 /*
  * GLEW_STATIC needs to be set when including the
@@ -145,6 +152,7 @@ typedef unsigned short wchar_t;
 
 #else /* _UNIX */
 
+#define GLEW_APIENTRY_DEFINED
 #define APIENTRY
 #define GLAPI extern
 #define GLAPIENTRY
@@ -4590,10 +4598,15 @@ extern GLEW_EXPORT const char* glewGetErrorString (GLint error);
 #undef APIENTRY
 #endif
 
-#ifdef GLEW_WINGDIAPI_DEFINED
-#undef GLEW_WINGDIAPI_DEFINED
-#undef WINGDIAPI
+#ifdef GLEW_CALLBACK_DEFINED
+#undef GLEW_CALLBACK_DEFINED
+#undef CALLBACK
 #endif
+
+//#ifdef GLEW_WINGDIAPI_DEFINED
+//#undef GLEW_WINGDIAPI_DEFINED
+//#undef WINGDIAPI
+//#endif
 
 #undef GLEW_EXPORT
 
