@@ -123,7 +123,7 @@ EOT
 
 # remove triplicates in GL_ARB_fragment_program, GL_ARB_fragment_shader,
 # and GL_ARB_vertex_shader
-    grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_fragment_shader
+    grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_fragment_shader > tmp
     mv tmp $1/GL_ARB_fragment_shader
     grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_vertex_shader > tmp
     mv tmp $1/GL_ARB_vertex_shader
