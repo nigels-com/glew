@@ -46,6 +46,18 @@ if [ ! -d $1 ] ; then
     perl -e 's/ void\*/ GLvoid\*/g' -pi \
         $1/GL_ARB_vertex_buffer_object
 
+# add deprecated constants to GL_ATI_fragment_shader
+    cat >> $1/GL_ATI_fragment_shader <<EOT
+	GL_NUM_FRAGMENT_REGISTERS_ATI 0x896E
+	GL_NUM_FRAGMENT_CONSTANTS_ATI 0x896F
+	GL_NUM_PASSES_ATI 0x8970
+	GL_NUM_INSTRUCTIONS_PER_PASS_ATI 0x8971
+	GL_NUM_INSTRUCTIONS_TOTAL_ATI 0x8972
+	GL_NUM_INPUT_INTERPOLATOR_COMPONENTS_ATI 0x8973
+	GL_NUM_LOOPBACK_COMPONENTS_ATI 0x8974
+	GL_COLOR_ALPHA_PAIRING_ATI 0x8975
+EOT
+
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
 	GL_RGBA_FLOAT_MODE_ATI 0x8820
