@@ -104,9 +104,7 @@ main (int argc, char** argv)
     fprintf(stderr, "        -pf <id>: use given pixelformat\n");
     fprintf(stderr, "        -h: this screen\n");
 #else
-    fprintf(stderr, "Usage: visualinfo [-a] [-s] [-h] [-display <display>] [-visual <id>]\n");
-    fprintf(stderr, "        -a: show all visuals\n");
-    fprintf(stderr, "        -s: display to stdout instead of visualinfo.txt (Windows only)\n");      
+    fprintf(stderr, "Usage: visualinfo [-h] [-display <display>] [-visual <id>]\n");
     fprintf(stderr, "        -h: this screen\n");
     fprintf(stderr, "        -display <display>: use given display\n");
     fprintf(stderr, "        -visual <id>: use given visual\n");
@@ -1162,6 +1160,10 @@ GLboolean ParseArgs (int argc, char** argv)
     {
       if (++p >= argc) return GL_TRUE;
       visual = (int)strtol(argv[p], NULL, 0);
+    }
+    else if (!strcmp(argv[p], "-h"))
+    {
+      return GL_TRUE;
     }
     else
       return GL_TRUE;
