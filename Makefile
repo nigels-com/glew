@@ -129,7 +129,7 @@ CFLAGS.EXTRA = -DGLEW_MX
 endif
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
 LDFLAGS.EXTRA =
-LDFLAGS.GL = -lGL -lXext -lX11
+LDFLAGS.GL = -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn -woff 1110,1498
 POPT = -O2
