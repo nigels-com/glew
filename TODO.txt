@@ -1,6 +1,7 @@
 TODO:
  - add support for initialization on first use
  - add text file for selecting a subset of the extensions
+ - add support for all SUN, MTX, and OML extensions
  - make auto/Makefile more robust against auto/core/*~ mistakes
  - separate build of static and shared object files
  - web page and documentation update
