@@ -89,14 +89,20 @@ ifeq ($(patsubst IRIX%,IRIX,$(SYSTEM)), IRIX)
 NAME = GLEW
 CC = cc
 LD = ld
-ABI = -64 # -n32
-CFLAGS.EXTRA = -woff 1110,1498 $(ABI)
+ABI = -64# -n32
+CC += $(ABI)
+LD += $(ABI)
+CFLAGS.EXTRA = -woff 1110,1498
 LDFLAGS.SO = -shared -soname $(LIB.SONAME)
-LDFLAGS.EXTRA = $(ABI)
-LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
+LDFLAGS.EXTRA =
+LDFLAGS.GL = -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn
 BIN.SUFFIX =
+LIB.SONAME = lib$(NAME).so.$(GLEW_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(GLEW_VERSION)
+LIB.STATIC = lib$(NAME).a
 
 else
 # ----------------------------------------------------------------------------

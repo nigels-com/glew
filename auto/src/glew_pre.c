@@ -79,18 +79,18 @@ static void* NSGLGetProcAddress (const char* name)
 static void* dlGetProcAddress (const char* name)
 {
   static void* h = NULL;
-  /* static void *gpa; */
+  static void *gpa;
 
-  if (h != NULL)
+  if (h == NULL)
   {
     if ((h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)) == NULL) return NULL;
-    /* gpa = dlsym(h, "glXGetProcAddress"); */
+    gpa = dlsym(h, "glXGetProcAddress");
   }
 
-  /* if (gpa != NULL)
+  if (gpa != NULL)
     return ((void* (*)(const GLubyte*))gpa)(procName);
-    else */
-  return dlsym(h, name);
+  else
+    return dlsym(h, name);
 }
 #endif /* __sgi */
 
