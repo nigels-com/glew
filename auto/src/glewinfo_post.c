@@ -101,12 +101,6 @@ void glewDestroyContext ()
 
 #  ifdef __APPLE__
 
-Display* dpy = NULL;
-XVisualInfo* vi = NULL;
-GLXContext ctx = NULL;
-Window wnd;
-Colormap cmap;
-
 GLboolean glewCreateContext ()
 {
   return GL_TRUE;
@@ -147,8 +141,7 @@ GLboolean glewCreateContext ()
   cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
   swa.border_pixel = 0;
   swa.colormap = cmap;
-  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 256, 256, 0, vi->depth,
-		      InputOutput, vi->visual, CWBorderPixel | CWColormap, &swa);
+  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 256, 256, 0, vi->depth, InputOutput, vi->visual, CWBorderPixel | CWColormap, &swa);
   /* make context current */
   if (!glXMakeCurrent(dpy, wnd, ctx)) return GL_TRUE;
   return GL_FALSE;
