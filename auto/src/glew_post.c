@@ -16,7 +16,7 @@ const GLubyte* glewGetErrorString (GLenum error)
     "Unknown error"
   };
   const int max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
-  return _glewErrorString[error > max_error ? max_error : error];
+  return _glewErrorString[(int)error > max_error ? max_error : (int)error];
 }
 
 const GLubyte* glewGetString (GLenum name)
@@ -27,7 +27,7 @@ const GLubyte* glewGetString (GLenum name)
     "GLEW_VERSION_STRING"
   };
   const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
-  return _glewString[name > max_string ? max_string : name];
+  return _glewString[(int)name > max_string ? 0 : (int)name];
 }
 
 /* ------------------------------------------------------------------------ */
