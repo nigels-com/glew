@@ -49,7 +49,10 @@ GLboolean glewCreateContext (const char* display, int* visual);
 GLboolean glewCreateContext ();
 #endif
 
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
+#endif
+
 void glewDestroyContext ();
 
 /* ------------------------------------------------------------------------- */

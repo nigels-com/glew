@@ -7,6 +7,8 @@
 int main (int argc, char** argv)
 {
   GLuint err;
+
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   char* display = NULL;
   int visual = -1;
 
@@ -14,13 +16,13 @@ int main (int argc, char** argv)
   {
 #if defined(_WIN32)
     fprintf(stderr, "Usage: glewinfo [-pf <id>]\n");
-#elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
-    fprintf(stderr, "Usage: glewinfo\n");
 #else
     fprintf(stderr, "Usage: glewinfo [-display <display>] [-visual <id>]\n");
 #endif
     return 1;
   }
+#endif
+
 #if defined(_WIN32)
   if (GL_TRUE == glewCreateContext(&visual))
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -73,6 +75,7 @@ int main (int argc, char** argv)
 
 /* ------------------------------------------------------------------------ */
 
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
 {
   int p = 0;
@@ -86,7 +89,7 @@ GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
     }
     else
       return GL_TRUE;
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#else
     if (!strcmp(argv[p], "-display"))
     {
       if (++p >= argc) return GL_TRUE;
@@ -99,12 +102,11 @@ GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
     }
     else
       return GL_TRUE;
-#else
-    return GL_TRUE;
 #endif
   }
   return GL_FALSE;
 }
+#endif
 
 /* ------------------------------------------------------------------------ */
 
