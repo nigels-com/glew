@@ -33,7 +33,7 @@ LIB.LIBS =
 BIN = bin/glewinfo
 BIN.SRCS = src/glewinfo.c
 BIN.OBJS = $(BIN.SRCS:.c=.o)
-BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -lGLEW -lGL -lXmu -lX11
+BIN.LIBS = -Llib -L/usr/X11R6/lib -lglut -lGLEW -lGLU -lGL -lXmu -lX11
 
 all: $(LIB) $(BIN)
 
