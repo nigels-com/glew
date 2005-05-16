@@ -12,7 +12,7 @@ LDFLAGS.EXTRA =
 LDFLAGS.GL = -lGLU -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn -woff 1110,1498
-POPT = -O2
+POPT = -O2 -OPT:Olimit=0
 BIN.SUFFIX =
 LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
 LIB.DEVLNK = lib$(NAME).so
