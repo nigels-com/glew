@@ -162,6 +162,14 @@ EOT
 	typedef unsigned int GLhandleARB
 EOT
 
+# add missing functions to GL_ARB_transpose_matrix
+	cat >> $1/GL_ARB_transpose_matrix <<EOT
+	void glLoadTransposeMatrixfARB (GLfloat m[16])
+	void glLoadTransposeMatrixdARB (GLdouble m[16])
+	void glMultTransposeMatrixfARB (GLfloat m[16])
+	void glMultTransposeMatrixdARB (GLdouble m[16])
+EOT
+
 # fix const correctness in GL_ARB_shader_objects
 #    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 
