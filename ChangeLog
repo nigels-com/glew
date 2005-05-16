@@ -1,3 +1,45 @@
+2005-05-16 00:35  ikits
+
+	* auto/src/template.html, doc/advanced.html, doc/basic.html,
+	  doc/credits.html, doc/index.html, doc/install.html, doc/log.html:
+	  getting ready for the release
+
+2005-05-16 00:14  ikits
+
+	* auto/Makefile: Added option for splitting the source into
+	  multiple files
+
+2005-05-16 00:13  ikits
+
+	* auto/bin/update_ext.sh: Fixed GL_ARB_transpose_matrix bug
+
+2005-04-22 18:47  ikits
+
+	* auto/: bin/update_ext.sh, core/GL_VERSION_2_0: fixed bugs 1185517
+	  and 1182116
+
+2005-04-04 23:49  ikits
+
+	* auto/src/: glew_head.c, glew_init_gl.c: fix for OGL 2.0 problem
+
+2005-03-16 21:49  ikits
+
+	* config/version: bump version number
+
+2005-03-16 21:48  ikits
+
+	* auto/src/glew_init_gl.c: minor issue
+
+2005-03-16 21:04  ikits
+
+	* doc/advanced.html, doc/basic.html, doc/credits.html,
+	  doc/index.html, doc/install.html, doc/log.html,
+	  auto/src/template.html: getting ready for the release
+
+2005-03-16 20:49  ikits
+
+	* ChangeLog: it's that time again
+
 2005-03-16 20:48  ikits
 
 	* TODO.txt: fix it when there is time
