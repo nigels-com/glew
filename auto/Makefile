@@ -7,6 +7,8 @@
 
 include ../config/version
 
+#GLEW_SPLIT_SOURCE = yes
+
 SHELL = bash
 REGISTRY = registry
 REGISTRY_URL = http://oss.sgi.com/projects/ogl-sample/registry/
@@ -44,13 +46,17 @@ I.TARGETS = \
 	$(I.DEST)/wglew.h \
 	$(I.DEST)/glxew.h
 
+ifeq (yes,$(GLEW_SPLIT_SOURCE))
+S.TARGETS = \
+	$(S.DEST)/glew_def.c \
+	$(S.DEST)/glew_init.c \
+	$(S.DEST)/glew_str.c \
+	$(S.DEST)/glewinfo.c
+else
 S.TARGETS = \
 	$(S.DEST)/glew.c \
 	$(S.DEST)/glewinfo.c
-
-#	$(S.DEST)/glew_def.c \
-#	$(S.DEST)/glew_init.c \
-#	$(S.DEST)/glew_str.c \
+endif
 
 D.TARGETS = \
 	$(D.DEST)/glew.html \
