@@ -61,7 +61,7 @@ BEGIN
             VALUE "FileDescription", "The OpenGL Extension Wrangler Library\0"
             VALUE "FileVersion", "GLEW_MAJOR,GLEW_MINOR,GLEW_MICRO,0\0"
             VALUE "InternalName", "GLEW\0"
-            VALUE "LegalCopyright", "© 2003-2005 Milan Ikits & Marcelo Magallon\0"
+            VALUE "LegalCopyright", "© 2003-2006 Milan Ikits & Marcelo Magallon\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", FILENAME "\0"
             VALUE "PrivateBuild", "\0"

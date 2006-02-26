@@ -18,7 +18,7 @@
 #define __GLEXT_H_
 #define __gl_ATI_h_
 
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MINGW32__)
 
 /*
  * GLEW does not include <windows.h> to avoid name space pollution.
@@ -142,16 +142,24 @@ extern "C" {
 #ifndef GL_VERSION_1_1
 #define GL_VERSION_1_1 1
 
+#if defined(__APPLE__)
+typedef unsigned long GLenum;
+typedef unsigned long GLbitfield;
+typedef unsigned long GLuint;
+typedef long GLint;
+typedef long GLsizei;
+#else
 typedef unsigned int GLenum;
-typedef unsigned char GLboolean;
 typedef unsigned int GLbitfield;
-typedef signed char GLbyte;
-typedef short GLshort;
+typedef unsigned int GLuint;
 typedef int GLint;
 typedef int GLsizei;
+#endif
+typedef unsigned char GLboolean;
+typedef signed char GLbyte;
+typedef short GLshort;
 typedef unsigned char GLubyte;
 typedef unsigned short GLushort;
-typedef unsigned int GLuint;
 typedef float GLfloat;
 typedef float GLclampf;
 typedef double GLdouble;
