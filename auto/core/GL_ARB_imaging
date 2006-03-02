@@ -76,7 +76,6 @@ GL_ARB_imaging
 	GL_WRAP_BORDER 0x8152
 	GL_REPLICATE_BORDER 0x8153
 	GL_CONVOLUTION_BORDER_COLOR 0x8154
-	void glBlendEquation (GLenum mode)
 	void glColorTable (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const GLvoid *table)
 	void glColorSubTable (GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type, const GLvoid *data)
 	void glColorTableParameteriv (GLenum target, GLenum pname, const GLint *params)
