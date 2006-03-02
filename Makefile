@@ -29,6 +29,7 @@
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
 GLEW_DEST ?= /usr
+LIBDIR = $(GLEW_DEST)/lib
 
 include config/version
 
@@ -112,18 +113,18 @@ install: all
 # directories
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/bin
 	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
-	$(INSTALL) -d -m 0755 $(GLEW_DEST)/lib
+	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/bin/
 else
   ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.SHARED)
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
   else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/lib/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.SONAME)
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
   endif
 endif
 # development files
@@ -131,15 +132,15 @@ endif
 	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
 	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(GLEW_DEST)/lib/
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
   ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.STATIC)
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
   else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(GLEW_DEST)/lib/
-	$(LN) $(LIB.SHARED) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
   endif
 endif
 # utilities
@@ -149,13 +150,13 @@ uninstall:
 	$(RM) $(GLEW_DEST)/include/GL/wglew.h
 	$(RM) $(GLEW_DEST)/include/GL/glew.h
 	$(RM) $(GLEW_DEST)/include/GL/glxew.h
-	$(RM) $(GLEW_DEST)/lib/$(LIB.DEVLNK)
+	$(RM) $(LIBDIR)/$(LIB.DEVLNK)
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(RM) $(GLEW_DEST)/bin/$(LIB.SHARED)
 else
-	$(RM) $(GLEW_DEST)/lib/$(LIB.SONAME)
-	$(RM) $(GLEW_DEST)/lib/$(LIB.SHARED)
-	$(RM) $(GLEW_DEST)/lib/$(LIB.STATIC)
+	$(RM) $(LIBDIR)/$(LIB.SONAME)
+	$(RM) $(LIBDIR)/$(LIB.SHARED)
+	$(RM) $(LIBDIR)/$(LIB.STATIC)
 endif
 	$(RM) $(GLEW_DEST)/bin/$(GLEWINFO.BIN) $(GLEW_DEST)/bin/$(VISUALINFO.BIN)
 
