@@ -41,7 +41,7 @@
 
 void* NSGLGetProcAddress (const GLubyte *name)
 {
-  static struct mach_header* image = NULL;
+  static const struct mach_header* image = NULL;
   NSSymbol symbol;
   char* symbolName;
   if (NULL == image)
