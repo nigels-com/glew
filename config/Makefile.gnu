@@ -1,6 +1,6 @@
 NAME = $(GLEW_NAME)
 CC = cc
-LD = ld
+LD = cc
 ifneq (undefined, $(origin GLEW_MX))
 CFLAGS.EXTRA = -DGLEW_MX
 endif
