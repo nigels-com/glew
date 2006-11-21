@@ -1,5 +1,5 @@
-GL_NV_depth_buffer_float
-http://developer.download.nvidia.com/opengl/specs/GL_NV_depth_buffer_float.txt
+GL_NV_framebuffer_multisample_coverage
+http://developer.download.nvidia.com/opengl/specs/GL_NV_framebuffer_multisample_coverage.txt
 	GL_RENDERBUFFER_COVERAGE_SAMPLES_NV 0x8CAB
 	GL_RENDERBUFFER_COLOR_SAMPLES_NV  0x8E10
 	GL_MAX_RENDERBUFFER_COVERAGE_SAMPLES_NV 0x8D57
