@@ -23,9 +23,9 @@ http://www.opengl.org/documentation/specs/version2.1/glspec21.pdf
 	GL_COMPRESSED_SRGB_ALPHA 0x8C49
 	GL_COMPRESSED_SLUMINANCE 0x8C4A
 	GL_COMPRESSED_SLUMINANCE_ALPHA 0x8C4B
-	void glUniformMatrix2x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
-	void glUniformMatrix3x2fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
-	void glUniformMatrix2x4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
-	void glUniformMatrix4x2fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
-	void glUniformMatrix3x4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
-	void glUniformMatrix4x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)
+	void glUniformMatrix2x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+	void glUniformMatrix3x2fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+	void glUniformMatrix2x4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+	void glUniformMatrix4x2fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+	void glUniformMatrix3x4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
+	void glUniformMatrix4x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
