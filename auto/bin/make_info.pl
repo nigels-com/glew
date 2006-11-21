@@ -44,11 +44,12 @@ if (@ARGV)
 		print "static void _glewInfo_$extname (void)\n{\n";
 		if ($extvar =~ /VERSION/)
 		{
-			print "  glewPrintExt(\"$extname\", $extvar, $extvar);\n";
+			print "  glewPrintExt(\"$extname\", $extvar, $extvar, $extvar);\n";
 		}
 		else
 		{
 			print "  glewPrintExt(\"$extname\", $extvar, $extpre" .
+				"ewIsSupported(\"$extname\"), $extpre" .
 				"ewGetExtension(\"$extname\"));\n";
 		}
 		output_decls($functions, \&make_pfn_info);

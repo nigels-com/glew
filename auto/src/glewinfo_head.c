@@ -38,14 +38,16 @@ void glewDestroyContext ();
 
 /* ------------------------------------------------------------------------- */
 
-static void glewPrintExt (const char* name, GLint def1, GLint def2)
+static void glewPrintExt (const char* name, GLboolean def1, GLboolean def2, GLboolean def3)
 {
   unsigned int i;
   fprintf(f, "\n%s:", name);
   for (i=0; i<62-strlen(name); i++) fprintf(f, " ");
   fprintf(f, "%s ", def1 ? "OK" : "MISSING");
   if (def1 != def2)
-    fprintf(f, "[%s]\n", def2 ? "OK" : "MISSING");
+    fprintf(f, "[%s] ", def2 ? "OK" : "MISSING");
+  if (def1 != def3)
+    fprintf(f, "[%s]\n", def3 ? "OK" : "MISSING");
   else
     fprintf(f, "\n");
   for (i=0; i<strlen(name)+1; i++) fprintf(f, "-");
@@ -68,7 +70,7 @@ static void glewInfoFunc (const char* name, GLint undefined)
 
 static void _glewInfo_GL_VERSION_1_1 (void)
 {
-  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1);
+  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1, GLEW_VERSION_1_1);
 }
 
 #endif /* GL_VERSION_1_1 */
