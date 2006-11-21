@@ -94,10 +94,10 @@ else
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 endif
 
-bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.SRCS)
+bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.SRCS) lib/$(LIB.SHARED)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
 
-bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.SRCS)
+bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.SRCS) lib/$(LIB.SHARED)
 	$(CC) $(CFLAGS) -o $@ $^ $(BIN.LIBS)
 
 %.o: %.c
