@@ -174,8 +174,8 @@ typedef _W64 int GLint64EXT;
 typedef _W64 unsigned int GLuint64EXT;
 #  endif
 #else
-typedef signed long long GLint64EXT
-typedef unsigned long long GLuint64EXT
+typedef signed long long GLint64EXT;
+typedef unsigned long long GLuint64EXT;
 #endif
 
 #define GL_ACCUM 0x0100
