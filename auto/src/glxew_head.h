@@ -50,7 +50,11 @@ extern "C" {
 
 typedef XID GLXDrawable;
 typedef XID GLXPixmap;
+#ifdef __sun
+typedef struct __glXcontextRec *GLXContext;
+#else
 typedef struct __GLXcontextRec *GLXContext;
+#endif
 
 extern Bool glXQueryExtension (Display *dpy, int *errorBase, int *eventBase);
 extern Bool glXQueryVersion (Display *dpy, int *major, int *minor);
