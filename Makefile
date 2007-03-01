@@ -29,10 +29,10 @@
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
 GLEW_DEST ?= /usr
-LIBDIR = $(GLEW_DEST)/lib
 
 include config/version
 
+LIBDIR ?= $(GLEW_DEST)/lib
 TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
