@@ -305,6 +305,7 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	cat $(SRC)/glewinfo_tail.c >> $@
 	$(BIN)/fix_OML_sync_control.sh $@
 	perl -e 's/"glColorSubTable"/"glBlendEquation", glBlendEquation == NULL);\n  glewInfoFunc("glColorSubTable"/g' -pi $@
+	rm -f $@.bak
 
 $(D.DEST)/glew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
