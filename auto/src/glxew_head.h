@@ -51,7 +51,7 @@ extern "C" {
 typedef XID GLXDrawable;
 typedef XID GLXPixmap;
 #ifdef __sun
-typedef struct __glXcontextRec *GLXContext;
+typedef struct __glXContextRec *GLXContext;
 #else
 typedef struct __GLXcontextRec *GLXContext;
 #endif
