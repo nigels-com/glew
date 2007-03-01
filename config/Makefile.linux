@@ -7,11 +7,10 @@ endif
 PICFLAG = -fPIC
 LDFLAGS.SO = -shared -Wl,-soname=$(LIB.SONAME)
 M_ARCH ?= $(shell arch)
-ifeq (${M_ARCH},x86_64))
+ifeq (x86_64,${M_ARCH})
 LDFLAGS.EXTRA = -L/usr/X11R6/lib64
 LIBDIR = $(GLEW_DEST)/lib64
-endif
-ifneq (${M_ARCH},x86_64))
+else
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LIBDIR = $(GLEW_DEST)/lib
 endif
