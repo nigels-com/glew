@@ -7,7 +7,6 @@ Major:
       performs the initialization.
  - add windows installer (msi)
  - add ati/nvidia custom profile
- - fix SGI hyperpipe extension (add verbatim mode to spec files)
  - separate build of static and shared object files (for mingw and
  cygwin)
  - make auto scripts work with text mode cygwin mounts
