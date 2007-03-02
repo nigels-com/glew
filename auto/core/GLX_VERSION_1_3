@@ -76,5 +76,5 @@ GLX_VERSION_1_3
 	typedef XID GLXPbuffer
 	typedef XID GLXFBConfigID
 	typedef struct __GLXFBConfigRec *GLXFBConfig
-	typedef struct { int event_type; int draw_type; unsigned long serial; Bool send_event; Display *display; GLXDrawable drawable; unsigned int buffer_mask; unsigned int aux_buffer; int x, y; int width, height; int count; } GLXPbufferClobberEvent
-	typedef union __GLXEvent { GLXPbufferClobberEvent glxpbufferclobber; long pad[24]; } GLXEvent
+	typedef struct {  int event_type;   int draw_type;   unsigned long serial;   Bool send_event;   Display *display;   GLXDrawable drawable;   unsigned int buffer_mask;   unsigned int aux_buffer;   int x, y;   int width, height;   int count; } GLXPbufferClobberEvent;
+	typedef union __GLXEvent {  GLXPbufferClobberEvent glxpbufferclobber;   long pad[24]; } GLXEvent;

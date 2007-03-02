@@ -35,7 +35,9 @@ sub prefix_varname($)
 
 sub make_exact($)
 {
-    return "$_[0]"
+	my $exact = $_[0];
+	$exact =~ s/(; |{)/$1\n/g;
+    return $exact;
 }
 
 sub make_separator($)
@@ -90,7 +92,7 @@ sub parse_ext($)
         {
             if (/$regex{exact}/)
             {
-		push @exacts, $_;
+				push @exacts, $_;
             }
             elsif (/$regex{type}/)
             {
