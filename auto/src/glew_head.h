@@ -18,7 +18,7 @@
 #define __GLEXT_H_
 #define __gl_ATI_h_
 
-#if defined(_WIN32) || defined(__MINGW32__)
+#if defined(_WIN32)
 
 /*
  * GLEW does not include <windows.h> to avoid name space pollution.
