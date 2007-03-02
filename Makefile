@@ -41,7 +41,9 @@ $(error "Platform '$(SYSTEM)' not supported")
 endif
 
 GLEW_DEST ?= /usr
+BINDIR ?= $(GLEW_DEST)/bin
 LIBDIR ?= $(GLEW_DEST)/lib
+INCDIR ?= $(GLEW_DEST)/include/GL
 SHARED_OBJ_EXT ?= o
 TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz
@@ -107,12 +109,12 @@ src/glew.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew
 
 install: all
 # directories
-	$(INSTALL) -d -m 0755 $(GLEW_DEST)/bin
-	$(INSTALL) -d -m 0755 $(GLEW_DEST)/include/GL
+	$(INSTALL) -d -m 0755 $(BINDIR)
+	$(INSTALL) -d -m 0755 $(INCDIR)
 	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(GLEW_DEST)/bin/
+	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
 else
   ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.SHARED)
@@ -124,9 +126,9 @@ else
   endif
 endif
 # development files
-	$(INSTALL) -m 0644 include/GL/wglew.h $(GLEW_DEST)/include/GL
-	$(INSTALL) -m 0644 include/GL/glew.h $(GLEW_DEST)/include/GL
-	$(INSTALL) -m 0644 include/GL/glxew.h $(GLEW_DEST)/include/GL
+	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
@@ -140,21 +142,21 @@ else
   endif
 endif
 # utilities
-	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(GLEW_DEST)/bin/
+	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/
 
 uninstall:
-	$(RM) $(GLEW_DEST)/include/GL/wglew.h
-	$(RM) $(GLEW_DEST)/include/GL/glew.h
-	$(RM) $(GLEW_DEST)/include/GL/glxew.h
+	$(RM) $(INCDIR)/wglew.h
+	$(RM) $(INCDIR)/glew.h
+	$(RM) $(INCDIR)/glxew.h
 	$(RM) $(LIBDIR)/$(LIB.DEVLNK)
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
-	$(RM) $(GLEW_DEST)/bin/$(LIB.SHARED)
+	$(RM) $(BINDIR)/$(LIB.SHARED)
 else
 	$(RM) $(LIBDIR)/$(LIB.SONAME)
 	$(RM) $(LIBDIR)/$(LIB.SHARED)
 	$(RM) $(LIBDIR)/$(LIB.STATIC)
 endif
-	$(RM) $(GLEW_DEST)/bin/$(GLEWINFO.BIN) $(GLEW_DEST)/bin/$(VISUALINFO.BIN)
+	$(RM) $(BINDIR)/$(GLEWINFO.BIN) $(BINDIR)/$(VISUALINFO.BIN)
 
 clean:
 	$(RM) $(LIB.OBJS)
