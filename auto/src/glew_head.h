@@ -18,7 +18,7 @@
 #define __GLEXT_H_
 #define __gl_ATI_h_
 
-#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if defined(_WIN32) || defined(__MINGW32__)
 
 /*
  * GLEW does not include <windows.h> to avoid name space pollution.
@@ -28,7 +28,7 @@
 /* <windef.h> */
 #ifndef APIENTRY
 #define GLEW_APIENTRY_DEFINED
-#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#  if defined(__MINGW32__)
 #    define APIENTRY __stdcall
 #  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
 #    define APIENTRY __stdcall
@@ -37,14 +37,14 @@
 #  endif
 #endif
 #ifndef GLAPI
-#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#  if defined(__MINGW32__)
 #    define GLAPI extern
 #  endif
 #endif
 /* <winnt.h> */
 #ifndef CALLBACK
 #define GLEW_CALLBACK_DEFINED
-#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#  if defined(__MINGW32__)
 #    define CALLBACK __attribute__ ((__stdcall__))
 #  elif (defined(_M_MRX000) || defined(_M_IX86) || defined(_M_ALPHA) || defined(_M_PPC)) && !defined(MIDL_PASS)
 #    define CALLBACK __stdcall
@@ -81,7 +81,7 @@ typedef _W64 int ptrdiff_t;
 #endif
 
 #ifndef GLAPI
-#  if defined(__CYGWIN__) || defined(__MINGW32__)
+#  if defined(__MINGW32__)
 #    define GLAPI extern
 #  else
 #    define GLAPI WINGDIAPI

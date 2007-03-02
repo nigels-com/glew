@@ -28,13 +28,7 @@
 ## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 ## THE POSSIBILITY OF SUCH DAMAGE.
 
-GLEW_DEST ?= /usr
-
 include config/version
-
-LIBDIR ?= $(GLEW_DEST)/lib
-TARDIR = ../glew-$(GLEW_VERSION)
-TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
 SHELL = /bin/sh
 SYSTEM = $(shell config/config.guess | cut -d - -f 3 | sed -e 's/[0-9\.]//g;')
@@ -46,9 +40,11 @@ else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 
-ifeq (undefined, $(origin SHARED_OBJ_EXT))
-SHARED_OBJ_EXT = o
-endif
+GLEW_DEST ?= /usr
+LIBDIR ?= $(GLEW_DEST)/lib
+SHARED_OBJ_EXT ?= o
+TARDIR = ../glew-$(GLEW_VERSION)
+TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
 AR = ar
 INSTALL = install
