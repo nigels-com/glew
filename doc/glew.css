@@ -55,6 +55,13 @@ tt
 }
 /* color: maroon; */
 
+td.num
+{
+  color: lightgrey;
+  font: 10pt "Verdana", "Arial", "Helvetica", sans-serif;
+  text-align: right;
+}
+
 blockquote
 {
   color: rgb(0,120,0);

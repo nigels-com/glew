@@ -22,7 +22,8 @@ my $cur_group = "";
 if (@ARGV)
 {
     @extlist = @ARGV;
-
+	my $n = 1;
+	print "<table border=\"0\" width=\"100%\" cellpadding=\"1\" cellspacing=\"0\" align=\"center\">\n";
 	foreach my $ext (sort @extlist)
 	{
 		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
@@ -33,17 +34,22 @@ if (@ARGV)
 		{
 			if ($group ne "")
 			{
-				print "<br>\n";
+				print "<tr><td><br></td><td></td><td></td></tr>\n";
 			}
 			$group = $cur_group;
 		}
-		if ($exturl)
+
 		{
-			print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$exturl\">$extname</a><br>\n";
-		}
-		else
-		{
-			print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$extname<br>\n";
+			if ($exturl)
+			{
+				print "<tr><td class=\"num\">$n</td><td>&nbsp;</td><td><a href=\"$exturl\">$extname</a></td></tr>\n";
+			}
+			else
+			{
+				print "<tr><td class=\"num\">$n</td><td>&nbsp;</td><td>$extname</td></tr>\n";
+			}
+			$n++;
 		}
 	}
+	print "</table>\n"
 }
