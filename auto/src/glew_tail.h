@@ -21,11 +21,10 @@ GLEWAPI GLboolean glewContextIsSupported (GLEWContext* ctx, const char* name);
 #define glewIsSupported(x) glewContextIsSupported(glewGetContext(), x)
 #define glewIsExtensionSupported(x) glewIsSupported(x)
 
+#define GLEW_GET_VAR(x) (*(const GLboolean*)&(glewGetContext()->x))
 #ifdef _WIN32
-#  define GLEW_GET_VAR(x) glewGetContext()->x
 #  define GLEW_GET_FUN(x) glewGetContext()->x
 #else
-#  define GLEW_GET_VAR(x) glewGetContext()->x
 #  define GLEW_GET_FUN(x) x
 #endif
 
@@ -35,7 +34,7 @@ GLEWAPI GLenum glewInit ();
 GLEWAPI GLboolean glewIsSupported (const char* name);
 #define glewIsExtensionSupported(x) glewIsSupported(x)
 
-#define GLEW_GET_VAR(x) x
+#define GLEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define GLEW_GET_FUN(x) x
 
 #endif /* GLEW_MX */

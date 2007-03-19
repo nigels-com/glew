@@ -102,10 +102,14 @@ void* dlGetProcAddress (const GLubyte* name)
 #endif
 
 /*
+ * Define GLboolean const cast.
+ */
+#define CONST_CAST(x) (*(GLboolean*)&x)
+
+/*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
  * These functions implement the functionality required in this file.
  */
-
 static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
