@@ -170,6 +170,12 @@ EOT
 	void glMultTransposeMatrixdARB (GLdouble m[16])
 EOT
 
+# add missing tokens to GL_EXT_framebuffer_multisample
+	cat >> $1/GL_EXT_framebuffer_multisample <<EOT
+	GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT 0x8D56
+	GL_MAX_SAMPLES_EXT 0x8D57
+EOT
+
 # fix const correctness in GL_ARB_shader_objects
 #    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 

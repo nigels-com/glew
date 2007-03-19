@@ -1,4 +1,4 @@
-GL_SGIX_hyperpipe
+GLX_SGIX_hyperpipe
 http://oss.sgi.com/projects/ogl-sample/registry/SGIX/hyperpipe_group.txt
 	GLX_HYPERPIPE_ID_SGIX 0x8030
 	GLX_HYPERPIPE_PIPE_NAME_LENGTH_SGIX 80
