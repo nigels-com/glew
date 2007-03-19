@@ -9,12 +9,12 @@ GLEWAPI GLboolean wglewContextIsSupported (WGLEWContext* ctx, const char* name);
 #define wglewInit() wglewContextInit(wglewGetContext())
 #define wglewIsSupported(x) wglewContextIsSupported(wglewGetContext(), x)
 
-#define WGLEW_GET_VAR(x) wglewGetContext()->x
+#define WGLEW_GET_VAR(x) (*(const GLboolean*)&(wglewGetContext()->x))
 #define WGLEW_GET_FUN(x) wglewGetContext()->x
 
 #else /* GLEW_MX */
 
-#define WGLEW_GET_VAR(x) x
+#define WGLEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define WGLEW_GET_FUN(x) x
 
 GLEWAPI GLboolean wglewIsSupported (const char* name);

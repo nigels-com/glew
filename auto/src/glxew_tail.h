@@ -9,12 +9,12 @@ extern GLboolean glxewContextIsSupported (GLXEWContext* ctx, const char* name);
 #define glxewInit() glxewContextInit(glxewGetContext())
 #define glxewIsSupported(x) glxewContextIsSupported(glxewGetContext(), x)
 
-#define GLXEW_GET_VAR(x) glxewGetContext()->x
+#define GLXEW_GET_VAR(x) (*(const GLboolean*)&(glxewGetContext()->x))
 #define GLXEW_GET_FUN(x) x
 
 #else /* GLEW_MX */
 
-#define GLXEW_GET_VAR(x) x
+#define GLXEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define GLXEW_GET_FUN(x) x
 
 extern GLboolean glxewIsSupported (const char* name);
