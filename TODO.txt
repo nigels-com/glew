@@ -1,18 +1,12 @@
 Major:
  - add support for windows mini-client drivers
- - add support for initialization on first use
-    - This is probably a simple change: just define that the programmer
-      *has* to call either of glewGetExtension or glewInit as the first
-      GLEW function he uses.  If it's glewExtension, then that function
-      performs the initialization.
  - add windows installer (msi)
- - add ati/nvidia custom profile
  - separate build of static and shared object files (for mingw and
  cygwin)
- - make auto scripts work with text mode cygwin mounts
  - start designing GLEW 2.0
 
 Minor:
+ - make auto scripts work with text mode cygwin mounts
  - add support for all SUN, MTX, and OML extensions
  - make auto/Makefile more robust against auto/core/*~ mistakes
  - web poll on separating glew, glxew and wglew
