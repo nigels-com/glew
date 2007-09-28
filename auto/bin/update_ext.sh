@@ -56,14 +56,25 @@ if [ ! -d $1 ] ; then
 	GL_NUM_INPUT_INTERPOLATOR_COMPONENTS_ATI 0x8973
 	GL_NUM_LOOPBACK_COMPONENTS_ATI 0x8974
 	GL_COLOR_ALPHA_PAIRING_ATI 0x8975
-    GL_SWIZZLE_STRQ_ATI 0x897A
-    GL_SWIZZLE_STRQ_DQ_ATI 0x897B
+	GL_SWIZZLE_STRQ_ATI 0x897A
+	GL_SWIZZLE_STRQ_DQ_ATI 0x897B
 EOT
 
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
 	GL_RGBA_FLOAT_MODE_ATI 0x8820
 	GL_COLOR_CLEAR_UNCLAMPED_VALUE_ATI 0x8835
+EOT
+
+# fix WGL_ARB_make_current_read
+    cat >> $1/WGL_ARB_make_current_read <<EOT
+	ERROR_INVALID_PIXEL_TYPE_ARB 0x2043
+	ERROR_INCOMPATIBLE_DEVICE_CONTEXTS_ARB 0x2054
+EOT
+
+# fix WGL_EXT_make_current_read
+    cat >> $1/WGL_EXT_make_current_read <<EOT
+	ERROR_INVALID_PIXEL_TYPE_EXT 0x2043
 EOT
 
 # add typedefs to GL_ARB_vertex_buffer_object; (from personal communication

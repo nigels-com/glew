@@ -50,14 +50,13 @@ TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
 AR = ar
 INSTALL = install
+STRIP = strip
 RM = rm -f
 LN = ln -sf
 ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
-STRIP =
 else
 OPT = $(POPT)
-STRIP = -s
 endif
 INCLUDE = -Iinclude
 CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
@@ -114,14 +113,11 @@ install: all
 	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
+	$(STRIP) -x lib/$(LIB.SHARED)
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
 else
-  ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
-	strip -x lib/$(LIB.SHARED)
+	$(STRIP) -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
-	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
-  else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
   endif
 endif
@@ -132,14 +128,9 @@ endif
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
-  ifeq ($(patsubst darwin%,darwin,$(SYSTEM)), darwin)
 	strip -x lib/$(LIB.STATIC)
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
-  else
-	$(INSTALL) $(STRIP) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
-	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
-  endif
 endif
 # utilities
 	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/

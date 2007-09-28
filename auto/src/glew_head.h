@@ -165,14 +165,9 @@ typedef float GLclampf;
 typedef double GLdouble;
 typedef double GLclampd;
 typedef void GLvoid;
-#if defined(_MSC_VER) && _MSC_VER < 1310
-#  ifdef _WIN64
+#if defined(_MSC_VER) && _MSC_VER < 1400
 typedef __int64 GLint64EXT;
 typedef unsigned __int64 GLuint64EXT;
-#  else
-typedef _W64 int GLint64EXT;
-typedef _W64 unsigned int GLuint64EXT;
-#  endif
 #else
 typedef signed long long GLint64EXT;
 typedef unsigned long long GLuint64EXT;
