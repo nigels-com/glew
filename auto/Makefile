@@ -105,7 +105,8 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
 	test -d $(I.DEST) || mkdir -p $(I.DEST)
 	cp -f $(SRC)/glew_license.h $@
-	cat $(SRC)/sgi_license.h >> $@
+	cat $(SRC)/mesa_license.h >> $@
+	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/glew_head.h >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_EXT_SPEC) >> $@
@@ -125,6 +126,7 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 	@echo "Creating wglew.h"
 	@echo "--------------------------------------------------------------------"
 	cp -f $(SRC)/glew_license.h $@
+	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/wglew_head.h >> $@
 	$(BIN)/make_header.pl WINAPI WGL $(WGL_EXT_SPEC) >> $@
 	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define WGLEW_EXPORT\n#else\n#define WGLEW_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
@@ -138,7 +140,8 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	@echo "Creating glxew.h"
 	@echo "--------------------------------------------------------------------"
 	cp -f $(SRC)/glew_license.h $@
-	cat $(SRC)/glx_license.h >> $@
+	cat $(SRC)/mesa_license.h >> $@
+	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/glxew_head.h >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_EXT_SPEC) >> $@
