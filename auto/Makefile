@@ -11,7 +11,8 @@ include ../config/version
 
 SHELL = bash
 REGISTRY = registry
-REGISTRY_URL = http://oss.sgi.com/projects/ogl-sample/registry/
+REGISTRY_URL = http://www.opengl.org/registry/
+#http://oss.sgi.com/projects/ogl-sample/registry/
 BIN = bin
 SRC = src
 CORE = core

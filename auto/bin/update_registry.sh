@@ -18,7 +18,7 @@ wget                                                    \
     --mirror                                            \
     --no-parent                                         \
     --no-host-directories                               \
-    --cut-dirs=3                                        \
+    --cut-dirs=2                                        \
     --accept=txt,html                                   \
     $2
 
