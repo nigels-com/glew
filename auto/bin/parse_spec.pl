@@ -266,7 +266,8 @@ my @speclist = ();
 my %extensions = ();
 
 my $ext_dir = shift;
-my $reg_http = "http://oss.sgi.com/projects/ogl-sample/";
+my $reg_http = "http://www.opengl.org/registry/specs/";
+#my $reg_http = "http://oss.sgi.com/projects/ogl-sample/";
 
 # Take command line arguments or read list from file
 if (@ARGV)
@@ -286,7 +287,9 @@ foreach my $spec (sort @speclist)
         my $info = "$ext_dir/" . $ext;
         open EXT, ">$info";
         print EXT $ext . "\n";
-        print EXT $reg_http . $spec . "\n";
+		my $specname = $spec;
+		$specname =~ s/registry\///;
+        print EXT $reg_http . $specname . "\n";
 
         my $prefix = $ext;
         $prefix =~ s/^(.+?)(_.+)$/$1/;
