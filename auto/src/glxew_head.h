@@ -69,7 +69,7 @@ extern void glXDestroyGLXPixmap (Display *dpy, GLXPixmap pix);
 extern GLXContext glXCreateContext (Display *dpy, XVisualInfo *vis, GLXContext shareList, Bool direct);
 extern void glXDestroyContext (Display *dpy, GLXContext ctx);
 extern Bool glXIsDirect (Display *dpy, GLXContext ctx);
-extern void glXCopyContext (Display *dpy, GLXContext src, GLXContext dst, GLuint mask);
+extern void glXCopyContext (Display *dpy, GLXContext src, GLXContext dst, GLulong mask);
 extern Bool glXMakeCurrent (Display *dpy, GLXDrawable drawable, GLXContext ctx);
 extern GLXContext glXGetCurrentContext (void);
 extern GLXDrawable glXGetCurrentDrawable (void);
