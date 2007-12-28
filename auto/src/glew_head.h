@@ -160,6 +160,7 @@ typedef signed char GLbyte;
 typedef short GLshort;
 typedef unsigned char GLubyte;
 typedef unsigned short GLushort;
+typedef unsigned long GLulong;
 typedef float GLfloat;
 typedef float GLclampf;
 typedef double GLdouble;
