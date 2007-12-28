@@ -47,6 +47,8 @@ my %typemap = (
 
     # ARB VBO introduces these.
 
+    sizeiptr => "GLsizeiptr",
+    intptr   => "GLintptr",
     sizeiptrARB => "GLsizeiptrARB",
     intptrARB   => "GLintptrARB",
 
