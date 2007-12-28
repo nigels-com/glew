@@ -19,7 +19,10 @@ const GLubyte* glewGetString (GLenum name)
   static const GLubyte* _glewString[] =
   {
     (const GLubyte*)NULL,
-    (const GLubyte*)"GLEW_VERSION_STRING"
+    (const GLubyte*)"GLEW_VERSION_STRING",
+    (const GLubyte*)"GLEW_VERSION_MAJOR_STRING",
+    (const GLubyte*)"GLEW_VERSION_MINOR_STRING",
+    (const GLubyte*)"GLEW_VERSION_MICRO_STRING"
   };
   const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
   return _glewString[(int)name > max_string ? 0 : (int)name];

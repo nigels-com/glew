@@ -9,6 +9,9 @@
 
 /* string codes */
 #define GLEW_VERSION 1
+#define GLEW_VERSION_MAJOR 2
+#define GLEW_VERSION_MINOR 3
+#define GLEW_VERSION_MICRO 4
 
 /* API */
 #ifdef GLEW_MX
