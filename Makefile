@@ -119,7 +119,6 @@ else
 	$(STRIP) -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
-  endif
 endif
 # development files
 	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
