@@ -299,7 +299,7 @@ foreach my $spec (sort @speclist)
         {
             if ($token =~ /^$prefix\_.*/i)
             {
-                print EXT "\t" . $token . " " . ${%{$tokens}}{$token} . "\n";
+                print EXT "\t" . $token . " " . ${\%{$tokens}}{$token} . "\n";
             }
         }
         foreach my $function (sort keys %{$functions})
