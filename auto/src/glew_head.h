@@ -118,6 +118,7 @@ typedef _W64 int ptrdiff_t;
  */
 
 #include <stddef.h>
+#include <stdint.h>
 
 #define GLEW_APIENTRY_DEFINED
 #define APIENTRY
@@ -166,16 +167,20 @@ typedef float GLclampf;
 typedef double GLdouble;
 typedef double GLclampd;
 typedef void GLvoid;
-#if defined(_MSC_VER) && _MSC_VER < 1400
+#if defined(_MSC_VER)
+#  if _MSC_VER < 1400
 typedef __int64 GLint64EXT;
 typedef unsigned __int64 GLuint64EXT;
-#elif defined(__MINGW32__)
-#include <inttypes.h>
-typedef int64_t GLint64EXT;
-typedef uint64_t GLuint64EXT;
-#else
+#  else
 typedef signed long long GLint64EXT;
 typedef unsigned long long GLuint64EXT;
+#  endif
+#else
+#  if defined(__MINGW32__)
+#include <inttypes.h>
+#  endif
+typedef int64_t GLint64EXT;
+typedef uint64_t GLuint64EXT;
 #endif
 
 #define GL_ACCUM 0x0100

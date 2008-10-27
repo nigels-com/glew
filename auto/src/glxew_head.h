@@ -60,6 +60,8 @@ typedef struct __glXContextRec *GLXContext;
 typedef struct __GLXcontextRec *GLXContext;
 #endif
 
+typedef unsigned int GLXVideoDeviceNV; 
+
 extern Bool glXQueryExtension (Display *dpy, int *errorBase, int *eventBase);
 extern Bool glXQueryVersion (Display *dpy, int *major, int *minor);
 extern int glXGetConfig (Display *dpy, XVisualInfo *vis, int attrib, int *value);

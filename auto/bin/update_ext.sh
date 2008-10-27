@@ -34,6 +34,28 @@ if [ ! -d $1 ] ; then
     grep -v -F -f $1/GLX_EXT_visual_info $1/GLX_EXT_visual_rating > tmp
     mv tmp $1/GLX_EXT_visual_rating
 
+# GL_EXT_draw_buffers2 and GL_EXT_transform_feedback both define glGetBooleanIndexedvEXT but with different parameter names
+    grep -v glGetBooleanIndexedvEXT $1/GL_EXT_transform_feedback > tmp
+    mv tmp $1/GL_EXT_transform_feedback    
+
+# GL_EXT_draw_buffers2 and GL_EXT_transform_feedback both define glGetIntegerIndexedvEXT but with different parameter names
+    grep -v glGetIntegerIndexedvEXT $1/GL_EXT_transform_feedback > tmp
+    mv tmp $1/GL_EXT_transform_feedback    
+
+# remove duplicates from GL_NV_present_video and GLX_NV_present_video
+    grep -v -F -f $1/GLX_NV_present_video $1/GL_NV_present_video > tmp
+    mv tmp $1/GL_NV_present_video
+
+# fix WGL_NV_present_video
+    cat >> $1/WGL_NV_present_video <<EOT
+    DECLARE_HANDLE(HVIDEOOUTPUTDEVICENV);
+EOT
+
+# fix WGL_NV_video_output
+    cat >> $1/WGL_NV_video_output <<EOT
+    DECLARE_HANDLE(HPVIDEODEV);
+EOT
+
 # fix GL_NV_occlusion_query and GL_HP_occlusion_test
     grep -v '_HP' $1/GL_NV_occlusion_query > tmp
     mv tmp $1/GL_NV_occlusion_query
@@ -60,6 +82,13 @@ if [ ! -d $1 ] ; then
 	GL_SWIZZLE_STRQ_DQ_ATI 0x897B
 EOT
 
+# add deprecated constants to GL_NV_texture_shader
+    cat >> $1/GL_NV_texture_shader <<EOT
+	GL_OFFSET_TEXTURE_2D_MATRIX_NV 0x86E1
+	GL_OFFSET_TEXTURE_2D_BIAS_NV 0x86E3
+	GL_OFFSET_TEXTURE_2D_SCALE_NV 0x86E2
+EOT
+	
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
 	GL_RGBA_FLOAT_MODE_ATI 0x8820
@@ -155,6 +184,18 @@ EOT
     mv tmp $1/GL_ARB_fragment_shader
     grep -v -F -f $1/GL_ARB_fragment_program $1/GL_ARB_vertex_shader > tmp
     mv tmp $1/GL_ARB_vertex_shader
+
+# remove duplicates in GL_EXT_direct_state_access
+    grep -v "glGetBooleanIndexedvEXT" $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+    grep -v "glGetIntegerIndexedvEXT" $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+    grep -v "glDisableIndexedEXT" $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+    grep -v "glEnableIndexedEXT" $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+    grep -v "glIsEnabledIndexedEXT" $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
 
 # fix bugs in GL_ARB_vertex_shader
     grep -v "GL_FLOAT" $1/GL_ARB_vertex_shader > tmp

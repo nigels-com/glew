@@ -12,7 +12,3 @@ SGIX/video_source.txt
 SGIX/hyperpipe_group.txt
 OES/fixed_point.txt
 OES/query_matrix.txt
-NV/present_video.txt
-NV/wgl_video_out.txt
-EXT/draw_buffers2.txt
-EXT/transform_feedback.txt
