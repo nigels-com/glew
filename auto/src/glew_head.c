@@ -123,7 +123,7 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   GLuint i=0;
   if (s == NULL) return 0;
   while (s[i] != '\0' && s[i] != c) i++;
-  return s[i] == c ? i : 0;
+  return (s[i] == '\0' || s[i] == c) ? i : 0;
 }
 
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
