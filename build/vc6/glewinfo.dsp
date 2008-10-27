@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /D "_CRT_SECURE_NO_WARNINGS" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -68,7 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_STATIC" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_STATIC" /D "_CRT_SECURE_NO_WARNINGS" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -94,7 +94,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_STATIC" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRA_LEAN" /D "GLEW_MX" /D "GLEW_STATIC" /D "_CRT_SECURE_NO_WARNINGS" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
@@ -121,7 +121,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "WIN32_MEAN_AND_LEAN" /D "VC_EXTRALEAN" /D "GLEW_MX" /D "GLEW_STATIC" /D "_CRT_SECURE_NO_WARNINGS" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "GLEW_MX"
 BSC32=bscmake.exe
