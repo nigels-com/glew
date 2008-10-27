@@ -109,7 +109,7 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	void glGetShaderiv (GLuint shader, GLenum pname, GLint* param)
 	void glGetShaderInfoLog (GLuint shader, GLsizei bufSize, GLsizei* length, GLchar* infoLog)
 	void glShaderSource (GLuint shader, GLsizei count, const GLchar** strings, const GLint* lengths)
-	GLint glGetUniformLocation (GLint programObj, const GLchar* name)
+	GLint glGetUniformLocation (GLuint program, const GLchar* name)
 	void glGetUniformfv (GLuint program, GLint location, GLfloat* params)
 	void glGetUniformiv (GLuint program, GLint location, GLint* params)
 	void glGetVertexAttribdv (GLuint, GLenum, GLdouble*)

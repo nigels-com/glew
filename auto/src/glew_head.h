@@ -64,7 +64,7 @@ typedef unsigned short wchar_t;
 #endif
 /* <stddef.h> */
 #if !defined(_W64)
-#  if !defined(__midl) && (defined(_X86_) || defined(_M_IX86)) && _MSC_VER >= 1300
+#  if !defined(__midl) && (defined(_X86_) || defined(_M_IX86)) && defined(_MSC_VER) && _MSC_VER >= 1300
 #    define _W64 __w64
 #  else
 #    define _W64
@@ -169,6 +169,10 @@ typedef void GLvoid;
 #if defined(_MSC_VER) && _MSC_VER < 1400
 typedef __int64 GLint64EXT;
 typedef unsigned __int64 GLuint64EXT;
+#elif defined(__MINGW32__)
+#include <inttypes.h>
+typedef int64_t GLint64EXT;
+typedef uint64_t GLuint64EXT;
 #else
 typedef signed long long GLint64EXT;
 typedef unsigned long long GLuint64EXT;
