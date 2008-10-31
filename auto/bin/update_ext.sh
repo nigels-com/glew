@@ -197,6 +197,12 @@ EOT
     grep -v "glIsEnabledIndexedEXT" $1/GL_EXT_direct_state_access > tmp
     mv tmp $1/GL_EXT_direct_state_access
 
+# remove duplicates in GL_NV_explicit_multisample
+    grep -v "glGetBooleanIndexedvEXT" $1/GL_NV_explicit_multisample > tmp
+    mv tmp $1/GL_NV_explicit_multisample
+    grep -v "glGetIntegerIndexedvEXT" $1/GL_NV_explicit_multisample > tmp
+    mv tmp $1/GL_NV_explicit_multisample
+
 # fix bugs in GL_ARB_vertex_shader
     grep -v "GL_FLOAT" $1/GL_ARB_vertex_shader > tmp
     mv tmp $1/GL_ARB_vertex_shader
