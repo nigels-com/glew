@@ -46,7 +46,7 @@ GLEW: The OpenGL Extension Wrangler Library
 <tr>
 <td valign="top">
 <table border="0" width="100%" cellpadding="0" cellspacing="0" align="left">
-<tr><td align="center"><i>Latest Release: <a href="https://sourceforge.net/project/showfiles.php?group_id=67586&amp;package_id=67942&amp;release_id=564464">1.5.0</a></i></td></tr>
+<tr><td align="center"><i>Latest Release: <a href="https://sourceforge.net/project/showfiles.php?group_id=67586&amp;package_id=67942&amp;release_id=637800">1.5.1</a></i></td></tr>
 <tr><td align="center"><br></td></tr>
 <tr><td align="center"><img src="./glew.png" alt="GLEW Logo" width="97" height="75"></td></tr>
 <tr><td align="center"><br></td></tr>
@@ -93,6 +93,60 @@ width="88" height="32" border="0" alt="Support This Project"></a></td></tr>
 <h1 align="center">The OpenGL Extension Wrangler Library</h1>
 
 <h2>Change Log</h2>
+<hr align="center">
+<ul class="none">
+<li><b>1.5.1</b> [11-03-08]
+<ul>
+<li> New features:
+<ul>
+<li> Support for OpenGL 3.0
+</ul>
+<li> New extensions:
+<ul>
+<li> GL_ARB_depth_buffer_float
+<li> GL_ARB_draw_instance,
+<li> GL_ARB_framebuffer_object
+<li> GL_ARB_framebuffer_sRGB
+<li> GL_ARB_geometry_shader4
+<li> GL_ARB_half_float_pixel
+<li> GL_ARB_half_float_vertex
+<li> GL_ARB_instanced_arrays
+<li> GL_ARB_map_buffer_range
+<li> GL_ARB_texture_buffer_object
+<li> GL_ARB_texture_compression_rgtc
+<li> GL_ARB_vertex_array_object
+<li> GL_EXT_direct_state_access
+<li> GL_EXT_texture_swizzle
+<li> GL_EXT_transform_feedback
+<li> GL_EXT_vertex_array_bgra
+<li> GL_NV_conditional_render
+<li> GL_NV_explicit_multisample
+<li> GL_NV_present_video
+<li> GL_SGIS_point_line_texgen
+<li> GL_SGIX_convolution_accuracy
+<li> WGL_ARB_create_context
+<li> WGL_ARB_framebuffer_sRGB
+<li> WGL_NV_present_video
+<li> WGL_NV_swap_group
+<li> WGL_NV_video_output
+<li> GLX_ARB_create_context
+<li> GLX_ARB_framebuffer_sRGB
+<li> GLX_NV_present_video
+<li> GLX_NV_swap_group
+<li> GLX_NV_video_output
+</ul>
+<li> Bug fixes:
+<ul>
+<li> Licensing issues with documentation
+<li> Problems with long long and _MSC_VER on MINGW 
+<li> Incorrect parameter for glGetUniformLocation
+<li> glewGetExtension fails on last entry 
+<li> Incomplete GL_NV_texture_shader tokens
+<li> Scripting problems on Cygwin
+<li> Incorrect definition for GLint on OS X
+</ul> 
+</ul>
+</ul>
 <hr align="center">
 <ul class="none">
 <li><b>1.5.0</b> [12-27-07]
