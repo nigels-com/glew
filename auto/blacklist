@@ -10,5 +10,5 @@ SGIX/dmbuffer.txt
 SGIX/instruments.txt
 SGIX/video_source.txt
 SGIX/hyperpipe_group.txt
-OES/fixed_point.txt
-OES/query_matrix.txt
+OES/OES_fixed_point.txt
+OES/OES_query_matrix.txt
