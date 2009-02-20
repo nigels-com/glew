@@ -6,7 +6,7 @@ CFLAGS.EXTRA = -DGLEW_MX
 endif
 PICFLAG = -fPIC
 LDFLAGS.SO = -shared -Wl,-soname=$(LIB.SONAME)
-M_ARCH ?= $(shell arch)
+M_ARCH ?= $(shell uname -m)
 ifeq (x86_64,${M_ARCH})
 LDFLAGS.EXTRA = -L/usr/X11R6/lib64
 LIBDIR = $(GLEW_DEST)/lib64
