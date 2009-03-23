@@ -199,7 +199,7 @@ GLboolean glewCreateContext ()
   aglDestroyPixelFormat(pf);
   /*aglSetDrawable(ctx, GetWindowPort(wnd));*/
   octx = aglGetCurrentContext();
-  if (NULL == aglSetCurrentContext(ctx)) return GL_TRUE;
+  if (GL_FALSE == aglSetCurrentContext(ctx)) return GL_TRUE;
   return GL_FALSE;
 }
 
