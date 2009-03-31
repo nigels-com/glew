@@ -31,80 +31,36 @@ static
 GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 {
   const GLubyte* s;
-  GLuint dot, major, minor;
+  GLuint dot;
+  GLint major, minor;
   /* query opengl version */
   s = glGetString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
-  major = dot-1;
-  minor = dot+1;
-  if (dot == 0 || s[minor] == '\0')
+  if (dot == 0)
     return GLEW_ERROR_NO_GL_VERSION;
-  if (s[major] == '1' && s[minor] == '0')
+  
+  major = s[dot-1]-'0';
+  minor = s[dot+1]-'0';
+
+  if (minor < 0 || minor > 9)
+    minor = 0;
+  if (major<0 || major>9)
+    return GLEW_ERROR_NO_GL_VERSION;
+  
+
+  if (major == 1 && minor == 0)
   {
-	return GLEW_ERROR_GL_VERSION_10_ONLY;
+    return GLEW_ERROR_GL_VERSION_10_ONLY;
   }
   else
   {
-    CONST_CAST(GLEW_VERSION_1_1) = GL_TRUE;
-	if (s[major] >= '2')
-	{
-      CONST_CAST(GLEW_VERSION_1_2) = GL_TRUE;
-      CONST_CAST(GLEW_VERSION_1_3) = GL_TRUE;
-      CONST_CAST(GLEW_VERSION_1_4) = GL_TRUE;
-	  CONST_CAST(GLEW_VERSION_1_5) = GL_TRUE;
-	  CONST_CAST(GLEW_VERSION_2_0) = GL_TRUE;
-	  if (s[minor] >= '1')
-	  {
-	    CONST_CAST(GLEW_VERSION_2_1) = GL_TRUE;
-      }
-	}
-	else
-	{
-	  if (s[minor] >= '5')
-	  {
-		CONST_CAST(GLEW_VERSION_1_2) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_3) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_4) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_5) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_2_0) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_1) = GL_FALSE;
-	  }
-	  if (s[minor] == '4')
-	  {
-		CONST_CAST(GLEW_VERSION_1_2) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_3) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_4) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_5) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_0) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_1) = GL_FALSE;
-	  }
-	  if (s[minor] == '3')
-	  {
-		CONST_CAST(GLEW_VERSION_1_2) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_3) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_4) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_5) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_0) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_1) = GL_FALSE;
-	  }
-	  if (s[minor] == '2')
-	  {
-		CONST_CAST(GLEW_VERSION_1_2) = GL_TRUE;
-		CONST_CAST(GLEW_VERSION_1_3) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_4) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_5) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_0) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_1) = GL_FALSE;
-	  }
-	  if (s[minor] < '2')
-	  {
-		CONST_CAST(GLEW_VERSION_1_2) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_3) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_4) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_1_5) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_0) = GL_FALSE;
-		CONST_CAST(GLEW_VERSION_2_1) = GL_FALSE;
-	  }
-	}
+    CONST_CAST(GLEW_VERSION_3_0) =                                ( major >= 3               ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_2_1) = GLEW_VERSION_3_0 == GL_TRUE || ( major == 2 && minor >= 1 ) ? GL_TRUE : GL_FALSE;    
+    CONST_CAST(GLEW_VERSION_2_0) = GLEW_VERSION_2_1 == GL_TRUE || ( major == 2               ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_1_5) = GLEW_VERSION_2_0 == GL_TRUE || ( major == 1 && minor >= 5 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_1_4) = GLEW_VERSION_1_5 == GL_TRUE || ( major == 1 && minor >= 4 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_1_3) = GLEW_VERSION_1_4 == GL_TRUE || ( major == 1 && minor >= 3 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_1_2) = GLEW_VERSION_1_3 == GL_TRUE || ( major == 1 && minor >= 2 ) ? GL_TRUE : GL_FALSE;
+    CONST_CAST(GLEW_VERSION_1_1) = GLEW_VERSION_1_2 == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
   }
   /* initialize extensions */
