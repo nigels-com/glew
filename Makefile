@@ -127,7 +127,7 @@ endif
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
-	strip -x lib/$(LIB.STATIC)
+	$(STRIP) -x lib/$(LIB.STATIC)
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 endif
