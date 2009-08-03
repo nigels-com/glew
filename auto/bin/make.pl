@@ -10,7 +10,7 @@ my %regex = (
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
     exturl   => qr/^http.+$/,
     function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
-    token    => qr/^([A-Z][A-Z0-9_x]*)\s+((?:0x)?[0-9A-F]+|[A-Z][A-Z0-9_]*)$/,
+    token    => qr/^([A-Z][A-Z0-9_x]*)\s+((?:0x)?[0-9A-Fa-f]+|[A-Z][A-Z0-9_]*)$/,
     type     => qr/^typedef\s+(.+)\s+([\*A-Za-z0-9_]+)$/,
     exact    => qr/.*;$/,
 );
@@ -111,6 +111,8 @@ sub parse_ext($)
 		    rtype => $return,
 		    parms => $parms,
 		};
+            } else {
+                print STDERR "'$_' matched no regex.\n";
             }
         }
     }
@@ -129,6 +131,8 @@ sub output_tokens($$)
         print "\n";
         print map { &{$fnc}($_, $tbl->{$_}) } sort { hex ${$tbl}{$a} <=> hex ${$tbl}{$b} } keys %{$tbl};
         print "\n";
+    } else {
+        print STDERR "no keys in table!";
     }
 }
 
