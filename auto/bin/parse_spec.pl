@@ -60,6 +60,12 @@ my %typemap = (
     charARB => "GLcharARB",
     handleARB => "GLhandleARB",
 
+    # OpenGL 3.2 and GL_ARB_sync
+
+    int64  => "GLint64",
+    uint64 => "GLuint64",
+    sync   => "GLsync",
+
     # GLX 1.3 defines new types which might not be available at compile time
 
     #GLXFBConfig   => "void*",
@@ -112,6 +118,8 @@ my %fnc_ignore_list = (
     "ProgramLocalParameter4fARB"    => "ARB_vertex_program",
     "ProgramLocalParameter4fvARB"   => "ARB_vertex_program",
     "ProgramStringARB"              => "ARB_vertex_program",
+    "glXCreateContextAttribsARB"    => "GLX_ARB_create_context",
+    "wglCreateContextAttribsARB"    => "WGL_ARB_create_context",
 );
 
 my %regex = (

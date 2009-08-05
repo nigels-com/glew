@@ -174,6 +174,9 @@ typedef unsigned long long GLuint64EXT;
 typedef int64_t GLint64EXT;
 typedef uint64_t GLuint64EXT;
 #endif
+typedef GLint64EXT  GLint64;
+typedef GLuint64EXT GLuint64;
+typedef struct __GLsync *GLsync;
 
 #define GL_ACCUM 0x0100
 #define GL_LOAD 0x0101
