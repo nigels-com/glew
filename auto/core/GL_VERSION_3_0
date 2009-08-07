@@ -115,7 +115,7 @@ http://www.opengl.org/registry/doc/glspec30.20080811.pdf
 	GLboolean glIsEnabledi (GLenum, GLuint)
 	void glBeginTransformFeedback (GLenum)
 	void glEndTransformFeedback (void)
-	void glTransformFeedbackVaryings (GLuint, GLsizei, const GLint*, GLenum)
+	void glTransformFeedbackVaryings (GLuint, GLsizei, const GLchar **, GLenum)
 	void glGetTransformFeedbackVarying (GLuint, GLuint, GLint*)
 	void glClampColor (GLenum, GLenum)
 	void glBeginConditionalRender (GLuint, GLenum)
