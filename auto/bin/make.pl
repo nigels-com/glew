@@ -132,7 +132,7 @@ sub output_tokens($$)
         print map { &{$fnc}($_, $tbl->{$_}) } sort { hex ${$tbl}{$a} <=> hex ${$tbl}{$b} } keys %{$tbl};
         print "\n";
     } else {
-        print STDERR "no keys in table!";
+        print STDERR "no keys in table!\n";
     }
 }
 
