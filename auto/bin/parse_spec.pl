@@ -140,6 +140,7 @@ sub normalize_prototype
     local $_ = join(" ", @_);
     s/\s+/ /g;                # multiple whitespace -> single space
     s/\<.*\>//g;              # remove <comments> from direct state access extension
+    s/\<.*$//g;               # remove incomplete <comments> from direct state access extension
     s/\s*\(\s*/ \(/;          # exactly one space before ( and none after
     s/\s*\)\s*/\)/;           # no after before or after )
     s/\s*\*([a-zA-Z])/\* $1/; # "* identifier"
