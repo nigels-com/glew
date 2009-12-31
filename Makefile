@@ -48,6 +48,9 @@ SHARED_OBJ_EXT ?= o
 TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew_$(GLEW_VERSION).tar.gz
 
+DIST_DIR   = glew-$(GLEW_VERSION)
+DIST_WIN32 = glew-$(GLEW_VERSION)-win32.zip
+
 AR = ar
 INSTALL = install
 STRIP = strip
@@ -171,7 +174,29 @@ tardist:
 	$(RM) -r $(TARDIR)/auto/registry
 	env GZIP=-9 tar -C `dirname $(TARDIR)` -cvzf $(TARBALL) `basename $(TARDIR)`
 
+dist-win32:
+	$(RM) -r $(TARDIR)
+	mkdir -p $(TARDIR)
+	mkdir -p $(TARDIR)/bin
+	mkdir -p $(TARDIR)/lib
+	cp -a include $(TARDIR)
+	cp -a doc $(TARDIR)
+	cp -a *.txt $(TARDIR)
+	cp -a lib/glew32.lib     $(TARDIR)/lib
+	cp -a lib/glew32s.lib    $(TARDIR)/lib
+	cp -a bin/glew32.dll     $(TARDIR)/bin
+	cp -a bin/glewinfo.exe   $(TARDIR)/bin
+	cp -a bin/visualinfo.exe $(TARDIR)/bin
+	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(TARDIR) -name .svn | xargs $(RM) -r
+	unix2dos $(TARDIR)/include/GL/*.h
+	unix2dos $(TARDIR)/doc/*.txt
+	unix2dos $(TARDIR)/doc/*.html
+	unix2dos $(TARDIR)/*.txt
+	rm ../$(DIST_WIN32)
+	cd .. && zip -rv9 $(DIST_WIN32) $(DIST_DIR)
+
 extensions:
 	$(MAKE) -C auto
 
-.PHONY: clean distclean tardist
+.PHONY: clean distclean tardist dist-win32
