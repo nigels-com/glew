@@ -56,6 +56,7 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../bin/glew32.dll" /ignore:4089
+# ADD LINK32 /base:0x62AA0000
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Debug"
 
@@ -83,6 +84,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../bin/glew32d.dll" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
+# ADD LINK32 /base:0x62AA0000
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Debug MX"
 
@@ -112,6 +114,7 @@ LINK32=link.exe
 # SUBTRACT BASE LINK32 /pdb:none
 # ADD LINK32 opengl32.lib /nologo /dll /incremental:no /debug /machine:I386 /out:"../../bin/glew32mxd.dll" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
+# ADD LINK32 /base:0x62AA0000
 
 !ELSEIF  "$(CFG)" == "glew_shared - Win32 Release MX"
 
@@ -139,6 +142,7 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../lib/glew32.dll" /implib:"../../lib/glew32.lib" /ignore:4089
 # ADD LINK32 opengl32.lib /nologo /dll /pdb:none /machine:I386 /out:"../../bin/glew32mx.dll" /ignore:4089
+# ADD LINK32 /base:0x62AA0000
 
 !ENDIF 
 
