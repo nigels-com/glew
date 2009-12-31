@@ -60,6 +60,12 @@ S.TARGETS = \
 endif
 
 D.TARGETS = \
+	$(D.DEST)/index.html \
+	$(D.DEST)/install.html \
+	$(D.DEST)/basic.html \
+	$(D.DEST)/advanced.html \
+	$(D.DEST)/credits.html \
+	$(D.DEST)/log.html \
 	$(D.DEST)/glew.html \
 	$(D.DEST)/wglew.html \
 	$(D.DEST)/glxew.html
@@ -79,10 +85,6 @@ $(REGISTRY)/.dummy: $(BIN)/update_registry.sh
 	@echo "Downloading registry"
 	@echo "--------------------------------------------------------------------"
 	$(BIN)/update_registry.sh $(REGISTRY) $(REGISTRY_URL)
-	head -6 $(REGISTRY)/ATI/texture_env_combine3.txt > tmp
-	tail +7 $(REGISTRY)/ATI/texture_env_combine3.txt | \
-	perl -e 's/ATI\_/GL\_ATI\_/g;' -p >> tmp
-	mv -f tmp $(REGISTRY)/ATI/texture_env_combine3.txt
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
@@ -317,32 +319,44 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	perl -e 's/"glColorSubTable"/"glBlendEquation", glBlendEquation == NULL);\n  glewInfoFunc("glColorSubTable"/g' -pi $@
 	rm -f $@.bak
 
+# Update documentation
+
+$(D.DEST)/%.html: doc/%.html
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating $(@F)"
+	@echo "--------------------------------------------------------------------"
+	cat $(SRC)/header.html $< $(SRC)/footer.html | \
+  sed 's#<a href="$(@F)">\(.*\)</a>#\1#' > $@
+
 $(D.DEST)/glew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
 	@echo "Creating glew.html"
 	@echo "--------------------------------------------------------------------"
-	cp -f $(SRC)/template.html $@
+	cp -f $(SRC)/header.html $@
 	echo -e "<h2>Supported OpenGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GL_EXT_SPEC) >> $@
-	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
+	cat $(SRC)/footer.html >> $@
+	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/wglew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
 	@echo "Creating wglew.html"
 	@echo "--------------------------------------------------------------------"
-	cp -f $(SRC)/template.html $@
+	cp -f $(SRC)/header.html $@
 	echo -e "<h2>Supported WGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(WGL_EXT_SPEC) >> $@
-	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
+	cat $(SRC)/footer.html >> $@
+	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/glxew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
 	@echo "Creating glxew.html"
 	@echo "--------------------------------------------------------------------"
-	cp -f $(SRC)/template.html $@
+	cp -f $(SRC)/header.html $@
 	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
-	echo -e "</td>\n</tr>\n</table>\n</body>" >> $@
+	cat $(SRC)/footer.html >> $@
+	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(B.DEST)/%.rc: src/%.rc $(EXT)/.dummy
 	perl -e "s/GLEW_MAJOR/$(GLEW_MAJOR)/g;s/GLEW_MINOR/$(GLEW_MINOR)/g;s/GLEW_MICRO/$(GLEW_MICRO)/g;" -p $< > $@
