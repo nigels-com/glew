@@ -46,7 +46,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 <td valign="top">
 
 <table border="0" width="100%" cellpadding="0" cellspacing="0" align="left">
-<tr><td align="center"><i>Latest Release: <a href="https://sourceforge.net/project/showfiles.php?group_id=67586&amp;package_id=67942&amp;release_id=637800">1.5.1</a></i></td></tr>
+<tr><td align="center"><i>Latest Release: <a href="https://sourceforge.net/projects/glew/files/glew/1.5.2/">1.5.2</a></i></td></tr>
 <tr><td align="center"><br></td></tr>
 <tr><td align="center"><img src="./glew.png" alt="GLEW Logo" width="97" height="75"></td></tr>
 <tr><td align="center"><br></td></tr>
@@ -58,11 +58,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 <tr><td align="center"><a href="advanced.html">Advanced Usage</a></td></tr>
 <tr><td align="center"><a href="credits.html">Credits & Copyright</a></td></tr>
 <tr><td align="center">Change Log</td></tr>
-<tr><td align="center"><br></tr>
-<tr><td align="center"><a href="glew.html">GL</a></td></tr>
-<tr><td align="center"><a href="glxew.html">GLX</a></td></tr>
-<tr><td align="center"><a href="wglew.html">WGL</a></td></tr>
-<tr><td align="center"><br></tr>
 <tr><td align="center"><a href="http://sourceforge.net/projects/glew/">Project Page</a></td></tr>
 <tr><td align="center"><a href="https://sourceforge.net/mail/?group_id=67586">Mailing Lists</a></td></tr>
 <tr><td align="center"><a href="http://sourceforge.net/tracker/?group_id=67586">Bug Tracker</a></td></tr>
@@ -75,7 +70,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 <td valign="bottom">
 <table border="0" width="100%" cellpadding="5" cellspacing="0" align="left">
-<tr><td align="center"><i>Last Update: 11-03-08</i></td></tr>
+<tr><td align="center"><i>Last Update: 12-31-09</i></td></tr>
 <tr><td align="center">
 <a href="http://www.opengl.org"> <img src="./ogl_sm.jpg" width="68"
 height="35" border="0" alt="OpenGL Logo"></a>
@@ -102,6 +97,78 @@ width="88" height="32" border="0" alt="Support This Project"></a></td></tr> -->
 
 
 <h2>Change Log</h2>
+
+<hr align="center">
+<ul class="none">
+<li><b>1.5.2</b> [12-31-09]
+<ul>
+<li> New features:
+<ul>
+<li> Support for OpenGL 3.1
+<li> Support for OpenGL 3.2
+</ul>
+<li> New extensions:
+<ul>
+<li> GL_AMD_draw_buffers_blend
+<li> GL_AMD_performance_monitor
+<li> GL_AMD_texture_texture4
+<li> GL_AMD_vertex_shader_tessellator
+<li> GL_APPLE_aux_depth_stencil
+<li> GL_APPLE_object_purgeable
+<li> GL_APPLE_rgb_422
+<li> GL_APPLE_row_bytes
+<li> GL_APPLE_vertex_program_evaluators
+<li> GL_ARB_compatibility
+<li> GL_ARB_copy_buffer
+<li> GL_ARB_depth_clamp
+<li> GL_ARB_draw_buffers_blend
+<li> GL_ARB_draw_elements_base_vertex
+<li> GL_ARB_fragment_coord_conventions
+<li> GL_ARB_provoking_vertex
+<li> GL_ARB_sample_shading
+<li> GL_ARB_seamless_cube_map
+<li> GL_ARB_shader_texture_lod
+<li> GL_ARB_sync
+<li> GL_ARB_texture_cube_map_array
+<li> GL_ARB_texture_gather
+<li> GL_ARB_texture_multisample
+<li> GL_ARB_texture_query_lod
+<li> GL_ARB_uniform_buffer_object
+<li> GL_ARB_vertex_array_bgra
+<li> GL_ATI_meminfo
+<li> GL_EXT_provoking_vertex
+<li> GL_EXT_separate_shader_objects
+<li> GL_EXT_texture_snorm
+<li> GL_NV_copy_image
+<li> GL_NV_parameter_buffer_object2
+<li> GL_NV_shader_buffer_load
+<li> GL_NV_texture_barrier
+<li> GL_NV_transform_feedback2
+<li> GL_NV_vertex_buffer_unified_memory
+<li> WGL_AMD_gpu_association
+<li> WGL_ARB_create_context_profile
+<li> WGL_NV_copy_image
+<li> GLX_ARB_create_context_profile
+<li> GLX_EXT_swap_control
+<li> GLX_NV_copy_image
+</ul>
+<li> Bug fixes:
+<ul>
+<li> DOS line endings for windows .zip archives only.
+<li> glTransformFeedbackVaryings arguments.
+<li> Resource leak in glewinfo and visualinfo tools.
+<li> WIN32_LEAN_AND_MEAN preprocessor pollution.
+<li> Fixed version detection for GLEW_VERSION_2_1 and GLEW_VERSION_3_0.
+<li> MesaGLUT glut.h GLAPIENTRY dependency.
+<li> glFramebufferTextureLayer correction.
+<li> OSX compiler warnings resolved.
+<li> Cygwin linking to opengl32 by default, rather than X11 OpenGL.
+<li> SnowLeopard (OSX 10.6) gl.h detection.
+<li> Use $(STRIP) consistently.
+</ul>
+</ul>
+</ul>
+
 <hr align="center">
 <ul class="none">
 <li><b>1.5.1</b> [11-03-08]
@@ -156,6 +223,7 @@ width="88" height="32" border="0" alt="Support This Project"></a></td></tr> -->
 </ul> 
 </ul>
 </ul>
+
 <hr align="center">
 <ul class="none">
 <li><b>1.5.0</b> [12-27-07]
