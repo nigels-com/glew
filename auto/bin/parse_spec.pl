@@ -118,8 +118,8 @@ my %fnc_ignore_list = (
     "ProgramLocalParameter4fARB"    => "ARB_vertex_program",
     "ProgramLocalParameter4fvARB"   => "ARB_vertex_program",
     "ProgramStringARB"              => "ARB_vertex_program",
-    "glXCreateContextAttribsARB"    => "GLX_ARB_create_context",
-    "wglCreateContextAttribsARB"    => "WGL_ARB_create_context",
+    "glXCreateContextAttribsARB"    => "ARB_create_context_profile",
+    "wglCreateContextAttribsARB"    => "WGL_ARB_create_context_profile",
 );
 
 my %regex = (
@@ -142,7 +142,7 @@ sub normalize_prototype
     s/\<.*\>//g;              # remove <comments> from direct state access extension
     s/\<.*$//g;               # remove incomplete <comments> from direct state access extension
     s/\s*\(\s*/ \(/;          # exactly one space before ( and none after
-    s/\s*\)\s*/\)/;           # no after before or after )
+    s/\s*\)\s*/\)/;           # no space before or after )
     s/\s*\*([a-zA-Z])/\* $1/; # "* identifier"
     s/\*wgl/\* wgl/;          # "* wgl"
     s/\*glX/\* glX/;          # "* glX"

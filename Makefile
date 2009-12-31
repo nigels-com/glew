@@ -46,10 +46,12 @@ LIBDIR ?= $(GLEW_DEST)/lib
 INCDIR ?= $(GLEW_DEST)/include/GL
 SHARED_OBJ_EXT ?= o
 TARDIR = ../glew-$(GLEW_VERSION)
-TARBALL = ../glew_$(GLEW_VERSION).tar.gz
+TARBALL = ../glew-$(GLEW_VERSION).tar.gz
 
-DIST_DIR   = glew-$(GLEW_VERSION)
-DIST_WIN32 = glew-$(GLEW_VERSION)-win32.zip
+DIST_DIR     = glew-$(GLEW_VERSION)
+DIST_WIN32   = glew-$(GLEW_VERSION)-win32.zip
+DIST_SRC_ZIP = glew-$(GLEW_VERSION).zip
+DIST_SRC_TGZ = glew-$(GLEW_VERSION).tgz
 
 AR = ar
 INSTALL = install
@@ -168,6 +170,7 @@ tardist:
 	mkdir $(TARDIR)
 	cp -a . $(TARDIR)
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(TARDIR) -name .svn | xargs $(RM) -r
 	$(MAKE) -C $(TARDIR) distclean
 	$(MAKE) -C $(TARDIR)
 	$(MAKE) -C $(TARDIR) distclean
@@ -193,10 +196,53 @@ dist-win32:
 	unix2dos $(TARDIR)/doc/*.txt
 	unix2dos $(TARDIR)/doc/*.html
 	unix2dos $(TARDIR)/*.txt
-	rm ../$(DIST_WIN32)
+	rm -f ../$(DIST_WIN32)
 	cd .. && zip -rv9 $(DIST_WIN32) $(DIST_DIR)
+
+dist-src:
+	$(RM) -r $(TARDIR)
+	mkdir -p $(TARDIR)
+	mkdir -p $(TARDIR)/bin
+	mkdir -p $(TARDIR)/lib
+	cp -a auto $(TARDIR)
+	$(RM) -Rf $(TARDIR)/auto/registry
+	cp -a build $(TARDIR)
+	cp -a config $(TARDIR)
+	cp -a src $(TARDIR)
+	cp -a doc $(TARDIR)
+	cp -a include $(TARDIR)
+	cp -a *.txt $(TARDIR)
+	cp -a Makefile $(TARDIR)
+	find $(TARDIR) -name '*.o' | xargs $(RM) -r
+	find $(TARDIR) -name '*.pic_o' | xargs $(RM) -r
+	find $(TARDIR) -name '*~' | xargs $(RM) -r
+	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(TARDIR) -name .svn | xargs $(RM) -r
+	unix2dos $(TARDIR)/config/*
+	unix2dos $(TARDIR)/auto/core/*
+	unix2dos $(TARDIR)/auto/extensions/*
+	find $(TARDIR) -name '*.h' | xargs unix2dos
+	find $(TARDIR) -name '*.c' | xargs unix2dos
+	find $(TARDIR) -name '*.txt' | xargs unix2dos
+	find $(TARDIR) -name '*.html' | xargs unix2dos
+	find $(TARDIR) -name '*.sh' | xargs unix2dos
+	find $(TARDIR) -name '*.pl' | xargs unix2dos
+	find $(TARDIR) -name 'Makefile' | xargs unix2dos
+	rm -f ../$(DIST_SRC_ZIP)
+	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
+	dos2unix $(TARDIR)/config/*
+	dos2unix $(TARDIR)/auto/core/*
+	dos2unix $(TARDIR)/auto/extensions/*
+	find $(TARDIR) -name '*.h' | xargs dos2unix
+	find $(TARDIR) -name '*.c' | xargs dos2unix
+	find $(TARDIR) -name '*.txt' | xargs dos2unix
+	find $(TARDIR) -name '*.html' | xargs dos2unix
+	find $(TARDIR) -name '*.sh' | xargs dos2unix
+	find $(TARDIR) -name '*.pl' | xargs dos2unix
+	find $(TARDIR) -name 'Makefile' | xargs dos2unix
+	cd .. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_DIR)
 
 extensions:
 	$(MAKE) -C auto
 
-.PHONY: clean distclean tardist dist-win32
+.PHONY: clean distclean tardist dist-win32 dist-src

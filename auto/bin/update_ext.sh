@@ -237,6 +237,34 @@ EOT
 # fix const correctness in GL_ARB_shader_objects
 #    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 
+# Filter out profile enumerations from GLX_ARB_create_context
+    grep -v "_PROFILE_" $1/GLX_ARB_create_context > tmp
+    mv tmp $1/GLX_ARB_create_context
+
+# Filter only profile related enumerations for GLX_ARB_create_context_profile
+    head -n2 $1/GLX_ARB_create_context_profile > tmp
+    grep "_PROFILE_" $1/GLX_ARB_create_context_profile >> tmp
+    mv tmp $1/GLX_ARB_create_context_profile
+
+# Filter out profile enumerations from WGL_ARB_create_context
+    grep -v "_PROFILE_" $1/WGL_ARB_create_context > tmp
+    mv tmp $1/WGL_ARB_create_context
+
+# Filter only profile related enumerations for WGL_ARB_create_context_profile
+    head -n2 $1/WGL_ARB_create_context_profile > tmp
+    grep "_PROFILE_" $1/WGL_ARB_create_context_profile >> tmp
+    mv tmp $1/WGL_ARB_create_context_profile
+
+# add missing function to GLX_NV_copy_image
+	cat >> $1/GLX_NV_copy_image <<EOT
+  void glXCopyImageSubDataNV (Display *dpy, GLXContext srcCtx, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLXContext dstCtx, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth)
+EOT
+
+# add missing function to WGL_NV_copy_image
+	cat >> $1/WGL_NV_copy_image <<EOT
+  BOOL wglCopyImageSubDataNV (HGLRC hSrcRC, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, HGLRC hDstRC, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth)
+EOT
+
 # clean up
     rm -f $1/*.bak
 
