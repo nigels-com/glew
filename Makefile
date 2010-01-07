@@ -80,7 +80,7 @@ VISUALINFO.BIN.SRCS = src/visualinfo.c
 VISUALINFO.BIN.OBJS = $(VISUALINFO.BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib $(LDFLAGS.DYNAMIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 
-all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN)
+all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
 
 lib:
 	mkdir lib
@@ -111,6 +111,15 @@ src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 src/glew.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
+glew.pc: glew.pc.in
+	sed \
+		-e "s|@prefix@|$(GLEW_DEST)|g" \
+		-e "s|@libdir@|$(LIBDIR)|g" \
+		-e "s|@exec_prefix@|$(BINDIR)|g" \
+		-e "s|@includedir@|$(INCDIR)|g" \
+		-e "s|@version@|$(GLEW_VERSION)|g" \
+		< $< > $@
+
 install: all
 # directories
 	$(INSTALL) -d -m 0755 $(BINDIR)
@@ -129,6 +138,7 @@ endif
 	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
 	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
 	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
+	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
@@ -158,6 +168,7 @@ clean:
 	$(RM) $(LIB.SOBJS)
 	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
 	$(RM) $(GLEWINFO.BIN.OBJS) bin/$(GLEWINFO.BIN) $(VISUALINFO.BIN.OBJS) bin/$(VISUALINFO.BIN)
+	$(RM) glew.pc
 # Compiler droppings
 	$(RM) so_locations
 
@@ -202,8 +213,6 @@ dist-win32:
 dist-src:
 	$(RM) -r $(TARDIR)
 	mkdir -p $(TARDIR)
-	mkdir -p $(TARDIR)/bin
-	mkdir -p $(TARDIR)/lib
 	cp -a auto $(TARDIR)
 	$(RM) -Rf $(TARDIR)/auto/registry
 	cp -a build $(TARDIR)
@@ -213,6 +222,7 @@ dist-src:
 	cp -a include $(TARDIR)
 	cp -a *.txt $(TARDIR)
 	cp -a Makefile $(TARDIR)
+	cp -a glew.pc.in $(TARDIR)
 	find $(TARDIR) -name '*.o' | xargs $(RM) -r
 	find $(TARDIR) -name '*.pic_o' | xargs $(RM) -r
 	find $(TARDIR) -name '*~' | xargs $(RM) -r
@@ -228,6 +238,7 @@ dist-src:
 	find $(TARDIR) -name '*.sh' | xargs unix2dos
 	find $(TARDIR) -name '*.pl' | xargs unix2dos
 	find $(TARDIR) -name 'Makefile' | xargs unix2dos
+	find $(TARDIR) -name '*.in' | xargs unix2dos
 	rm -f ../$(DIST_SRC_ZIP)
 	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
 	dos2unix $(TARDIR)/config/*
@@ -240,6 +251,7 @@ dist-src:
 	find $(TARDIR) -name '*.sh' | xargs dos2unix
 	find $(TARDIR) -name '*.pl' | xargs dos2unix
 	find $(TARDIR) -name 'Makefile' | xargs dos2unix
+	find $(TARDIR) -name '*.in' | xargs dos2unix
 	cd .. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_DIR)
 
 extensions:
