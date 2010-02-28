@@ -213,6 +213,8 @@ dist-win32:
 dist-src:
 	$(RM) -r $(TARDIR)
 	mkdir -p $(TARDIR)
+	mkdir -p $(TARDIR)/bin
+	mkdir -p $(TARDIR)/lib
 	cp -a auto $(TARDIR)
 	$(RM) -Rf $(TARDIR)/auto/registry
 	cp -a build $(TARDIR)
@@ -239,6 +241,8 @@ dist-src:
 	find $(TARDIR) -name '*.pl' | xargs unix2dos
 	find $(TARDIR) -name 'Makefile' | xargs unix2dos
 	find $(TARDIR) -name '*.in' | xargs unix2dos
+	find $(TARDIR) -name '*.pm' | xargs unix2dos
+	find $(TARDIR) -name '*.rc' | xargs unix2dos
 	rm -f ../$(DIST_SRC_ZIP)
 	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
 	dos2unix $(TARDIR)/config/*
@@ -252,6 +256,8 @@ dist-src:
 	find $(TARDIR) -name '*.pl' | xargs dos2unix
 	find $(TARDIR) -name 'Makefile' | xargs dos2unix
 	find $(TARDIR) -name '*.in' | xargs dos2unix
+	find $(TARDIR) -name '*.pm' | xargs dos2unix
+	find $(TARDIR) -name '*.rc' | xargs dos2unix
 	cd .. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_DIR)
 
 extensions:
