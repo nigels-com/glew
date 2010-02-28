@@ -31,6 +31,9 @@ http://www.opengl.org/registry/doc/glspec30.20080811.pdf
 	GL_SIGNED_NORMALIZED 0x8F9C
 	GL_PRIMITIVE_RESTART 0x8F9D
 	GL_PRIMITIVE_RESTART_INDEX 0x8F9E
+	GL_BUFFER_ACCESS_FLAGS 0x911F
+	GL_BUFFER_MAP_LENGTH 0x9120
+	GL_BUFFER_MAP_OFFSET 0x9121
 	void glDrawArraysInstanced (GLenum, GLint, GLsizei, GLsizei)
 	void glDrawElementsInstanced (GLenum, GLsizei, GLenum, const GLvoid*, GLsizei)
 	void glTexBuffer (GLenum, GLenum, GLuint)
