@@ -237,6 +237,7 @@ dist-src:
 	find $(TARDIR) -name '*.c' | xargs unix2dos
 	find $(TARDIR) -name '*.txt' | xargs unix2dos
 	find $(TARDIR) -name '*.html' | xargs unix2dos
+	find $(TARDIR) -name '*.css' | xargs unix2dos
 	find $(TARDIR) -name '*.sh' | xargs unix2dos
 	find $(TARDIR) -name '*.pl' | xargs unix2dos
 	find $(TARDIR) -name 'Makefile' | xargs unix2dos
@@ -252,6 +253,7 @@ dist-src:
 	find $(TARDIR) -name '*.c' | xargs dos2unix
 	find $(TARDIR) -name '*.txt' | xargs dos2unix
 	find $(TARDIR) -name '*.html' | xargs dos2unix
+	find $(TARDIR) -name '*.css' | xargs dos2unix
 	find $(TARDIR) -name '*.sh' | xargs dos2unix
 	find $(TARDIR) -name '*.pl' | xargs dos2unix
 	find $(TARDIR) -name 'Makefile' | xargs dos2unix
