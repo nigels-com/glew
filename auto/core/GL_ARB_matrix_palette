@@ -1,5 +1,6 @@
 GL_ARB_matrix_palette
 http://oss.sgi.com/projects/ogl-sample/registry/ARB/matrix_palette.txt
+GL_ARB_matrix_palette
 	GL_MATRIX_PALETTE_ARB 0x8840
 	GL_MAX_MATRIX_PALETTE_STACK_DEPTH_ARB 0x8841
 	GL_MAX_PALETTE_MATRICES_ARB 0x8842

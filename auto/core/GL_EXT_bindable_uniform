@@ -1,5 +1,6 @@
 GL_EXT_bindable_uniform
 http://developer.download.nvidia.com/opengl/specs/GL_EXT_bindable_uniform.txt
+GL_EXT_bindable_uniform
 	GL_MAX_VERTEX_BINDABLE_UNIFORMS_EXT 0x8DE2
 	GL_MAX_FRAGMENT_BINDABLE_UNIFORMS_EXT 0x8DE3
 	GL_MAX_GEOMETRY_BINDABLE_UNIFORMS_EXT 0x8DE4

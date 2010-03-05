@@ -1,5 +1,6 @@
 GL_APPLE_texture_range
 http://developer.apple.com/opengl/extensions/apple_texture_range.html
+GL_APPLE_texture_range
 	GL_TEXTURE_STORAGE_HINT_APPLE 0x85BC
 	GL_STORAGE_PRIVATE_APPLE 0x85BD
 	GL_STORAGE_CACHED_APPLE 0x85BE

@@ -23,7 +23,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 		my $extvar = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
 		print $export . " GLboolean " . prefix_varname($extvar) . ";\n";

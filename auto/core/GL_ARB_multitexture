@@ -1,5 +1,6 @@
 GL_ARB_multitexture
 http://oss.sgi.com/projects/ogl-sample/registry/ARB/multitexture.txt
+GL_ARB_multitexture
 	GL_TEXTURE0_ARB 0x84C0
 	GL_TEXTURE1_ARB 0x84C1
 	GL_TEXTURE2_ARB 0x84C2

@@ -125,6 +125,7 @@ my %fnc_ignore_list = (
 my %regex = (
     eofnc    => qr/(?:\);?$|^$)/, # )$ | );$ | ^$
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
+    none     => qr/^\(none\)$/,
     function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i,
     prefix   => qr/^(?:[aw]?gl|glX)/, # gl | agl | wgl | glX
     tprefix  => qr/^(?:[AW]?GL|GLX)_/, # GL_ | AGL_ | WGL_ | GLX_
@@ -181,7 +182,13 @@ sub parse_spec($)
 
         "Name Strings" => sub {
             # Add extension name to extension list
-            # Does this look even plausible?
+        
+           # Initially use $extname if (none) specified
+            if (/$regex{none}/)
+            {
+                $_ = $extname;
+            }
+
             if (/$regex{extname}/)
             {
                 # prefix with "GL_" if prefix not present
@@ -301,10 +308,11 @@ foreach my $spec (sort @speclist)
     {
         my $info = "$ext_dir/" . $ext;
         open EXT, ">$info";
-        print EXT $ext . "\n";
-		my $specname = $spec;
-		$specname =~ s/registry\///;
-        print EXT $reg_http . $specname . "\n";
+        print EXT $ext . "\n";                       # Extension name
+        my $specname = $spec;
+        $specname =~ s/registry\///;
+        print EXT $reg_http . $specname . "\n";      # Extension info URL
+        print EXT $ext . "\n";                       # Extension string
 
         my $prefix = $ext;
         $prefix =~ s/^(.+?)(_.+)$/$1/;

@@ -1,5 +1,6 @@
 GL_EXT_fog_coord
 http://oss.sgi.com/projects/ogl-sample/registry/EXT/fog_coord.txt
+GL_EXT_fog_coord
 	GL_FOG_COORDINATE_SOURCE_EXT 0x8450
 	GL_FOG_COORDINATE_EXT 0x8451
 	GL_FRAGMENT_DEPTH_EXT 0x8452

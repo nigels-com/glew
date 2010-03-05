@@ -242,7 +242,7 @@ EOT
     mv tmp $1/GLX_ARB_create_context
 
 # Filter only profile related enumerations for GLX_ARB_create_context_profile
-    head -n2 $1/GLX_ARB_create_context_profile > tmp
+    head -n3 $1/GLX_ARB_create_context_profile > tmp
     grep "_PROFILE_" $1/GLX_ARB_create_context_profile >> tmp
     mv tmp $1/GLX_ARB_create_context_profile
 
@@ -251,7 +251,7 @@ EOT
     mv tmp $1/WGL_ARB_create_context
 
 # Filter only profile related enumerations for WGL_ARB_create_context_profile
-    head -n2 $1/WGL_ARB_create_context_profile > tmp
+    head -n3 $1/WGL_ARB_create_context_profile > tmp
     grep "_PROFILE_" $1/WGL_ARB_create_context_profile >> tmp
     mv tmp $1/WGL_ARB_create_context_profile
 

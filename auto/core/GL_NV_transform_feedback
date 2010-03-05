@@ -1,5 +1,6 @@
 GL_NV_transform_feedback
 http://developer.download.nvidia.com/opengl/specs/GL_NV_transform_feedback.txt
+GL_NV_transform_feedback
 	GL_BACK_PRIMARY_COLOR_NV 0x8C77
 	GL_BACK_SECONDARY_COLOR_NV 0x8C78
 	GL_TEXTURE_COORD_NV 0x8C79

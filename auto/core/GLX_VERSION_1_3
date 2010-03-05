@@ -1,4 +1,6 @@
 GLX_VERSION_1_3
+http://www.opengl.org/documentation/specs/glx/glx1.3.pdf
+GLX_VERSION_1_3
 	GLX_WINDOW_BIT 0x00000001
 	GLX_PIXMAP_BIT 0x00000002
 	GLX_PBUFFER_BIT 0x00000004

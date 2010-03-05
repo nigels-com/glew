@@ -1,4 +1,6 @@
 GLX_ATI_render_texture
+
+GLX_ATI_render_texture
 	GLX_BIND_TO_TEXTURE_RGB_ATI         0x9800
 	GLX_BIND_TO_TEXTURE_RGBA_ATI        0x9801
 	GLX_TEXTURE_FORMAT_ATI              0x9802

@@ -1,5 +1,6 @@
 GL_EXT_gpu_shader4
 http://developer.download.nvidia.com/opengl/specs/GL_EXT_gpu_shader4.txt
+GL_EXT_gpu_shader4
 	GL_SAMPLER_1D_ARRAY_EXT 0x8DC0
 	GL_SAMPLER_2D_ARRAY_EXT 0x8DC1
 	GL_SAMPLER_BUFFER_EXT 0x8DC2

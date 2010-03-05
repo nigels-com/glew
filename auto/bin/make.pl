@@ -71,28 +71,42 @@ sub parse_ext($)
     my %tokens = ();
     my %types = ();
     my @exacts = ();
-    my $extname = "";
-    my $exturl = "";
-    
+    my $extname = "";    # Full extension name GL_FOO_extension
+    my $exturl = "";     # Info URL
+    my $extstring = "";  # Relevant extension string 
+
     open EXT, "<$filename" or return;
+
+    # As of GLEW 1.5.3 the first three lines _must_ be
+    # the extension name, the URL and the GL extension
+    # string (which might be different to the name)
+    #
+    # For example GL_NV_geometry_program4 is available
+    # iff GL_NV_gpu_program4 appears in the extension
+    # string.
+    #
+    # For core OpenGL versions, the third line should
+    # be blank.
+    #
+    # If the URL is unknown, the second line should be
+    # blank.
+   
+    $extname   = readline(*EXT);
+    $exturl    = readline(*EXT);
+    $extstring = readline(*EXT);
+
+    chomp($extname);
+    chomp($exturl);
+    chomp($extstring);
 
     while(<EXT>)
     {
         chomp;
-	if (/$regex{extname}/)
-        {
-            $extname = $_;
-            next;
-        }
-	elsif (/$regex{exturl}/)
-	{
-	    $exturl = $_;
-	}
-        elsif (s/^\s+//)
+        if (s/^\s+//)
         {
             if (/$regex{exact}/)
             {
-				push @exacts, $_;
+                push @exacts, $_;
             }
             elsif (/$regex{type}/)
             {
@@ -119,7 +133,7 @@ sub parse_ext($)
 
     close EXT;
 
-    return ($extname, $exturl, \%types, \%tokens, \%functions, \@exacts);
+    return ($extname, $exturl, $extstring, \%types, \%tokens, \%functions, \@exacts);
 }
 
 sub output_tokens($$)

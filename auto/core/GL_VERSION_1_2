@@ -1,4 +1,6 @@
 GL_VERSION_1_2
+http://www.opengl.org/documentation/specs/version1.2/opengl1.2.1.pdf
+
 	GL_UNSIGNED_BYTE_3_3_2 0x8032
 	GL_UNSIGNED_SHORT_4_4_4_4 0x8033
 	GL_UNSIGNED_SHORT_5_5_5_1 0x8034

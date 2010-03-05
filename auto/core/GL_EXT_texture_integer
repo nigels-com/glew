@@ -1,5 +1,6 @@
 GL_EXT_texture_integer
 http://developer.download.nvidia.com/opengl/specs/GL_EXT_texture_integer.txt
+GL_EXT_texture_integer
 	GL_RGBA32UI_EXT 0x8D70
 	GL_RGB32UI_EXT 0x8D71
 	GL_ALPHA32UI_EXT 0x8D72

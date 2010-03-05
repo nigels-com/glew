@@ -38,7 +38,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
 		print "#ifdef $extname\n";
 		print "  _glewInfo_$extname();\n";

@@ -1,5 +1,6 @@
 GL_EXT_vertex_shader
 http://oss.sgi.com/projects/ogl-sample/registry/EXT/vertex_shader.txt
+GL_EXT_vertex_shader
 	GL_VERTEX_SHADER_EXT 0x8780
 	GL_VERTEX_SHADER_BINDING_EXT 0x8781
 	GL_OP_INDEX_EXT 0x8782

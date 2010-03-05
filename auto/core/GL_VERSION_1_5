@@ -1,5 +1,6 @@
 GL_VERSION_1_5
 http://www.opengl.org/documentation/specs/version1.5/glspec15.pdf
+
 	GL_BUFFER_SIZE 0x8764
 	GL_BUFFER_USAGE 0x8765
 	GL_QUERY_COUNTER_BITS 0x8864

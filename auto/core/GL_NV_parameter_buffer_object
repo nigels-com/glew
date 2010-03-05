@@ -1,5 +1,6 @@
 GL_NV_parameter_buffer_object
 http://developer.download.nvidia.com/opengl/specs/GL_NV_parameter_buffer_object.txt
+GL_NV_parameter_buffer_object
 	GL_VERTEX_PROGRAM_PARAMETER_BUFFER_NV 0x8DA2
 	GL_GEOMETRY_PROGRAM_PARAMETER_BUFFER_NV 0x8DA3
 	GL_FRAGMENT_PROGRAM_PARAMETER_BUFFER_NV 0x8DA4

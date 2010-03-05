@@ -1,5 +1,6 @@
 GL_VERSION_2_1
 http://www.opengl.org/documentation/specs/version2.1/glspec21.pdf
+
 	GL_CURRENT_RASTER_SECONDARY_COLOR 0x845F
 	GL_PIXEL_PACK_BUFFER 0x88EB
 	GL_PIXEL_UNPACK_BUFFER 0x88EC

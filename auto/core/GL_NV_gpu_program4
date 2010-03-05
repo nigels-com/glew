@@ -1,5 +1,6 @@
 GL_NV_gpu_program4
 http://developer.download.nvidia.com/opengl/specs/GL_NV_gpu_program4.txt
+GL_NV_gpu_program4
 	GL_MIN_PROGRAM_TEXEL_OFFSET_NV 0x8904
 	GL_MAX_PROGRAM_TEXEL_OFFSET_NV 0x8905
 	GL_PROGRAM_ATTRIB_COMPONENTS_NV 0x8906

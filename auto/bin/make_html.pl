@@ -26,7 +26,7 @@ if (@ARGV)
 	print "<table border=\"0\" width=\"100%\" cellpadding=\"1\" cellspacing=\"0\" align=\"center\">\n";
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 		$cur_group = $extname;
 		$cur_group =~ s/^(?:W?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
 		$extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;

@@ -1,5 +1,6 @@
 WGL_NV_gpu_affinity
 http://developer.download.nvidia.com/opengl/specs/WGL_nv_gpu_affinity.txt
+WGL_NV_gpu_affinity
 	WGL_ERROR_INCOMPATIBLE_AFFINITY_MASKS_NV 0x20D0
 	WGL_ERROR_MISSING_AFFINITY_MASK_NV 0x20D1
 	BOOL wglEnumGpusNV (UINT iGpuIndex, HGPUNV *phGpu)

@@ -1,5 +1,6 @@
 GL_ATI_pn_triangles
 http://www.ati.com/developer/sdk/RADEONSDK/Html/Info/ati_pn_triangles.txt
+GL_ATI_pn_triangles
 	GL_PN_TRIANGLES_ATI 0x87F0
 	GL_MAX_PN_TRIANGLES_TESSELATION_LEVEL_ATI 0x87F1
 	GL_PN_TRIANGLES_POINT_MODE_ATI 0x87F2

@@ -30,7 +30,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 		output_decls($functions, \&make_pfn_decl);
 	}
 }

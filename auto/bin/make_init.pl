@@ -34,7 +34,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $types, $tokens, $functions, $exacts) = 
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
 			parse_ext($ext);
 
 		#make_separator($extname);

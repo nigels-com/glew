@@ -1,5 +1,6 @@
 GL_ATI_vertex_streams
 http://www.ati.com/developer/sdk/RADEONSDK/Html/Info/ATI_vertex_streams.txt
+GL_ATI_vertex_streams
 	GL_MAX_VERTEX_STREAMS_ATI 0x876B
 	GL_VERTEX_SOURCE_ATI 0x876C
 	GL_VERTEX_STREAM0_ATI 0x876D
