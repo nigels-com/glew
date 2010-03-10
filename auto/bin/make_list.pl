@@ -43,7 +43,12 @@ if (@ARGV)
 		#my $pextvar = prefix_varname($extvar);
 
 		print "#ifdef $extname\n";
-		print "  CONST_CAST(" . $extvar . ") = " . $extpre . "GetExtension(\"$extname\");\n";
+
+                if (length($extstring))
+                {
+		        print "  CONST_CAST(" . $extvar . ") = " . $extpre . "GetExtension(\"$extstring\");\n";
+                }
+
 		if (keys %$functions)
 		{
 			if ($extname =~ /WGL_.*/)
