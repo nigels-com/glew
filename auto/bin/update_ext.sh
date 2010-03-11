@@ -234,6 +234,10 @@ EOT
 	GL_MAX_SAMPLES_EXT 0x8D57
 EOT
 
+# Filter out GL_ARB_gpu_shader_fp64 enums and functions
+    head -n3 $1/GL_ARB_gpu_shader_fp64 > tmp
+    mv tmp $1/GL_ARB_gpu_shader_fp64
+
 # fix const correctness in GL_ARB_shader_objects
 #    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 
