@@ -50,7 +50,7 @@ if (@ARGV)
 		{
 			print "  glewPrintExt(\"$extname\", $extvar, $extpre" .
 				"ewIsSupported(\"$extname\"), $extpre" .
-				"ewGetExtension(\"$extname\"));\n";
+				"ewGetExtension(\"$extstring\"));\n";
 		}
 		output_decls($functions, \&make_pfn_info);
 		print "}\n\n";
