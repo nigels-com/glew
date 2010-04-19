@@ -234,12 +234,17 @@ EOT
 	GL_MAX_SAMPLES_EXT 0x8D57
 EOT
 
+# Filter out GL_NV_gpu_program_fp64 enums and functions
+    head -n3 $1/GL_NV_gpu_program_fp64 > tmp
+    mv tmp $1/GL_NV_gpu_program_fp64
+
+# Filter glGetUniformui64vNV from GL_NV_shader_buffer_load
+    grep -v "glGetUniformui64vNV" $1/GL_NV_shader_buffer_load > tmp
+    mv tmp $1/GL_NV_shader_buffer_load
+
 # Filter out GL_ARB_gpu_shader_fp64 enums and functions
     head -n3 $1/GL_ARB_gpu_shader_fp64 > tmp
     mv tmp $1/GL_ARB_gpu_shader_fp64
-
-# fix const correctness in GL_ARB_shader_objects
-#    perl -e 's/(.+glUniform.*(fv|iv).+)(GLfloat\*.+|GLint\*.+)/\1const \3/;' -pi $1/GL_ARB_shader_objects
 
 # Filter out profile enumerations from GLX_ARB_create_context
     grep -v "_PROFILE_" $1/GLX_ARB_create_context > tmp
