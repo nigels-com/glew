@@ -5,13 +5,16 @@
 #ifdef __glxext_h_
 #error glxext.h included before glxew.h
 #endif
-#ifdef GLX_H
+
+#if defined(GLX_H) || defined(__GLX_glx_h__) || defined(__glx_h__)
 #error glx.h included before glxew.h
 #endif
 
 #define __glxext_h_
-#define __GLX_glx_h__
+
 #define GLX_H
+#define __GLX_glx_h__
+#define __glx_h__
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
