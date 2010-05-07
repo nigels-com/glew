@@ -242,10 +242,6 @@ EOT
     grep -v "glGetUniformui64vNV" $1/GL_NV_shader_buffer_load > tmp
     mv tmp $1/GL_NV_shader_buffer_load
 
-# Filter out GL_ARB_gpu_shader_fp64 enums and functions
-    head -n3 $1/GL_ARB_gpu_shader_fp64 > tmp
-    mv tmp $1/GL_ARB_gpu_shader_fp64
-
 # Filter out profile enumerations from GLX_ARB_create_context
     grep -v "_PROFILE_" $1/GLX_ARB_create_context > tmp
     mv tmp $1/GLX_ARB_create_context
