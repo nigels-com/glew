@@ -85,7 +85,6 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	GL_STENCIL_BACK_REF 0x8CA3
 	GL_STENCIL_BACK_VALUE_MASK 0x8CA4
 	GL_STENCIL_BACK_WRITEMASK 0x8CA5
-	typedef char GLchar
 	void glBlendEquationSeparate (GLenum, GLenum)
 	void glDrawBuffers (GLsizei n, const GLenum* bufs)
 	void glStencilOpSeparate (GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass)

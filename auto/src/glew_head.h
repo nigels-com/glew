@@ -186,6 +186,14 @@ typedef GLint64EXT  GLint64;
 typedef GLuint64EXT GLuint64;
 typedef struct __GLsync *GLsync;
 
+typedef char GLchar;
+typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id,
+                                                GLenum category,
+                                                GLenum severity,
+                                                GLsizei length,
+                                                const GLchar* message,
+                                                GLvoid* userParam);
+
 #define GL_ACCUM 0x0100
 #define GL_LOAD 0x0101
 #define GL_RETURN 0x0102

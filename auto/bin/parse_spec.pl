@@ -66,6 +66,10 @@ my %typemap = (
     uint64 => "GLuint64",
     sync   => "GLsync",
 
+    # AMD_debug_output
+
+    DEBUGPROCAMD => "GLDEBUGPROCAMD",
+
     # GLX 1.3 defines new types which might not be available at compile time
 
     #GLXFBConfig   => "void*",
