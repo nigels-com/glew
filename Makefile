@@ -125,6 +125,7 @@ install: all
 	$(INSTALL) -d -m 0755 $(BINDIR)
 	$(INSTALL) -d -m 0755 $(INCDIR)
 	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
 # runtime
 ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
 	$(STRIP) -x lib/$(LIB.SHARED)
