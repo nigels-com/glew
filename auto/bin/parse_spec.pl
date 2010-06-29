@@ -70,6 +70,8 @@ my %typemap = (
 
     DEBUGPROCAMD => "GLDEBUGPROCAMD",
 
+    vdpauSurfaceNV => "GLvdpauSurfaceNV",
+    
     # GLX 1.3 defines new types which might not be available at compile time
 
     #GLXFBConfig   => "void*",
