@@ -70,6 +70,10 @@ my %typemap = (
 
     DEBUGPROCAMD => "GLDEBUGPROCAMD",
 
+    # ARB_debug_output
+
+    DEBUGPROCARB => "GLDEBUGPROCARB",
+
     vdpauSurfaceNV => "GLvdpauSurfaceNV",
     
     # GLX 1.3 defines new types which might not be available at compile time

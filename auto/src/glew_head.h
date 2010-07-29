@@ -188,11 +188,26 @@ typedef struct __GLsync *GLsync;
 
 typedef char GLchar;
 typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id,
-                                                GLenum category,
-                                                GLenum severity,
-                                                GLsizei length,
-                                                const GLchar* message,
-                                                GLvoid* userParam);
+                                        GLenum category,
+                                        GLenum severity,
+                                        GLsizei length,
+                                        const GLchar* message,
+                                        GLvoid* userParam);
+
+/* For ARB_debug_output */
+
+typedef void (APIENTRY *GLDEBUGPROCARB)(GLenum source,
+                                        GLenum type,
+                                        GLuint id,
+                                        GLenum severity,
+                                        GLsizei length,
+                                        const GLchar* message,
+                                        GLvoid* userParam);
+
+/* For GL_ARB_cl_event */
+
+typedef struct _cl_context *cl_context;
+typedef struct _cl_event *cl_event;
 
 #define GL_ACCUM 0x0100
 #define GL_LOAD 0x0101
