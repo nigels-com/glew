@@ -270,6 +270,14 @@ EOT
   BOOL wglCopyImageSubDataNV (HGLRC hSrcRC, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, HGLRC hDstRC, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth)
 EOT
 
+# Filter glProgramParameteri from GL_ARB_separate_shader_objects
+    grep -v "glProgramParameteri" $1/GL_ARB_separate_shader_objects > tmp
+    mv tmp $1/GL_ARB_separate_shader_objects
+
+# Filter out EXT functions from GL_ARB_viewport_array
+    grep -v "EXT" $1/GL_ARB_viewport_array > tmp
+    mv tmp $1/GL_ARB_viewport_array
+
 # clean up
     rm -f $1/*.bak
 
