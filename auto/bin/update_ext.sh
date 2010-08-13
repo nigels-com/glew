@@ -278,6 +278,15 @@ EOT
     grep -v "EXT" $1/GL_ARB_viewport_array > tmp
     mv tmp $1/GL_ARB_viewport_array
 
+# Additional enumerations for GL_NV_vertex_buffer_unified_memory
+# These are mentioned in GL_ARB_draw_indirect.txt
+
+    cat >> $1/GL_NV_vertex_buffer_unified_memory <<EOT
+	GL_DRAW_INDIRECT_UNIFIED_NV 0x8F40
+	GL_DRAW_INDIRECT_ADDRESS_NV 0x8F41
+	GL_DRAW_INDIRECT_LENGTH_NV  0x8F42
+EOT
+
 # clean up
     rm -f $1/*.bak
 
