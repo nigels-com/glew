@@ -287,6 +287,12 @@ EOT
 	GL_DRAW_INDIRECT_LENGTH_NV  0x8F42
 EOT
 
+# Filter glGetPointerv from GL_ARB_debug_output
+# It's part of OpenGL 1.1, after all
+
+    grep -v "glGetPointerv" $1/GL_ARB_debug_output > tmp
+    mv tmp $1/GL_ARB_debug_output
+
 # clean up
     rm -f $1/*.bak
 
