@@ -71,7 +71,7 @@ typedef unsigned short wchar_t;
 #    define _W64
 #  endif
 #endif
-#if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_)
+#if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_) && !defined(__MINGW64__)
 #  ifdef _WIN64
 typedef __int64 ptrdiff_t;
 #  else
