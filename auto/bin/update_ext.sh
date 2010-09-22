@@ -293,6 +293,12 @@ EOT
     grep -v "glGetPointerv" $1/GL_ARB_debug_output > tmp
     mv tmp $1/GL_ARB_debug_output
 
+# Filter glGetPointerv from GL_EXT_vertex_array
+# It's part of OpenGL 1.1, after all
+
+    grep -v "glGetPointerv" $1/GL_EXT_vertex_array > tmp
+    mv tmp $1/GL_EXT_vertex_array
+
 # clean up
     rm -f $1/*.bak
 
