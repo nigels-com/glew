@@ -90,7 +90,7 @@ lib/$(LIB.STATIC): $(LIB.OBJS)
 
 lib/$(LIB.SHARED): $(LIB.SOBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 else
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
@@ -127,7 +127,7 @@ install: all
 	$(INSTALL) -d -m 0755 $(LIBDIR)
 	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
 # runtime
-ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(STRIP) -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
 else
@@ -140,7 +140,7 @@ endif
 	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
 	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
 	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
-ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
 	$(STRIP) -x lib/$(LIB.STATIC)
@@ -155,7 +155,7 @@ uninstall:
 	$(RM) $(INCDIR)/glew.h
 	$(RM) $(INCDIR)/glxew.h
 	$(RM) $(LIBDIR)/$(LIB.DEVLNK)
-ifeq ($(patsubst mingw%,mingw,$(SYSTEM)), mingw)
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(RM) $(BINDIR)/$(LIB.SHARED)
 else
 	$(RM) $(LIBDIR)/$(LIB.SONAME)

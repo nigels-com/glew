@@ -6,7 +6,7 @@ LD = cc
 ifneq (undefined, $(origin GLEW_MX))
 CFLAGS.EXTRA = -DGLEW_MX
 endif
-LDFLAGS.SO = -shared -Wl,-soname=$(LIB.SONAME)
+LDFLAGS.SO = -shared -Wl,--out-implib,lib/$(LIB.DEVLNK)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LIBDIR = $(GLEW_DEST)/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
@@ -14,8 +14,8 @@ LDFLAGS.STATIC = -Wl,-Bstatic
 LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 WARN = -Wall -W
 POPT = -O2
-BIN.SUFFIX =
-LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
-LIB.DEVLNK = lib$(NAME).so
-LIB.SHARED = lib$(NAME).so.$(SO_VERSION)
+BIN.SUFFIX = .exe
+LIB.SONAME = cyg$(NAME)-$(SO_MAJOR).dll
+LIB.DEVLNK = lib$(NAME).dll.a
+LIB.SHARED = cyg$(NAME)-$(SO_MAJOR).dll
 LIB.STATIC = lib$(NAME).a
