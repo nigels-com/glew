@@ -14,6 +14,12 @@ if [ ! -d $1 ] ; then
 fi
 cd $1
 
+# wget used to return 0 (success), but more recent versions
+# don't so we don't want to bail out in failure mode
+# eventhough everything is fine.
+
+set +e
+
 wget                                                    \
     --mirror                                            \
     --no-parent                                         \
@@ -22,3 +28,6 @@ wget                                                    \
     --accept=txt,html                                   \
     $2
 
+echo 'wget exit code: ' $?
+
+exit 0
