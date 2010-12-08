@@ -4,7 +4,7 @@
 
 typedef struct WGLEWContextStruct WGLEWContext;
 GLEWAPI GLenum wglewContextInit (WGLEWContext* ctx);
-GLEWAPI GLboolean wglewContextIsSupported (WGLEWContext* ctx, const char* name);
+GLEWAPI GLboolean wglewContextIsSupported (const WGLEWContext* ctx, const char* name);
 
 #define wglewInit() wglewContextInit(wglewGetContext())
 #define wglewIsSupported(x) wglewContextIsSupported(wglewGetContext(), x)

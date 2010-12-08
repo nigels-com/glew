@@ -7,7 +7,7 @@
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 
 #if defined(GLEW_MX)
-GLboolean glxewContextIsSupported (GLXEWContext* ctx, const char* name)
+GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name)
 #else
 GLboolean glxewIsSupported (const char* name)
 #endif

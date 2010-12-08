@@ -1,5 +1,5 @@
 #ifdef GLEW_MX
-GLboolean glewContextIsSupported (GLEWContext* ctx, const char* name)
+GLboolean glewContextIsSupported (const GLEWContext* ctx, const char* name)
 #else
 GLboolean glewIsSupported (const char* name)
 #endif

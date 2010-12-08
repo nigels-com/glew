@@ -7,7 +7,7 @@
 #if defined(_WIN32)
 
 #if defined(GLEW_MX)
-GLboolean wglewContextIsSupported (WGLEWContext* ctx, const char* name)
+GLboolean wglewContextIsSupported (const WGLEWContext* ctx, const char* name)
 #else
 GLboolean wglewIsSupported (const char* name)
 #endif

@@ -18,7 +18,7 @@
 
 typedef struct GLEWContextStruct GLEWContext;
 GLEWAPI GLenum glewContextInit (GLEWContext* ctx);
-GLEWAPI GLboolean glewContextIsSupported (GLEWContext* ctx, const char* name);
+GLEWAPI GLboolean glewContextIsSupported (const GLEWContext* ctx, const char* name);
 
 #define glewInit() glewContextInit(glewGetContext())
 #define glewIsSupported(x) glewContextIsSupported(glewGetContext(), x)

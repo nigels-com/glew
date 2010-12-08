@@ -4,7 +4,7 @@
 
 typedef struct GLXEWContextStruct GLXEWContext;
 extern GLenum glxewContextInit (GLXEWContext* ctx);
-extern GLboolean glxewContextIsSupported (GLXEWContext* ctx, const char* name);
+extern GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name);
 
 #define glxewInit() glxewContextInit(glxewGetContext())
 #define glxewIsSupported(x) glxewContextIsSupported(glxewGetContext(), x)
