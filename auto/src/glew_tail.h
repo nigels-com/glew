@@ -4,8 +4,8 @@
 #define GLEW_OK 0
 #define GLEW_NO_ERROR 0
 #define GLEW_ERROR_NO_GL_VERSION 1  /* missing GL version */
-#define GLEW_ERROR_GL_VERSION_10_ONLY 2  /* GL 1.1 and up are not supported */
-#define GLEW_ERROR_GLX_VERSION_11_ONLY 3  /* GLX 1.2 and up are not supported */
+#define GLEW_ERROR_GL_VERSION_10_ONLY 2  /* Need at least OpenGL 1.1 */
+#define GLEW_ERROR_GLX_VERSION_11_ONLY 3  /* Need at least GLX 1.2 */
 
 /* string codes */
 #define GLEW_VERSION 1
