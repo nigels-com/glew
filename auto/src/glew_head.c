@@ -34,6 +34,29 @@
 #  define GLXEW_CONTEXT_ARG_DEF_LIST void
 #endif /* GLEW_MX */
 
+#if defined(__sgi) || defined (__sun) || defined(GLEW_APPLE_GLX)
+#include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void* dlGetProcAddress (const GLubyte* name)
+{
+  static void* h = NULL;
+  static void* gpa;
+
+  if (h == NULL)
+  {
+    if ((h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)) == NULL) return NULL;
+    gpa = dlsym(h, "glXGetProcAddress");
+  }
+
+  if (gpa != NULL)
+    return ((void*(*)(const GLubyte*))gpa)(name);
+  else
+    return dlsym(h, (const char*)name);
+}
+#endif /* __sgi || __sun || GLEW_APPLE_GLX */
+
 #if defined(__APPLE__)
 #include <stdlib.h>
 #include <string.h>
@@ -50,7 +73,14 @@ void* NSGLGetProcAddress (const GLubyte *name)
   {
     image = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_LAZY);
   }
-  return image ? dlsym(image, (const char*)name) : NULL;
+  if( !image ) return NULL;
+  void* addr = dlsym(image, (const char*)name);
+  if( addr ) return addr;
+#ifdef GLEW_APPLE_GLX
+  return dlGetProcAddress( name ); // try next for glx symbols
+#else
+  return NULL;
+#endif
 }
 #else
 
@@ -74,33 +104,15 @@ void* NSGLGetProcAddress (const GLubyte *name)
 	 symbol = NSLookupAndBindSymbol(symbolName); */
   symbol = image ? NSLookupSymbolInImage(image, symbolName, NSLOOKUPSYMBOLINIMAGE_OPTION_BIND | NSLOOKUPSYMBOLINIMAGE_OPTION_RETURN_ON_ERROR) : NULL;
   free(symbolName);
-  return symbol ? NSAddressOfSymbol(symbol) : NULL;
+  if( symbol ) return NSAddressOfSymbol(symbol);
+#ifdef GLEW_APPLE_GLX
+  return dlGetProcAddress( name ); // try next for glx symbols
+#else
+  return NULL;
+#endif
 }
 #endif /* MAC_OS_X_VERSION_10_3 */
 #endif /* __APPLE__ */
-
-#if defined(__sgi) || defined (__sun)
-#include <dlfcn.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void* dlGetProcAddress (const GLubyte* name)
-{
-  static void* h = NULL;
-  static void* gpa;
-
-  if (h == NULL)
-  {
-    if ((h = dlopen(NULL, RTLD_LAZY | RTLD_LOCAL)) == NULL) return NULL;
-    gpa = dlsym(h, "glXGetProcAddress");
-  }
-
-  if (gpa != NULL)
-    return ((void*(*)(const GLubyte*))gpa)(name);
-  else
-    return dlsym(h, (const char*)name);
-}
-#endif /* __sgi || __sun */
 
 /*
  * Define glewGetProcAddress.
