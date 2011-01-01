@@ -158,6 +158,20 @@ typedef _W64 int ptrdiff_t;
 
 #endif /* _WIN32 */
 
+/* GLEW depends on extension string entry points for internal purposes */
+
+#ifdef GLEW_SUBSET
+#ifndef GLEW_SUBSET_WGL_ARB_extensions_string
+#define GLEW_SUBSET_WGL_ARB_extensions_string
+#endif
+#ifndef GLEW_SUBSET_WGL_EXT_extensions_string
+#define GLEW_SUBSET_WGL_EXT_extensions_string
+#endif
+#ifndef GLEW_SUBSET_GLX_VERSION_1_2
+#define GLEW_SUBSET_GLX_VERSION_1_2
+#endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
