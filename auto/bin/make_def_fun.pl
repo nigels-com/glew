@@ -30,6 +30,8 @@ if (@ARGV)
 	foreach my $ext (sort @extlist)
 	{
 		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		print "\n#if !defined(GLEW_SUBSET) || defined(GLEW_SUBSET_$extname)\n";
 		output_decls($functions, \&make_pfn_decl);
+		print "\n#endif /* GLEW_SUBSET_$extname */\n";
 	}
 }
