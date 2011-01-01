@@ -21,7 +21,7 @@ sub make_define($$)
 # type declaration
 sub make_type($$)
 {
-    return "typedef $_[1] $_[0];"
+    return "@_;"
 }
 
 # function pointer type declaration

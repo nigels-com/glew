@@ -299,6 +299,25 @@ EOT
     grep -v "glGetPointerv" $1/GL_EXT_vertex_array > tmp
     mv tmp $1/GL_EXT_vertex_array
 
+# add typedef to GL_AMD_debug_output
+# parse_spec.pl can't parse typedefs from New Types section, but ought to
+    cat >> $1/GL_AMD_debug_output <<EOT
+	typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id, GLenum category, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+EOT
+
+# add typedef to GL_ARB_debug_output
+# parse_spec.pl can't parse typedefs from New Types section, but ought to
+    cat >> $1/GL_ARB_debug_output <<EOT
+	typedef void (APIENTRY *GLDEBUGPROCARB)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
+EOT
+
+# add typedefs to GL_ARB_cl_event
+# parse_spec.pl can't parse typedefs from New Types section, but ought to
+    cat >> $1/GL_ARB_cl_event <<EOT
+	typedef struct _cl_context *cl_context
+	typedef struct _cl_event *cl_event
+EOT
+
 # clean up
     rm -f $1/*.bak
 
