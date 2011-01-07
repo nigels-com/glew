@@ -94,9 +94,10 @@ typedef _W64 int ptrdiff_t;
 #endif
 
 /*
- * GLEW_STATIC needs to be set when using the static version.
- * GLEW_BUILD is set when building the DLL version.
+ * GLEW_STATIC is defined for static library.
+ * GLEW_BUILD  is defined for building the DLL library.
  */
+
 #ifdef GLEW_STATIC
 #  define GLEWAPI extern
 #else
@@ -130,6 +131,23 @@ typedef _W64 int ptrdiff_t;
 
 #define GLEW_APIENTRY_DEFINED
 #define APIENTRY
+
+/*
+ * GLEW_STATIC is defined for static library.
+ */
+
+#ifdef GLEW_STATIC
+#  define GLEWAPI extern
+#else
+#  if defined(__GNUC__) && __GNUC__>=4
+#   define GLEWAPI extern __attribute__ ((visibility("default")))
+#  elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+#   define GLEWAPI extern __global
+#  else
+#   define GLEWAPI extern
+#  endif
+#endif
+
 #define GLEWAPI extern
 
 /* <glu.h> */
