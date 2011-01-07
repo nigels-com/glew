@@ -148,8 +148,6 @@ typedef _W64 int ptrdiff_t;
 #  endif
 #endif
 
-#define GLEWAPI extern
-
 /* <glu.h> */
 #ifndef GLAPI
 #define GLAPI extern
