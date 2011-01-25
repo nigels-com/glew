@@ -80,10 +80,13 @@ VISUALINFO.BIN.SRCS = src/visualinfo.c
 VISUALINFO.BIN.OBJS = $(VISUALINFO.BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib $(LDFLAGS.DYNAMIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 
-all debug: lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
+all debug: lib bin lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
 
 lib:
 	mkdir lib
+
+bin:
+	mkdir bin
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
