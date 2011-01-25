@@ -175,6 +175,7 @@ clean:
 	$(RM) glew.pc
 # Compiler droppings
 	$(RM) so_locations
+	$(RM) -r lib/ bin/
 
 distclean: clean
 	find . -name \*~ | xargs $(RM)
