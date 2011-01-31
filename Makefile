@@ -187,6 +187,7 @@ tardist:
 	cp -a . $(TARDIR)
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(TARDIR) -name .svn | xargs $(RM) -r
+	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
 	$(MAKE) -C $(TARDIR) distclean
 	$(MAKE) -C $(TARDIR)
 	$(MAKE) -C $(TARDIR) distclean
@@ -208,6 +209,7 @@ dist-win32:
 	cp -a bin/visualinfo.exe $(TARDIR)/bin
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(TARDIR) -name .svn | xargs $(RM) -r
+	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
 	unix2dos $(TARDIR)/include/GL/*.h
 	unix2dos $(TARDIR)/doc/*.txt
 	unix2dos $(TARDIR)/doc/*.html
@@ -235,6 +237,7 @@ dist-src:
 	find $(TARDIR) -name '*~' | xargs $(RM) -r
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(TARDIR) -name .svn | xargs $(RM) -r
+	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
 	unix2dos $(TARDIR)/config/*
 	unix2dos $(TARDIR)/auto/core/*
 	unix2dos $(TARDIR)/auto/extensions/*
