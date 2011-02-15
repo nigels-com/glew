@@ -161,10 +161,13 @@ main (int argc, char** argv)
   fprintf(file, "OpenGL version string: %s\n", glGetString(GL_VERSION));
   fprintf(file, "OpenGL extensions (GL_): \n");
   PrintExtensions((char*)glGetString(GL_EXTENSIONS));
+
+#ifndef GLEW_NO_GLU
   /* GLU extensions */
   fprintf(file, "GLU version string: %s\n", gluGetString(GLU_VERSION));
   fprintf(file, "GLU extensions (GLU_): \n");
   PrintExtensions((char*)gluGetString(GLU_EXTENSIONS));
+#endif
 
   /* ---------------------------------------------------------------------- */
   /* extensions string */
