@@ -61,6 +61,11 @@ EOT
     DECLARE_HANDLE(HVIDEOINPUTDEVICENV);
 EOT
 
+# fix GLX_NV_video_capture
+    cat >> $1/GLX_NV_video_capture <<EOT
+    typedef XID GLXVideoCaptureDeviceNV
+EOT
+
 # remove duplicates from GL_NV_present_video and GLX_NV_present_video
     grep -v -F -f $1/GLX_NV_present_video $1/GL_NV_present_video > tmp
     mv tmp $1/GL_NV_present_video
