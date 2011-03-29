@@ -3,7 +3,6 @@ GLEW_DEST ?= /usr/X11R6
 CC = cc
 # use gcc for linking, with ld it does not work
 LD = cc
-LDFLAGS.SO = -shared -Wl,--out-implib,lib/$(LIB.DEVLNK)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LIBDIR = $(GLEW_DEST)/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
@@ -16,7 +15,9 @@ LIB.SONAME    = cyg$(NAME)-$(SO_MAJOR).dll
 LIB.DEVLNK    = lib$(NAME).dll.a
 LIB.SHARED    = cyg$(NAME)-$(SO_MAJOR).dll
 LIB.STATIC    = lib$(NAME).a
+LDFLAGS.SO    = -shared -Wl,--out-implib,lib/$(LIB.DEVLNK)
 LIB.SONAME.MX = cyg$(NAME)mx-$(SO_MAJOR).dll
 LIB.DEVLNK.MX = lib$(NAME)mx.dll.a
 LIB.SHARED.MX = cyg$(NAME)mx-$(SO_MAJOR).dll
 LIB.STATIC.MX = lib$(NAME)mx.a
+LDFLAGS.SO.MX = -shared -Wl,--out-implib,lib/$(LIB.DEVLNK.MX)

@@ -132,7 +132,7 @@ lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
 	$(AR) cr $@ $^
 
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
-	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
+	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 else
 	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MX)
