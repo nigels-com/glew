@@ -46,7 +46,7 @@ if (@ARGV)
 
                 if (length($extstring))
                 {
-		        print "  CONST_CAST(" . $extvar . ") = " . $extpre . "GetExtension(\"$extstring\");\n";
+		        print "  CONST_CAST(" . $extvar . ") = _glewSearchExtension(\"$extstring\", start, end);\n";
                 }
 
 		if (keys %$functions)

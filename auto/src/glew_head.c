@@ -217,3 +217,23 @@ static GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuin
   }
   return GL_FALSE;
 }
+
+/*
+ * Search for name in the extensions string. Use of strstr()
+ * is not sufficient because extension names can be prefixes of
+ * other extension names. Could use strtok() but the constant
+ * string returned by glGetString might be in read-only memory.
+ */
+static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
+{
+  const GLubyte* p;
+  GLuint len = _glewStrLen((const GLubyte*)name);
+  p = start;
+  while (p < end)
+  {
+    GLuint n = _glewStrCLen(p, ' ');
+    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
+    p += n+1;
+  }
+  return GL_FALSE;
+}
