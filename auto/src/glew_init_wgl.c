@@ -23,19 +23,19 @@ GLboolean wglewGetExtension (const char* name)
 GLenum wglewContextInit (WGLEW_CONTEXT_ARG_DEF_LIST)
 {
   GLboolean crippled;
-  const GLubyte* start;
-  const GLubyte* end;
+  const GLubyte* extStart;
+  const GLubyte* extEnd;
   /* find wgl extension string query functions */
   _wglewGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringARB");
   _wglewGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringEXT");
   /* query wgl extension string */
   if (_wglewGetExtensionsStringARB == NULL)
     if (_wglewGetExtensionsStringEXT == NULL)
-      start = (const GLubyte*)"";
+      extStart = (const GLubyte*)"";
     else
-      start = (const GLubyte*)_wglewGetExtensionsStringEXT();
+      extStart = (const GLubyte*)_wglewGetExtensionsStringEXT();
   else
-    start = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
-  end = start + _glewStrLen(start);
+    extStart = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
+  extEnd = extStart + _glewStrLen(extStart);
   /* initialize extensions */
   crippled = _wglewGetExtensionsStringARB == NULL && _wglewGetExtensionsStringEXT == NULL;

@@ -15,8 +15,8 @@ GLboolean glxewGetExtension (const char* name)
 GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
 {
   int major, minor;
-  const GLubyte* start;
-  const GLubyte* end;
+  const GLubyte* extStart;
+  const GLubyte* extEnd;
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR_INIT)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
@@ -44,10 +44,10 @@ GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
     }
   }
   /* query GLX extension string */
-  start = 0;
+  extStart = 0;
   if (glXGetCurrentDisplay != NULL)
-    start = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
-  if (start == 0)
-    start = (const GLubyte *)"";
-  end = start + _glewStrLen(start);
+    extStart = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
+  if (extStart == 0)
+    extStart = (const GLubyte *)"";
+  extEnd = extStart + _glewStrLen(extStart);
   /* initialize extensions */

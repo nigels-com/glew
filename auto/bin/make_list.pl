@@ -44,10 +44,10 @@ if (@ARGV)
 
 		print "#ifdef $extname\n";
 
-                if (length($extstring))
-                {
-		        print "  CONST_CAST(" . $extvar . ") = _glewSearchExtension(\"$extstring\", start, end);\n";
-                }
+		if (length($extstring))
+		{
+				print "  CONST_CAST(" . $extvar . ") = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
+		}
 
 		if (keys %$functions)
 		{

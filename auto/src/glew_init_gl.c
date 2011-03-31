@@ -21,8 +21,8 @@ GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
-  const GLubyte* start;
-  const GLubyte* end;
+  const GLubyte* extStart;
+  const GLubyte* extEnd;
   /* query opengl version */
   s = glGetString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
@@ -61,9 +61,9 @@ GLenum glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   }
 
   /* query opengl extensions string */
-  start = glGetString(GL_EXTENSIONS);
-  if (start == 0)
-    start = (const GLubyte*)"";
-  end = start + _glewStrLen(start);
+  extStart = glGetString(GL_EXTENSIONS);
+  if (extStart == 0)
+    extStart = (const GLubyte*)"";
+  extEnd = extStart + _glewStrLen(extStart);
 
   /* initialize extensions */
