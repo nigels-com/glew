@@ -26,7 +26,7 @@ ifeq (custom,$(MAKECMDGOALS))
 GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 #GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | sed -e 's/\(.*\)/$(CORE)\/\1/g;')
-GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | grep -v GLX_OML_sync_control | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
+GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
@@ -155,7 +155,6 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	perl -e 's/GLXEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_EXPORT GLboolean __GLXEW_VERSION_1_2;/' -pi $@
 	cat $(SRC)/glxew_tail.h >> $@
-	$(BIN)/fix_OML_sync_control.sh $@
 
 $(S.DEST)/glew.c: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -217,7 +216,6 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	perl -e "s/GLEW_VERSION_MICRO_STRING/$(GLEW_MICRO)/g" -pi $@
 	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	perl -e "s/\(\(glColorSubTable = /((glBlendEquation = (PFNGLBLENDEQUATIONPROC)glewGetProcAddress((const GLubyte*)\"glBlendEquation\")) == NULL) || r;\n  r = ((glColorSubTable = /g" -pi $@
-	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
 
 $(S.DEST)/glew_def.c: $(EXT)/.dummy
@@ -273,7 +271,6 @@ $(S.DEST)/glew_init.c: $(EXT)/.dummy
 	perl -e "s/GLEW_VERSION_MICRO_STRING/$(GLEW_MICRO)/g" -pi $@
 	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	perl -e "s/\(\(glBlendColor = /((glBlendEquation = (PFNGLBLENDEQUATIONPROC)glewGetProcAddress((const GLubyte*)\"glBlendEquation\")) == NULL) || r;\n  r = ((glBlendColor = /g" -pi $@
-	$(BIN)/fix_OML_sync_control.sh $@
 	rm -f $@.bak
 
 $(S.DEST)/glew_str.c: $(EXT)/.dummy
@@ -286,7 +283,6 @@ $(S.DEST)/glew_str.c: $(EXT)/.dummy
 	cat $(SRC)/glew_str_glx.c >> $@
 	$(BIN)/make_str.pl $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glew_str_tail.c >> $@
-#	$(BIN)/fix_OML_sync_control.sh $@
 #	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
 #	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
 	rm -f $@.bak
@@ -315,7 +311,6 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	$(BIN)/make_info_list.pl $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_info_list.pl $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glewinfo_tail.c >> $@
-	$(BIN)/fix_OML_sync_control.sh $@
 	perl -e 's/"glColorSubTable"/"glBlendEquation", glBlendEquation == NULL);\n  glewInfoFunc("glColorSubTable"/g' -pi $@
 	rm -f $@.bak
 
