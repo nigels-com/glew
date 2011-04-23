@@ -55,12 +55,15 @@ if (@ARGV)
 		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
 		make_separator($extname);
-		print "#ifndef $extname\n#define $extname 1\n";
+		print "#ifndef $extname\n";
 		output_tokens($tokens, \&make_define);
 		output_types($types, \&make_type);
 		output_exacts($exacts, \&make_exact);
 		output_decls($functions, \&make_pfn_type);
+		print "\n#if !defined(GLEW_SUBSET) || defined(GLEW_SUBSET_$extname)\n";
+		print "#define $extname 1\n";
 		output_decls($functions, \&make_pfn_alias);
+		print "\n#endif /* GLEW_SUBSET_$extname */\n";
 
 		my $extvar = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
