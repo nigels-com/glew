@@ -22,11 +22,11 @@ BLACKLIST = blacklist
 GL_CORE_SPEC := $(CORE)/GL_VERSION*
 GLX_CORE_SPEC := $(CORE)/GLX_VERSION*
 ifeq (custom,$(MAKECMDGOALS))
-#GL_CORE_SPEC := $(shell grep GL_VERSION custom.txt | sed -e 's/\(.*\)/$(CORE)\/\1/g;')
-GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
-WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
-#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | sed -e 's/\(.*\)/$(CORE)\/\1/g;')
-GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | sed -e 's/\(.*\)/$(EXT)\/\1/g;')
+#GL_CORE_SPEC := $(shell grep GL_VERSION custom.txt | perl -e 's/\(.*\)/$(CORE)\/\1/g;')
+GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
+WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
+#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | perl -e 's/\(.*\)/$(CORE)\/\1/g;')
+GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
@@ -321,7 +321,7 @@ $(D.DEST)/%.html: doc/%.html
 	@echo "Creating $(@F)"
 	@echo "--------------------------------------------------------------------"
 	cat $(SRC)/header.html $< $(SRC)/footer.html | \
-  sed 's#<a href="$(@F)">\(.*\)</a>#\1#' > $@
+	perl -e 's#<a href="$(@F)">\(.*\)</a>#\1#' > $@
 
 $(D.DEST)/glew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -331,7 +331,7 @@ $(D.DEST)/glew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported OpenGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/wglew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -341,7 +341,7 @@ $(D.DEST)/wglew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported WGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(WGL_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/glxew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -351,7 +351,7 @@ $(D.DEST)/glxew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	sed -i 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(B.DEST)/%.rc: src/%.rc $(EXT)/.dummy
 	perl -e "s/GLEW_MAJOR/$(GLEW_MAJOR)/g;s/GLEW_MINOR/$(GLEW_MINOR)/g;s/GLEW_MICRO/$(GLEW_MICRO)/g;" -p $< > $@
