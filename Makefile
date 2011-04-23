@@ -45,6 +45,7 @@ BINDIR ?= $(GLEW_DEST)/bin
 LIBDIR ?= $(GLEW_DEST)/lib
 INCDIR ?= $(GLEW_DEST)/include/GL
 SHARED_OBJ_EXT ?= o
+
 TARDIR = ../glew-$(GLEW_VERSION)
 TARBALL = ../glew-$(GLEW_VERSION).tar.gz
 
@@ -72,6 +73,9 @@ LIB.SOBJS = $(LIB.SRCS:.c=.$(SHARED_OBJ_EXT))
 LIB.LDFLAGS = $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 LIB.LIBS = $(GL_LDFLAGS)
 
+LIB.OBJS.MX  = $(LIB.SRCS:.c=.mx.o)
+LIB.SOBJS.MX = $(LIB.SRCS:.c=.mx.$(SHARED_OBJ_EXT))
+
 GLEWINFO.BIN = glewinfo$(BIN.SUFFIX)
 GLEWINFO.BIN.SRCS = src/glewinfo.c
 GLEWINFO.BIN.OBJS = $(GLEWINFO.BIN.SRCS:.c=.o)
@@ -80,13 +84,17 @@ VISUALINFO.BIN.SRCS = src/visualinfo.c
 VISUALINFO.BIN.OBJS = $(VISUALINFO.BIN.SRCS:.c=.o)
 BIN.LIBS = -Llib $(LDFLAGS.DYNAMIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
 
-all debug: lib bin lib/$(LIB.SHARED) lib/$(LIB.STATIC) bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) glew.pc
+all debug: glew.lib glew.lib.mx glew.bin
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+# GLEW libraries
+
+glew.lib: lib lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc
 
 lib:
 	mkdir lib
-
-bin:
-	mkdir bin
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
 	$(AR) cr $@ $^
@@ -99,21 +107,6 @@ else
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 endif
 
-bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJS) lib/$(LIB.SHARED)
-	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJS) $(BIN.LIBS)
-
-bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJS) lib/$(LIB.SHARED)
-	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJS) $(BIN.LIBS)
-
-%.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $<
-
-src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	$(CC) $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-src/glew.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	$(CC) $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
-
 glew.pc: glew.pc.in
 	sed \
 		-e "s|@prefix@|$(GLEW_DEST)|g" \
@@ -121,14 +114,71 @@ glew.pc: glew.pc.in
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
 		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
+		-e "s|@cflags@||g" \
+		-e "s|@libname@|GLEW|g" \
 		< $< > $@
 
-install: all
-# directories
-	$(INSTALL) -d -m 0755 $(BINDIR)
-	$(INSTALL) -d -m 0755 $(INCDIR)
+src/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+src/glew.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
+
+# GLEW MX libraries
+
+glew.lib.mx:  lib lib/$(LIB.SHARED.MX) lib/$(LIB.STATIC.MX) glewmx.pc
+
+lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
+	$(AR) cr $@ $^
+
+lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
+	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+else
+	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MX)
+	$(LN) $(LIB.SHARED.MX) lib/$(LIB.DEVLNK.MX)
+endif
+
+glewmx.pc: glew.pc.in
+	sed \
+		-e "s|@prefix@|$(GLEW_DEST)|g" \
+		-e "s|@libdir@|$(LIBDIR)|g" \
+		-e "s|@exec_prefix@|$(BINDIR)|g" \
+		-e "s|@includedir@|$(INCDIR)|g" \
+		-e "s|@version@|$(GLEW_VERSION)|g" \
+		-e "s|@cflags@|-DGLEW_MX|g" \
+		-e "s|@libname@|GLEWmx|g" \
+		< $< > $@
+
+src/glew.mx.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+src/glew.mx.pic_o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
+	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
+
+# GLEW utilities
+
+bin:
+	mkdir bin
+
+glew.bin:     glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) 
+
+bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJS) lib/$(LIB.SHARED)
+	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJS) $(BIN.LIBS)
+
+bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJS) lib/$(LIB.SHARED)
+	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJS) $(BIN.LIBS)
+
+# Install targets
+
+install.all: install install.mx install.bin
+
+install:     install.include install.lib install.pkgconfig
+
+install.mx:  install.include install.lib.mx install.pkgconfig.mx
+
+install.lib: glew.lib
 	$(INSTALL) -d -m 0755 $(LIBDIR)
-	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(STRIP) -x lib/$(LIB.SHARED)
@@ -139,10 +189,6 @@ else
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
 endif
 # development files
-	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
-	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
-	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
-	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
@@ -150,29 +196,68 @@ else
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 endif
-# utilities
+
+install.lib.mx: glew.lib.mx
+	$(INSTALL) -d -m 0755 $(LIBDIR)
+# runtime
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+	$(STRIP) -x lib/$(LIB.SHARED.MX)
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(BINDIR)/
+else
+	$(STRIP) -x lib/$(LIB.SHARED.MX)
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(LIBDIR)/
+	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.SONAME.MX)
+endif
+# development files
+ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) $(LIBDIR)/
+else
+	$(STRIP) -x lib/$(LIB.STATIC.MX)
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/
+	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.DEVLNK.MX)
+endif
+
+install.bin: glew.bin
+	$(INSTALL) -d -m 0755 $(BINDIR)
 	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/
+
+install.include:
+	$(INSTALL) -d -m 0755 $(INCDIR)
+	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
+
+install.pkgconfig: glew.pc
+	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
+	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
+
+install.pkgconfig.mx: glewmx.pc
+	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
+	$(INSTALL) -m 0644 glewmx.pc $(LIBDIR)/pkgconfig/
 
 uninstall:
 	$(RM) $(INCDIR)/wglew.h
 	$(RM) $(INCDIR)/glew.h
 	$(RM) $(INCDIR)/glxew.h
-	$(RM) $(LIBDIR)/$(LIB.DEVLNK)
+	$(RM) $(LIBDIR)/$(LIB.DEVLNK) $(LIBDIR)/$(LIB.DEVLNK.MX)
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(RM) $(BINDIR)/$(LIB.SHARED)
+	$(RM) $(BINDIR)/$(LIB.SHARED) $(BINDIR)/$(LIB.SHARED.MX)
 else
-	$(RM) $(LIBDIR)/$(LIB.SONAME)
-	$(RM) $(LIBDIR)/$(LIB.SHARED)
-	$(RM) $(LIBDIR)/$(LIB.STATIC)
+	$(RM) $(LIBDIR)/$(LIB.SONAME) $(LIBDIR)/$(LIB.SONAME.MX)
+	$(RM) $(LIBDIR)/$(LIB.SHARED) $(LIBDIR)/$(LIB.SHARED.MX)
+	$(RM) $(LIBDIR)/$(LIB.STATIC) $(LIBDIR)/$(LIB.STATIC.MX)
 endif
 	$(RM) $(BINDIR)/$(GLEWINFO.BIN) $(BINDIR)/$(VISUALINFO.BIN)
 
 clean:
-	$(RM) $(LIB.OBJS)
-	$(RM) $(LIB.SOBJS)
+	$(RM) $(LIB.OBJS) $(LIB.OBJS.MX)
+	$(RM) $(LIB.SOBJS) $(LIB.SOBJS.MX)
 	$(RM) lib/$(LIB.STATIC) lib/$(LIB.SHARED) lib/$(LIB.DEVLNK) lib/$(LIB.SONAME) $(LIB.STATIC)
+	$(RM) lib/$(LIB.STATIC.MX) lib/$(LIB.SHARED.MX) lib/$(LIB.DEVLNK.MX) lib/$(LIB.SONAME.MX) $(LIB.STATIC.MX)
 	$(RM) $(GLEWINFO.BIN.OBJS) bin/$(GLEWINFO.BIN) $(VISUALINFO.BIN.OBJS) bin/$(VISUALINFO.BIN)
-	$(RM) glew.pc
+	$(RM) glew.pc glewmx.pc
 # Compiler droppings
 	$(RM) so_locations
 	$(RM) -r lib/ bin/
@@ -181,18 +266,7 @@ distclean: clean
 	find . -name \*~ | xargs $(RM)
 	find . -name .\*.sw\? | xargs $(RM)
 
-tardist:
-	$(RM) -r $(TARDIR)
-	mkdir $(TARDIR)
-	cp -a . $(TARDIR)
-	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
-	find $(TARDIR) -name .svn | xargs $(RM) -r
-	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
-	$(MAKE) -C $(TARDIR) distclean
-	$(MAKE) -C $(TARDIR)
-	$(MAKE) -C $(TARDIR) distclean
-	$(RM) -r $(TARDIR)/auto/registry
-	env GZIP=-9 tar -C `dirname $(TARDIR)` -cvzf $(TARBALL) `basename $(TARDIR)`
+# Distributions
 
 dist-win32:
 	$(RM) -r $(TARDIR)
@@ -233,7 +307,9 @@ dist-src:
 	cp -a Makefile $(TARDIR)
 	cp -a glew.pc.in $(TARDIR)
 	find $(TARDIR) -name '*.o' | xargs $(RM) -r
+	find $(TARDIR) -name '*.mx.o' | xargs $(RM) -r
 	find $(TARDIR) -name '*.pic_o' | xargs $(RM) -r
+	find $(TARDIR) -name '*.mx.pic_o' | xargs $(RM) -r
 	find $(TARDIR) -name '*~' | xargs $(RM) -r
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(TARDIR) -name .svn | xargs $(RM) -r

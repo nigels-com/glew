@@ -42,6 +42,30 @@ if [ ! -d $1 ] ; then
     grep -v glGetIntegerIndexedvEXT $1/GL_EXT_transform_feedback > tmp
     mv tmp $1/GL_EXT_transform_feedback    
 
+# remove duplicates from GL_NV_video_capture and GLX_NV_video_capture
+    grep -v glX $1/GL_NV_video_capture > tmp
+    mv tmp $1/GL_NV_video_capture
+
+# add missing functions to GL_NV_video_capture
+	cat >> $1/GL_NV_video_capture <<EOT
+    void glGetVideoCaptureStreamivNV (GLuint video_capture_slot, GLuint stream, GLenum pname, GLint* params)
+    void glGetVideoCaptureStreamfvNV (GLuint video_capture_slot, GLuint stream, GLenum pname, GLfloat* params)
+    void glGetVideoCaptureStreamdvNV (GLuint video_capture_slot, GLuint stream, GLenum pname, GLdouble* params)
+    void glVideoCaptureStreamParameterivNV (GLuint video_capture_slot, GLuint stream, GLenum pname, const GLint* params)
+    void glVideoCaptureStreamParameterfvNV (GLuint video_capture_slot, GLuint stream, GLenum pname, const GLfloat* params)
+    void glVideoCaptureStreamParameterdvNV (GLuint video_capture_slot, GLuint stream, GLenum pname, const GLdouble* params)
+EOT
+
+# fix WGL_NV_video_capture
+    cat >> $1/WGL_NV_video_capture <<EOT
+    DECLARE_HANDLE(HVIDEOINPUTDEVICENV);
+EOT
+
+# fix GLX_NV_video_capture
+    cat >> $1/GLX_NV_video_capture <<EOT
+    typedef XID GLXVideoCaptureDeviceNV
+EOT
+
 # remove duplicates from GL_NV_present_video and GLX_NV_present_video
     grep -v -F -f $1/GLX_NV_present_video $1/GL_NV_present_video > tmp
     mv tmp $1/GL_NV_present_video

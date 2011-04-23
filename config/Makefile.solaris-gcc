@@ -1,15 +1,13 @@
 NAME = $(GLEW_NAME)
-CC = cc
-LD = cc
-PICFLAG = -fPIC
-LDFLAGS.EXTRA = -L/usr/X11R6/lib
+CC = gcc
+LD = ld
+CFLAGS.EXTRA = -I/usr/openwin/include
+LDFLAGS.SO = -G
+LDFLAGS.EXTRA = -L/usr/openwin/lib
 LDFLAGS.GL = -lXmu -lXi -lGLU -lGL -lXext -lX11
-LDFLAGS.STATIC = -Wl,-Bstatic
-LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 NAME = GLEW
-WARN = -Wall -W
-POPT = -O2
 BIN.SUFFIX =
+POPT = -O2
 LIB.SONAME    = lib$(NAME).so.$(SO_MAJOR)
 LIB.DEVLNK    = lib$(NAME).so
 LIB.SHARED    = lib$(NAME).so.$(SO_VERSION)
@@ -20,4 +18,3 @@ LIB.DEVLNK.MX = lib$(NAME)mx.so
 LIB.SHARED.MX = lib$(NAME)mx.so.$(SO_VERSION)
 LIB.STATIC.MX = lib$(NAME)mx.a
 LDFLAGS.SO.MX = -shared -Wl,-soname=$(LIB.SONAME.MX)
-SHARED_OBJ_EXT = pic_o
