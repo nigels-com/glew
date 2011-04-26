@@ -181,8 +181,9 @@ install.lib: glew.lib
 	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+	$(INSTALL) -d -m 0755 $(BINDIR)
 	$(STRIP) -x lib/$(LIB.SHARED)
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(BINDIR)/
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
 else
 	$(STRIP) -x lib/$(LIB.SHARED)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
@@ -192,17 +193,18 @@ endif
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 else
-	$(STRIP) -x lib/$(LIB.STATIC)
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 endif
+	$(STRIP) -x lib/$(LIB.STATIC)
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 
 install.lib.mx: glew.lib.mx
 	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
+	$(INSTALL) -d -m 0755 $(BINDIR)
 	$(STRIP) -x lib/$(LIB.SHARED.MX)
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(BINDIR)/
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) $(BINDIR)/
 else
 	$(STRIP) -x lib/$(LIB.SHARED.MX)
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(LIBDIR)/
@@ -212,10 +214,10 @@ endif
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) $(LIBDIR)/
 else
-	$(STRIP) -x lib/$(LIB.STATIC.MX)
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/
 	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.DEVLNK.MX)
 endif
+	$(STRIP) -x lib/$(LIB.STATIC.MX)
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/
 
 install.bin: glew.bin
 	$(INSTALL) -d -m 0755 $(BINDIR)
@@ -247,8 +249,8 @@ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 else
 	$(RM) $(LIBDIR)/$(LIB.SONAME) $(LIBDIR)/$(LIB.SONAME.MX)
 	$(RM) $(LIBDIR)/$(LIB.SHARED) $(LIBDIR)/$(LIB.SHARED.MX)
-	$(RM) $(LIBDIR)/$(LIB.STATIC) $(LIBDIR)/$(LIB.STATIC.MX)
 endif
+	$(RM) $(LIBDIR)/$(LIB.STATIC) $(LIBDIR)/$(LIB.STATIC.MX)
 	$(RM) $(BINDIR)/$(GLEWINFO.BIN) $(BINDIR)/$(VISUALINFO.BIN)
 
 clean:
