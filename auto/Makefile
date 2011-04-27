@@ -321,7 +321,7 @@ $(D.DEST)/%.html: doc/%.html
 	@echo "Creating $(@F)"
 	@echo "--------------------------------------------------------------------"
 	cat $(SRC)/header.html $< $(SRC)/footer.html | \
-	perl -e 's#<a href="$(@F)">\(.*\)</a>#\1#' > $@
+	perl -pe 's#<a href="$(@F)">\(.*\)</a>#\1#' > $@
 
 $(D.DEST)/glew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -331,7 +331,7 @@ $(D.DEST)/glew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported OpenGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -pe 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/wglew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -341,7 +341,7 @@ $(D.DEST)/wglew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported WGL Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(WGL_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -pe 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(D.DEST)/glxew.html: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
@@ -351,7 +351,7 @@ $(D.DEST)/glxew.html: $(EXT)/.dummy
 	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
-	perl -i -e 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
+	perl -i -pe 's#<a href="$(@F)">\(.*\)</a>#\1#' $@
 
 $(B.DEST)/%.rc: src/%.rc $(EXT)/.dummy
 	perl -e "s/GLEW_MAJOR/$(GLEW_MAJOR)/g;s/GLEW_MINOR/$(GLEW_MINOR)/g;s/GLEW_MICRO/$(GLEW_MICRO)/g;" -p $< > $@
