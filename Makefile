@@ -280,7 +280,10 @@ dist-win32:
 	cp -a *.txt $(TARDIR)
 	cp -a lib/glew32.lib     $(TARDIR)/lib
 	cp -a lib/glew32s.lib    $(TARDIR)/lib
+	cp -a lib/glew32mx.lib   $(TARDIR)/lib
+	cp -a lib/glew32mxs.lib  $(TARDIR)/lib
 	cp -a bin/glew32.dll     $(TARDIR)/bin
+	cp -a bin/glew32mx.dll   $(TARDIR)/bin
 	cp -a bin/glewinfo.exe   $(TARDIR)/bin
 	cp -a bin/visualinfo.exe $(TARDIR)/bin
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
