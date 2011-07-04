@@ -23,5 +23,4 @@ GL_EXT_geometry_shader4
 	GL_PROGRAM_POINT_SIZE_EXT 0x8642
 	void glProgramParameteriEXT (GLuint program, GLenum pname, GLint value)
 	void glFramebufferTextureEXT (GLenum target, GLenum attachment, GLuint texture, GLint level)
-	void glFramebufferTextureLayerEXT (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
 	void glFramebufferTextureFaceEXT (GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face)

@@ -9,3 +9,4 @@ GL_EXT_texture_array
 	GL_TEXTURE_BINDING_2D_ARRAY_EXT 0x8C1D
 	GL_MAX_ARRAY_TEXTURE_LAYERS_EXT 0x88FF
 	GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT 0x884E
+	void glFramebufferTextureLayerEXT (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer)
