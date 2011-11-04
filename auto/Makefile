@@ -64,6 +64,7 @@ D.TARGETS = \
 	$(D.DEST)/install.html \
 	$(D.DEST)/basic.html \
 	$(D.DEST)/advanced.html \
+	$(D.DEST)/build.html \
 	$(D.DEST)/credits.html \
 	$(D.DEST)/log.html \
 	$(D.DEST)/glew.html \

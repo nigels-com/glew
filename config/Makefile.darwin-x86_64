@@ -1,9 +1,9 @@
 NAME = $(GLEW_NAME)
 CC = cc
 LD = cc
-CFLAGS.EXTRA = -no-cpp-precomp -dynamic -fno-common
+CFLAGS.EXTRA = -arch x86_64 -no-cpp-precomp -dynamic -fno-common
 PICFLAG = -fPIC
-LDFLAGS.EXTRA =
+LDFLAGS.EXTRA = -arch x86_64
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
 LDFLAGS.GL = -L/usr/X11R6/lib -lXmu -lXi -lGLU -lGL -lXext -lX11
