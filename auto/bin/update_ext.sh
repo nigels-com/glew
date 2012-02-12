@@ -342,6 +342,31 @@ EOT
 	typedef struct _cl_event *cl_event
 EOT
 
+# Filter out EXT functions from GL_ARB_gpu_shader_fp64
+    grep -v 'EXT ' $1/GL_ARB_gpu_shader_fp64 > tmp
+    mv tmp $1/GL_ARB_gpu_shader_fp64
+
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_gpu_shader_fp64 related)
+	cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glProgramUniform1dEXT (GLuint program, GLint location, GLdouble x)
+    void glProgramUniform2dEXT (GLuint program, GLint location, GLdouble x, GLdouble y)
+    void glProgramUniform3dEXT (GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z)
+    void glProgramUniform4dEXT (GLuint program, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w)
+    void glProgramUniform1dvEXT (GLuint program, GLint location, GLsizei count, const GLdouble *value)
+    void glProgramUniform2dvEXT (GLuint program, GLint location, GLsizei count, const GLdouble *value)
+    void glProgramUniform3dvEXT (GLuint program, GLint location, GLsizei count, const GLdouble *value)
+    void glProgramUniform4dvEXT (GLuint program, GLint location, GLsizei count, const GLdouble *value)
+    void glProgramUniformMatrix2dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix3dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix4dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix2x3dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix2x4dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix3x2dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix3x4dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix4x2dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+    void glProgramUniformMatrix4x3dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
+EOT
+
 # clean up
     rm -f $1/*.bak
 
