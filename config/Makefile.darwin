@@ -25,4 +25,3 @@ LIB.DEVLNK.MX = lib$(NAME)mx.dylib
 LIB.SHARED.MX = lib$(NAME)mx.$(SO_VERSION).dylib
 LIB.STATIC.MX = lib$(NAME)mx.a
 LDFLAGS.SO.MX = -dynamiclib -install_name $(GLEW_DEST)/lib/$(LIB.SHARED.MX) -current_version $(SO_VERSION) -compatibility_version $(SO_MAJOR)
-SHARED_OBJ_EXT = pic_o
