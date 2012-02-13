@@ -22,11 +22,11 @@ BLACKLIST = blacklist
 GL_CORE_SPEC := $(CORE)/GL_VERSION*
 GLX_CORE_SPEC := $(CORE)/GLX_VERSION*
 ifeq (custom,$(MAKECMDGOALS))
-#GL_CORE_SPEC := $(shell grep GL_VERSION custom.txt | perl -e 's/\(.*\)/$(CORE)\/\1/g;')
-GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
-WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
-#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | perl -e 's/\(.*\)/$(CORE)\/\1/g;')
-GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | perl -e 's/\(.*\)/$(EXT)\/\1/g;')
+#GL_CORE_SPEC := $(shell grep GL_VERSION custom.txt | sed 's/\(.*\)/$(CORE)\/\1/g;')
+GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | sed 's/\(.*\)/$(EXT)\/\1/g;')
+WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | sed 's/\(.*\)/$(EXT)\/\1/g;')
+#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | sed 's/\(.*\)/$(CORE)\/\1/g;')
+GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | sed 's/\(.*\)/$(EXT)\/\1/g;')
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
