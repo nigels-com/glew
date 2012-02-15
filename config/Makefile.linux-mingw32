@@ -4,9 +4,11 @@
 # $ make SYSTEM=linux-mingw32
 #
 
-NAME = glew32
-CC = i586-mingw32msvc-gcc
-LD = i586-mingw32msvc-ld
+NAME  := glew32
+CC    := i586-mingw32msvc-gcc
+LD    := i586-mingw32msvc-ld
+LN    :=
+STRIP :=
 CFLAGS.SO = -DGLEW_BUILD
 LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 WARN = -Wall -W

@@ -56,6 +56,9 @@ DIST_SRC_TGZ = glew-$(GLEW_VERSION).tgz
 # To disable stripping of binaries either:
 #   - use STRIP= on gmake command-line
 #   - edit this makefile to set STRIP to the empty string
+#
+# To disable symlinks:
+#   - use LN= on gmake command-line
 
 AR      ?= ar
 INSTALL ?= install
@@ -104,8 +107,7 @@ endif
 
 lib/$(LIB.SHARED): $(LIB.SOBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-else
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
 endif
@@ -141,8 +143,7 @@ lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
 
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
 	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-else
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MX)
 	$(LN) $(LIB.SHARED.MX) lib/$(LIB.DEVLNK.MX)
 endif
@@ -224,12 +225,16 @@ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 $(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
 else
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
+endif
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
 endif
+
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
-else
+endif
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 endif
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
@@ -242,12 +247,15 @@ ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) $(BINDIR)/
 else
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(LIBDIR)/
+endif
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.SONAME.MX)
 endif
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) $(LIBDIR)/
-else
+endif
+ifneq ($(LN),)
 	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.DEVLNK.MX)
 endif
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/

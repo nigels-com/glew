@@ -3,9 +3,10 @@ GLEW_DEST = /usr
 BINDIR = /usr/bin
 LIBDIR = /usr/lib/mingw
 INCDIR = /usr/include/mingw/GL
-CC = gcc -mno-cygwin
 # use gcc for linking, with ld it does not work
-LD = gcc -mno-cygwin
+CC := gcc -mno-cygwin
+LD := gcc -mno-cygwin
+LN :=
 CFLAGS.SO = -DGLEW_BUILD
 LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA = -L$(LIBDIR)

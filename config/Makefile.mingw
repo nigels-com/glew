@@ -1,7 +1,8 @@
 NAME = glew32
-CC = gcc
 # use gcc for linking, with ld it does not work
-LD = gcc
+CC := gcc
+LD := gcc
+LN :=
 CFLAGS.SO = -DGLEW_BUILD
 LDFLAGS.GL = -lglu32 -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA = -L/mingw/lib
