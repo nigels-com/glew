@@ -69,12 +69,13 @@ void* dlGetProcAddress (const GLubyte* name)
 void* NSGLGetProcAddress (const GLubyte *name)
 {
   static void* image = NULL;
+  void* addr;
   if (NULL == image) 
   {
     image = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_LAZY);
   }
   if( !image ) return NULL;
-  void* addr = dlsym(image, (const char*)name);
+  addr = dlsym(image, (const char*)name);
   if( addr ) return addr;
 #ifdef GLEW_APPLE_GLX
   return dlGetProcAddress( name ); // try next for glx symbols
