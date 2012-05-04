@@ -98,7 +98,6 @@ typedef _W64 int ptrdiff_t;
 #endif
 
 #ifndef GLEWAPIENTRY
-#define GLEWAPIENTRY_DEFINED
 #define GLEWAPIENTRY APIENTRY
 #endif
 
@@ -168,7 +167,6 @@ typedef _W64 int ptrdiff_t;
 #endif
 
 #ifndef GLEWAPIENTRY
-#define GLEWAPIENTRY_DEFINED
 #define GLEWAPIENTRY
 #endif
 

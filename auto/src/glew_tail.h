@@ -58,11 +58,6 @@ GLEWAPI const GLubyte * GLEWAPIENTRY glewGetString (GLenum name);
 #define GLAPIENTRY
 #endif
 
-#ifdef GLEWAPIENTRY_DEFINED
-#undef GLEWAPIENTRY_DEFINED
-#undef GLEWAPIENTRY
-#endif
-
 #ifdef GLEW_CALLBACK_DEFINED
 #undef GLEW_CALLBACK_DEFINED
 #undef CALLBACK
