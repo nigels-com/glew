@@ -5,6 +5,9 @@
 #if defined(__gl_h_) || defined(__GL_H__) || defined(__X_GL_H)
 #error gl.h included before glew.h
 #endif
+#if defined(__REGAL_H__)
+#error Regal.h included before glew.h
+#endif
 #if defined(__glext_h_) || defined(__GLEXT_H_)
 #error glext.h included before glew.h
 #endif
@@ -14,6 +17,7 @@
 
 #define __gl_h_
 #define __GL_H__
+#define __REGAL_H__
 #define __X_GL_H
 #define __glext_h_
 #define __GLEXT_H_
