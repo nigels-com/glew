@@ -1,7 +1,7 @@
 #ifdef GLEW_MX
 GLboolean glewContextIsSupported (const GLEWContext* ctx, const char* name)
 #else
-GLboolean glewIsSupported (const char* name)
+GLboolean GLEWAPIENTRY glewIsSupported (const char* name)
 #endif
 {
   GLubyte* pos = (GLubyte*)name;

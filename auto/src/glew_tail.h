@@ -42,7 +42,7 @@ GLEWAPI GLboolean GLEWAPIENTRY glewIsSupported (const char *name);
 
 #endif /* GLEW_MX */
 
-GLEWAPI GLboolean GLEWAPIENTRY glewExperimental;
+GLEWAPI GLboolean glewExperimental;
 GLEWAPI GLboolean GLEWAPIENTRY glewGetExtension (const char *name);
 GLEWAPI const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error);
 GLEWAPI const GLubyte * GLEWAPIENTRY glewGetString (GLenum name);

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------ */
 
-const GLubyte* glewGetErrorString (GLenum error)
+const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error)
 {
   static const GLubyte* _glewErrorString[] =
   {
@@ -14,7 +14,7 @@ const GLubyte* glewGetErrorString (GLenum error)
   return _glewErrorString[(int)error > max_error ? max_error : (int)error];
 }
 
-const GLubyte* glewGetString (GLenum name)
+const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
 {
   static const GLubyte* _glewString[] =
   {
@@ -40,7 +40,7 @@ extern GLenum wglewContextInit (void);
 extern GLenum glxewContextInit (void);
 #endif /* _WIN32 */
 
-GLenum glewInit (void)
+GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
   r = glewContextInit();
