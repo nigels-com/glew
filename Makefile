@@ -117,11 +117,11 @@ endif
 
 tmp/$(SYSTEM)/default/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_STATIC $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) -DGLEW_NO_GLU -DGLEWAPIENTRY= -DGLEW_STATIC $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) -DGLEW_NO_GLU -DGLEWAPIENTRY= $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
 glew.pc: glew.pc.in
 	sed \
@@ -153,11 +153,11 @@ endif
 
 tmp/$(SYSTEM)/mx/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_MX -DGLEW_STATIC $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) -DGLEW_NO_GLU -DGLEWAPIENTRY= -DGLEW_MX -DGLEW_STATIC $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
 tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
+	$(CC) -DGLEW_NO_GLU -DGLEWAPIENTRY= -DGLEW_MX $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
 glewmx.pc: glew.pc.in
 	sed \
