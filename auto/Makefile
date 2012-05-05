@@ -133,7 +133,8 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/wglew_head.h >> $@
 	$(BIN)/make_header.pl WINAPI WGL $(WGL_EXT_SPEC) >> $@
-	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define WGLEW_EXPORT\n#else\n#define WGLEW_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
+	cat $(SRC)/wglew_mid.h >> $@
+	echo -e "\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
 	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(WGL_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* WGLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
@@ -149,7 +150,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cat $(SRC)/glxew_head.h >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl '' GLX $(GLX_EXT_SPEC) >> $@
-	echo -e "/* ------------------------------------------------------------------------- */\n\n#ifdef GLEW_MX\n#define GLXEW_EXPORT\n#else\n#define GLXEW_EXPORT extern\n#endif /* GLEW_MX */" >> $@
+	cat $(SRC)/glxew_mid.h >> $@
 	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
