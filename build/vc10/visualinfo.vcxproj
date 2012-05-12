@@ -70,24 +70,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
-    <OutDir>.\../../bin\</OutDir>
-    <IntDir>.\static/debug-mx\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>static/debug_mx/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>visualinfo-mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\../../bin\</OutDir>
-    <IntDir>.\static/debug\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>static/debug/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>visualinfod</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
-    <OutDir>.\../../bin\</OutDir>
-    <IntDir>.\static/release-mx\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>static/release_mx/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>visualinfo-mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\../../bin\</OutDir>
-    <IntDir>.\static/release\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>static/release/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>visualinfo</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <OutDir>../../bin/</OutDir>
+    <TargetName>visualinfo</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
     <ClCompile>

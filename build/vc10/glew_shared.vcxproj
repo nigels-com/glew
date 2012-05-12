@@ -60,24 +60,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
-    <OutDir>.\../../lib\</OutDir>
-    <IntDir>.\shared/release-mx\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>shared/release_mx/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>glew32mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\../../lib\</OutDir>
-    <IntDir>.\shared/release\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>shared/release/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>glew32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
-    <OutDir>.\../../lib\</OutDir>
-    <IntDir>.\shared/debug-mx\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>shared/debug_mx/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>glew32mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\../../lib\</OutDir>
-    <IntDir>.\shared/debug\</IntDir>
+    <OutDir>../../bin/</OutDir>
+    <IntDir>shared/debug/</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>glew32d</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
     <ClCompile>
