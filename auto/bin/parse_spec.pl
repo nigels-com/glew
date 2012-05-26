@@ -60,6 +60,8 @@ my %typemap = (
     charARB => "GLcharARB",
     handleARB => "GLhandleARB",
 
+    char => "GLchar",
+
     # OpenGL 3.2 and GL_ARB_sync
 
     int64  => "GLint64",
