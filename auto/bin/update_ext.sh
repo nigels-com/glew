@@ -373,6 +373,24 @@ EOT
     grep -v 'GL_FLOAT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
 
+# Filter out GL_STORAGE_CACHED_APPLE and GL_STORAGE_SHARED_APPLE from GL_APPLE_vertex_array_range
+    grep -v 'GL_STORAGE_CACHED_APPLE ' $1/GL_APPLE_vertex_array_range > tmp
+    mv tmp $1/GL_APPLE_vertex_array_range
+    grep -v 'GL_STORAGE_SHARED_APPLE ' $1/GL_APPLE_vertex_array_range > tmp
+    mv tmp $1/GL_APPLE_vertex_array_range
+
+# Filter out GL_RED from GL_ARB_texture_rg
+    grep -v 'GL_RED ' $1/GL_ARB_texture_rg > tmp
+    mv tmp $1/GL_ARB_texture_rg
+
+# Filter out _EXT enums from GL_ARB_texture_storage
+    grep -v '_EXT ' $1/GL_ARB_texture_storage > tmp
+    mv tmp $1/GL_ARB_texture_storage
+
+# Filter out TEXTURE_3D enums from GL_EXT_paletted_texture
+    grep -v 'TEXTURE_3D' $1/GL_EXT_paletted_texture > tmp
+    mv tmp $1/GL_EXT_paletted_texture
+
 # clean up
     rm -f $1/*.bak
 
