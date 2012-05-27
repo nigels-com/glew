@@ -373,11 +373,11 @@ EOT
     grep -v 'GL_FLOAT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
 
-# Filter out GL_STORAGE_CACHED_APPLE and GL_STORAGE_SHARED_APPLE from GL_APPLE_vertex_array_range
-    grep -v 'GL_STORAGE_CACHED_APPLE ' $1/GL_APPLE_vertex_array_range > tmp
-    mv tmp $1/GL_APPLE_vertex_array_range
-    grep -v 'GL_STORAGE_SHARED_APPLE ' $1/GL_APPLE_vertex_array_range > tmp
-    mv tmp $1/GL_APPLE_vertex_array_range
+# Filter out GL_STORAGE_CACHED_APPLE and GL_STORAGE_SHARED_APPLE from GL_APPLE_texture_range
+    grep -v 'GL_STORAGE_CACHED_APPLE ' $1/GL_APPLE_texture_range > tmp
+    mv tmp $1/GL_APPLE_texture_range
+    grep -v 'GL_STORAGE_SHARED_APPLE ' $1/GL_APPLE_texture_range > tmp
+    mv tmp $1/GL_APPLE_texture_range
 
 # Filter out GL_RED from GL_ARB_texture_rg
     grep -v 'GL_RED ' $1/GL_ARB_texture_rg > tmp
@@ -390,6 +390,32 @@ EOT
 # Filter out TEXTURE_3D enums from GL_EXT_paletted_texture
     grep -v 'TEXTURE_3D' $1/GL_EXT_paletted_texture > tmp
     mv tmp $1/GL_EXT_paletted_texture
+
+# Filter out GL_VERSION_1_1 enums from GL_AMD_stencil_operation_extended
+    grep -v '0x150' $1/GL_AMD_stencil_operation_extended > tmp
+    mv tmp $1/GL_AMD_stencil_operation_extended
+
+# Filter out from GL_APPLE_ycbcr_422
+    grep -v 'GL_UNSIGNED_SHORT_8_8_APPLE' $1/GL_APPLE_ycbcr_422 > tmp
+    mv tmp $1/GL_APPLE_ycbcr_422
+    grep -v 'GL_UNSIGNED_SHORT_8_8_REV_APPLE' $1/GL_APPLE_ycbcr_422 > tmp
+    mv tmp $1/GL_APPLE_ycbcr_422
+
+# Filter out GL_FRAGMENT_DEPTH_EXT from GL_EXT_light_texture
+    grep -v 'GL_FRAGMENT_DEPTH_EXT' $1/GL_EXT_light_texture > tmp
+    mv tmp $1/GL_EXT_light_texture
+
+# Filter out GL_MULTISAMPLE_BIT_EXT from GL_SGIS_multisample
+    grep -v 'GL_MULTISAMPLE_BIT_EXT' $1/GL_SGIS_multisample > tmp
+    mv tmp $1/GL_SGIS_multisample
+
+# Filter out GL_COMPRESSED_RGB_S3TC_DXT1_EXT from GL_EXT_texture_compression_dxt1
+    grep -v 'GL_COMPRESSED_RGB_S3TC_DXT1_EXT' $1/GL_EXT_texture_compression_dxt1 > tmp
+    mv tmp $1/GL_EXT_texture_compression_dxt1
+
+# Filter out GL_COMPRESSED_RGBA_S3TC_DXT1_EXT from GL_EXT_texture_compression_dxt1
+    grep -v 'GL_COMPRESSED_RGBA_S3TC_DXT1_EXT' $1/GL_EXT_texture_compression_dxt1 > tmp
+    mv tmp $1/GL_EXT_texture_compression_dxt1
 
 # clean up
     rm -f $1/*.bak
