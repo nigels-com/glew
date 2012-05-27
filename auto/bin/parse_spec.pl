@@ -21,6 +21,7 @@ my @sections = (
     "Name Strings?",
     "New Procedures and Functions",
     "New Tokens",
+    "Additions to Chapter.*",
 );
 
 my %typemap = (
