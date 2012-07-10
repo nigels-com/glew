@@ -1,5 +1,5 @@
 GL_APPLE_float_pixels
-http://developer.apple.com/opengl/extensions/apple_float_pixels.html
+http://www.opengl.org/registry/specs/APPLE/float_pixels.txt
 GL_APPLE_float_pixels
 	GL_HALF_APPLE 0x140B
 	GL_COLOR_FLOAT_APPLE 0x8A0F
