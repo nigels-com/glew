@@ -239,7 +239,7 @@
     <ClCompile Include="..\..\src\visualinfo.c" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="visualinfo.rc" />
+    <ResourceCompile Include="..\visualinfo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

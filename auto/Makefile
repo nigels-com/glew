@@ -40,7 +40,7 @@ TOP = ..
 I.DEST = $(TOP)/include/GL
 S.DEST = $(TOP)/src
 D.DEST = $(TOP)/doc
-B.DEST = $(TOP)/build/vc6
+B.DEST = $(TOP)/build
 
 I.TARGETS = \
 	$(I.DEST)/glew.h \

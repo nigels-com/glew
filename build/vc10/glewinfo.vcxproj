@@ -239,7 +239,7 @@
     <ClCompile Include="..\..\src\glewinfo.c" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="glewinfo.rc" />
+    <ResourceCompile Include="..\glewinfo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

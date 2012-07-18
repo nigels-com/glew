@@ -259,7 +259,7 @@
     <ClInclude Include="..\..\include\GL\wglew.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="glew.rc" />
+    <ResourceCompile Include="..\glew.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

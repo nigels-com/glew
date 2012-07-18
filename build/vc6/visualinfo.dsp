@@ -152,7 +152,7 @@ SOURCE=..\..\src\visualinfo.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\visualinfo.rc
+SOURCE=..\visualinfo.rc
 # End Source File
 # End Group
 # End Target

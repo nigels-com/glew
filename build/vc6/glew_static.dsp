@@ -155,7 +155,7 @@ SOURCE=..\..\include\GL\wglew.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\glew.rc
+SOURCE=..\glew.rc
 # End Source File
 # End Group
 # End Target

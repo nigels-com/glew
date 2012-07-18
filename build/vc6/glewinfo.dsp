@@ -152,7 +152,7 @@ SOURCE=..\..\src\glewinfo.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\glewinfo.rc
+SOURCE=..\glewinfo.rc
 # End Source File
 # End Group
 # End Target
