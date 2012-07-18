@@ -222,7 +222,7 @@ install.lib: glew.lib
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(INSTALL) -d -m 0755 $(BINDIR)
-$(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
 else
 	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
 endif
