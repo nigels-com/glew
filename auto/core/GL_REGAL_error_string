@@ -1,0 +1,4 @@
+GL_REGAL_error_string
+https://github.com/p3/regal
+GL_REGAL_error_string
+	const GLchar* glErrorStringREGAL (GLenum error)

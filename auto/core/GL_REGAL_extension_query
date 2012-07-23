@@ -1,0 +1,5 @@
+GL_REGAL_extension_query
+https://github.com/p3/regal
+GL_REGAL_extension_query
+	GLboolean REGAL_CALL glGetExtensionREGAL (const GLchar* ext)
+	GLboolean REGAL_CALL glIsSupportedREGAL (const GLchar* ext)
