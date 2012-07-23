@@ -8,6 +8,10 @@
 #include <GL/glxew.h>
 #endif
 
+#ifdef GLEW_REGAL
+#include <GL/Regal.h>
+#endif
+
 static FILE* f;
 
 #ifdef GLEW_MX
