@@ -5,7 +5,7 @@ ABI = -64# -n32
 CC += $(ABI)
 LD += $(ABI)
 LDFLAGS.EXTRA =
-LDFLAGS.GL = -lGLU -lGL -lXext -lX11
+LDFLAGS.GL = -lGL -lXext -lX11
 NAME = GLEW
 WARN = -fullwarn -woff 1110,1498
 POPT = -O2 -OPT:Olimit=0
