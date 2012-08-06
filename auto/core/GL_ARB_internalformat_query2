@@ -112,5 +112,4 @@ GL_ARB_internalformat_query2
 	GL_TEXTURE_CUBE_MAP_ARRAY 0x9009
 	GL_TEXTURE_2D_MULTISAMPLE 0x9100
 	GL_TEXTURE_2D_MULTISAMPLE_ARRAY 0x9102
-	GL_NUM_SAMPLE_COUNTS 0x9380
 	void glGetInternalformati64v (GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint64* params)
