@@ -1,7 +1,6 @@
 NAME = $(GLEW_NAME)
 CC = cc
 LD = cc
-PICFLAG = -fPIC
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
 LDFLAGS.STATIC = -Wl,-Bstatic
@@ -9,6 +8,7 @@ LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 NAME = GLEW
 WARN = -Wall -W
 POPT = -O2
+CFLAGS.EXTRA += -fPIC
 BIN.SUFFIX =
 LIB.SONAME    = lib$(NAME).so.$(SO_MAJOR)
 LIB.DEVLNK    = lib$(NAME).so
