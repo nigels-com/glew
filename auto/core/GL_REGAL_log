@@ -1,5 +1,5 @@
 GL_REGAL_log
-http://www.opengl.org/registry/specs/REGAL/log.txt
+https://github.com/p3/regal/blob/master/doc/extensions/GL_REGAL_log.txt
 GL_REGAL_log
 	GL_LOG_ERROR_REGAL 0x9319
 	GL_LOG_WARNING_REGAL 0x931A
