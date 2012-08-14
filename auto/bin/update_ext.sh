@@ -342,9 +342,9 @@ EOT
 EOT
 
 # Remove GL_ARB_debug_group, GL_ARB_debug_label and GL_ARB_debug_output2, for now
-    rm $1/GL_ARB_debug_group
-    rm $1/GL_ARB_debug_label
-    rm $1/GL_ARB_debug_output2
+    rm -f $1/GL_ARB_debug_group
+    rm -f $1/GL_ARB_debug_label
+    rm -f $1/GL_ARB_debug_output2
 
 # add typedefs to GL_ARB_cl_event
 # parse_spec.pl can't parse typedefs from New Types section, but ought to
