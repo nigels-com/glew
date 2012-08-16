@@ -184,7 +184,13 @@ VISUALINFO.BIN.SRC := src/visualinfo.c
 VISUALINFO.BIN.OBJ := $(addprefix tmp/$(SYSTEM)/default/shared/,$(notdir $(VISUALINFO.BIN.SRC)))
 VISUALINFO.BIN.OBJ := $(VISUALINFO.BIN.OBJ:.c=.o)
 
+# Don't build glewinfo or visualinfo for NaCL, yet.
+
+ifneq ($(filter nacl%,$(SYSTEM)),)
+glew.bin: glew.lib bin
+else
 glew.bin: glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) 
+endif
 
 bin:
 	mkdir bin
