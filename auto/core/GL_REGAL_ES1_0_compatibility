@@ -1,8 +1,7 @@
 GL_REGAL_ES1_0_compatibility
 https://github.com/p3/regal/blob/master/doc/extensions/GL_REGAL_ES1_0_compatibility.txt
 GL_REGAL_ES1_0_compatibility
-	typedef GLuint GLfixed
-	typedef GLuint GLclampx
+	typedef int GLclampx
 	void glAlphaFuncx (GLenum func, GLclampx ref)
 	void glClearColorx (GLclampx red, GLclampx green, GLclampx blue, GLclampx alpha)
 	void glClearDepthx (GLclampx depth)

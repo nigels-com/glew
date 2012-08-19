@@ -428,6 +428,13 @@ EOT
     grep -v 'GL_COMPRESSED_RGBA_S3TC_DXT1_EXT' $1/GL_EXT_texture_compression_dxt1 > tmp
     mv tmp $1/GL_EXT_texture_compression_dxt1
 
+# Append GLfixed to GL_ARB_ES2_compatibility
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_ARB_ES2_compatibility <<EOT
+	typedef int GLfixed
+EOT
+
 # clean up
     rm -f $1/*.bak
 
