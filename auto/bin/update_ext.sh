@@ -341,6 +341,10 @@ EOT
 	typedef void (APIENTRY *GLDEBUGPROC)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
 EOT
 
+# Remove glGetPointerv from GL_KHR_debug
+    grep -v "glGetPointerv" $1/GL_KHR_debug > tmp
+    mv tmp $1/GL_KHR_debug
+
 # Remove GL_ARB_debug_group, GL_ARB_debug_label and GL_ARB_debug_output2, for now
     rm -f $1/GL_ARB_debug_group
     rm -f $1/GL_ARB_debug_label
