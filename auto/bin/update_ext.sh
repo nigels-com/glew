@@ -439,6 +439,10 @@ EOT
 	typedef int GLfixed
 EOT
 
+# Filter out GL_BYTE from GL_OES_byte_coordinates
+    grep -v 'GL_BYTE' $1/GL_OES_byte_coordinates > tmp
+    mv tmp $1/GL_OES_byte_coordinates
+
 # clean up
     rm -f $1/*.bak
 
