@@ -13,9 +13,6 @@
 
 set -e
 
-if [ ! -d $1 ] ; then
-    mkdir -p $1
-
 # fix GL_NV_texture_compression_vtc
     grep -v EXT $1/GL_NV_texture_compression_vtc > tmp
     mv tmp $1/GL_NV_texture_compression_vtc
@@ -439,5 +436,3 @@ EOT
 
 # clean up
     rm -f $1/*.bak
-
-fi
