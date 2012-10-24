@@ -10,13 +10,29 @@ include ../config/version
 #GLEW_SPLIT_SOURCE = yes
 
 SHELL = bash
-REGISTRY = registry
+
+###
+### Conventional desktop OpenGL settings
+###
+
+REGISTRY     = registry/gl
+EXT          = extensions/gl
+FILTER       = filter_gl_ext.sh
+CORE         = core/gl
 REGISTRY_URL = http://www.opengl.org/registry/
-#http://oss.sgi.com/projects/ogl-sample/registry/
+
+###
+### Experimental OpenGL ES settings
+###
+
+# REGISTRY     = registry/gles
+# EXT          = extensions/gles
+# FILTER       = filter_gles_ext.sh
+# CORE         = core/gles
+# REGISTRY_URL = http://www.khronos.org/registry/gles/
+
 BIN = bin
 SRC = src
-CORE = core
-EXT = extensions
 BLACKLIST = blacklist
 
 GL_CORE_SPEC := $(CORE)/GL_VERSION*
@@ -94,6 +110,7 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+	$(BIN)/$(FILTER)     $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
 	xargs -J % cp % $(EXT)

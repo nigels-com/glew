@@ -10,7 +10,7 @@
 set -e
 
 if [ ! -d $1 ] ; then
-    mkdir $1
+    mkdir -p $1
 fi
 cd $1
 
