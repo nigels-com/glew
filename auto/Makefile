@@ -10,13 +10,29 @@ include ../config/version
 #GLEW_SPLIT_SOURCE = yes
 
 SHELL = bash
-REGISTRY = registry
+
+###
+### Conventional desktop OpenGL settings
+###
+
+REGISTRY     = registry/gl
+EXT          = extensions/gl
+FILTER       = filter_gl_ext.sh
+CORE         = core/gl
 REGISTRY_URL = http://www.opengl.org/registry/
-#http://oss.sgi.com/projects/ogl-sample/registry/
+
+###
+### Experimental OpenGL ES settings
+###
+
+# REGISTRY     = registry/gles
+# EXT          = extensions/gles
+# FILTER       = filter_gles_ext.sh
+# CORE         = core/gles
+# REGISTRY_URL = http://www.khronos.org/registry/gles/
+
 BIN = bin
 SRC = src
-CORE = core
-EXT = extensions
 BLACKLIST = blacklist
 
 GL_CORE_SPEC := $(CORE)/GL_VERSION*
@@ -94,6 +110,7 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+	$(BIN)/$(FILTER)     $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
 	xargs -J % cp % $(EXT)
@@ -188,7 +205,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_init_wgl.c >> $@
 	$(BIN)/make_list.pl $(WGL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}" >> $@;
-	echo -e "\n#elif !defined(__ANDROID__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
+	echo -e "\n#elif !defined(__ANDROID__) && !defined(__native_client__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@;
@@ -203,7 +220,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(CORE)/GLX_VERSION_1_3 | grep -v '\"GLX_VERSION' >> $@
 	$(BIN)/make_list.pl $(GLX_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}" >> $@
-	echo -e "\n#endif /* !defined(__ANDROID__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) */\n" >> $@;
+	echo -e "\n#endif /* !defined(__ANDROID__) && !defined(__native_client__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) */\n" >> $@;
 	cat $(SRC)/glew_init_tail.c >> $@
 	cat $(SRC)/glew_str_head.c >> $@
 	$(BIN)/make_str.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
@@ -234,7 +251,7 @@ $(S.DEST)/glew_def.c: $(EXT)/.dummy
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
 	echo -e "\n#endif /* _WIN32 */" >> $@
 	echo -e "\n#endif /* !GLEW_MX */" >> $@;
-	echo -e "\n#if !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
+	echo -e "\n#if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__native_client__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@;
@@ -243,7 +260,7 @@ $(S.DEST)/glew_def.c: $(EXT)/.dummy
 	$(BIN)/make_def_var.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GLX $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#endif /* !GLEW_MX */" >> $@;
-	echo -e "\n#endif /* !defined(_WIN32) && !defined(__ANDROID__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) */" >> $@;
+	echo -e "\n#endif /* !defined(_WIN32) && !defined(__ANDROID__) && !defined(__native_client__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) */" >> $@;
 	rm -f $@.bak
 
 $(S.DEST)/glew_init.c: $(EXT)/.dummy

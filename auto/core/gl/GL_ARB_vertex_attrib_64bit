@@ -1,12 +1,6 @@
 GL_ARB_vertex_attrib_64bit
 http://www.opengl.org/registry/specs/ARB/vertex_attrib_64bit.txt
 GL_ARB_vertex_attrib_64bit
-	GL_DOUBLE_MAT2 0x8F46
-	GL_DOUBLE_MAT3 0x8F47
-	GL_DOUBLE_MAT4 0x8F48
-	GL_DOUBLE_VEC2 0x8FFC
-	GL_DOUBLE_VEC3 0x8FFD
-	GL_DOUBLE_VEC4 0x8FFE
 	void glGetVertexAttribLdv (GLuint index, GLenum pname, GLdouble* params)
 	void glVertexAttribL1d (GLuint index, GLdouble x)
 	void glVertexAttribL1dv (GLuint index, const GLdouble* v)
