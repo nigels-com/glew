@@ -123,6 +123,10 @@ tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wgl
 	@mkdir -p $(dir $@)
 	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
+# Force re-write of glew.pc, GLEW_DEST can vary
+
+.PHONY: glew.pc
+
 glew.pc: glew.pc.in
 	sed \
 		-e "s|@prefix@|$(GLEW_DEST)|g" \
@@ -158,6 +162,10 @@ tmp/$(SYSTEM)/mx/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h 
 tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
 	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+# Force re-write of glewmx.pc, GLEW_DEST can vary
+
+.PHONY: glewmx.pc
 
 glewmx.pc: glew.pc.in
 	sed \
