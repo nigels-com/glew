@@ -40,7 +40,6 @@
  */
 /* <windef.h> */
 #ifndef APIENTRY
-#define GLEW_APIENTRY_DEFINED
 #  if defined(__MINGW32__) || defined(__CYGWIN__)
 #    define APIENTRY __stdcall
 #  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
@@ -102,6 +101,7 @@ typedef _W64 int ptrdiff_t;
 #endif
 
 #ifndef GLAPIENTRY
+#define GLEW_GLAPIENTRY_DEFINED
 #define GLAPIENTRY APIENTRY
 #endif
 

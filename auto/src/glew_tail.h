@@ -51,9 +51,8 @@ GLEWAPI const GLubyte * GLEWAPIENTRY glewGetString (GLenum name);
 }
 #endif
 
-#ifdef GLEW_APIENTRY_DEFINED
-#undef GLEW_APIENTRY_DEFINED
-#undef APIENTRY
+#ifdef GLEW_GLAPIENTRY_DEFINED
+#undef GLEW_GLAPIENTRY_DEFINED
 #undef GLAPIENTRY
 #define GLAPIENTRY
 #endif
