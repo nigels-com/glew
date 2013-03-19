@@ -240,6 +240,7 @@ sub parse_spec($)
                             $return =~ s/void\*/GLvoid */og;
                             $parms =~ s/$regex{types}/$typemap{$1}/og;
                             $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
+                            $parms =~ s/ void\* / GLvoid */og;
                         }
                         # add to functions hash
                         $functions{$name} = {
