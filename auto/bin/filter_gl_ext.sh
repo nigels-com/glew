@@ -434,5 +434,9 @@ EOT
     grep -v 'GL_BYTE' $1/GL_OES_byte_coordinates > tmp
     mv tmp $1/GL_OES_byte_coordinates
 
+# Filter out fp64 (not widely supported) from GL_EXT_direct_state_access
+    egrep -v 'glProgramUniform.*[1234]d[v]?EXT' $1/GL_EXT_direct_state_access > tmp
+    mv tmp $1/GL_EXT_direct_state_access
+
 # clean up
     rm -f $1/*.bak
