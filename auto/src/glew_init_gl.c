@@ -1,14 +1,38 @@
 /* ------------------------------------------------------------------------- */
 
 GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
-{    
+{
   const GLubyte* start;
   const GLubyte* end;
-  start = (const GLubyte*)glGetString(GL_EXTENSIONS);
-  if (start == 0)
-    return GL_FALSE;
-  end = start + _glewStrLen(start);
-  return _glewSearchExtension(name, start, end);
+  GLuint dot;
+  GLint numExt, i, major;
+  /* query opengl version to decide how to enumerate extensions */
+  start = glGetString(GL_VERSION);
+  dot = _glewStrCLen(start, '.');
+  if (dot == 0)
+      return GL_FALSE;
+  major = start[dot-1]-'0';
+
+  if (major >= 3)
+  {
+      glGetIntegerv(GL_NUM_EXTENSIONS, &numExt);
+      for(i = 0; i < numExt; ++i)
+      {
+          start = glGetStringi(GL_EXTENSIONS, i);
+          end = start + _glewStrLen(start);
+          if(_glewSearchExtension(name, start, end) == GL_TRUE)
+              return GL_TRUE;
+      }
+  }
+  else
+  {
+    start = (const GLubyte*)glGetString(GL_EXTENSIONS);
+    if (start == 0)
+      return GL_FALSE;
+    end = start + _glewStrLen(start);
+    return _glewSearchExtension(name, start, end);
+  }
+  return GL_FALSE;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -21,6 +45,9 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
+  const GLubyte*  extArray[1000];
+  const GLubyte** extArrayStart;
+  const GLubyte** extArrayEnd;
   const GLubyte* extStart;
   const GLubyte* extEnd;
   /* query opengl version */
@@ -62,10 +89,4 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
     CONST_CAST(GLEW_VERSION_1_1)   = GLEW_VERSION_1_2   == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
   }
 
-  /* query opengl extensions string */
-  extStart = glGetString(GL_EXTENSIONS);
-  if (extStart == 0)
-    extStart = (const GLubyte*)"";
-  extEnd = extStart + _glewStrLen(extStart);
-
-  /* initialize extensions */
+  /* initialize core */
