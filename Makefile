@@ -123,6 +123,10 @@ tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wgl
 	@mkdir -p $(dir $@)
 	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
 
+# Force re-write of glew.pc, GLEW_DEST can vary
+
+.PHONY: glew.pc
+
 glew.pc: glew.pc.in
 	sed \
 		-e "s|@prefix@|$(GLEW_DEST)|g" \
@@ -158,6 +162,10 @@ tmp/$(SYSTEM)/mx/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h 
 tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
 	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
+
+# Force re-write of glewmx.pc, GLEW_DEST can vary
+
+.PHONY: glewmx.pc
 
 glewmx.pc: glew.pc.in
 	sed \
@@ -358,8 +366,9 @@ dist-src:
 	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(TARDIR) -name .svn | xargs $(RM) -r
 	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
-	unix2dos $(TARDIR)/Makefile
-	unix2dos $(TARDIR)/config/*
+	dos2unix $(TARDIR)/Makefile
+	dos2unix $(TARDIR)/auto/Makefile
+	dos2unix $(TARDIR)/config/*
 	unix2dos $(TARDIR)/auto/core/*
 	unix2dos $(TARDIR)/auto/extensions/*
 	find $(TARDIR) -name '*.h' | xargs unix2dos
@@ -376,6 +385,7 @@ dist-src:
 	rm -f ../$(DIST_SRC_ZIP)
 	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
 	dos2unix $(TARDIR)/Makefile
+	dos2unix $(TARDIR)/auto/Makefile
 	dos2unix $(TARDIR)/config/*
 	dos2unix $(TARDIR)/auto/core/*
 	dos2unix $(TARDIR)/auto/extensions/*

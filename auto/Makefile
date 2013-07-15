@@ -11,11 +11,15 @@ include ../config/version
 
 SHELL = bash
 
+### Use git repository for GL extension specifications
+
+GIT_CLONE  ?= git clone --branch glew https://github.com/nigels-com/glfixes.git
+
 ###
 ### Conventional desktop OpenGL settings
 ###
 
-REGISTRY     = registry/gl
+REGISTRY     = registry/gl/specs
 EXT          = extensions/gl
 FILTER       = filter_gl_ext.sh
 CORE         = core/gl
@@ -38,11 +42,11 @@ BLACKLIST = blacklist
 GL_CORE_SPEC := $(CORE)/GL_VERSION*
 GLX_CORE_SPEC := $(CORE)/GLX_VERSION*
 ifeq (custom,$(MAKECMDGOALS))
-#GL_CORE_SPEC := $(shell grep GL_VERSION custom.txt | sed 's/\(.*\)/$(CORE)\/\1/g;')
-GL_EXT_SPEC := $(shell grep "^[ \t]*GL_" custom.txt | grep -v GL_VERSION | sed 's/\(.*\)/$(EXT)\/\1/g;')
-WGL_EXT_SPEC := $(shell grep "^[ \t]*WGL_" custom.txt | sed 's/\(.*\)/$(EXT)\/\1/g;')
-#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt | sed 's/\(.*\)/$(CORE)\/\1/g;')
-GLX_EXT_SPEC := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | sed 's/\(.*\)/$(EXT)\/\1/g;')
+#GL_CORE_SPEC  := $(shell grep GL_VERSION custom.txt    |                       perl -pi -e "s=^=$(CORE)/=g;")
+GL_EXT_SPEC    := $(shell grep "^[ \t]*GL_" custom.txt  | grep -v GL_VERSION  | perl -pi -e "s=^=$(EXT)/=g;")
+WGL_EXT_SPEC   := $(shell grep "^[ \t]*WGL_" custom.txt |                       perl -pi -e "s=^=$(EXT)/=g;")
+#GLX_CORE_SPEC := $(shell grep GLX_VERSION custom.txt   |                       perl -pi -e "s=^=$(CORE)/=g;")
+GLX_EXT_SPEC   := $(shell grep "^[ \t]*GLX_" custom.txt | grep -v GLX_VERSION | perl -pi -e "s=^=$(EXT)/=g;")
 else
 GL_EXT_SPEC := $(EXT)/GL_*
 WGL_EXT_SPEC := $(EXT)/WGL_*
@@ -97,11 +101,11 @@ all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS) $(B.TARGETS)
 registry: $(REGISTRY)/.dummy
 ext: $(EXT)/.dummy
 
-$(REGISTRY)/.dummy: $(BIN)/update_registry.sh
+$(REGISTRY)/.dummy:
 	@echo "--------------------------------------------------------------------"
 	@echo "Downloading registry"
 	@echo "--------------------------------------------------------------------"
-	$(BIN)/update_registry.sh $(REGISTRY) $(REGISTRY_URL)
+	$(GIT_CLONE) registry
 	touch $@
 
 $(EXT)/.dummy: $(REGISTRY)/.dummy
@@ -138,7 +142,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	echo -e "\n#if defined(GLEW_MX) && !defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
-	perl -e 's/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/' -pi $@
+	perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
 	rm -f $@.bak
 	cat $(SRC)/glew_tail.h >> $@
 
@@ -165,14 +169,14 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cat $(SRC)/mesa_license.h >> $@
 	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/glxew_head.h >> $@
-	$(BIN)/make_header.pl '' GLX $(GLX_CORE_SPEC) >> $@
-	$(BIN)/make_header.pl '' GLX $(GLX_EXT_SPEC) >> $@
+	$(BIN)/make_header.pl "" GLX $(GLX_CORE_SPEC) >> $@
+	$(BIN)/make_header.pl "" GLX $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glxew_mid.h >> $@
 	$(BIN)/make_struct_fun.pl GLXEW_FUN_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLXEW_VAR_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
-	perl -e 's/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/' -pi $@
+	perl -e "s/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/" -pi $@
 	cat $(SRC)/glxew_tail.h >> $@
 
 $(S.DEST)/glew.c: $(EXT)/.dummy
@@ -193,8 +197,9 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
-	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
-	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
+	$(BIN)/make_list_gl.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
+	cat $(SRC)/glew_init_gl_2.c >> $@
+	$(BIN)/make_list_gl.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
 	echo -e "\n#if defined(_WIN32)" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@
@@ -270,6 +275,7 @@ $(S.DEST)/glew_init.c: $(EXT)/.dummy
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
+	cat $(SRC)/glew_init_gl_2.c >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n\n#if defined(_WIN32)\n" >> $@;
 	$(BIN)/make_init.pl WGL $(WGL_EXT_SPEC) >> $@
@@ -382,4 +388,4 @@ clobber: clean
 	rm -rf $(EXT)
 
 destroy: clobber
-	rm -rf $(REGISTRY)
+	rm -rf registry

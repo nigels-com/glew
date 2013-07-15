@@ -8,3 +8,4 @@ Description: The OpenGL Extension Wrangler library
 Version: @version@
 Cflags: -I${includedir} @cflags@
 Libs: -L${libdir} -l@libname@
+Requires: glu

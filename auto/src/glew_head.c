@@ -247,3 +247,18 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
   }
   return GL_FALSE;
 }
+
+static GLboolean _glewSearchExtensionArray (const char* name, const GLubyte** start, const GLubyte** end)
+{
+  const GLubyte** p;
+  GLuint len = _glewStrLen((const GLubyte*)name);
+  p = start;
+  while (p < end)
+  {
+    GLuint n = _glewStrCLen(*p, ' ');
+    if (len == n && _glewStrSame((const GLubyte*)name, *p, n)) return GL_TRUE;
+    p += 1;
+  }
+  return GL_FALSE;
+}
+
