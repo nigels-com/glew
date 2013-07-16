@@ -463,5 +463,10 @@ EOT
     grep -v 'GL_NONE' $1/GL_ANGLE_texture_usage > tmp
     mv tmp $1/GL_ANGLE_texture_usage
 
+# Fixup REGAL and ANGLE urls
+
+    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
+    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
+
 # clean up
     rm -f $1/*.bak
