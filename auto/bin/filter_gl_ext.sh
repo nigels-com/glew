@@ -430,6 +430,23 @@ EOT
 	typedef int GLfixed
 EOT
 
+# Append GLclampx to GL_REGAL_ES1_0_compatibility
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_REGAL_ES1_0_compatibility <<EOT
+	typedef int GLclampx
+EOT
+
+# Append GLLOGPROCREGAL to GL_REGAL_log
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_REGAL_log <<EOT
+	typedef void (APIENTRY *LOGPROCREGAL)(GLenum stream, GLsizei length, const GLchar *message, GLvoid *context)
+EOT
+
+# Fixup LOGPROCREGAL -> GLLOGPROCREGAL
+    perl -e 's/LOGPROCREGAL/GLLOGPROCREGAL/g' -pi $1/GL_REGAL_log
+
 # Filter out GL_BYTE from GL_OES_byte_coordinates
     grep -v 'GL_BYTE' $1/GL_OES_byte_coordinates > tmp
     mv tmp $1/GL_OES_byte_coordinates
@@ -437,6 +454,14 @@ EOT
 # Filter out fp64 (not widely supported) from GL_EXT_direct_state_access
     egrep -v 'glProgramUniform.*[1234]d[v]?EXT' $1/GL_EXT_direct_state_access > tmp
     mv tmp $1/GL_EXT_direct_state_access
+
+# Filter out all enums from GL_ANGLE_depth_texture
+    grep -v '0x' $1/GL_ANGLE_depth_texture > tmp
+    mv tmp $1/GL_ANGLE_depth_texture
+
+# Filter out GL_NONE enum from GL_ANGLE_depth_texture
+    grep -v 'GL_NONE' $1/GL_ANGLE_texture_usage > tmp
+    mv tmp $1/GL_ANGLE_texture_usage
 
 # clean up
     rm -f $1/*.bak
