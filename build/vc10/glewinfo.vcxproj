@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug MX|Win32">
@@ -31,14 +31,6 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Template|Win32">
-      <Configuration>Template</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Template|x64">
-      <Configuration>Template</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -121,62 +113,62 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo-mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo-mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo-mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo-mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfod</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfod</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glewinfo</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
     <TargetName>glewinfo</TargetName>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
     <TargetName>glewinfo</TargetName>
-    <IntDir>static/$(Configuration)/$(PlatformName)/</IntDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
     <ClCompile>
@@ -188,10 +180,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -199,14 +190,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|x64'">
@@ -219,10 +209,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -230,14 +219,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32mxs.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
@@ -249,11 +237,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRA_LEAN;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -261,7 +248,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -269,7 +255,7 @@
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32mxsd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|x64'">
@@ -281,11 +267,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRA_LEAN;GLEW_MX;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -293,7 +278,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -301,7 +285,7 @@
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32mxsd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -313,11 +297,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRA_LEAN;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -325,7 +308,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -333,7 +315,7 @@
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32sd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -345,11 +327,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRA_LEAN;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -357,7 +338,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -365,7 +345,7 @@
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32sd.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -378,10 +358,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -389,14 +368,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -409,10 +387,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
-      <TypeLibraryName>.\../../bin\glewinfo.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\..\bin\glewinfo.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -420,34 +397,31 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin\glewinfo.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
     <ClCompile />
     <ClCompile>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Template|x64'">
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(LIB_DIR)/$(Configuration)/$(PlatformName)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LIB_DIR)\$(Configuration)\$(PlatformName)\</AdditionalLibraryDirectories>
     </Link>
     <ClCompile />
     <ClCompile>
-      <PrecompiledHeaderOutputFile>.\static/$(Configuration)glewinfo.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

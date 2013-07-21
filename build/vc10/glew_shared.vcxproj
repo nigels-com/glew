@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug MX|Win32">
@@ -101,50 +101,50 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release MX|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32mx</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug MX|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32mxd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(BIN_DIR)/$(Configuration)/$(PlatformName)/</OutDir>
-    <IntDir>shared/$(Configuration)/$(PlatformName)/</IntDir>
+    <OutDir>$(BIN_DIR)\$(Configuration)\$(PlatformName)\</OutDir>
+    <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>glew32d</TargetName>
   </PropertyGroup>
@@ -159,12 +159,10 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_MX;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -174,14 +172,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
@@ -200,12 +197,10 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_MX;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -214,14 +209,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
@@ -240,12 +234,10 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -255,14 +247,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
@@ -281,12 +272,10 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -295,14 +284,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
@@ -320,13 +308,11 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_MEAN_AND_LEAN;VC_EXTRALEAN;GLEW_MX;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -336,7 +322,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -344,7 +329,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -361,13 +346,11 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_MEAN_AND_LEAN;VC_EXTRALEAN;GLEW_MX;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -376,7 +359,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -384,7 +366,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -399,7 +381,6 @@
       <Optimization>Disabled</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>WIN32;WIN32_MEAN_AND_LEAN;VC_EXTRALEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
@@ -407,7 +388,6 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -417,7 +397,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -425,7 +404,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -440,7 +419,6 @@
       <Optimization>Disabled</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderOutputFile>.\shared/$(Configuration)\glew_shared.pch</PrecompiledHeaderOutputFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
@@ -448,7 +426,6 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../lib\glew_shared.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -457,7 +434,6 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(TargetDir)glew_shared.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -465,7 +441,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <ImportLibrary>$(LIB_DIR)/$(Configuration)/$(PlatformName)/$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(LIB_DIR)\$(Configuration)\$(PlatformName)\$(TargetName).lib</ImportLibrary>
       <BaseAddress>0x62AA0000</BaseAddress>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
