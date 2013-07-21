@@ -197,9 +197,8 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
-	$(BIN)/make_list_gl.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
-	cat $(SRC)/glew_init_gl_2.c >> $@
-	$(BIN)/make_list_gl.pl $(GL_EXT_SPEC) >> $@
+	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
+	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
 	echo -e "\n#if defined(_WIN32)" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@
@@ -275,7 +274,6 @@ $(S.DEST)/glew_init.c: $(EXT)/.dummy
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
-	cat $(SRC)/glew_init_gl_2.c >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n\n#if defined(_WIN32)\n" >> $@;
 	$(BIN)/make_init.pl WGL $(WGL_EXT_SPEC) >> $@
