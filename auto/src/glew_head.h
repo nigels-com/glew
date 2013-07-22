@@ -189,6 +189,9 @@ typedef _W64 int ptrdiff_t;
 #ifndef GLEW_SUBSET_WGL_EXT_extensions_string
 #define GLEW_SUBSET_WGL_EXT_extensions_string
 #endif
+#ifndef GLEW_SUBSET_GL_VERSION_3_0
+#define GLEW_SUBSET_GL_VERSION_3_0
+#endif
 #ifndef GLEW_SUBSET_GLX_VERSION_1_2
 #define GLEW_SUBSET_GLX_VERSION_1_2
 #endif
