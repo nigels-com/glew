@@ -45,13 +45,12 @@ BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
 INCDIR    ?= $(GLEW_DEST)/include/GL
 
-TARDIR = ../glew-$(GLEW_VERSION)
-TARBALL = ../glew-$(GLEW_VERSION).tar.gz
+DIST_NAME     ?= glew-$(GLEW_VERSION)
+DIST_SRC_ZIP ?= $(shell pwd)/$(DIST_NAME).zip
+DIST_SRC_TGZ ?= $(shell pwd)/$(DIST_NAME).tgz
+DIST_WIN32   ?= $(shell pwd)/$(DIST_NAME)-win32.zip
 
-DIST_DIR     = glew-$(GLEW_VERSION)
-DIST_WIN32   = glew-$(GLEW_VERSION)-win32.zip
-DIST_SRC_ZIP = glew-$(GLEW_VERSION).zip
-DIST_SRC_TGZ = glew-$(GLEW_VERSION).tgz
+DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 
 # To disable stripping of binaries either:
 #   - use STRIP= on gmake command-line
@@ -321,86 +320,81 @@ distclean: clean
 # Distributions
 
 dist-win32:
-	$(RM) -r $(TARDIR)
-	mkdir -p $(TARDIR)
-	mkdir -p $(TARDIR)/bin
-	mkdir -p $(TARDIR)/lib
-	cp -a include $(TARDIR)
-	cp -a doc $(TARDIR)
-	cp -a *.txt $(TARDIR)
-	cp -a lib/glew32.lib     $(TARDIR)/lib
-	cp -a lib/glew32s.lib    $(TARDIR)/lib
-	cp -a lib/glew32mx.lib   $(TARDIR)/lib
-	cp -a lib/glew32mxs.lib  $(TARDIR)/lib
-	cp -a bin/glew32.dll     $(TARDIR)/bin
-	cp -a bin/glew32mx.dll   $(TARDIR)/bin
-	cp -a bin/glewinfo.exe   $(TARDIR)/bin
-	cp -a bin/visualinfo.exe $(TARDIR)/bin
-	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
-	find $(TARDIR) -name .svn | xargs $(RM) -r
-	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
-	unix2dos $(TARDIR)/include/GL/*.h
-	unix2dos $(TARDIR)/doc/*.txt
-	unix2dos $(TARDIR)/doc/*.html
-	unix2dos $(TARDIR)/*.txt
-	rm -f ../$(DIST_WIN32)
-	cd .. && zip -rv9 $(DIST_WIN32) $(DIST_DIR)
+	$(RM) -r $(DIST_DIR)
+	mkdir -p $(DIST_DIR)
+	cp -a include $(DIST_DIR)
+	cp -a doc $(DIST_DIR)
+	cp -a *.txt $(DIST_DIR)
+	cp -a bin $(DIST_DIR)
+	cp -a lib $(DIST_DIR)
+	$(RM) -f $(DIST_DIR)/bin/*/*/*.pdb $(DIST_DIR)/bin/*/*/*.exp
+	$(RM) -f $(DIST_DIR)/bin/*/*/glewinfo-*.exe $(DIST_DIR)/bin/*/*/visualinfo-*.exe 
+	$(RM) -f $(DIST_DIR)/lib/*/*/*.pdb $(DIST_DIR)/lib/*/*/*.exp
+	unix2dos $(DIST_DIR)/include/GL/*.h
+	unix2dos $(DIST_DIR)/doc/*.txt
+	unix2dos $(DIST_DIR)/doc/*.html
+	unix2dos $(DIST_DIR)/*.txt
+	rm -f $(DIST_WIN32)
+	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_WIN32) $(DIST_NAME)
+	$(RM) -r $(DIST_DIR)
 
 dist-src:
-	$(RM) -r $(TARDIR)
-	mkdir -p $(TARDIR)
-	mkdir -p $(TARDIR)/bin
-	mkdir -p $(TARDIR)/lib
-	cp -a auto $(TARDIR)
-	$(RM) -Rf $(TARDIR)/auto/registry
-	cp -a build $(TARDIR)
-	cp -a config $(TARDIR)
-	cp -a src $(TARDIR)
-	cp -a doc $(TARDIR)
-	cp -a include $(TARDIR)
-	cp -a *.txt $(TARDIR)
-	cp -a Makefile $(TARDIR)
-	cp -a glew.pc.in $(TARDIR)
-	find $(TARDIR) -name '*.o' | xargs $(RM) -r
-	find $(TARDIR) -name '*~' | xargs $(RM) -r
-	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
-	find $(TARDIR) -name .svn | xargs $(RM) -r
-	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
-	dos2unix $(TARDIR)/Makefile
-	dos2unix $(TARDIR)/auto/Makefile
-	dos2unix $(TARDIR)/config/*
-	unix2dos $(TARDIR)/auto/core/*
-	unix2dos $(TARDIR)/auto/extensions/*
-	find $(TARDIR) -name '*.h' | xargs unix2dos
-	find $(TARDIR) -name '*.c' | xargs unix2dos
-	find $(TARDIR) -name '*.txt' | xargs unix2dos
-	find $(TARDIR) -name '*.html' | xargs unix2dos
-	find $(TARDIR) -name '*.css' | xargs unix2dos
-	find $(TARDIR) -name '*.sh' | xargs unix2dos
-	find $(TARDIR) -name '*.pl' | xargs unix2dos
-	find $(TARDIR) -name 'Makefile' | xargs unix2dos
-	find $(TARDIR) -name '*.in' | xargs unix2dos
-	find $(TARDIR) -name '*.pm' | xargs unix2dos
-	find $(TARDIR) -name '*.rc' | xargs unix2dos
-	rm -f ../$(DIST_SRC_ZIP)
-	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
-	dos2unix $(TARDIR)/Makefile
-	dos2unix $(TARDIR)/auto/Makefile
-	dos2unix $(TARDIR)/config/*
-	dos2unix $(TARDIR)/auto/core/*
-	dos2unix $(TARDIR)/auto/extensions/*
-	find $(TARDIR) -name '*.h' | xargs dos2unix
-	find $(TARDIR) -name '*.c' | xargs dos2unix
-	find $(TARDIR) -name '*.txt' | xargs dos2unix
-	find $(TARDIR) -name '*.html' | xargs dos2unix
-	find $(TARDIR) -name '*.css' | xargs dos2unix
-	find $(TARDIR) -name '*.sh' | xargs dos2unix
-	find $(TARDIR) -name '*.pl' | xargs dos2unix
-	find $(TARDIR) -name 'Makefile' | xargs dos2unix
-	find $(TARDIR) -name '*.in' | xargs dos2unix
-	find $(TARDIR) -name '*.pm' | xargs dos2unix
-	find $(TARDIR) -name '*.rc' | xargs dos2unix
-	cd .. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_DIR)
+	$(RM) -r $(DIST_DIR)
+	mkdir -p $(DIST_DIR)
+	mkdir -p $(DIST_DIR)/bin
+	mkdir -p $(DIST_DIR)/lib
+	cp -a auto $(DIST_DIR)
+	$(RM) -Rf $(DIST_DIR)/auto/registry
+	cp -a build $(DIST_DIR)
+	cp -a config $(DIST_DIR)
+	cp -a src $(DIST_DIR)
+	cp -a doc $(DIST_DIR)
+	cp -a include $(DIST_DIR)
+	cp -a *.txt $(DIST_DIR)
+	cp -a Makefile $(DIST_DIR)
+	cp -a glew.pc.in $(DIST_DIR)
+	find $(DIST_DIR) -name '*.o' | xargs $(RM) -r
+	find $(DIST_DIR) -name '*~' | xargs $(RM) -r
+	find $(DIST_DIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(DIST_DIR) -name .svn | xargs $(RM) -r
+	find $(DIST_DIR) -name "*.patch" | xargs $(RM) -r
+	dos2unix $(DIST_DIR)/Makefile
+	dos2unix $(DIST_DIR)/auto/Makefile
+	dos2unix $(DIST_DIR)/config/*
+	unix2dos $(DIST_DIR)/auto/core/*
+	unix2dos $(DIST_DIR)/auto/extensions/*
+	find $(DIST_DIR) -name '*.h' | xargs unix2dos
+	find $(DIST_DIR) -name '*.c' | xargs unix2dos
+	find $(DIST_DIR) -name '*.txt' | xargs unix2dos
+	find $(DIST_DIR) -name '*.html' | xargs unix2dos
+	find $(DIST_DIR) -name '*.css' | xargs unix2dos
+	find $(DIST_DIR) -name '*.sh' | xargs unix2dos
+	find $(DIST_DIR) -name '*.pl' | xargs unix2dos
+	find $(DIST_DIR) -name 'Makefile' | xargs unix2dos
+	find $(DIST_DIR) -name '*.in' | xargs unix2dos
+	find $(DIST_DIR) -name '*.pm' | xargs unix2dos
+	find $(DIST_DIR) -name '*.rc' | xargs unix2dos
+	rm -f $(DIST_SRC_ZIP)
+	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_NAME)
+	dos2unix $(DIST_DIR)/Makefile
+	dos2unix $(DIST_DIR)/auto/Makefile
+	dos2unix $(DIST_DIR)/config/*
+	dos2unix $(DIST_DIR)/auto/core/*
+	dos2unix $(DIST_DIR)/auto/extensions/*
+	find $(DIST_DIR) -name '*.h' | xargs dos2unix
+	find $(DIST_DIR) -name '*.c' | xargs dos2unix
+	find $(DIST_DIR) -name '*.txt' | xargs dos2unix
+	find $(DIST_DIR) -name '*.html' | xargs dos2unix
+	find $(DIST_DIR) -name '*.css' | xargs dos2unix
+	find $(DIST_DIR) -name '*.sh' | xargs dos2unix
+	find $(DIST_DIR) -name '*.pl' | xargs dos2unix
+	find $(DIST_DIR) -name 'Makefile' | xargs dos2unix
+	find $(DIST_DIR) -name '*.in' | xargs dos2unix
+	find $(DIST_DIR) -name '*.pm' | xargs dos2unix
+	find $(DIST_DIR) -name '*.rc' | xargs dos2unix
+	rm -f $(DIST_SRC_TGZ)
+	cd $(DIST_DIR)/.. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_NAME)
+	$(RM) -r $(DIST_DIR)
 
 extensions:
 	$(MAKE) -C auto
