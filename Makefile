@@ -231,81 +231,81 @@ install:     install.include install.lib install.pkgconfig
 install.mx:  install.include install.lib.mx install.pkgconfig.mx
 
 install.lib: glew.lib
-	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -d -m 0755 $(BINDIR)
-	$(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED) "$(DESTDIR)$(BINDIR)/"
 else
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/"
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
+	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
 endif
 
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) "$(DESTDIR)$(LIBDIR)/"
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
+	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)"
 endif
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC) "$(DESTDIR)$(LIBDIR)/"
 
 install.lib.mx: glew.lib.mx
-	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -d -m 0755 $(BINDIR)
-	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) $(BINDIR)/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(BINDIR)/"
 else
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/"
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.SONAME.MX)
+	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
 endif
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) "$(DESTDIR)$(LIBDIR)/"
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.DEVLNK.MX)
+	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
 endif
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) "$(DESTDIR)$(LIBDIR)/"
 
 install.bin: glew.bin
-	$(INSTALL) -d -m 0755 $(BINDIR)
-	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
+	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) "$(DESTDIR)$(BINDIR)/"
 
 install.include:
-	$(INSTALL) -d -m 0755 $(INCDIR)
-	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
-	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
-	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(INCDIR)"
+	$(INSTALL) -m 0644 include/GL/wglew.h "$(DESTDIR)$(INCDIR)/"
+	$(INSTALL) -m 0644 include/GL/glew.h "$(DESTDIR)$(INCDIR)/"
+	$(INSTALL) -m 0644 include/GL/glxew.h "$(DESTDIR)$(INCDIR)/"
 
 install.pkgconfig: glew.pc
-	$(INSTALL) -d -m 0755 $(LIBDIR)
-	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
-	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
+	$(INSTALL) -m 0644 glew.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
 
 install.pkgconfig.mx: glewmx.pc
-	$(INSTALL) -d -m 0755 $(LIBDIR)
-	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
-	$(INSTALL) -m 0644 glewmx.pc $(LIBDIR)/pkgconfig/
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
+	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
+	$(INSTALL) -m 0644 glewmx.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
 
 uninstall:
-	$(RM) $(INCDIR)/wglew.h
-	$(RM) $(INCDIR)/glew.h
-	$(RM) $(INCDIR)/glxew.h
-	$(RM) $(LIBDIR)/$(LIB.DEVLNK) $(LIBDIR)/$(LIB.DEVLNK.MX)
+	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
+	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
+	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)" "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(RM) $(BINDIR)/$(LIB.SHARED) $(BINDIR)/$(LIB.SHARED.MX)
+	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)" "$(DESTDIR)$(BINDIR)/$(LIB.SHARED.MX)"
 else
-	$(RM) $(LIBDIR)/$(LIB.SONAME) $(LIBDIR)/$(LIB.SONAME.MX)
-	$(RM) $(LIBDIR)/$(LIB.SHARED) $(LIBDIR)/$(LIB.SHARED.MX)
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)" "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED.MX)"
 endif
-	$(RM) $(LIBDIR)/$(LIB.STATIC) $(LIBDIR)/$(LIB.STATIC.MX)
-	$(RM) $(BINDIR)/$(GLEWINFO.BIN) $(BINDIR)/$(VISUALINFO.BIN)
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)" "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC.MX)"
+	$(RM) "$(DESTDIR)$(BINDIR)/$(GLEWINFO.BIN)" "$(DESTDIR)$(BINDIR)/$(VISUALINFO.BIN)"
 
 clean:
 	$(RM) -r tmp/
