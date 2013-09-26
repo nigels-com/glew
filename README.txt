@@ -5,6 +5,12 @@ If you downloaded the tarball from the GLEW website, you just need to:
     Unix:
 
         make
+        
+        sudo -s
+        
+        make install
+        
+        make clean
 
     Windows:
 
