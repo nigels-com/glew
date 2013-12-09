@@ -215,6 +215,21 @@ void glewDestroyContext ()
 
 /* ------------------------------------------------------------------------ */
 
+#elif defined(__HAIKU__)
+
+GLboolean glewCreateContext ()
+{
+  /* TODO: Haiku: We need to call C++ code here */
+  return GL_FALSE;
+}
+
+void glewDestroyContext ()
+{
+  /* TODO: Haiku: We need to call C++ code here */
+}
+
+/* ------------------------------------------------------------------------ */
+
 #else /* __UNIX || (__APPLE__ && GLEW_APPLE_GLX) */
 
 Display* dpy = NULL;

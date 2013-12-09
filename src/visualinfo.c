@@ -4,6 +4,7 @@
 ** Copyright (C) Nate Robins, 1997
 **               Michael Wimmer, 1999
 **               Milan Ikits, 2002-2008
+**               Nigel Stewart, 2008-2013
 **
 ** visualinfo is a small utility that displays all available visuals,
 ** aka. pixelformats, in an OpenGL system along with renderer version
@@ -37,7 +38,7 @@
 #include <GL/wglew.h>
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 #include <AGL/agl.h>
-#else
+#elif !defined(__HAIKU__)
 #include <GL/glxew.h>
 #endif
 
@@ -47,7 +48,7 @@ GLEWContext _glewctx;
 #  ifdef _WIN32
 WGLEWContext _wglewctx;
 #    define wglewGetContext() (&_wglewctx)
-#  elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
 GLXEWContext _glxewctx;
 #    define glxewGetContext() (&_glxewctx)
 #  endif
@@ -61,7 +62,7 @@ typedef struct GLContextStruct
   HGLRC rc;
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
   AGLContext ctx, octx;
-#else
+#elif !defined(__HAIKU__)
   Display* dpy;
   XVisualInfo* vi;
   GLXContext ctx;
@@ -129,7 +130,7 @@ main (int argc, char** argv)
   err = glewContextInit(glewGetContext());
 #  ifdef _WIN32
   err = err || wglewContextInit(wglewGetContext());
-#  elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
   err = err || glxewContextInit(glxewGetContext());
 #  endif
 #else
@@ -182,6 +183,10 @@ main (int argc, char** argv)
   }
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
   
+#elif defined(__HAIKU__)
+
+  /* TODO */
+
 #else
   /* GLX extensions */
   fprintf(file, "GLX extensions (GLX_): \n");
@@ -596,6 +601,16 @@ VisualInfo (GLContext* ctx)
     pf = aglNextPixelFormat(pf);
   }
 */
+}
+
+/* ---------------------------------------------------------------------- */
+
+#elif defined(__HAIKU__)
+
+void
+VisualInfo (GLContext* ctx)
+{
+  /* TODO */
 }
 
 #else /* GLX */
@@ -1070,6 +1085,29 @@ void DestroyContext (GLContext* ctx)
   if (NULL == ctx) return;
   aglSetCurrentContext(ctx->octx);
   if (NULL != ctx->ctx) aglDestroyContext(ctx->ctx);
+}
+
+/* ------------------------------------------------------------------------ */
+
+#elif defined(__HAIKU__)
+
+void
+InitContext (GLContext* ctx)
+{
+  /* TODO */
+}
+
+GLboolean
+CreateContext (GLContext* ctx)
+{
+  /* TODO */
+  return GL_FALSE;
+}
+
+void
+DestroyContext (GLContext* ctx)
+{
+  /* TODO */
 }
 
 /* ------------------------------------------------------------------------ */
