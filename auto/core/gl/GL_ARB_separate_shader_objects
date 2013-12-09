@@ -12,7 +12,7 @@ GL_ARB_separate_shader_objects
 	GL_ALL_SHADER_BITS 0xFFFFFFFF
 	void glActiveShaderProgram (GLuint pipeline, GLuint program)
 	void glBindProgramPipeline (GLuint pipeline)
-	GLuint glCreateShaderProgramv (GLenum type, GLsizei count, const GLchar ** strings)
+	GLuint glCreateShaderProgramv (GLenum type, GLsizei count, const GLchar * const * strings)
 	void glDeleteProgramPipelines (GLsizei n, const GLuint* pipelines)
 	void glGenProgramPipelines (GLsizei n, GLuint* pipelines)
 	void glGetProgramPipelineInfoLog (GLuint pipeline, GLsizei bufSize, GLsizei* length, GLchar *infoLog)

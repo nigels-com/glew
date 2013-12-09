@@ -48,7 +48,7 @@ http://www.opengl.org/documentation/specs/version1.4/glspec14.pdf
 	void glFogCoorddv (const GLdouble *coord)
 	void glFogCoordPointer (GLenum type, GLsizei stride, const GLvoid *pointer)
 	void glMultiDrawArrays (GLenum mode, const GLint *first, const GLsizei *count, GLsizei drawcount)
-	void glMultiDrawElements (GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei drawcount)
+	void glMultiDrawElements (GLenum mode, const GLsizei *count, GLenum type, const void *const* indices, GLsizei drawcount)
 	void glPointParameteri (GLenum pname, GLint param)
 	void glPointParameteriv (GLenum pname, const GLint *params)
 	void glPointParameterf (GLenum pname, GLfloat param)
