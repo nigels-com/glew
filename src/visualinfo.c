@@ -146,8 +146,15 @@ main (int argc, char** argv)
   /* ---------------------------------------------------------------------- */
   /* open file */
 #if defined(_WIN32)
-  if (!displaystdout) 
+  if (!displaystdout)
+  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+    if (fopen_s(&file, "visualinfo.txt", "w") != 0)
+      file = stdout;
+#else
     file = fopen("visualinfo.txt", "w");
+#endif
+  }
   if (file == NULL)
     file = stdout;
 #else
@@ -236,7 +243,11 @@ void PrintExtensions (const char* s)
       fprintf(file, "    %s\n", t);
       p++;
       i = (int)strlen(p);
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+      strcpy_s(t, sizeof(t), p);
+#else
       strcpy(t, p);
+#endif
     }
     s++;
   }

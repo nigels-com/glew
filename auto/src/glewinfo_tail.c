@@ -58,7 +58,12 @@ int main (void)
     return 1;
   }
 #if defined(_WIN32)
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  if (fopen_s(&f, "glewinfo.txt", "w") != 0)
+    f = stdout;
+#else
   f = fopen("glewinfo.txt", "w");
+#endif
   if (f == NULL) f = stdout;
 #else
   f = stdout;
