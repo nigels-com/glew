@@ -58,6 +58,6 @@ GL_EXT_gpu_shader4
 	void glVertexAttribI4svEXT (GLuint index, const GLshort *v)
 	void glVertexAttribI4ubvEXT (GLuint index, const GLubyte *v)
 	void glVertexAttribI4usvEXT (GLuint index, const GLushort *v)
-	void glVertexAttribIPointerEXT (GLuint index, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+	void glVertexAttribIPointerEXT (GLuint index, GLint size, GLenum type, GLsizei stride, const void *pointer)
 	void glGetVertexAttribIivEXT (GLuint index, GLenum pname, GLint *params)
 	void glGetVertexAttribIuivEXT (GLuint index, GLenum pname, GLuint *params)

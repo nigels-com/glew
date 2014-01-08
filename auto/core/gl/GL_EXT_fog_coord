@@ -13,4 +13,4 @@ GL_EXT_fog_coord
 	void glFogCoordfvEXT (const GLfloat *coord)
 	void glFogCoorddEXT (GLdouble coord)
 	void glFogCoorddvEXT (const GLdouble *coord)
-	void glFogCoordPointerEXT (GLenum type, GLsizei stride, const GLvoid *pointer)
+	void glFogCoordPointerEXT (GLenum type, GLsizei stride, const void *pointer)

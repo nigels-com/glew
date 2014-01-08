@@ -51,5 +51,5 @@ GL_ARB_vertex_blend
 	void glWeightubvARB (GLint size, GLubyte *weights)
 	void glWeightusvARB (GLint size, GLushort *weights)
 	void glWeightuivARB (GLint size, GLuint *weights)
-	void glWeightPointerARB (GLint size, GLenum type, GLsizei stride, GLvoid *pointer)
+	void glWeightPointerARB (GLint size, GLenum type, GLsizei stride, void *pointer)
 	void glVertexBlendARB (GLint count)

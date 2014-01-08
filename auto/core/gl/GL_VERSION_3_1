@@ -36,6 +36,6 @@ http://www.opengl.org/registry/doc/glspec30.20080811.pdf
 	GL_BUFFER_MAP_LENGTH 0x9120
 	GL_BUFFER_MAP_OFFSET 0x9121
 	void glDrawArraysInstanced (GLenum, GLint, GLsizei, GLsizei)
-	void glDrawElementsInstanced (GLenum, GLsizei, GLenum, const GLvoid*, GLsizei)
+	void glDrawElementsInstanced (GLenum, GLsizei, GLenum, const void*, GLsizei)
 	void glTexBuffer (GLenum, GLenum, GLuint)
 	void glPrimitiveRestartIndex (GLuint)

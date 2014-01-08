@@ -79,10 +79,6 @@ EOT
     perl -e's/OCCLUSION_TEST_RESULT_HP.*/OCCLUSION_TEST_RESULT_HP 0x8166/' -pi \
 	$1/GL_HP_occlusion_test
 
-# fix GLvoid in GL_ARB_vertex_buffer_objects
-    perl -e 's/ void\*/ GLvoid\*/g' -pi \
-        $1/GL_ARB_vertex_buffer_object
-
 # add deprecated constants to GL_ATI_fragment_shader
     cat >> $1/GL_ATI_fragment_shader <<EOT
 	GL_NUM_FRAGMENT_REGISTERS_ATI 0x896E
@@ -441,7 +437,7 @@ EOT
 # Probably ought to be explicitly mentioned in the spec language
 
     cat >> $1/GL_REGAL_log <<EOT
-	typedef void (APIENTRY *LOGPROCREGAL)(GLenum stream, GLsizei length, const GLchar *message, GLvoid *context)
+	typedef void (APIENTRY *LOGPROCREGAL)(GLenum stream, GLsizei length, const GLchar *message, void *context)
 EOT
 
 # Fixup LOGPROCREGAL -> GLLOGPROCREGAL
