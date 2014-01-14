@@ -36,6 +36,16 @@
 #endif /* GLEW_MX */
 
 #if defined(GLEW_REGAL)
+
+/* In GLEW_REGAL mode we call direcly into the linked
+   libRegal.so glGetProcAddressREGAL for looking up
+   the GL function pointers. */
+
+#undef glGetProcAddressREGAL
+extern void *glGetProcAddressREGAL(const GLchar *name);
+static PFNGLGETPROCADDRESSREGALPROC regalGetProcAddress = glGetProcAddressREGAL;
+#define glGetProcAddressREGAL GLEW_GET_FUN(__glewGetProcAddressREGAL)
+
 #elif defined(__sgi) || defined (__sun) || defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
 #include <dlfcn.h>
 #include <stdio.h>
@@ -121,7 +131,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
  * Define glewGetProcAddress.
  */
 #if defined(GLEW_REGAL)
-#  define glewGetProcAddress(name) glGetProcAddressREGAL(name)
+#  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *) name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
