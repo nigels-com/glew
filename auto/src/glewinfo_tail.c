@@ -207,7 +207,7 @@ GLboolean glewCreateContext ()
   if (GL_FALSE == aglSetCurrentContext(ctx)) return GL_TRUE;
   /* Needed for Regal on the Mac */
   #if defined(GLEW_REGAL) && defined(__APPLE__)
-  RegalMakeCurrent(octx);
+  RegalMakeCurrent(ctx);
   #endif
   return GL_FALSE;
 }
