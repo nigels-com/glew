@@ -41,10 +41,15 @@
    libRegal.so glGetProcAddressREGAL for looking up
    the GL function pointers. */
 
-#undef glGetProcAddressREGAL
-extern void *glGetProcAddressREGAL(const GLchar *name);
-static PFNGLGETPROCADDRESSREGALPROC regalGetProcAddress = glGetProcAddressREGAL;
-#define glGetProcAddressREGAL GLEW_GET_FUN(__glewGetProcAddressREGAL)
+#  undef glGetProcAddressREGAL
+#  ifdef WIN32
+extern void *  __stdcall glGetProcAddressREGAL(const GLchar *name);
+static void * (__stdcall * regalGetProcAddress) (const GLchar *) = glGetProcAddressREGAL;
+#    else
+extern void * glGetProcAddressREGAL(const GLchar *name);
+static void * (*regalGetProcAddress) (const GLchar *) = glGetProcAddressREGAL;
+#  endif
+#  define glGetProcAddressREGAL GLEW_GET_FUN(__glewGetProcAddressREGAL)
 
 #elif defined(__sgi) || defined (__sun) || defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
 #include <dlfcn.h>
