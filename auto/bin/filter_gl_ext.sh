@@ -369,6 +369,12 @@ EOT
     void glProgramUniformMatrix4x3dvEXT (GLuint program, GLint location, GLsizei count, GLboolean transpose, const GLdouble *value)
 EOT
 
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_instanced_arrays related)
+# https://sourceforge.net/p/glew/bugs/242/
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glVertexArrayVertexAttribDivisorEXT (GLuint vaobj, GLuint index, GLuint divisor)
+EOT
+
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
     grep -v 'GL_UNSIGNED_INT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
