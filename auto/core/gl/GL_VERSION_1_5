@@ -63,12 +63,12 @@ http://www.opengl.org/documentation/specs/version1.5/glspec15.pdf
 	void glDeleteBuffers (GLsizei n, const GLuint* buffers)
 	void glGenBuffers (GLsizei n, GLuint* buffers)
 	GLboolean glIsBuffer (GLuint buffer)
-	void glBufferData (GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage)
-	void glBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid* data)
-	void glGetBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, GLvoid* data)
-	GLvoid* glMapBuffer (GLenum target, GLenum access)
+	void glBufferData (GLenum target, GLsizeiptr size, const void* data, GLenum usage)
+	void glBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, const void* data)
+	void glGetBufferSubData (GLenum target, GLintptr offset, GLsizeiptr size, void* data)
+	void* glMapBuffer (GLenum target, GLenum access)
 	GLboolean glUnmapBuffer (GLenum target)
 	void glGetBufferParameteriv (GLenum target, GLenum pname, GLint* params)
-	void glGetBufferPointerv (GLenum target, GLenum pname, GLvoid** params)
+	void glGetBufferPointerv (GLenum target, GLenum pname, void** params)
 	typedef ptrdiff_t GLsizeiptr
 	typedef ptrdiff_t GLintptr

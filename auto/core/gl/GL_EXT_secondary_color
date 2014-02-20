@@ -24,4 +24,4 @@ GL_EXT_secondary_color
 	void glSecondaryColor3uivEXT (const GLuint *v)
 	void glSecondaryColor3usEXT (GLushort red, GLushort green, GLushort blue)
 	void glSecondaryColor3usvEXT (const GLushort *v)
-	void glSecondaryColorPointerEXT (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+	void glSecondaryColorPointerEXT (GLint size, GLenum type, GLsizei stride, const void *pointer)

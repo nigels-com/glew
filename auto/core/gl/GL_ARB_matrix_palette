@@ -12,7 +12,7 @@ GL_ARB_matrix_palette
 	GL_MATRIX_INDEX_ARRAY_STRIDE_ARB 0x8848
 	GL_MATRIX_INDEX_ARRAY_POINTER_ARB 0x8849
 	void glCurrentPaletteMatrixARB (GLint index)
-	void glMatrixIndexPointerARB (GLint size, GLenum type, GLsizei stride, GLvoid *pointer)
+	void glMatrixIndexPointerARB (GLint size, GLenum type, GLsizei stride, void *pointer)
 	void glMatrixIndexubvARB (GLint size, GLubyte *indices)
 	void glMatrixIndexusvARB (GLint size, GLushort *indices)
 	void glMatrixIndexuivARB (GLint size, GLuint *indices)

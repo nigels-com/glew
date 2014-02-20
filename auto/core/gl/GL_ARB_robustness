@@ -21,7 +21,7 @@ GL_ARB_robustness
 	void glGetnPixelMapuivARB (GLenum map, GLsizei bufSize, GLuint* values)
 	void glGetnPixelMapusvARB (GLenum map, GLsizei bufSize, GLushort* values)
 	void glGetnPolygonStippleARB (GLsizei bufSize, GLubyte* pattern)
-	void glGetnSeparableFilterARB (GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void* row, GLsizei columnBufSize, GLvoid*column, GLvoid*span)
+	void glGetnSeparableFilterARB (GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void* row, GLsizei columnBufSize, void*column, void*span)
 	void glGetnTexImageARB (GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void* img)
 	void glGetnUniformdvARB (GLuint program, GLint location, GLsizei bufSize, GLdouble* params)
 	void glGetnUniformfvARB (GLuint program, GLint location, GLsizei bufSize, GLfloat* params)

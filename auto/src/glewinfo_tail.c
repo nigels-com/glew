@@ -58,7 +58,12 @@ int main (void)
     return 1;
   }
 #if defined(_WIN32)
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  if (fopen_s(&f, "glewinfo.txt", "w") != 0)
+    f = stdout;
+#else
   f = fopen("glewinfo.txt", "w");
+#endif
   if (f == NULL) f = stdout;
 #else
   f = stdout;
@@ -202,7 +207,7 @@ GLboolean glewCreateContext ()
   if (GL_FALSE == aglSetCurrentContext(ctx)) return GL_TRUE;
   /* Needed for Regal on the Mac */
   #if defined(GLEW_REGAL) && defined(__APPLE__)
-  RegalMakeCurrent(octx);
+  RegalMakeCurrent(ctx);
   #endif
   return GL_FALSE;
 }
@@ -211,6 +216,21 @@ void glewDestroyContext ()
 {
   aglSetCurrentContext(octx);
   if (NULL != ctx) aglDestroyContext(ctx);
+}
+
+/* ------------------------------------------------------------------------ */
+
+#elif defined(__HAIKU__)
+
+GLboolean glewCreateContext ()
+{
+  /* TODO: Haiku: We need to call C++ code here */
+  return GL_FALSE;
+}
+
+void glewDestroyContext ()
+{
+  /* TODO: Haiku: We need to call C++ code here */
 }
 
 /* ------------------------------------------------------------------------ */

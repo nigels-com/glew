@@ -7,7 +7,7 @@ GL_NV_vdpau_interop
 	GL_WRITE_DISCARD_NV 0x88BE
 	void glVDPAUFiniNV (void)
 	void glVDPAUGetSurfaceivNV (GLvdpauSurfaceNV surface, GLenum pname, GLsizei bufSize, GLsizei* length, GLint *values)
-	void glVDPAUInitNV (const void* vdpDevice, const GLvoid*getProcAddress)
+	void glVDPAUInitNV (const void* vdpDevice, const void*getProcAddress)
 	void glVDPAUIsSurfaceNV (GLvdpauSurfaceNV surface)
 	void glVDPAUMapSurfacesNV (GLsizei numSurfaces, const GLvdpauSurfaceNV* surfaces)
 	GLvdpauSurfaceNV glVDPAURegisterOutputSurfaceNV (const void* vdpSurface, GLenum target, GLsizei numTextureNames, const GLuint *textureNames)
