@@ -1,6 +1,6 @@
 NAME = $(GLEW_NAME)
-CC = cc
-LD = cc
+CC ?= cc
+LD ?= $(CC)
 CFLAGS.EXTRA = -arch ppc -dynamic -fno-common
 #CFLAGS.EXTRA += -no-cpp-precomp
 LDFLAGS.EXTRA = -arch ppc

@@ -1,6 +1,6 @@
 NAME = $(GLEW_NAME)
-CC = cc
-LD = ld
+CC ?= cc
+LD ?= ld
 ABI = -64# -n32
 CC += $(ABI)
 LD += $(ABI)

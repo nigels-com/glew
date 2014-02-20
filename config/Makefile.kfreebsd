@@ -1,6 +1,6 @@
 NAME = $(GLEW_NAME)
-CC = cc
-LD = cc
+CC ?= cc
+LD ?= $(CC)
 LDFLAGS.EXTRA = -L/usr/X11R6/lib
 LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
 LDFLAGS.STATIC = -Wl,-Bstatic

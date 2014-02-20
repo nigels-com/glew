@@ -6,9 +6,9 @@ ifeq (Linux,${M_NAME})
 M_PREFIX = i686
 endif
 
-CC  = $(M_PREFIX)-nacl-gcc
-CXX = $(M_PREFIX)-nacl-g++
-LD  = $(M_PREFIX)-nacl-ld
+CC  ?= $(M_PREFIX)-nacl-gcc
+CXX ?= $(M_PREFIX)-nacl-g++
+LD  ?= $(M_PREFIX)-nacl-ld
 STRIP ?=
 EXT.DYNAMIC = so
 LDFLAGS.EXTRA =

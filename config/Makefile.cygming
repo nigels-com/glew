@@ -4,8 +4,8 @@ BINDIR = /usr/bin
 LIBDIR = /usr/lib/mingw
 INCDIR = /usr/include/mingw/GL
 # use gcc for linking, with ld it does not work
-CC := gcc -mno-cygwin
-LD := gcc -mno-cygwin
+CC ?= gcc -mno-cygwin
+LD ?= $(CC)
 LN :=
 CFLAGS.SO = -DGLEW_BUILD
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
