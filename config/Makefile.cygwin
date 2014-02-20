@@ -1,8 +1,8 @@
 NAME = GLEW
 GLEW_DEST ?= /usr
 # use gcc for linking, with ld it does not work
-CC ?= cc
-LD ?= $(CC)
+CC := cc
+LD := cc
 LN :=
 LDFLAGS.EXTRA =
 LIBDIR = $(GLEW_DEST)/lib

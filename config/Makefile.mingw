@@ -1,7 +1,7 @@
 NAME = glew32
 # use gcc for linking, with ld it does not work
-CC ?= gcc
-LD ?= $(CC)
+CC := gcc
+LD := gcc
 LN :=
 CFLAGS.SO = -DGLEW_BUILD
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
