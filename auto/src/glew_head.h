@@ -38,13 +38,24 @@
  * GL needs GLAPI and GLAPIENTRY, GLU needs APIENTRY, CALLBACK, and wchar_t
  * defined properly.
  */
-/* <windef.h> */
-#ifndef APIENTRY
+/* <windef.h> and <gl.h>*/
+#ifdef APIENTRY
+#  ifndef GLAPIENTRY
+#    define GLAPIENTRY APIENTRY
+#  endif
+#  ifndef GLEWAPIENTRY
+#    define GLEWAPIENTRY APIENTRY
+#  endif
+#else
 #define GLEW_APIENTRY_DEFINED
-#  if defined(__MINGW32__) || defined(__CYGWIN__)
+#  if defined(__MINGW32__) || defined(__CYGWIN__) || (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
 #    define APIENTRY __stdcall
-#  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
-#    define APIENTRY __stdcall
+#    ifndef GLAPIENTRY
+#      define GLAPIENTRY __stdcall
+#    endif
+#    ifndef GLEWAPIENTRY
+#      define GLEWAPIENTRY __stdcall
+#    endif
 #  else
 #    define APIENTRY
 #  endif
@@ -99,14 +110,6 @@ typedef _W64 int ptrdiff_t;
 #  else
 #    define GLAPI WINGDIAPI
 #  endif
-#endif
-
-#ifndef GLAPIENTRY
-#define GLAPIENTRY APIENTRY
-#endif
-
-#ifndef GLEWAPIENTRY
-#define GLEWAPIENTRY APIENTRY
 #endif
 
 /*
@@ -170,6 +173,8 @@ typedef _W64 int ptrdiff_t;
 #define GLAPI extern
 #endif
 
+#endif /* _WIN32 */
+
 #ifndef GLAPIENTRY
 #define GLAPIENTRY
 #endif
@@ -177,8 +182,6 @@ typedef _W64 int ptrdiff_t;
 #ifndef GLEWAPIENTRY
 #define GLEWAPIENTRY
 #endif
-
-#endif /* _WIN32 */
 
 #ifdef __cplusplus
 extern "C" {
