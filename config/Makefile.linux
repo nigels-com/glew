@@ -16,7 +16,7 @@ else
   LDFLAGS.EXTRA = -L/usr/X11R6/lib -L/usr/lib
   LIBDIR = $(GLEW_DEST)/lib
 endif
-LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
+LDFLAGS.GL = -lGL -lX11
 LDFLAGS.STATIC = -Wl,-Bstatic
 LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 NAME = GLEW
