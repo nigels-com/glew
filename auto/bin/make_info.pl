@@ -18,7 +18,7 @@ do 'bin/make.pl';
 sub make_pfn_info($%)
 {
     my $name = $_[0];
-    return "  glewInfoFunc(\"$_[0]\", $name == NULL);";
+    return "  glewInfoFunc(\"$_[0]\", $name" . "FP == NULL);";
 }
 
 #---------------------------------------------------------------------------------------
