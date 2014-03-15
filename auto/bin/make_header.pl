@@ -47,7 +47,7 @@ sub make_pfn_alias($%)
     my $fixed_up_calllist = "";
     
     #if the parm list is void, nothing to substitute
-    if($parms ne "void")
+    if(lc($parms) ne "void")
     {
         #split parms
         my @split_parms = split(/,/,$parms);
