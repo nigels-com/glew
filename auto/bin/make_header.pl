@@ -59,6 +59,9 @@ sub make_pfn_alias($%)
         foreach(@split_parms)
         {
             my $temp = $_;
+            
+            #remove brackets
+            $temp =~ s/\[|\]//g;
          
             #trim off any whitespace
             $temp =~ s/^\s+|\s+$//g;
@@ -77,9 +80,6 @@ sub make_pfn_alias($%)
             
             #replace pointer * with P
             $temp =~ s/\s*\*\s*/P/g;
-            
-            #remove brackets
-            $temp =~ s/\[|\]//g;
 
             #add to parmlist...handling cases where no parm name is specified            
             if($parm_name eq "")
