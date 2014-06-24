@@ -4,7 +4,8 @@
   return ret;
 }
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
 
 #if defined(GLEW_MX)
 GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext* ctx, const char* name)

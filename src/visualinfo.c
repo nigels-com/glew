@@ -34,12 +34,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
-#if defined(_WIN32)
-#include <GL/wglew.h>
+#if defined(GLEW_OSMESA)
+#  define GLAPI extern
+#  include <GL/osmesa.h>
+#elif defined(_WIN32)
+#  include <GL/wglew.h>
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
-#include <AGL/agl.h>
+#  include <AGL/agl.h>
 #elif !defined(__HAIKU__)
-#include <GL/glxew.h>
+#  include <GL/glxew.h>
 #endif
 
 #ifdef GLEW_MX
@@ -48,7 +51,7 @@ GLEWContext _glewctx;
 #  ifdef _WIN32
 WGLEWContext _wglewctx;
 #    define wglewGetContext() (&_wglewctx)
-#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
+#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
 GLXEWContext _glxewctx;
 #    define glxewGetContext() (&_glxewctx)
 #  endif
@@ -62,6 +65,8 @@ typedef struct GLContextStruct
   HGLRC rc;
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
   AGLContext ctx, octx;
+#elif defined(GLEW_OSMESA)
+  OSMesaContext ctx;
 #elif !defined(__HAIKU__)
   Display* dpy;
   XVisualInfo* vi;
@@ -130,7 +135,7 @@ main (int argc, char** argv)
   err = glewContextInit(glewGetContext());
 #  ifdef _WIN32
   err = err || wglewContextInit(wglewGetContext());
-#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
+#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
   err = err || glxewContextInit(glxewGetContext());
 #  endif
 #else
@@ -189,7 +194,7 @@ main (int argc, char** argv)
 		    (const char*)wglGetExtensionsStringEXT());
   }
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
-  
+#elif defined(GLEW_OSMESA)
 #elif defined(__HAIKU__)
 
   /* TODO */
@@ -595,7 +600,7 @@ VisualInfo (GLContext* ctx)
 
 /* ---------------------------------------------------------------------- */
 
-#elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
+#elif (defined(__APPLE__) && !defined(GLEW_APPLE_GLX)) || defined(GLEW_OSMESA)
 
 void
 VisualInfo (GLContext* __attribute__((__unused__)) ctx)
@@ -1002,7 +1007,26 @@ VisualInfo (GLContext* ctx)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+void InitContext (GLContext* ctx)
+{
+  ctx->ctx = NULL;
+}
+
+GLboolean CreateContext (GLContext* ctx)
+{
+  if (NULL == ctx) return GL_TRUE;
+  ctx->ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
+  if (NULL == ctx->ctx) return GL_TRUE;
+  return GL_FALSE;
+}
+
+void DestroyContext (GLContext* ctx)
+{
+  if (NULL == ctx) return;
+  if (NULL != ctx->ctx) OSMesaDestroyContext(ctx->ctx);
+}
+#elif defined(_WIN32)
 
 void InitContext (GLContext* ctx)
 {
