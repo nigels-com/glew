@@ -1,6 +1,9 @@
 #include <GL/glew.h>
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#  define GLAPI extern
+#  include <GL/osmesa.h>
+#elif defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 #  include <GL/glxew.h>
@@ -137,7 +140,9 @@ void* NSGLGetProcAddress (const GLubyte *name)
 /*
  * Define glewGetProcAddress.
  */
-#if defined(GLEW_REGAL)
+#if defined(GLEW_OSMESA)
+#  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
+#elif defined(GLEW_REGAL)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *) name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)

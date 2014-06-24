@@ -34,7 +34,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#define GLAPI extern
+#include <GL/osmesa.h>
+#elif defined(_WIN32)
 #include <GL/wglew.h>
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 #include <OpenGL/OpenGL.h>
@@ -57,7 +60,9 @@ GLXEWContext _glxewctx;
 
 typedef struct GLContextStruct
 {
-#ifdef _WIN32
+#if defined(GLEW_OSMESA)
+  OSMesaContext ctx;
+#elif defined(_WIN32)
   HWND wnd;
   HDC dc;
   HGLRC rc;
@@ -180,7 +185,8 @@ main (int argc, char** argv)
 
   /* ---------------------------------------------------------------------- */
   /* extensions string */
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
   /* WGL extensions */
   if (WGLEW_ARB_extensions_string || WGLEW_EXT_extensions_string)
   {
@@ -1003,7 +1009,26 @@ VisualInfo (GLContext* ctx)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+void InitContext (GLContext* ctx)
+{
+  ctx->ctx = NULL;
+}
+
+GLboolean CreateContext (GLContext* ctx)
+{
+  if (NULL == ctx) return GL_TRUE;
+  ctx->ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
+  if (NULL == ctx->ctx) return GL_TRUE;
+  return GL_FALSE;
+}
+
+void DestroyContext (GLContext* ctx)
+{
+  if (NULL == ctx) return;
+  if (NULL != ctx->ctx) OSMesaDestroyContext(ctx->ctx);
+}
+#elif defined(_WIN32)
 
 void InitContext (GLContext* ctx)
 {

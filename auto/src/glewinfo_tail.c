@@ -9,7 +9,8 @@ int main (int argc, char** argv)
   GLuint err;
   struct createParams params = 
   {
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
     -1,  /* pixelformat */
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
     "",  /* display */
@@ -24,7 +25,8 @@ int main (int argc, char** argv)
   if (glewParseArgs(argc-1, argv+1, &params))
   {
     fprintf(stderr, "Usage: glewinfo "
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
 	    "[-pf <pixelformat>] "
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 	    "[-display <display>] "
@@ -46,7 +48,8 @@ int main (int argc, char** argv)
   glewExperimental = GL_TRUE;
 #ifdef GLEW_MX
   err = glewContextInit(glewGetContext());
-#ifdef _WIN32
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
   err = err || wglewContextInit(wglewGetContext());
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   err = err || glxewContextInit(glxewGetContext());
@@ -76,7 +79,8 @@ int main (int argc, char** argv)
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
   fprintf(f, "Reporting capabilities of pixelformat %d\n", params.pixelformat);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n", 
@@ -86,7 +90,8 @@ int main (int argc, char** argv)
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
   glewInfo();
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
   wglewInfo();
 #else
   glxewInfo();
@@ -150,7 +155,22 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+OSMesaContext ctx;
+
+GLboolean glewCreateContext ()
+{
+  ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
+  if (NULL == ctx) return GL_TRUE;
+  return GL_FALSE;
+}
+
+void glewDestroyContext ()
+{
+  if (NULL != ctx) OSMesaDestroyContext(ctx);
+}
+
+#elif defined(_WIN32)
 
 HWND wnd = NULL;
 HDC dc = NULL;
