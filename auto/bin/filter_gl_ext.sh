@@ -474,5 +474,9 @@ EOT
     head -n3 $1/GL_NV_blend_equation_advanced_coherent > tmp
     mv tmp $1/GL_NV_blend_equation_advanced_coherent
 
+# Filter out GL_AMD_gpu_shader_int64 enums and functions
+    head -n3 $1/GL_AMD_gpu_shader_int64 > tmp
+    mv tmp $1/GL_AMD_gpu_shader_int64
+
 # clean up
     rm -f $1/*.bak
