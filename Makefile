@@ -70,7 +70,7 @@ STRIP   ?= strip
 RM      ?= rm -f
 LN      ?= ln -sf
 
-ifeq ($(MAKECMDGOALS), debug)
+ifneq (,$(filter debug,$(MAKECMDGOALS)))
 OPT = -g
 else
 OPT = $(POPT)
