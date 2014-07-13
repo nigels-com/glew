@@ -40,10 +40,15 @@ else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 
+GLEW_PREFIX ?= /usr
 GLEW_DEST ?= /usr
 BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
 INCDIR    ?= $(GLEW_DEST)/include/GL
+
+ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
+LIBGLU = glu
+endif
 
 DIST_NAME     ?= glew-$(GLEW_VERSION)
 DIST_SRC_ZIP ?= $(shell pwd)/$(DIST_NAME).zip
@@ -128,13 +133,14 @@ tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wgl
 
 glew.pc: glew.pc.in
 	sed \
-		-e "s|@prefix@|$(GLEW_DEST)|g" \
+		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
 		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
-		-e "s|@libname@|GLEW|g" \
+		-e "s|@libname@|$(NAME)|g" \
+		-e "s|@requireslib@|$(LIBGLU)|g" \
 		< $< > $@
 
 # GLEW MX static and shared libraries
@@ -168,13 +174,14 @@ tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h 
 
 glewmx.pc: glew.pc.in
 	sed \
-		-e "s|@prefix@|$(GLEW_DEST)|g" \
+		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
 		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@|-DGLEW_MX|g" \
-		-e "s|@libname@|GLEWmx|g" \
+		-e "s|@libname@|$(NAME)mx|g" \
+		-e "s|@requireslib@|$(LIBGLU)|g" \
 		< $< > $@
 
 # GLEW utility programs
