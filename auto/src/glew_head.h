@@ -1123,6 +1123,15 @@ GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei heigh
 /* ---------------------------------- GLU ---------------------------------- */
 
 #ifndef GLEW_NO_GLU
+#  ifdef __APPLE__
+#    include <Availability.h>
+#    if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+#      define GLEW_NO_GLU
+#    endif
+#  endif
+#endif
+
+#ifndef GLEW_NO_GLU
 /* this is where we can safely include GLU */
 #  if defined(__APPLE__) && defined(__MACH__)
 #    include <OpenGL/glu.h>
