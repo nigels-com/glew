@@ -10,8 +10,8 @@ const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error)
     (const GLubyte*)"GLX 1.2 and up are not supported",
     (const GLubyte*)"Unknown error"
   };
-  const int max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
-  return _glewErrorString[(int)error > max_error ? max_error : (int)error];
+  const size_t max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
+  return _glewErrorString[(size_t)error > max_error ? max_error : (size_t)error];
 }
 
 const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
@@ -24,8 +24,8 @@ const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
     (const GLubyte*)"GLEW_VERSION_MINOR_STRING",
     (const GLubyte*)"GLEW_VERSION_MICRO_STRING"
   };
-  const int max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
-  return _glewString[(int)name > max_string ? 0 : (int)name];
+  const size_t max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
+  return _glewString[(size_t)name > max_string ? 0 : (size_t)name];
 }
 
 /* ------------------------------------------------------------------------ */

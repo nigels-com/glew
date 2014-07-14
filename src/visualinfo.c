@@ -168,13 +168,13 @@ main (int argc, char** argv)
   fprintf(file, "OpenGL renderer string: %s\n", glGetString(GL_RENDERER));
   fprintf(file, "OpenGL version string: %s\n", glGetString(GL_VERSION));
   fprintf(file, "OpenGL extensions (GL_): \n");
-  PrintExtensions((char*)glGetString(GL_EXTENSIONS));
+  PrintExtensions((const char*)glGetString(GL_EXTENSIONS));
 
 #ifndef GLEW_NO_GLU
   /* GLU extensions */
   fprintf(file, "GLU version string: %s\n", gluGetString(GLU_VERSION));
   fprintf(file, "GLU extensions (GLU_): \n");
-  PrintExtensions((char*)gluGetString(GLU_EXTENSIONS));
+  PrintExtensions((const char*)gluGetString(GLU_EXTENSIONS));
 #endif
 
   /* ---------------------------------------------------------------------- */
@@ -185,8 +185,8 @@ main (int argc, char** argv)
   {
     fprintf(file, "WGL extensions (WGL_): \n");
     PrintExtensions(wglGetExtensionsStringARB ? 
-                    (char*)wglGetExtensionsStringARB(ctx.dc) :
-		    (char*)wglGetExtensionsStringEXT());
+                    (const char*)wglGetExtensionsStringARB(ctx.dc) :
+		    (const char*)wglGetExtensionsStringEXT());
   }
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
   

@@ -6,6 +6,8 @@
 #  include <GL/glxew.h>
 #endif
 
+#include <stddef.h>  /* For size_t */
+
 /*
  * Define glewGetContext and related helper macros.
  */
@@ -152,9 +154,33 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #endif
 
 /*
- * Define GLboolean const cast.
+ * Redefine GLEW_GET_VAR etc without const cast
  */
-#define CONST_CAST(x) (*(GLboolean*)&x)
+
+#undef GLEW_GET_VAR
+#ifdef GLEW_MX
+# define GLEW_GET_VAR(x) (glewGetContext()->x)
+#else /* GLEW_MX */
+# define GLEW_GET_VAR(x) (x)
+#endif /* GLEW_MX */
+
+#ifdef WGLEW_GET_VAR
+# undef WGLEW_GET_VAR
+# ifdef GLEW_MX
+#  define WGLEW_GET_VAR(x) (wglewGetContext()->x)
+# else /* GLEW_MX */
+#  define WGLEW_GET_VAR(x) (x)
+# endif /* GLEW_MX */
+#endif /* WGLEW_GET_VAR */
+
+#ifdef GLXEW_GET_VAR
+# undef GLXEW_GET_VAR
+# ifdef GLEW_MX
+#  define GLXEW_GET_VAR(x) (glxewGetContext()->x)
+# else /* GLEW_MX */
+#  define GLXEW_GET_VAR(x) (x)
+# endif /* GLEW_MX */
+#endif /* GLXEW_GET_VAR */
 
 /*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
