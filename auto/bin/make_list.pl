@@ -46,18 +46,18 @@ if (@ARGV)
 
 		if (length($extstring))
 		{
-				print "  CONST_CAST(" . $extvar . ") = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
+				print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
 		}
 
 		if (keys %$functions)
 		{
 			if ($extname =~ /WGL_.*/)
 			{
-				print "  if (glewExperimental || " . $extvar . "|| crippled) CONST_CAST(" . $extvar . ")= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
 			}
 			else
 			{
-				print "  if (glewExperimental || " . $extvar . ") CONST_CAST(" . $extvar . ") = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
 			}
 		}
 		print "#endif /* $extname */\n";
