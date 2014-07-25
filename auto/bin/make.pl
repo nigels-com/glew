@@ -142,7 +142,25 @@ sub output_tokens($$)
     {
         local $, = "\n";
         print "\n";
-        print map { &{$fnc}($_, $tbl->{$_}) } sort { hex ${$tbl}{$a} <=> hex ${$tbl}{$b} } keys %{$tbl};
+        print map { &{$fnc}($_, $tbl->{$_}) } sort { 
+            if (${$tbl}{$a} eq ${$tbl}{$b}) {
+                    $a cmp $b
+            } else {
+                if (${$tbl}{$a} =~ /_/) {
+                    if (${$tbl}{$b} =~ /_/) {
+                        $a cmp $b
+                    } else {
+                        -1
+                    }
+                } else {
+                    if (${$tbl}{$b} =~ /_/) {
+                        1
+                    } else {
+                        hex ${$tbl}{$a} <=> hex ${$tbl}{$b}
+                    }                    
+                }
+            }
+        } keys %{$tbl};
         print "\n";
     } else {
         print STDERR "no keys in table!\n";
