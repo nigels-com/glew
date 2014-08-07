@@ -309,7 +309,7 @@ my @speclist = ();
 my %extensions = ();
 
 my $ext_dir = shift;
-my $reg_http = "http://www.opengl.org/registry/specs/gl/";
+my $reg_http = "http://www.opengl.org/registry/specs/";
 
 # Take command line arguments or read list from file
 if (@ARGV)

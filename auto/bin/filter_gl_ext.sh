@@ -467,8 +467,8 @@ EOT
 
 # Fixup REGAL and ANGLE urls
 
-    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
-    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/gl/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
+    for i in $1/GL_REGAL_*; do perl -e 's#http://www.opengl.org/registry/specs/REGAL/.*#https://github.com/p3/regal/tree/master/doc/extensions#g' -pi $i; done
+    for i in $1/GL_ANGLE_*; do perl -e 's#http://www.opengl.org/registry/specs/ANGLE/.*#https://code.google.com/p/angleproject/source/browse/\#git%2Fextensions#g' -pi $i; done
 
 # Filter out GL_NV_blend_equation_advanced_coherent enums and functions
     head -n3 $1/GL_NV_blend_equation_advanced_coherent > tmp
