@@ -478,5 +478,17 @@ EOT
     head -n3 $1/GL_AMD_gpu_shader_int64 > tmp
     mv tmp $1/GL_AMD_gpu_shader_int64
 
+# Filter out GL_NO_ERROR enum from GL_KHR_robustness
+    grep -v 'GL_NO_ERROR' $1/GL_KHR_robustness > tmp
+    mv tmp $1/GL_KHR_robustness
+
+# Filter out all enums from GL_KHR_blend_equation_advanced_coherent
+    grep -v '0x' $1/GL_KHR_blend_equation_advanced_coherent > tmp
+    mv tmp $1/GL_KHR_blend_equation_advanced_coherent
+
+# Filter out glBlendBarrierKHR enum from GL_KHR_blend_equation_advanced_coherent
+    grep -v 'glBlendBarrierKHR' $1/GL_KHR_blend_equation_advanced_coherent > tmp
+    mv tmp $1/GL_KHR_blend_equation_advanced_coherent
+
 # clean up
     rm -f $1/*.bak

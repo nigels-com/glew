@@ -1,5 +1,5 @@
 GL_VERSION_4_0
-http://www.opengl.org/registry/doc/glspec32.core.20090803.pdf
+https://www.opengl.org/registry/doc/glspec40.compatibility.20100311.pdf
 
 	GL_SAMPLE_SHADING 0x8C36
 	GL_MIN_SAMPLE_SHADING_VALUE 0x8C37
