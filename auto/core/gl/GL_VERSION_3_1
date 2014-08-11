@@ -1,5 +1,5 @@
 GL_VERSION_3_1
-http://www.opengl.org/registry/doc/glspec30.20080811.pdf
+https://www.opengl.org/registry/doc/glspec31.20090528.pdf
 
 	GL_SAMPLER_2D_RECT 0x8B63
 	GL_SAMPLER_2D_RECT_SHADOW 0x8B64
