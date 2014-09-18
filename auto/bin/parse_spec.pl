@@ -20,7 +20,7 @@ my @sections = (
     "Name",
     "Name Strings?",
     "New Procedures and Functions",
-    "New Tokens",
+    "New Tokens.*",                    # Optional (GL/WGL/GLX/...) suffix
     "Additions to Chapter.*",
 );
 

@@ -490,5 +490,9 @@ EOT
     grep -v 'glBlendBarrierKHR' $1/GL_KHR_blend_equation_advanced_coherent > tmp
     mv tmp $1/GL_KHR_blend_equation_advanced_coherent
 
+# Filter out GL_NONE enum from GL_KHR_robustness
+    grep -v 'GL_NONE' $1/GL_KHR_context_flush_control > tmp
+    mv tmp $1/GL_KHR_context_flush_control
+
 # clean up
     rm -f $1/*.bak
