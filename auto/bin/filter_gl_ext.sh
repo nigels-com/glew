@@ -494,5 +494,17 @@ EOT
     grep -v 'GL_NONE' $1/GL_KHR_context_flush_control > tmp
     mv tmp $1/GL_KHR_context_flush_control
 
+# Filter out CoverageModulation from NV_framebuffer_mixed_samples
+# Superset of EXT_raster_multisample
+
+    grep -v "CoverageModulation" $1/GL_NV_framebuffer_mixed_samples > tmp
+    mv tmp $1/GL_NV_framebuffer_mixed_samples
+
+# Filter out glRasterSamplesEXT from NV_framebuffer_mixed_samples
+# Superset of EXT_raster_multisample
+
+    grep -v "RasterSamplesEXT" $1/GL_NV_framebuffer_mixed_samples > tmp
+    mv tmp $1/GL_NV_framebuffer_mixed_samples
+
 # clean up
     rm -f $1/*.bak
