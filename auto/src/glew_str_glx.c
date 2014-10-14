@@ -12,7 +12,7 @@ GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name)
 GLboolean glxewIsSupported (const char* name)
 #endif
 {
-  GLubyte* pos = (GLubyte*)name;
+  const GLubyte* pos = (const GLubyte*)name;
   GLuint len = _glewStrLen(pos);
   GLboolean ret = GL_TRUE;
   while (ret && len > 0)
