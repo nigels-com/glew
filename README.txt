@@ -1,17 +1,20 @@
+GLEW - The OpenGL Extension Wrangler Library
+
+       http://glew.sourceforge.net/
+       https://github.com/nigels-com/glew
+
 See doc/index.html for more information.
 
 If you downloaded the tarball from the GLEW website, you just need to:
 
     Unix:
 
-        make extensions
-
         make
-        
+
         sudo -s
-        
+
         make install
-        
+
         make clean
 
     Windows:
