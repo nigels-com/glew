@@ -156,7 +156,11 @@ sub output_tokens($$)
                     if (${$tbl}{$b} =~ /_/) {
                         1
                     } else {
-                        hex ${$tbl}{$a} <=> hex ${$tbl}{$b}
+                        if (hex ${$tbl}{$a} eq hex ${$tbl}{$b}) {
+                            $a cmp $b
+                        } else {
+                            hex ${$tbl}{$a} <=> hex ${$tbl}{$b}
+                        }
                     }                    
                 }
             }
