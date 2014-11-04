@@ -5,8 +5,9 @@
 #
 
 NAME  := glew32
-CC    := i586-mingw32msvc-gcc
-LD    := i586-mingw32msvc-ld
+HOST  := i586-mingw32msvc
+CC    := $(HOST)-gcc
+LD    := $(HOST)-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
