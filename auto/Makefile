@@ -140,6 +140,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	echo -e "#if defined(GLEW_MX) && defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
 	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	echo -e "\n#if defined(GLEW_MX) && !defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
+	echo -e "\n#if defined(GLEW_MX)\nGLEWHashList *GLEW_GL_EXTENSIONS;\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
@@ -157,6 +158,7 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cat $(SRC)/wglew_mid.h >> $@
 	echo -e "\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
 	$(BIN)/make_struct_fun.pl WGLEW_FUN_EXPORT $(WGL_EXT_SPEC) >> $@
+	echo -e "\n#if defined(GLEW_MX)\nGLEWHashList *GLEW_WGL_EXTENSIONS;\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl WGLEW_VAR_EXPORT $(WGL_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* WGLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	cat $(SRC)/wglew_tail.h >> $@
@@ -174,6 +176,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cat $(SRC)/glxew_mid.h >> $@
 	$(BIN)/make_struct_fun.pl GLXEW_FUN_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
+	echo -e "\n#if defined(GLEW_MX)\nGLEWHashList *GLEW_GLX_EXTENSIONS;\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLXEW_VAR_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	perl -e "s/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/" -pi $@

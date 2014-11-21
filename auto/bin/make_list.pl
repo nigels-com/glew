@@ -46,7 +46,7 @@ if (@ARGV)
 
 		if (length($extstring))
 		{
-				print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
+				print "  " . $extvar . " = _glewHashListExists(ext_hashlist, (const GLubyte *)\"$extstring\");\n";
 		}
 
 		if (keys %$functions)

@@ -4,38 +4,36 @@ static PFNWGLGETEXTENSIONSSTRINGARBPROC _wglewGetExtensionsStringARB = NULL;
 static PFNWGLGETEXTENSIONSSTRINGEXTPROC _wglewGetExtensionsStringEXT = NULL;
 
 GLboolean GLEWAPIENTRY wglewGetExtension (const char* name)
-{    
-  const GLubyte* start;
-  const GLubyte* end;
-  if (_wglewGetExtensionsStringARB == NULL)
-    if (_wglewGetExtensionsStringEXT == NULL)
-      return GL_FALSE;
-    else
-      start = (const GLubyte*)_wglewGetExtensionsStringEXT();
-  else
-    start = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
-  if (start == 0)
-    return GL_FALSE;
-  end = start + _glewStrLen(start);
-  return _glewSearchExtension(name, start, end);
+{
+#if GLEW_MX
+    WGLEWContext *ctx = wglewGetContext();
+#endif
+  return _glewHashListExists(WGLEW_GET_VAR(GLEW_WGL_EXTENSIONS), name);
 }
 
 GLenum GLEWAPIENTRY wglewContextInit (WGLEW_CONTEXT_ARG_DEF_LIST)
 {
   GLboolean crippled;
-  const GLubyte* extStart;
-  const GLubyte* extEnd;
+  const GLubyte* extensions;
+  GLEWHashList *ext_hashlist;
+
   /* find wgl extension string query functions */
   _wglewGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringARB");
   _wglewGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringEXT");
   /* query wgl extension string */
   if (_wglewGetExtensionsStringARB == NULL)
     if (_wglewGetExtensionsStringEXT == NULL)
-      extStart = (const GLubyte*)"";
+      extensions = (const GLubyte*)"";
     else
-      extStart = (const GLubyte*)_wglewGetExtensionsStringEXT();
+      extensions = (const GLubyte*)_wglewGetExtensionsStringEXT();
   else
-    extStart = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
-  extEnd = extStart + _glewStrLen(extStart);
+    extensions = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
+
+  WGLEW_GET_VAR(GLEW_WGL_EXTENSIONS) = calloc(1, sizeof(GLEWHashList));
+
+  ext_hashlist = WGLEW_GET_VAR(GLEW_WGL_EXTENSIONS);
+
+  _glewBuildHashListFromString(extensions, ext_hashlist);
+
   /* initialize extensions */
   crippled = _wglewGetExtensionsStringARB == NULL && _wglewGetExtensionsStringEXT == NULL;

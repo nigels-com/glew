@@ -188,6 +188,8 @@ typedef _W64 int ptrdiff_t;
 extern "C" {
 #endif
 
+typedef struct GLEWHashListStruct GLEWHashList;
+
 /* ----------------------------- GL_VERSION_1_1 ---------------------------- */
 
 #ifndef GL_VERSION_1_1

@@ -1,14 +1,11 @@
 /* ------------------------------------------------------------------------- */
 
 GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
-{    
-  const GLubyte* start;
-  const GLubyte* end;
-  start = (const GLubyte*)glGetString(GL_EXTENSIONS);
-  if (start == 0)
-    return GL_FALSE;
-  end = start + _glewStrLen(start);
-  return _glewSearchExtension(name, start, end);
+{
+#if GLEW_MX
+    GLEWContext *ctx = glewGetContext();
+#endif
+  return _glewHashListExists(GLEW_GET_VAR(GLEW_GL_EXTENSIONS), (const GLubyte*)name);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -21,8 +18,8 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
-  const GLubyte* extStart;
-  const GLubyte* extEnd;
+  GLEWHashList *ext_hashlist;
+
   /* query opengl version */
   s = glGetString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
@@ -65,9 +62,18 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   }
 
   /* query opengl extensions string */
-  extStart = glGetString(GL_EXTENSIONS);
-  if (extStart == 0)
-    extStart = (const GLubyte*)"";
-  extEnd = extStart + _glewStrLen(extStart);
+  GLEW_GET_VAR(GLEW_GL_EXTENSIONS) = calloc(1, sizeof(GLEWHashList));
+
+  ext_hashlist = GLEW_GET_VAR(GLEW_GL_EXTENSIONS);
+
+  if (major >= 3)
+  {
+      _glewBuildGL3ExtensionList(ext_hashlist);
+  }
+  else
+  {
+      const GLubyte* extensions = glGetString(GL_EXTENSIONS);
+      _glewBuildHashListFromString(extensions, ext_hashlist);
+  }
 
   /* initialize extensions */

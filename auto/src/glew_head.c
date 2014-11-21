@@ -7,6 +7,7 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
+#include <stdlib.h>  /* For free and calloc */
 
 /*
  * Define glewGetContext and related helper macros.
@@ -56,7 +57,6 @@ static void * (*regalGetProcAddress) (const GLchar *) = glGetProcAddressREGAL;
 #elif defined(__sgi) || defined (__sun) || defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
 #include <dlfcn.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 void* dlGetProcAddress (const GLubyte* name)
 {
@@ -77,7 +77,6 @@ void* dlGetProcAddress (const GLubyte* name)
 #endif /* __sgi || __sun || GLEW_APPLE_GLX */
 
 #if defined(__APPLE__)
-#include <stdlib.h>
 #include <string.h>
 #include <AvailabilityMacros.h>
 
@@ -264,22 +263,150 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
   return GL_FALSE;
 }
 
-/*
- * Search for name in the extensions string. Use of strstr()
- * is not sufficient because extension names can be prefixes of
- * other extension names. Could use strtok() but the constant
- * string returned by glGetString might be in read-only memory.
- */
-static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
+struct GLEWHashListStruct
 {
+    const GLubyte **list;
+    GLuint size;
+};
+
+#if !defined(GLEW_MX)
+GLEWHashList *GLEW_GL_EXTENSIONS;
+#if defined(_WIN32)
+GLEWHashList *GLEW_WGL_EXTENSIONS;
+#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
+GLEWHashList *GLEW_GLX_EXTENSIONS;
+#endif
+#endif // !defined(GLEW_MX)
+
+/* A simple open addressing hashset for extensions */
+static GLuint hash_string(const GLubyte * key)
+{
+  GLuint hash = 0;
+  GLuint i = 0;
+  GLuint len = _glewStrCLen(key, ' ');
+  for (; i < len; ++i)
+  {
+    hash += key[i];
+    hash += (hash << 10);
+    hash ^= (hash >> 6);
+  }
+  hash += (hash << 3);
+  hash ^= (hash >> 11);
+  hash += (hash << 15);
+
+  return hash;
+}
+
+
+static void _glewHashListFree(GLEWHashList *list)
+{
+  if (list->list != NULL) {
+    free(list->list);
+    list->list = NULL;
+    list->size = 0;
+  }
+}
+
+
+static void _glewHashListAlloc(GLEWHashList *list, GLuint nelts)
+{
+  GLuint size = nelts * 3 / 2;
+  _glewHashListFree(list);
+  list->list = calloc(size, sizeof(const GLubyte*));
+  list->size = size;
+}
+
+static void _glewHashListInsert(GLEWHashList *list, const GLubyte *name)
+{
+  GLuint hash = hash_string(name);
+
+  if (list->list == NULL) return;
+
+  while(list->list[hash % list->size] != NULL)
+    hash++;
+
+  list->list[hash % list->size] = name;
+}
+
+static GLboolean _glewHashListExists(GLEWHashList *list, const GLubyte *name)
+{
+  GLuint hash;
+  GLuint len;
+
+  if (list->list == NULL) return GL_FALSE;
+
+  hash = hash_string((const GLubyte*)name);
+  len = _glewStrLen((const GLubyte*)name);
+
+  /*
+   * As the hashset is bigger than the number of extensions
+   * this will eventually break.
+   */
+  while(1)
+  {
+    GLuint index = hash % list->size;
+    GLuint n;
+    if (list->list[index] == NULL)
+      break;
+
+    n = _glewStrCLen(list->list[index], ' ');
+
+    if (len == n && _glewStrSame(list->list[index], (const GLubyte*)name, n)) return GL_TRUE;
+    ++hash;
+  }
+
+  return GL_FALSE;
+}
+
+static GLboolean _glewBuildGL3ExtensionList(GLEWHashList *list)
+{
+  GLint n, i;
+  glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+  glGetStringi = (PFNGLGETSTRINGIPROC)glewGetProcAddress((const GLubyte*)"glGetStringi");
+
+  _glewHashListAlloc(list, n);
+  for (i = 0; i < n; ++i)
+  {
+    const GLubyte* extension = glGetStringi(GL_EXTENSIONS, i);
+    _glewHashListInsert(list, extension);
+  }
+
+  return GL_TRUE;
+}
+/*
+ * initialize the extension list hash from a extension string list
+ */
+static GLboolean _glewBuildHashListFromString(const GLubyte* extensions, GLEWHashList *list)
+{
+  const GLubyte* extStart;
+  const GLubyte* extEnd;
   const GLubyte* p;
-  GLuint len = _glewStrLen((const GLubyte*)name);
-  p = start;
-  while (p < end)
+  GLuint extCount = 0;
+
+  extStart = extensions;
+  if (extStart == 0)
+    extStart = (const GLubyte*)"";
+  extEnd = extStart + _glewStrLen(extStart);
+
+  // first scan to determine number of extensions
+  p = extStart;
+  while (p < extEnd)
   {
     GLuint n = _glewStrCLen(p, ' ');
-    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
+    p += n + 1;
+    ++extCount;
+  }
+
+  _glewHashListAlloc(list, extCount);
+
+  // Second scan to populate the hash set
+  p = extStart;
+  while (p < extEnd)
+  {
+    GLuint n = _glewStrCLen(p, ' ');
+    _glewHashListInsert(list, p);
     p += n+1;
   }
-  return GL_FALSE;
+
+  return GL_TRUE;
 }
