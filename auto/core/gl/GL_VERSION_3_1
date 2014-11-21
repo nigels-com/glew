@@ -39,3 +39,4 @@ https://www.opengl.org/registry/doc/glspec31.20090528.pdf
 	void glDrawElementsInstanced (GLenum mode, GLsizei count, GLenum type, const void* indices, GLsizei primcount)
 	void glTexBuffer (GLenum target, GLenum internalFormat, GLuint buffer)
 	void glPrimitiveRestartIndex (GLuint buffer)
+	LOAD GL_ARB_copy_buffer

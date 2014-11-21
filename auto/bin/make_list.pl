@@ -32,7 +32,7 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts, $loadexts) = parse_ext($ext);
 
 		my $extvar = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
@@ -49,7 +49,7 @@ if (@ARGV)
 				print "  " . $extvar . " = _glewHashListExists(ext_hashlist, (const GLubyte *)\"$extstring\");\n";
 		}
 
-		if (keys %$functions)
+		if (keys %$functions or keys @$loadexts)
 		{
 			if ($extname =~ /WGL_.*/)
 			{
