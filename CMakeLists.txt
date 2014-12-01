@@ -5,8 +5,11 @@ if(COMMAND cmake_policy)
 	cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-
 set(GLEW_VERSION "1.11.0")
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	set(GLEW_LIB_NAME glew32)
@@ -15,8 +18,20 @@ else(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	set(DLL_PREFIX lib)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
+#
+# All platforms need OpenGL
+#
+
 include(FindPkgConfig)
 pkg_check_modules( OpenGL REQUIRED gl )
+
+#
+# Linux needs X11
+#
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    find_package(X11 REQUIRED)
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 set(CMAKE_C_FLAGS "${CFLAGS} ${CMAKE_C_FLAGS} -DGLEW_BUILD -DGLEW_NO_GLU -O2 -Wall -W" )
 
@@ -37,8 +52,16 @@ target_link_libraries(GLEW_MX_shared ${OpenGL_LDFLAGS})
 add_executable(glewinfo src/glewinfo.c)
 target_link_libraries(glewinfo GLEW_shared ${OpenGL_LDFLAGS})
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    target_link_libraries(glewinfo ${X11_LIBRARIES})
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+
 add_executable(visualinfo src/visualinfo.c)
 target_link_libraries(visualinfo GLEW_shared ${OpenGL_LDFLAGS})
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    target_link_libraries(visualinfo ${X11_LIBRARIES})
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 install(
 	TARGETS
