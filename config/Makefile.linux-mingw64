@@ -5,8 +5,9 @@
 #
 
 NAME  := glew32
-CC    := i686-w64-mingw32-gcc
-LD    := i686-w64-mingw32-ld
+HOST  := i686-w64-mingw32
+CC    := $(HOST)-gcc
+LD    := $(HOST)-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
