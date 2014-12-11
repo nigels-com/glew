@@ -1,0 +1,3 @@
+*           eol=lf
+*.png       binary
+build/*     eol=crlf

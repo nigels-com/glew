@@ -1,13 +1,12 @@
-# For cross-compiling from Linux to Windows amd64 using mingw32
-# http://www.mingw.org/
+# For cross-compiling from Linux to Windows x86 using mingw-w64
+# http://mingw-w64.sourceforge.net/
 #
-# $ make SYSTEM=linux-mingw64
+# $ make SYSTEM=linux-mingw-w64
 #
 
 NAME  := glew32
-HOST  := i686-w64-mingw32
-CC    := $(HOST)-gcc
-LD    := $(HOST)-ld
+CC    := i686-w64-mingw32-gcc
+LD    := i686-w64-mingw32-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32

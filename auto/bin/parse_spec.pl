@@ -20,7 +20,7 @@ my @sections = (
     "Name",
     "Name Strings?",
     "New Procedures and Functions",
-    "New Tokens",
+    "New Tokens.*",                    # Optional (GL/WGL/GLX/...) suffix
     "Additions to Chapter.*",
 );
 
@@ -350,7 +350,12 @@ foreach my $spec (sort @speclist)
                         if (${$tokens}{$b} =~ /_/) {
                             1
                         } else {
-                            hex ${$tokens}{$a} <=> hex ${$tokens}{$b}
+                            if (hex ${$tokens}{$a} eq hex ${$tokens}{$b})
+                            {
+                                $a cmp $b
+                            } else {
+                                hex ${$tokens}{$a} <=> hex ${$tokens}{$b}
+                            }
                         }                    
                     }
                 }
