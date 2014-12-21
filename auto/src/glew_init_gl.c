@@ -66,8 +66,44 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 
   /* query opengl extensions string */
   extStart = glGetString(GL_EXTENSIONS);
-  if (extStart == 0)
-    extStart = (const GLubyte*)"";
+  if (extStart == 0) {
+    /* no extension string, we're probably on a core context
+       build it manually */
+    GLint numExtensions = 0;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
+    /* don't have real glGetStringi yet... */
+    PFNGLGETSTRINGIPROC tempGetStringi = (PFNGLGETSTRINGIPROC)glewGetProcAddress((const GLubyte*)"glGetStringi");
+    if (numExtensions != 0 && tempGetStringi != 0)
+    {
+      int i;
+      size_t extStrLen = 0;
+      char *extStringTemp;
+      /* calculate length */
+      for (i = 0; i < numExtensions; i++)
+      {
+        const GLubyte* extName = tempGetStringi(GL_EXTENSIONS, i);
+        /* +1 is for space separator */
+        extStrLen += _glewStrLen(extName) + 1;
+      }
+
+      /* need one extra for the '\0' -terminator */
+      extStrLen += 1;
+
+      /* allocate extension string on the stack */
+      extStringTemp = alloca(extStrLen);
+      memset(extStringTemp, 0, extStrLen);
+      extStart = (const GLubyte *) extStringTemp;
+      for (i = 0; i < numExtensions; i++)
+      {
+        const GLubyte* extName = tempGetStringi(GL_EXTENSIONS, i);
+        strcat(extStringTemp, (const char *) extName);
+        /* be efficient, avoid O(n^2) behavior */
+        extStringTemp += _glewStrLen(extName);
+        strcat(extStringTemp, " ");
+        extStringTemp += 1;
+      }
+    }
+  }
   extEnd = extStart + _glewStrLen(extStart);
 
   /* initialize extensions */
