@@ -28,11 +28,6 @@ endif ()
 find_package (OpenGL REQUIRED)
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
-if (UNIX)
- find_package (X11 REQUIRED)
- list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
-endif ()
-
 add_definitions (-DGLEW_BUILD -DGLEW_NO_GLU)
 
 include_directories (${PROJECT_SOURCE_DIR}/include)
