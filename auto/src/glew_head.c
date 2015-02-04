@@ -7,6 +7,7 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
+extern int memcmp(const void *, const void *, size_t);
 
 /*
  * Define glewGetContext and related helper macros.
@@ -158,28 +159,41 @@ void* NSGLGetProcAddress (const GLubyte *name)
  */
 
 #undef GLEW_GET_VAR
+#undef GLEW_GET_REF
 #ifdef GLEW_MX
 # define GLEW_GET_VAR(x) (glewGetContext()->x)
+# define GLEW_GET_REF(x) (&((GLEWContext *)0)->x)
 #else /* GLEW_MX */
 # define GLEW_GET_VAR(x) (x)
+# define GLEW_GET_REF(x) (&(x))
 #endif /* GLEW_MX */
 
 #ifdef WGLEW_GET_VAR
 # undef WGLEW_GET_VAR
+# undef WGLEW_GET_REF
 # ifdef GLEW_MX
 #  define WGLEW_GET_VAR(x) (wglewGetContext()->x)
+#  define WGLEW_GET_REF(x) (&((WGLEWContext *)0)->x)
 # else /* GLEW_MX */
 #  define WGLEW_GET_VAR(x) (x)
+#  define WGLEW_GET_REF(x) (&(x))
 # endif /* GLEW_MX */
+#else
+# define WGLEW_GET_REF(x) (NULL)
 #endif /* WGLEW_GET_VAR */
 
 #ifdef GLXEW_GET_VAR
 # undef GLXEW_GET_VAR
+# undef GLXEW_GET_REF
 # ifdef GLEW_MX
 #  define GLXEW_GET_VAR(x) (glxewGetContext()->x)
+#  define GLXEW_GET_REF(x) (&((GLXEWContext *)0)->x)
 # else /* GLEW_MX */
 #  define GLXEW_GET_VAR(x) (x)
+#  define GLXEW_GET_REF(x) (&(x))
 # endif /* GLEW_MX */
+#else
+# define GLXEW_GET_REF(x) (NULL)
 #endif /* GLXEW_GET_VAR */
 
 /*
