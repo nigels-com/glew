@@ -1,82 +1,88 @@
-project(GLEW)
-cmake_minimum_required(VERSION 2.4)
+if ( NOT DEFINED CMAKE_BUILD_TYPE )
+  set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type" )
+endif ()
 
-if(COMMAND cmake_policy)
-	cmake_policy(SET CMP0003 NEW)
-endif(COMMAND cmake_policy)
+project (GLEW)
 
-set(GLEW_VERSION "1.11.0")
+cmake_minimum_required (VERSION 2.4)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+if (COMMAND cmake_policy)
+  cmake_policy (SET CMP0003 NEW)
+endif()
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-	set(GLEW_LIB_NAME glew32)
-else(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-	set(GLEW_LIB_NAME GLEW)
-	set(DLL_PREFIX lib)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+option (BUILD_SHARED_LIBS "build shared/static libs" ON)
 
-#
-# All platforms need OpenGL
-#
+set (GLEW_VERSION "1.12.0")
 
-include(FindPkgConfig)
-pkg_check_modules( OpenGL REQUIRED gl )
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-#
-# Linux needs X11
-#
+if (WIN32)
+  set(GLEW_LIB_NAME glew32)
+else ()
+  set(GLEW_LIB_NAME GLEW)
+  set(DLL_PREFIX lib)
+endif ()
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    find_package(X11 REQUIRED)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+find_package (OpenGL REQUIRED)
+set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
-set(CMAKE_C_FLAGS "${CFLAGS} ${CMAKE_C_FLAGS} -DGLEW_BUILD -DGLEW_NO_GLU -O2 -Wall -W" )
+if (UNIX)
+ find_package (X11 REQUIRED)
+ list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
+endif ()
 
-include_directories( ${PROJECT_SOURCE_DIR}/include )
+add_definitions (-DGLEW_BUILD -DGLEW_NO_GLU)
 
-add_library(GLEW_static STATIC src/glew.c )
-add_library(GLEW_shared SHARED src/glew.c )
-set_target_properties(GLEW_static PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME} PREFIX lib)
-set_target_properties(GLEW_shared PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME} PREFIX "${DLL_PREFIX}")
-target_link_libraries(GLEW_shared ${OpenGL_LDFLAGS})
+include_directories (${PROJECT_SOURCE_DIR}/include)
 
-add_library(GLEW_MX_static STATIC src/glew.c )
-add_library(GLEW_MX_shared SHARED src/glew.c )
-set_target_properties(GLEW_MX_static PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME}mx COMPILE_FLAGS "-DGLEW_MX" PREFIX lib)
-set_target_properties(GLEW_MX_shared PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME}mx COMPILE_FLAGS "-DGLEW_MX" PREFIX "${DLL_PREFIX}")
-target_link_libraries(GLEW_MX_shared ${OpenGL_LDFLAGS})
+add_library (glew src/glew.c)
+target_link_libraries(glew ${GLEW_LIBRARIES})
+set_target_properties (glew PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME})
+if (BUILD_SHARED_LIBS)
+  set_target_properties(glew PROPERTIES PREFIX "${DLL_PREFIX}")
+else ()
+  set_target_properties(glew PROPERTIES PREFIX lib)
+endif ()
 
-add_executable(glewinfo src/glewinfo.c)
-target_link_libraries(glewinfo GLEW_shared ${OpenGL_LDFLAGS})
+add_library(glew_mx src/glew.c )
+target_link_libraries (glew_mx ${GLEW_LIBRARIES})
+set_target_properties (glew_mx PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(glewinfo ${X11_LIBRARIES})
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+if (BUILD_SHARED_LIBS)
+  set_target_properties (glew_mx PROPERTIES PREFIX "${DLL_PREFIX}")
+else ()
+  set_target_properties (glew_mx PROPERTIES PREFIX lib)
+endif ()
+
+add_executable (glewinfo src/glewinfo.c)
+target_link_libraries(glewinfo glew)
 
 add_executable(visualinfo src/visualinfo.c)
-target_link_libraries(visualinfo GLEW_shared ${OpenGL_LDFLAGS})
+target_link_libraries(visualinfo glew)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(visualinfo ${X11_LIBRARIES})
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
-install(
-	TARGETS
-		GLEW_static
-		GLEW_shared
-		GLEW_MX_static
-		GLEW_MX_shared
-		glewinfo
-		visualinfo
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
+install ( TARGETS glew glew_mx glewinfo visualinfo
+          RUNTIME DESTINATION bin
+          LIBRARY DESTINATION lib${LIB_SUFFIX}
+          ARCHIVE DESTINATION lib${LIB_SUFFIX}
 )
 
-install(CODE "execute_process( COMMAND bash -x -c \"sed -e 's%@prefix@%${CMAKE_INSTALL_PREFIX}%g' -e 's%@exec_prefix@%\\\${prefix}%g' -e 's%@libdir@%\\\${prefix}/lib%g' -e 's%@includedir@%\\\${prefix}/include%g' -e 's/\@version\@/${GLEW_VERSION}/g' -e 's/\@cflags\@//g' -e 's/\@libname\@/${GLEW_LIB_NAME}/g' -e 's|@requireslib@|glu|g' < ${CMAKE_SOURCE_DIR}/glew.pc.in > ${CMAKE_BINARY_DIR}/glew.pc\" )" )
-install(CODE "execute_process( COMMAND bash -x -c \"sed -e 's%@prefix@%${CMAKE_INSTALL_PREFIX}%g' -e 's%@exec_prefix@%\\\${prefix}%g' -e 's%@libdir@%\\\${prefix}/lib%g' -e 's%@includedir@%\\\${prefix}/include%g' -e 's/\@version\@/${GLEW_VERSION}/g' -e 's/\@cflags\@/-DGLEW_MX/g' -e 's/\@libname\@/${GLEW_LIB_NAME}mx/g' -e 's|@requireslib@|glu|g' < ${CMAKE_SOURCE_DIR}/glew.pc.in > ${CMAKE_BINARY_DIR}/glewmx.pc\" )" )
+set (prefix ${CMAKE_INSTALL_PREFIX})
+set (exec_prefix \${prefix})
+set (libdir \${prefix}/lib)
+set (includedir \${prefix}/include)
+set (includedir \${prefix}/include)
+set (version ${GLEW_VERSION})
+set (libname ${GLEW_LIB_NAME})
+set (cflags)
+set (requireslib glu)
+configure_file (glew.pc.in ${CMAKE_BINARY_DIR}/glew.pc @ONLY)
+set (cflags "-DGLEW_MX")
+set (libname ${GLEW_LIB_NAME}mx)
+configure_file (glew.pc.in ${CMAKE_BINARY_DIR}/glewmx.pc @ONLY)
 
-install(FILES ${CMAKE_BINARY_DIR}/glew.pc ${CMAKE_BINARY_DIR}/glewmx.pc DESTINATION lib/pkgconfig)
+install(FILES ${CMAKE_BINARY_DIR}/glew.pc ${CMAKE_BINARY_DIR}/glewmx.pc
+        DESTINATION lib/pkgconfig
+)
