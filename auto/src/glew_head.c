@@ -13,6 +13,8 @@
 #include <stdlib.h>  /* For malloc, free */
 #include <string.h>  /* For memset */
 
+extern int memcmp(const void *, const void *, size_t);
+
 #if defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked

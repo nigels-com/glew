@@ -183,7 +183,16 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	perl -e "s/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/" -pi $@
 	cat $(SRC)/glxew_tail.h >> $@
 
-$(S.DEST)/glew.c: $(EXT)/.dummy
+$(SRC)/glew.gperf: $(EXT)/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating glew.gperf"
+	@echo "--------------------------------------------------------------------"
+	$(BIN)/make_gperf.pl $(GL_EXT_SPEC) $(WGL_EXT_SPEC) $(GLX_EXT_SPEC) > $@
+
+$(SRC)/glew_init_hash.c: $(SRC)/glew.gperf
+	gperf -m 10 --output-file=$@ $(SRC)/glew.gperf
+
+$(S.DEST)/glew.c: $(EXT)/.dummy $(SRC)/glew_init_hash.c
 	@echo "--------------------------------------------------------------------"
 	@echo "Creating glew.c"
 	@echo "--------------------------------------------------------------------"
@@ -209,8 +218,10 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	echo -e "" >> $@;
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
+	cat $(SRC)/glew_init_hash.c | grep -v '^#line' >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
-	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
+	$(BIN)/make_list.pl $(GL_CORE_SPEC) >> $@
+	cat $(SRC)/glew_init_glext.c >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
 	echo -e "\n#if defined(_WIN32) && ! defined(GLEW_OSMESA)" >> $@
