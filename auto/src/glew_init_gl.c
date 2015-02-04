@@ -1,14 +1,57 @@
 /* ------------------------------------------------------------------------- */
 
+static
+GLboolean glewGetVersion(GLint *major, GLint *minor)
+{
+  const GLubyte* s;
+  GLuint dot;
+
+  s = glGetString(GL_VERSION);
+  dot = _glewStrCLen(s, '.');
+  if (dot == 0)
+    return GL_FALSE;
+
+  *major = s[dot-1]-'0';
+  *minor = s[dot+1]-'0';
+
+  if (*minor < 0 || *minor > 9)
+    *minor = 0;
+  if (*major<0 || *major>9)
+    return GL_FALSE;
+
+  return GL_TRUE;
+}
+
 GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 {    
+  GLint major, minor;
   const GLubyte* start;
   const GLubyte* end;
-  start = (const GLubyte*)glGetString(GL_EXTENSIONS);
-  if (start == 0)
+  GLint numExts, ext;
+
+  if (!glewGetVersion(&major, &minor))
     return GL_FALSE;
-  end = start + _glewStrLen(start);
-  return _glewSearchExtension(name, start, end);
+
+  if (major < 3)
+  {
+    start = (const GLubyte*)glGetString(GL_EXTENSIONS);
+    if (start == 0)
+      return GL_FALSE;
+    end = start + _glewStrLen(start);
+    return _glewSearchExtension(name, start, end);
+  }
+  else
+  {
+    glGetIntegerv(GL_NUM_EXTENSIONS, &numExts);
+    for (ext = 0; ext < numExts; ext++)
+    {
+      start = (const GLubyte *)glGetStringi(GL_EXTENSIONS, ext);
+      end = start + _glewStrLen(start);
+      if (_glewSearchExtension(name, start, end))
+	return GL_TRUE;
+    }
+    return GL_FALSE;
+  }
 }
 
 /* ------------------------------------------------------------------------- */
@@ -18,27 +61,15 @@ static
 #endif
 GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 {
-  const GLubyte* s;
-  GLuint dot;
   GLint major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  GLint numExts, ext;
 
   /* query opengl version */
-  s = glGetString(GL_VERSION);
-  dot = _glewStrCLen(s, '.');
-  if (dot == 0)
+  if (!glewGetVersion(&major, &minor))
     return GLEW_ERROR_NO_GL_VERSION;
   
-  major = s[dot-1]-'0';
-  minor = s[dot+1]-'0';
-
-  if (minor < 0 || minor > 9)
-    minor = 0;
-  if (major<0 || major>9)
-    return GLEW_ERROR_NO_GL_VERSION;
-  
-
   if (major == 1 && minor == 0)
   {
     return GLEW_ERROR_GL_VERSION_10_ONLY;
