@@ -12,10 +12,19 @@ use warnings;
 
 do 'bin/make.pl';
 
+our %defined = ();
+
 # function pointer declaration
 sub make_pfn_decl($%)
 {
     our $export;
+    our %defined;
+
+    if( $defined{$_[0]} )  # avoid duplicate definitions
+    {
+	return "";
+    }
+    $defined{$_[0]} = 1;
     return $export . " PFN" . (uc $_[0]) . "PROC " . prefixname($_[0]) . ";";
 }
 
