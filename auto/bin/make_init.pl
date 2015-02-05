@@ -18,7 +18,38 @@ do 'bin/make.pl';
 sub make_pfn_def_init($%)
 {
     #my $name = prefixname($_[0]);
-    return "  r = ((" . $_[0] . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
+    my $condition = "";
+    if ($_[1]{deleted}) {
+	my $needop = 0;
+
+	for my $tok (split(/\s+/, $_[1]{deleted})) {
+	    if ($tok eq "~") {
+		# ignore
+	    } elsif ($tok eq '&&') {
+		$condition .= ' && ';
+		$needop = 0;
+	    } elsif ($tok eq '||') {
+		$condition .= ') || (';
+		$needop = 0;
+	    } else {
+		if ($needop) {
+		    $condition .= ' && ';
+		}
+		if ($tok =~ /^\d/) {
+		    # GL Version
+		    $tok =~ s/[.]/_/g;
+		    $condition .= "GLEW_VERSION_${tok}";
+		} elsif ($tok eq "core") {
+		    $condition .= "(context_profile & GL_CONTEXT_CORE_PROFILE_BIT)";
+		} elsif ($tok eq "forward") {
+		    $condition .= "(context_flags & GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT)";
+		}
+		$needop = 1;
+	    }
+	}
+	$condition = "if( !(($condition)) ) ";
+    }
+    return "  ${condition}r = ((" . $_[0] . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
 }
 
 sub make_reuse_call($%)
