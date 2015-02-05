@@ -64,6 +64,8 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
+  GLint context_flags = 0;
+  GLint context_profile = GL_CONTEXT_COMPATIBILITY_PROFILE_BIT;
 
   /* query opengl version */
   s = glGetString(GL_VERSION);
@@ -169,3 +171,12 @@ static GLenum GLEWAPIENTRY glewContextInit ()
       free(begin);
     }
   }
+
+  if( GLEW_VERSION_3_0 )
+    glGetIntegerv(GL_CONTEXT_FLAGS, &context_flags);
+  if( GLEW_VERSION_3_2 )
+    glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &context_profile);
+  else if( GLEW_VERSION_3_1 && !glewGetExtension("GL_ARB_compatibility"))
+    context_profile = GL_CONTEXT_CORE_PROFILE_BIT;
+
+  /* initialize core functions */

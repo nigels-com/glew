@@ -25,6 +25,8 @@ GLenum GLEWAPIENTRY wglewInit ()
   GLboolean crippled;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  GLint context_profile = 0, context_flags = 0;
+
   /* find wgl extension string query functions */
   _wglewGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringARB");
   _wglewGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringEXT");

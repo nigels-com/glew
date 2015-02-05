@@ -17,6 +17,8 @@ GLenum glxewInit ()
   int major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  GLint context_profile = 0, context_flags = 0;
+
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
