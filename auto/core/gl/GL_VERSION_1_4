@@ -43,48 +43,48 @@ http://www.opengl.org/documentation/specs/version1.4/glspec14.pdf
 	GL_MIRRORED_REPEAT 0x8370
 	void glBlendEquation (GLenum mode)
 	void glBlendColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha)
-	void glFogCoordf (GLfloat coord)
-	void glFogCoordfv (const GLfloat *coord)
-	void glFogCoordd (GLdouble coord)
-	void glFogCoorddv (const GLdouble *coord)
-	void glFogCoordPointer (GLenum type, GLsizei stride, const void *pointer)
+	void glFogCoordf (GLfloat coord) ~ 3.0 forward || 3.2 core
+	void glFogCoordfv (const GLfloat *coord) ~ 3.0 forward || 3.2 core
+	void glFogCoordd (GLdouble coord) ~ 3.0 forward || 3.2 core
+	void glFogCoorddv (const GLdouble *coord) ~ 3.0 forward || 3.2 core
+	void glFogCoordPointer (GLenum type, GLsizei stride, const void *pointer) ~ 3.0 forward || 3.2 core
 	void glMultiDrawArrays (GLenum mode, const GLint *first, const GLsizei *count, GLsizei drawcount)
 	void glMultiDrawElements (GLenum mode, const GLsizei *count, GLenum type, const void *const* indices, GLsizei drawcount)
 	void glPointParameteri (GLenum pname, GLint param)
 	void glPointParameteriv (GLenum pname, const GLint *params)
 	void glPointParameterf (GLenum pname, GLfloat param)
 	void glPointParameterfv (GLenum pname, const GLfloat *params)
-	void glSecondaryColor3b (GLbyte red, GLbyte green, GLbyte blue)
-	void glSecondaryColor3bv (const GLbyte *v)
-	void glSecondaryColor3d (GLdouble red, GLdouble green, GLdouble blue)
-	void glSecondaryColor3dv (const GLdouble *v)
-	void glSecondaryColor3f (GLfloat red, GLfloat green, GLfloat blue)
-	void glSecondaryColor3fv (const GLfloat *v)
-	void glSecondaryColor3i (GLint red, GLint green, GLint blue)
-	void glSecondaryColor3iv (const GLint *v)
-	void glSecondaryColor3s (GLshort red, GLshort green, GLshort blue)
-	void glSecondaryColor3sv (const GLshort *v)
-	void glSecondaryColor3ub (GLubyte red, GLubyte green, GLubyte blue)
-	void glSecondaryColor3ubv (const GLubyte *v)
-	void glSecondaryColor3ui (GLuint red, GLuint green, GLuint blue)
-	void glSecondaryColor3uiv (const GLuint *v)
-	void glSecondaryColor3us (GLushort red, GLushort green, GLushort blue)
-	void glSecondaryColor3usv (const GLushort *v)
-	void glSecondaryColorPointer (GLint size, GLenum type, GLsizei stride, const void *pointer)
+	void glSecondaryColor3b (GLbyte red, GLbyte green, GLbyte blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3bv (const GLbyte *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3d (GLdouble red, GLdouble green, GLdouble blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3dv (const GLdouble *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3f (GLfloat red, GLfloat green, GLfloat blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3fv (const GLfloat *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3i (GLint red, GLint green, GLint blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3iv (const GLint *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3s (GLshort red, GLshort green, GLshort blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3sv (const GLshort *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3ub (GLubyte red, GLubyte green, GLubyte blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3ubv (const GLubyte *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3ui (GLuint red, GLuint green, GLuint blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3uiv (const GLuint *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3us (GLushort red, GLushort green, GLushort blue) ~ 3.0 forward || 3.2 core
+	void glSecondaryColor3usv (const GLushort *v) ~ 3.0 forward || 3.2 core
+	void glSecondaryColorPointer (GLint size, GLenum type, GLsizei stride, const void *pointer) ~ 3.0 forward || 3.2 core
 	void glBlendFuncSeparate (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha)
-	void glWindowPos2d (GLdouble x, GLdouble y)
-	void glWindowPos2f (GLfloat x, GLfloat y)
-	void glWindowPos2i (GLint x, GLint y)
-	void glWindowPos2s (GLshort x, GLshort y)
-	void glWindowPos2dv (const GLdouble *p)
-	void glWindowPos2fv (const GLfloat *p)
-	void glWindowPos2iv (const GLint *p)
-	void glWindowPos2sv (const GLshort *p)
-	void glWindowPos3d (GLdouble x, GLdouble y, GLdouble z)
-	void glWindowPos3f (GLfloat x, GLfloat y, GLfloat z)
-	void glWindowPos3i (GLint x, GLint y, GLint z)
-	void glWindowPos3s (GLshort x, GLshort y, GLshort z)
-	void glWindowPos3dv (const GLdouble *p)
-	void glWindowPos3fv (const GLfloat *p)
-	void glWindowPos3iv (const GLint *p)
-	void glWindowPos3sv (const GLshort *p)
+	void glWindowPos2d (GLdouble x, GLdouble y) ~ 3.0 forward || 3.2 core
+	void glWindowPos2f (GLfloat x, GLfloat y) ~ 3.0 forward || 3.2 core
+	void glWindowPos2i (GLint x, GLint y) ~ 3.0 forward || 3.2 core
+	void glWindowPos2s (GLshort x, GLshort y) ~ 3.0 forward || 3.2 core
+	void glWindowPos2dv (const GLdouble *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos2fv (const GLfloat *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos2iv (const GLint *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos2sv (const GLshort *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos3d (GLdouble x, GLdouble y, GLdouble z) ~ 3.0 forward || 3.2 core
+	void glWindowPos3f (GLfloat x, GLfloat y, GLfloat z) ~ 3.0 forward || 3.2 core
+	void glWindowPos3i (GLint x, GLint y, GLint z) ~ 3.0 forward || 3.2 core
+	void glWindowPos3s (GLshort x, GLshort y, GLshort z) ~ 3.0 forward || 3.2 core
+	void glWindowPos3dv (const GLdouble *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos3fv (const GLfloat *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos3iv (const GLint *p) ~ 3.0 forward || 3.2 core
+	void glWindowPos3sv (const GLshort *p) ~ 3.0 forward || 3.2 core

@@ -100,7 +100,7 @@ http://www.opengl.org/documentation/specs/version1.3/glspec13.pdf
 	GL_CLAMP_TO_BORDER 0x812D
 
 	void glActiveTexture (GLenum texture)
-	void glClientActiveTexture (GLenum texture)
+	void glClientActiveTexture (GLenum texture) ~ 3.0 forward || 3.2 core
 	void glCompressedTexImage1D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void *data)
 	void glCompressedTexImage2D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data)
 	void glCompressedTexImage3D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void *data)
@@ -108,40 +108,40 @@ http://www.opengl.org/documentation/specs/version1.3/glspec13.pdf
 	void glCompressedTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void *data)
 	void glCompressedTexSubImage3D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void *data)
 	void glGetCompressedTexImage (GLenum target, GLint lod, void *img)
-	void glLoadTransposeMatrixd (const GLdouble m[16])
-	void glLoadTransposeMatrixf (const GLfloat m[16])
-	void glMultTransposeMatrixd (const GLdouble m[16])
-	void glMultTransposeMatrixf (const GLfloat m[16])
-	void glMultiTexCoord1d (GLenum target, GLdouble s)
-	void glMultiTexCoord1dv (GLenum target, const GLdouble *v)
-	void glMultiTexCoord1f (GLenum target, GLfloat s)
-	void glMultiTexCoord1fv (GLenum target, const GLfloat *v)
-	void glMultiTexCoord1i (GLenum target, GLint s)
-	void glMultiTexCoord1iv (GLenum target, const GLint *v)
-	void glMultiTexCoord1s (GLenum target, GLshort s)
-	void glMultiTexCoord1sv (GLenum target, const GLshort *v)
-	void glMultiTexCoord2d (GLenum target, GLdouble s, GLdouble t)
-	void glMultiTexCoord2dv (GLenum target, const GLdouble *v)
-	void glMultiTexCoord2f (GLenum target, GLfloat s, GLfloat t)
-	void glMultiTexCoord2fv (GLenum target, const GLfloat *v)
-	void glMultiTexCoord2i (GLenum target, GLint s, GLint t)
-	void glMultiTexCoord2iv (GLenum target, const GLint *v)
-	void glMultiTexCoord2s (GLenum target, GLshort s, GLshort t)
-	void glMultiTexCoord2sv (GLenum target, const GLshort *v)
-	void glMultiTexCoord3d (GLenum target, GLdouble s, GLdouble t, GLdouble r)
-	void glMultiTexCoord3dv (GLenum target, const GLdouble *v)
-	void glMultiTexCoord3f (GLenum target, GLfloat s, GLfloat t, GLfloat r)
-	void glMultiTexCoord3fv (GLenum target, const GLfloat *v)
-	void glMultiTexCoord3i (GLenum target, GLint s, GLint t, GLint r)
-	void glMultiTexCoord3iv (GLenum target, const GLint *v)
-	void glMultiTexCoord3s (GLenum target, GLshort s, GLshort t, GLshort r)
-	void glMultiTexCoord3sv (GLenum target, const GLshort *v)
-	void glMultiTexCoord4d (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q)
-	void glMultiTexCoord4dv (GLenum target, const GLdouble *v)
-	void glMultiTexCoord4f (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q)
-	void glMultiTexCoord4fv (GLenum target, const GLfloat *v)
-	void glMultiTexCoord4i (GLenum target, GLint s, GLint t, GLint r, GLint q)
-	void glMultiTexCoord4iv (GLenum target, const GLint *v)
-	void glMultiTexCoord4s (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q)
-	void glMultiTexCoord4sv (GLenum target, const GLshort *v)
+	void glLoadTransposeMatrixd (const GLdouble m[16]) ~ 3.0 forward || 3.2 core
+	void glLoadTransposeMatrixf (const GLfloat m[16]) ~ 3.0 forward || 3.2 core
+	void glMultTransposeMatrixd (const GLdouble m[16]) ~ 3.0 forward || 3.2 core
+	void glMultTransposeMatrixf (const GLfloat m[16]) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1d (GLenum target, GLdouble s) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1dv (GLenum target, const GLdouble *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1f (GLenum target, GLfloat s) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1fv (GLenum target, const GLfloat *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1i (GLenum target, GLint s) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1iv (GLenum target, const GLint *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1s (GLenum target, GLshort s) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord1sv (GLenum target, const GLshort *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2d (GLenum target, GLdouble s, GLdouble t) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2dv (GLenum target, const GLdouble *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2f (GLenum target, GLfloat s, GLfloat t) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2fv (GLenum target, const GLfloat *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2i (GLenum target, GLint s, GLint t) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2iv (GLenum target, const GLint *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2s (GLenum target, GLshort s, GLshort t) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord2sv (GLenum target, const GLshort *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3d (GLenum target, GLdouble s, GLdouble t, GLdouble r) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3dv (GLenum target, const GLdouble *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3f (GLenum target, GLfloat s, GLfloat t, GLfloat r) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3fv (GLenum target, const GLfloat *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3i (GLenum target, GLint s, GLint t, GLint r) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3iv (GLenum target, const GLint *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3s (GLenum target, GLshort s, GLshort t, GLshort r) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord3sv (GLenum target, const GLshort *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4d (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4dv (GLenum target, const GLdouble *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4f (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4fv (GLenum target, const GLfloat *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4i (GLenum target, GLint s, GLint t, GLint r, GLint q) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4iv (GLenum target, const GLint *v) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4s (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q) ~ 3.0 forward || 3.2 core
+	void glMultiTexCoord4sv (GLenum target, const GLshort *v) ~ 3.0 forward || 3.2 core
 	void glSampleCoverage (GLclampf value, GLboolean invert)
