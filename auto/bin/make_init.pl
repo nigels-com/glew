@@ -46,6 +46,7 @@ if (@ARGV)
 			print "#ifdef $extname\n\n";
 			print "static GLboolean _glewInit_$extname (" . $type . 
 				"EW_CONTEXT_ARG_DEF_INIT)\n{\n  GLboolean r = GL_FALSE;\n";
+			print "#ifdef GLEW_MX\n  (void)ctx;\n#endif\n  (void)context_profile;\n  (void)context_flags;\n";
 			output_decls($functions, \&make_pfn_def_init);
 			print "\n  return r;\n}\n\n";
 			print "#endif /* $extname */\n\n";
