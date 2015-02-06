@@ -10,7 +10,7 @@ if (COMMAND cmake_policy)
   cmake_policy (SET CMP0003 NEW)
 endif()
 
-option (BUILD_SHARED_LIBS "build shared/static libs" ON)
+option (BUILD_UTILS "utilities" ON)
 
 set (GLEW_VERSION "1.12.0")
 
@@ -19,10 +19,10 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if (WIN32)
-  set(GLEW_LIB_NAME glew32)
+  set (GLEW_LIB_NAME glew32)
 else ()
-  set(GLEW_LIB_NAME GLEW)
-  set(DLL_PREFIX lib)
+  set (GLEW_LIB_NAME GLEW)
+  set (DLL_PREFIX lib)
 endif ()
 
 find_package (OpenGL REQUIRED)
@@ -32,37 +32,40 @@ add_definitions (-DGLEW_BUILD -DGLEW_NO_GLU)
 
 include_directories (${PROJECT_SOURCE_DIR}/include)
 
-add_library (glew src/glew.c)
-target_link_libraries(glew ${GLEW_LIBRARIES})
+add_library (glew SHARED src/glew.c)
+add_library (glew_s STATIC src/glew.c)
+target_link_libraries (glew ${GLEW_LIBRARIES})
+target_link_libraries (glew_s ${GLEW_LIBRARIES})
 set_target_properties (glew PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME})
-if (BUILD_SHARED_LIBS)
-  set_target_properties(glew PROPERTIES PREFIX "${DLL_PREFIX}")
-else ()
-  set_target_properties(glew PROPERTIES PREFIX lib)
-endif ()
+set_target_properties (glew_s PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME})
+set_target_properties (glew PROPERTIES PREFIX "${DLL_PREFIX}")
+set_target_properties (glew_s PROPERTIES PREFIX lib)
 
-add_library(glew_mx src/glew.c )
-target_link_libraries (glew_mx ${GLEW_LIBRARIES})
-set_target_properties (glew_mx PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
+add_library(glewmx SHARED src/glew.c )
+add_library(glewmx_s STATIC src/glew.c )
+target_link_libraries (glewmx ${GLEW_LIBRARIES})
+target_link_libraries (glewmx_s ${GLEW_LIBRARIES})
+set_target_properties (glewmx PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
+set_target_properties (glewmx_s PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
+set_target_properties (glewmx PROPERTIES PREFIX "${DLL_PREFIX}")
+set_target_properties (glewmx_s PROPERTIES PREFIX lib)
 
-if (BUILD_SHARED_LIBS)
-  set_target_properties (glew_mx PROPERTIES PREFIX "${DLL_PREFIX}")
-else ()
-  set_target_properties (glew_mx PROPERTIES PREFIX lib)
-endif ()
-
-add_executable (glewinfo src/glewinfo.c)
-target_link_libraries(glewinfo glew)
-
-add_executable(visualinfo src/visualinfo.c)
-target_link_libraries(visualinfo glew)
-
-
-install ( TARGETS glew glew_mx glewinfo visualinfo
+install ( TARGETS glew glew_s glewmx glewmx_s
           RUNTIME DESTINATION bin
           LIBRARY DESTINATION lib${LIB_SUFFIX}
           ARCHIVE DESTINATION lib${LIB_SUFFIX}
 )
+
+if (BUILD_UTILS)
+  add_executable (glewinfo src/glewinfo.c)
+  target_link_libraries (glewinfo glew)
+
+  add_executable (visualinfo src/visualinfo.c)
+  target_link_libraries (visualinfo glew)
+
+  install ( TARGETS glewinfo visualinfo
+            DESTINATION bin)
+endif ()
 
 set (prefix ${CMAKE_INSTALL_PREFIX})
 set (exec_prefix \${prefix})
