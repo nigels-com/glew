@@ -9,4 +9,18 @@ https://www.opengl.org/registry/doc/glspec42.compatibility.20120427.pdf
 	GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM 0x8E8D
 	GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT 0x8E8E
 	GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT 0x8E8F
-
+	void glGetActiveAtomicCounterBufferiv (GLuint program, GLuint bufferIndex, GLenum pname, GLint* params)
+	void glTexStorage1D (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
+	void glTexStorage2D (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
+	void glTexStorage3D (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
+	void glTextureStorage1DEXT (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width)
+	void glTextureStorage2DEXT (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height)
+	void glTextureStorage3DEXT (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)
+	void glDrawTransformFeedbackInstanced (GLenum mode, GLuint id, GLsizei primcount)
+	void glDrawTransformFeedbackStreamInstanced (GLenum mode, GLuint id, GLuint stream, GLsizei primcount)
+	void glDrawArraysInstancedBaseInstance (GLenum mode, GLint first, GLsizei count, GLsizei primcount, GLuint baseinstance)
+	void glDrawElementsInstancedBaseInstance (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount, GLuint baseinstance)
+	void glDrawElementsInstancedBaseVertexBaseInstance (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount, GLint basevertex, GLuint baseinstance)
+	void glBindImageTexture (GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format)
+	void glMemoryBarrier (GLbitfield barriers)
+	void glGetInternalformativ (GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint* params)
