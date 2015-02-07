@@ -113,7 +113,7 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	@echo "Creating descriptors"
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
-	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST) $(CORE)
 	$(BIN)/$(FILTER)     $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
@@ -199,8 +199,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy $(SRC)/glew_init_hash.c
 	cp -f $(SRC)/glew_license.h $@
 	cat $(SRC)/glew_head.c >> $@
 	echo -e "\n#if !defined(_WIN32) || !defined(GLEW_MX)" >> $@
-	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
-	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
+	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	echo -e "\n#endif /* !WIN32 || !GLEW_MX */" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@;
 	echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
