@@ -16,16 +16,15 @@ const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error)
 
 const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
 {
-  static const GLubyte* _glewString[] =
+  switch (name)
   {
-    (const GLubyte*)NULL,
-    (const GLubyte*)"GLEW_VERSION_STRING",
-    (const GLubyte*)"GLEW_VERSION_MAJOR_STRING",
-    (const GLubyte*)"GLEW_VERSION_MINOR_STRING",
-    (const GLubyte*)"GLEW_VERSION_MICRO_STRING"
-  };
-  const size_t max_string = sizeof(_glewString)/sizeof(*_glewString) - 1;
-  return _glewString[(size_t)name > max_string ? 0 : (size_t)name];
+    case GLEW_VERSION:       return (const GLubyte*)"GLEW_VERSION_STRING";
+    case GLEW_VERSION_MAJOR: return (const GLubyte*)"GLEW_VERSION_MAJOR_STRING";
+    case GLEW_VERSION_MINOR: return (const GLubyte*)"GLEW_VERSION_MINOR_STRING";
+    case GLEW_VERSION_MICRO: return (const GLubyte*)"GLEW_VERSION_MICRO_STRING";
+  }
+
+  return NULL;
 }
 
 /* ------------------------------------------------------------------------ */
