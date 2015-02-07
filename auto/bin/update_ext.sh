@@ -20,6 +20,6 @@ if [ ! -d $1 ] ; then
 
 # Parse each of the extensions in the registry
     find $2 -name doc -type d -prune -o -name "*.txt" -print | \
-	grep -v -f $3 | sort | bin/parse_spec.pl $1
+	grep -v -f $3 | sort | bin/parse_spec.pl $1 $4
 
 fi
