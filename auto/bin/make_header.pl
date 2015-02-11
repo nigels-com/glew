@@ -42,6 +42,10 @@ sub make_condition($)
 	    if ($needop) {
 		$condition .= ' && ';
 	    }
+	    if ($tok =~ /^!/) {
+		$condition .= '!';
+		$tok =~ s/^!//;
+	    }
 	    if ($tok =~ /^\d/) {
 		# GL Version
 		$tok =~ s/[.]/_/g;
