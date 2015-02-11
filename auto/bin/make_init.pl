@@ -35,6 +35,10 @@ sub make_pfn_def_init($%)
 		if ($needop) {
 		    $condition .= ' && ';
 		}
+		if ($tok =~ /^!/) {
+		    $condition .= '!';
+		    $tok =~ s/^!//;
+		}
 		if ($tok =~ /^\d/) {
 		    # GL Version
 		    $tok =~ s/[.]/_/g;
