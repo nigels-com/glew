@@ -26,16 +26,22 @@ GLXEWContext _glxewctx;
 #endif
 #endif
 
+struct createParams {
 #if defined(_WIN32)
-GLboolean glewCreateContext (int* pixelformat);
+  int         pixelformat;
 #elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLboolean glewCreateContext (const char* display, int* visual);
-#else
-GLboolean glewCreateContext ();
+  const char* display;
+  int         visual;
 #endif
+  int         major, minor;
+  int         profile_mask;
+  int         flags;
+};
+
+GLboolean glewCreateContext (struct createParams *params);
 
 #if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
+GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
 #endif
 
 void glewDestroyContext ();
