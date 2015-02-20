@@ -194,6 +194,10 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
+	echo -e "" >> $@;
+	$(BIN)/make_initd.pl GL $(GL_CORE_SPEC) >> $@
+	$(BIN)/make_initd.pl GL $(GL_EXT_SPEC) >> $@
+	echo -e "" >> $@;
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@
