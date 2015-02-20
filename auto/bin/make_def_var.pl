@@ -21,11 +21,11 @@ if (@ARGV)
 {
     @extlist = @ARGV;
 
-	foreach my $ext (sort @extlist)
-	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-		my $extvar = $extname;
-		$extvar =~ s/GL(X*)_/GL$1EW_/;
-		print "GLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n";
-	}
+    foreach my $ext (sort @extlist)
+    {
+        my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+        my $extvar = $extname;
+        $extvar =~ s/GL(X*)_/GL$1EW_/;
+        print "GLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n";
+    }
 }
