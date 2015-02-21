@@ -87,6 +87,17 @@ void* dlGetProcAddress (const GLubyte* name)
  * These functions implement the functionality required in this file.
  */
 
+static GLubyte *_glewStrDup (const GLubyte *str)
+{
+    int n = strlen(str) + 1;
+    char *dup = malloc(n);
+    if (dup)
+    {
+        strcpy(dup, str);
+    }
+    return dup;
+}
+
 GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
