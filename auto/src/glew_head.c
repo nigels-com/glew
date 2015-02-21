@@ -10,6 +10,8 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
+#include <string.h>  /* memset, etc */
+#include <stdlib.h>
 
 /*
  * Define glewGetContext and related helper macros.
@@ -207,7 +209,6 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   return (s[i] == '\0' || s[i] == c) ? i : 0;
 }
 
-#if 0
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
@@ -216,7 +217,6 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
-#endif
 
 static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
@@ -267,6 +267,26 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
       *na = *na - nb;
       return GL_TRUE;
     }
+  }
+  return GL_FALSE;
+}
+
+/*
+ * Search for name in the extensions string. Use of strstr()
+ * is not sufficient because extension names can be prefixes of
+ * other extension names. Could use strtok() but the constant
+ * string returned by glGetString might be in read-only memory.
+ */
+static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
+{
+  const GLubyte* p;
+  GLuint len = _glewStrLen((const GLubyte*)name);
+  p = start;
+  while (p < end)
+  {
+    GLuint n = _glewStrCLen(p, ' ');
+    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
+    p += n+1;
   }
   return GL_FALSE;
 }
