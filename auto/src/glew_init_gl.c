@@ -122,7 +122,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 
     /* glGetStringi is OpenGL 3.0 */
     getStringi = (PFNGLGETSTRINGIPROC) glewGetProcAddress((const GLubyte*)"glGetStringi");
-    if (glGetStringi)
+    if (getStringi)
       for (i = 0; i<n; ++i)
       {
         ext = (const char *) getStringi(GL_EXTENSIONS, i);
