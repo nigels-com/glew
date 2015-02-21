@@ -117,7 +117,30 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 
   if (GLEW_VERSION_3_0)
   {
-    /* TODO */
+    GLint n = 0;
+    GLint i;
+    PFNGLGETSTRINGIPROC getStringi;
+    const char *ext;
+
+    glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+
+    /* glGetStringi is OpenGL 3.0 */
+    getStringi = (PFNGLGETSTRINGIPROC) glewGetProcAddress((const GLubyte*)"glGetStringi");
+    if (glGetStringi)
+      for (i = 0; i<n; ++i)
+      {
+        ext = (const char *) getStringi(GL_EXTENSIONS, i);
+
+        /* Based on extension string(s), glewGetExtension purposes */
+        enable = _glewGetExtensionString(ext);
+        if (enable)
+          *enable = GL_TRUE;
+
+        /* Based on extension string(s), experimental mode, glewIsSupported purposes */
+        enable = _glewGetExtensionEnable(ext);
+        if (enable)
+          *enable = GL_TRUE;
+      }
   }
   else
   {
