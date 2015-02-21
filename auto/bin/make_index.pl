@@ -32,7 +32,7 @@ if (@ARGV)
             parse_ext($ext);
 
         print "#ifdef $extname\n";
-        print "  \"$extstring\",\n";
+        print "  \"$extname\",\n";
         print "#endif\n";
     }
 }
