@@ -2,7 +2,7 @@
 
 static int _glewExtensionCompare(const void *a, const void *b)
 {
-   return strcmp((const char *) a, *(const char**) b);
+   return strcmp((const char *) a, *(const char * const *) b);
 }
 
 static GLboolean *_glewGetExtensionString(const char *name)
@@ -67,11 +67,6 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
-  char *begin;
-  char *end;
-  char *i;
-  char *j;
-  GLboolean *enable;
 
   /* query opengl version */
   s = glGetString(GL_VERSION);
@@ -121,6 +116,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
     GLint i;
     PFNGLGETSTRINGIPROC getStringi;
     const char *ext;
+    GLboolean *enable;
 
     glGetIntegerv(GL_NUM_EXTENSIONS, &n);
 
@@ -144,10 +140,18 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   }
   else
   {
-    begin = (char *) glGetString(GL_EXTENSIONS);
-    if (begin)
+    const char *ext;
+    char *begin;
+    char *end;
+    char *i;
+    char *j;
+    GLboolean *enable;
+
+    ext = (const char *) glGetString(GL_EXTENSIONS);
+
+    if (ext)
     {
-      begin = strdup(begin);
+      begin = strdup(ext);
       end = begin + strlen(begin);
       for (i=begin; i<end; i = j + 1)
       {
