@@ -193,6 +193,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
  * These functions implement the functionality required in this file.
  */
+
 static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
@@ -207,6 +208,17 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   if (s == NULL) return 0;
   while (s[i] != '\0' && s[i] != c) i++;
   return (s[i] == '\0' || s[i] == c) ? i : 0;
+}
+
+static GLubyte *_glewStrDup (const GLubyte *s)
+{
+    int n = _glewStrLen(s) + 1;
+    GLubyte *dup = malloc(n);
+    if (dup)
+    {
+        strcpy((char *) dup, (const char *) s);
+    }
+    return dup;
 }
 
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
