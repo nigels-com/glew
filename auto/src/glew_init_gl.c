@@ -140,7 +140,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   }
   else
   {
-    const char *ext;
+    const GLubyte *ext;
     char *begin;
     char *end;
     char *i;
@@ -151,8 +151,8 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 
     if (ext)
     {
-      begin = strdup(ext);
-      end = begin + strlen(begin);
+      begin = (char *) _glewStrDup(ext);
+      end = begin + _glewStrLen((GLubyte *) begin);
       for (i=begin; i<end; i = j + 1)
       {
         i = _glewNextNonSpace(i);
