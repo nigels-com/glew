@@ -22,6 +22,12 @@ if (@ARGV)
 {
     @extlist = @ARGV;
 
+    print "/* Detected in the extension string or strings */\n";
+    print "static GLboolean  _glewExtensionString[" . scalar @extlist . "];\n";
+
+    print "/* Detected via extension string or experimental mode */\n";
+    print "static GLboolean* _glewExtensionEnabled[] = {\n";;
+
     foreach my $ext (sort @extlist)
     {
         my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
@@ -34,4 +40,6 @@ if (@ARGV)
         print "  &__$extvar,\n";
         print "#endif\n";
     }
+
+    print "  NULL\n};\n";
 }
