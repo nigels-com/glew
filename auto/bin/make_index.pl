@@ -24,15 +24,15 @@ my @extlist = ();
 
 if (@ARGV)
 {
-    @extlist = @ARGV;
+	@extlist = @ARGV;
 
-    foreach my $ext (sort @extlist)
-    {
-        my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
-            parse_ext($ext);
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
+			parse_ext($ext);
 
-        print "#ifdef $extname\n";
-        print "  \"$extname\",\n";
-        print "#endif\n";
-    }
+		print "#ifdef $extname\n";
+		print "  \"$extname\",\n";
+		print "#endif\n";
+	}
 }
