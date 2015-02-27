@@ -147,7 +147,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
     char *j;
     GLboolean *enable;
 
-    ext = (const char *) glGetString(GL_EXTENSIONS);
+    ext = glGetString(GL_EXTENSIONS);
 
     if (ext)
     {
