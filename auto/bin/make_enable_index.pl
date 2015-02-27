@@ -20,26 +20,26 @@ my @extlist = ();
 
 if (@ARGV)
 {
-    @extlist = @ARGV;
+	@extlist = @ARGV;
 
-    print "/* Detected in the extension string or strings */\n";
-    print "static GLboolean  _glewExtensionString[" . scalar @extlist . "];\n";
+	print "/* Detected in the extension string or strings */\n";
+	print "static GLboolean  _glewExtensionString[" . scalar @extlist . "];\n";
 
-    print "/* Detected via extension string or experimental mode */\n";
-    print "static GLboolean* _glewExtensionEnabled[] = {\n";;
+	print "/* Detected via extension string or experimental mode */\n";
+	print "static GLboolean* _glewExtensionEnabled[] = {\n";;
 
-    foreach my $ext (sort @extlist)
-    {
-        my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
-            parse_ext($ext);
+	foreach my $ext (sort @extlist)
+	{
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
+			parse_ext($ext);
 
-        my $extvar = $extname;
-        $extvar =~ s/GL(X*)_/GL$1EW_/;
+		my $extvar = $extname;
+		$extvar =~ s/GL(X*)_/GL$1EW_/;
 
-        print "#ifdef $extname\n";
-        print "  &__$extvar,\n";
-        print "#endif\n";
-    }
+		print "#ifdef $extname\n";
+		print "  &__$extvar,\n";
+		print "#endif\n";
+	}
 
-    print "  NULL\n};\n";
+	print "  NULL\n};\n";
 }
