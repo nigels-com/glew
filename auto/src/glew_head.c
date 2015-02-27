@@ -7,8 +7,6 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
-#include <string.h>  /* memset, etc */
-#include <stdlib.h>
 
 /*
  * Define glewGetContext and related helper macros.
@@ -207,15 +205,21 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
 
 static GLubyte *_glewStrDup (const GLubyte *s)
 {
-    int n = _glewStrLen(s) + 1;
-    GLubyte *dup = malloc(n);
+    int n = _glewStrLen(s);
+    GLubyte *dup = malloc(n+1);
     if (dup)
     {
-        strcpy((char *) dup, (const char *) s);
+        GLubyte *i = dup;
+        for (;;)
+        {
+            *i = *s;
+            if (*i) { ++i; ++s; } else break;
+        }
     }
     return dup;
 }
 
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
@@ -224,6 +228,7 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
+#endif
 
 static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
@@ -284,6 +289,7 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
 {
   const GLubyte* p;
@@ -297,3 +303,4 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
   }
   return GL_FALSE;
 }
+#endif
