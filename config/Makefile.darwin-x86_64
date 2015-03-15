@@ -10,7 +10,7 @@ LDFLAGS.GL = -L/usr/X11R6/lib -lGL -lX11
 else
 LDFLAGS.GL = -framework AGL -framework OpenGL
 endif
-LDFLAGS.STATIC =
+LDFLAGS.STATIC = cr
 LDFLAGS.DYNAMIC =
 WARN = -Wall -W
 POPT = -O2

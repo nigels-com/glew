@@ -3,6 +3,7 @@ NAME = glew32
 CC := gcc
 LD := gcc
 LN :=
+LDFLAGS.STATIC = cr
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA = -L/mingw/lib
 WARN = -Wall -W

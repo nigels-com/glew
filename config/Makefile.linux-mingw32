@@ -10,6 +10,7 @@ CC    := $(HOST)-gcc
 LD    := $(HOST)-ld
 LN    :=
 STRIP :=
+LDFLAGS.STATIC = cr
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 WARN = -Wall -W
 POPT = -O2

@@ -104,7 +104,7 @@ lib:
 	mkdir lib
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
-	$(AR) cr $@ $^
+	$(AR) $(LDFLAGS.STATIC) $@ $^
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -148,7 +148,7 @@ glew.pc: glew.pc.in
 glew.lib.mx:  lib lib/$(LIB.SHARED.MX) lib/$(LIB.STATIC.MX) glewmx.pc
 
 lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
-	$(AR) cr $@ $^
+	$(AR) $(LDFLAGS.STATIC) $@ $^
 
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
 	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
