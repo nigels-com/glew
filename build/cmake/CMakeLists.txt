@@ -12,9 +12,16 @@ endif()
 
 option (BUILD_UTILS "utilities" ON)
 
-set (GLEW_VERSION "1.12.0")
-
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+
+# get version from config/version
+file (STRINGS ${GLEW_DIR}/config/version  _VERSION_MAJOR_STRING REGEX "GLEW_MAJOR[ ]*=[ ]*[0-9]+.*")
+string (REGEX REPLACE "GLEW_MAJOR[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_MAJOR ${_VERSION_MAJOR_STRING})
+file (STRINGS ${GLEW_DIR}/config/version  _VERSION_MINOR_STRING REGEX "GLEW_MINOR[ ]*=[ ]*[0-9]+.*")
+string (REGEX REPLACE "GLEW_MINOR[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_MINOR ${_VERSION_MINOR_STRING})
+file (STRINGS ${GLEW_DIR}/config/version  _VERSION_PATCH_STRING REGEX "GLEW_MICRO[ ]*=[ ]*[0-9]+.*")
+string (REGEX REPLACE "GLEW_MICRO[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_PATCH ${_VERSION_PATCH_STRING})
+set (GLEW_VERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})
 
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -30,27 +37,23 @@ endif ()
 find_package (OpenGL REQUIRED)
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
-add_definitions (-DGLEW_BUILD -DGLEW_NO_GLU)
+add_definitions (-DGLEW_NO_GLU)
 
 include_directories (${GLEW_DIR}/include)
 
 add_library (glew SHARED ${GLEW_DIR}/src/glew.c)
+set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX "${DLL_PREFIX}")
 add_library (glew_s STATIC ${GLEW_DIR}/src/glew.c)
+set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
 target_link_libraries (glew ${GLEW_LIBRARIES})
 target_link_libraries (glew_s ${GLEW_LIBRARIES})
-set_target_properties (glew PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME})
-set_target_properties (glew_s PROPERTIES OUTPUT_NAME ${GLEW_LIB_NAME})
-set_target_properties (glew PROPERTIES PREFIX "${DLL_PREFIX}")
-set_target_properties (glew_s PROPERTIES PREFIX lib)
 
 add_library(glewmx SHARED ${GLEW_DIR}/src/glew.c )
+set_target_properties (glewmx PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD;GLEW_MX" OUTPUT_NAME "${GLEW_LIB_NAME}mx" PREFIX "${DLL_PREFIX}")
 add_library(glewmx_s STATIC ${GLEW_DIR}/src/glew.c )
+set_target_properties (glewmx_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC;GLEW_MX" OUTPUT_NAME "${GLEW_LIB_NAME}mx" PREFIX lib)
 target_link_libraries (glewmx ${GLEW_LIBRARIES})
 target_link_libraries (glewmx_s ${GLEW_LIBRARIES})
-set_target_properties (glewmx PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
-set_target_properties (glewmx_s PROPERTIES COMPILE_FLAGS "-DGLEW_MX" OUTPUT_NAME ${GLEW_LIB_NAME}mx)
-set_target_properties (glewmx PROPERTIES PREFIX "${DLL_PREFIX}")
-set_target_properties (glewmx_s PROPERTIES PREFIX lib)
 
 install ( TARGETS glew glew_s glewmx glewmx_s
           RUNTIME DESTINATION bin
