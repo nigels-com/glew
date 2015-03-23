@@ -6,7 +6,7 @@ ifneq (undefined, $(origin GLEW_MX))
 endif
 
 LDFLAGS.GL = -lGL
-LDFLAGS.STATIC = cr -Wl,-Bstatic
+LDFLAGS.STATIC = -Wl,-Bstatic
 LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 
 NAME = GLEW

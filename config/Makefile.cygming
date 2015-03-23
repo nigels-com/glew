@@ -7,7 +7,6 @@ INCDIR = /usr/include/mingw/GL
 CC := gcc -mno-cygwin
 LD := gcc -mno-cygwin
 LN :=
-LDFLAGS.STATIC = cr
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA = -L$(LIBDIR)
 WARN = -Wall -W

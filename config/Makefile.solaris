@@ -2,7 +2,6 @@ NAME = $(GLEW_NAME)
 CC = cc
 LD = ld
 CFLAGS.EXTRA = -I/usr/openwin/include -Kpic
-LDFLAGS.STATIC = cr
 LDFLAGS.SO = -G
 LDFLAGS.EXTRA = -L/usr/openwin/lib
 LDFLAGS.GL = -lGL -lX11

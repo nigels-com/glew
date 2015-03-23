@@ -9,7 +9,6 @@ CC    := i686-w64-mingw32-gcc
 LD    := i686-w64-mingw32-ld
 LN    :=
 STRIP :=
-LDFLAGS.STATIC = cr
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 WARN = -Wall -W
 POPT = -O2

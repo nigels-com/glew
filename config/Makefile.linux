@@ -17,7 +17,7 @@ else
   LIBDIR = $(GLEW_DEST)/lib
 endif
 LDFLAGS.GL = -lGL -lX11
-LDFLAGS.STATIC = cr -Wl,-Bstatic
+LDFLAGS.STATIC = -Wl,-Bstatic
 LDFLAGS.DYNAMIC = -Wl,-Bdynamic
 NAME = GLEW
 WARN = -Wall -W
