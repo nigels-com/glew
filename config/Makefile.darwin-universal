@@ -2,6 +2,7 @@ NAME = $(GLEW_NAME)
 CC = cc
 LD = cc
 AR = LIBTOOL
+ARFLAGS = -static -o
 STRIP = 
 CFLAGS.EXTRA = -dynamic -fno-common
 #CFLAGS.EXTRA += -no-cpp-precomp
@@ -13,7 +14,6 @@ LDFLAGS.GL = -L/usr/X11R6/lib -lGL -lX11
 else
 LDFLAGS.GL = -framework AGL -framework OpenGL
 endif
-ARFLAGS.STATIC = -static -o
 LDFLAGS.DYNAMIC =
 WARN = -Wall -W
 POPT = -O2
