@@ -65,6 +65,7 @@ DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 #   - use LN= on gmake command-line
 
 AR      ?= ar
+ARFLAGS ?= cr
 INSTALL ?= install
 STRIP   ?= strip
 RM      ?= rm -f
@@ -104,7 +105,7 @@ lib:
 	mkdir lib
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
-	$(AR) cr $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -148,7 +149,7 @@ glew.pc: glew.pc.in
 glew.lib.mx:  lib lib/$(LIB.SHARED.MX) lib/$(LIB.STATIC.MX) glewmx.pc
 
 lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
-	$(AR) cr $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
 	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
