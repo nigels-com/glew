@@ -145,6 +145,9 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
 	rm -f $@.bak
 	cat $(SRC)/glew_tail.h >> $@
+	perl -e "s/GLEW_VERSION_MAJOR_STRING/$(GLEW_MAJOR)/g" -pi $@
+	perl -e "s/GLEW_VERSION_MINOR_STRING/$(GLEW_MINOR)/g" -pi $@
+	perl -e "s/GLEW_VERSION_MICRO_STRING/$(GLEW_MICRO)/g" -pi $@
 
 $(I.DEST)/wglew.h: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
