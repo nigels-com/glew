@@ -185,26 +185,34 @@ void glewDestroyContext ()
 
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 
-#include <AGL/agl.h>
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/CGLTypes.h>
 
-AGLContext ctx, octx;
+CGLContextObj ctx, octx;
 
 GLboolean glewCreateContext ()
 {
-  int attrib[] = { AGL_RGBA, AGL_NONE };
-  AGLPixelFormat pf;
-  /*int major, minor;
-  SetPortWindowPort(wnd);
-  aglGetVersion(&major, &minor);
-  fprintf(stderr, "GL %d.%d\n", major, minor);*/
-  pf = aglChoosePixelFormat(NULL, 0, attrib);
-  if (NULL == pf) return GL_TRUE;
-  ctx = aglCreateContext(pf, NULL);
-  if (NULL == ctx || AGL_NO_ERROR != aglGetError()) return GL_TRUE;
-  aglDestroyPixelFormat(pf);
-  /*aglSetDrawable(ctx, GetWindowPort(wnd));*/
-  octx = aglGetCurrentContext();
-  if (GL_FALSE == aglSetCurrentContext(ctx)) return GL_TRUE;
+  const CGLPixelFormatAttribute attrib[4] =
+  {
+    kCGLPFAAccelerated,                                  /* No software rendering */
+#if 0
+    kCGLPFAOpenGLProfile,                                /* OSX 10.7 Lion onwards */
+    (CGLPixelFormatAttribute) kCGLOGLPVersion_3_2_Core,  /* 3.2 Core Context      */
+#endif
+    0
+  };
+  CGLPixelFormatObj pf;
+  GLint npix;
+  CGLError error;
+
+  error = CGLChoosePixelFormat(attrib, &pf, &npix);
+  if (error) return GL_TRUE;
+  error = CGLCreateContext(pf, NULL, &ctx);
+  if (error) return GL_TRUE;
+  CGLReleasePixelFormat(pf);
+  octx = CGLGetCurrentContext();
+  error = CGLSetCurrentContext(ctx);
+  if (error) return GL_TRUE;
   /* Needed for Regal on the Mac */
   #if defined(GLEW_REGAL) && defined(__APPLE__)
   RegalMakeCurrent(ctx);
@@ -214,8 +222,8 @@ GLboolean glewCreateContext ()
 
 void glewDestroyContext ()
 {
-  aglSetCurrentContext(octx);
-  if (NULL != ctx) aglDestroyContext(ctx);
+  CGLSetCurrentContext(octx);
+  CGLReleaseContext(ctx);
 }
 
 /* ------------------------------------------------------------------------ */

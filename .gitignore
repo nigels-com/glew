@@ -6,6 +6,10 @@
 /build/*/*.suo
 /build/*/*.vcxproj.user
 /build/*/tmp/
+/build/cmake/CMakeFiles/
+/build/cmake/CMakeCache.txt
+/build/cmake/cmake_install.cmake
+/build/cmake/Makefile
 /auto/extensions
 /auto/registry
 /bin
