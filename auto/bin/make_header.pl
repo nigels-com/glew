@@ -37,7 +37,86 @@ sub make_pfn_type($%)
 sub make_pfn_alias($%)
 {
     our $type;
-    return join(" ", "#define", $_[0], $type . "EW_GET_FUN(" . prefixname($_[0]) . ")")
+    my $parms = $_[1]->{parms};
+    
+    #trim off any whitespace
+    $parms =~ s/^\s+|\s+$//g;
+    
+    #fix up parm identifiers for macro
+    my $fixed_up_parms = "";
+    my $fixed_up_calllist = "";
+    
+    #if the parm list is void, nothing to substitute
+    if(lc($parms) ne "void")
+    {
+        #split parms
+        my @split_parms = split(/,/,$parms);
+       
+        my $num_parms = @split_parms;
+       
+        my $i = 0;
+       
+        foreach(@split_parms)
+        {
+            my $temp = $_;
+            
+            #remove brackets
+            $temp =~ s/\[|\]//g;
+         
+            #trim off any whitespace
+            $temp =~ s/^\s+|\s+$//g;
+         
+            #get the parm name, store it, and strip it off
+            my $parm_name = "";
+            
+            if($temp =~ /([a-zA-Z_]+[0-9a-zA-Z_]*)$/)
+            {
+                $parm_name = $1;
+                $temp = substr($temp,0,length($temp) - length($parm_name));
+            }
+            
+            #remove any remaining whitespace
+            $temp =~ s/\s+//g;
+            
+            #replace pointer * with P
+            $temp =~ s/\s*\*\s*/P/g;
+
+            #add to parmlist...handling cases where no parm name is specified            
+            if($parm_name eq "")
+            {
+                $fixed_up_calllist .= "(" . $temp . "__parm" . $i . ")";
+                $fixed_up_parms .= $temp . "__parm" . $i;
+            }
+            elsif($temp eq "")
+            {
+                $fixed_up_calllist .= "(" . $parm_name . "__parm" . $i . ")";
+                $fixed_up_parms .= $parm_name . "__parm" . $i;
+            }
+            else
+            {
+                $fixed_up_calllist .= "(" . $temp . "__" . $parm_name . ")";
+                $fixed_up_parms .= $temp . "__" . $parm_name;
+            }
+            
+            if($i != $num_parms - 1)
+            {
+                $fixed_up_parms .= ", ";
+                $fixed_up_calllist .= ", ";
+            }
+            
+            $i += 1;
+        }
+    }
+    
+    return join(" ", 
+                #to get the function pointer for assignment/testing
+                "#define", 
+                $_[0] . "FP", 
+                $type . "EW_GET_FUN(" . prefixname($_[0]) . ")",
+                #to call the function naturally
+                "\n#define", 
+                $_[0] . "(" . $fixed_up_parms . ")", 
+                $type . "EW_GET_FUN(" . prefixname($_[0]) . ")(" . $fixed_up_calllist . ")");
 }
 
 my @extlist = ();

@@ -18,7 +18,7 @@ do 'bin/make.pl';
 sub make_pfn_def_init($%)
 {
     #my $name = prefixname($_[0]);
-    return "  r = ((" . $_[0] . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
+    return "  r = ((" . $_[0] . "FP = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
 }
 
 #-------------------------------------------------------------------------------

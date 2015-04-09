@@ -5,7 +5,7 @@ GLboolean glxewGetExtension (const char* name)
   const GLubyte* start;
   const GLubyte* end;
 
-  if (glXGetCurrentDisplay == NULL) return GL_FALSE;
+  if (glXGetCurrentDisplayFP == NULL) return GL_FALSE;
   start = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
   if (0 == start) return GL_FALSE;
   end = start + _glewStrLen(start);
@@ -45,7 +45,7 @@ GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
   }
   /* query GLX extension string */
   extStart = 0;
-  if (glXGetCurrentDisplay != NULL)
+  if (glXGetCurrentDisplayFP != NULL)
     extStart = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
   if (extStart == 0)
     extStart = (const GLubyte *)"";
