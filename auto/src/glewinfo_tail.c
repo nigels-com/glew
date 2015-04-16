@@ -4,7 +4,7 @@
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
 int main (int argc, char** argv)
 #else
 int main (void)
@@ -12,7 +12,7 @@ int main (void)
 {
   GLuint err;
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
   char* display = NULL;
   int visual = -1;
 
@@ -27,7 +27,9 @@ int main (void)
   }
 #endif
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+  if (GL_TRUE == glewCreateContext())
+#elif defined(_WIN32)
   if (GL_TRUE == glewCreateContext(&visual))
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
   if (GL_TRUE == glewCreateContext())
@@ -44,7 +46,7 @@ int main (void)
   err = glewContextInit(glewGetContext());
 #ifdef _WIN32
   err = err || wglewContextInit(wglewGetContext());
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
   err = err || glxewContextInit(glxewGetContext());
 #endif
 
@@ -74,7 +76,7 @@ int main (void)
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
 #if defined(_WIN32)
   fprintf(f, "Reporting capabilities of pixelformat %d\n", visual);
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
   fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n", 
     display == NULL ? getenv("DISPLAY") : display, visual);
 #endif
@@ -82,7 +84,8 @@ int main (void)
 	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
   glewInfo();
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
   wglewInfo();
 #else
   glxewInfo();
@@ -94,7 +97,7 @@ int main (void)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX) || !defined(GLEW_OSMESA)
 GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
 {
   int p = 0;
@@ -130,7 +133,22 @@ GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+OSMesaContext ctx;
+
+GLboolean glewCreateContext ()
+{
+  ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
+  if (NULL == ctx) return GL_TRUE;
+  return GL_FALSE;
+}
+
+void glewDestroyContext ()
+{
+  if (NULL != ctx) OSMesaDestroyContext(ctx);
+}
+
+#elif defined(_WIN32)
 
 HWND wnd = NULL;
 HDC dc = NULL;

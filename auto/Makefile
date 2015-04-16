@@ -204,7 +204,8 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
-	echo -e "\n#if defined(_WIN32)" >> $@
+	echo -e "\n#if defined(GLEW_OSMESA)" >> $@
+	echo -e "\n#elif defined(_WIN32)" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
@@ -254,7 +255,8 @@ $(S.DEST)/glew_def.c: $(EXT)/.dummy
 	echo -e "\n#if !defined(GLEW_MX)\n\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
-	echo -e "\n#if defined(_WIN32)" >> $@
+	echo -e "\n#if defined(GLEW_OSMESA)" >> $@
+	echo -e "\n#elif defined(_WIN32)" >> $@
 	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
 	echo -e "\n#endif /* _WIN32 */" >> $@
