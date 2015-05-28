@@ -10,13 +10,15 @@ WARN = -Wall -W
 POPT = -O2
 CFLAGS.EXTRA += -fPIC
 BIN.SUFFIX =
-LIB.SONAME    = lib$(NAME).so.$(SO_MAJOR)
+LIB.SONAME.MAJOR    = lib$(NAME).so.$(SO_MAJOR)
+LIB.SONAME.MINOR    = ${LIB.SONAME.MAJOR}.$(SO_MINOR)
 LIB.DEVLNK    = lib$(NAME).so
 LIB.SHARED    = lib$(NAME).so.$(SO_VERSION)
 LIB.STATIC    = lib$(NAME).a
-LDFLAGS.SO    = -shared -Wl,-soname=$(LIB.SONAME)
-LIB.SONAME.MX = lib$(NAME)mx.so.$(SO_MAJOR)
+LDFLAGS.SO    = -shared -Wl,-soname=$(LIB.SONAME.MAJOR)
+LIB.SONAME.MAJOR.MX = lib$(NAME)mx.so.$(SO_MAJOR)
+LIB.SONAME.MINOR.MX = ${LIB.SONAME.MAJOR.MX}.$(SO_MINOR)
 LIB.DEVLNK.MX = lib$(NAME)mx.so
 LIB.SHARED.MX = lib$(NAME)mx.so.$(SO_VERSION)
 LIB.STATIC.MX = lib$(NAME)mx.a
-LDFLAGS.SO.MX = -shared -Wl,-soname=$(LIB.SONAME.MX)
+LDFLAGS.SO.MX = -shared -Wl,-soname=$(LIB.SONAME.MAJOR.MX)
