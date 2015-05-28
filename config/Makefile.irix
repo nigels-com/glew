@@ -11,7 +11,7 @@ WARN = -fullwarn -woff 1110,1498
 POPT = -O2 -OPT:Olimit=0
 BIN.SUFFIX =
 LIB.SONAME.MAJOR    = lib$(NAME).so.$(SO_MAJOR)
-LIB.SONAME.MINOR    = ${LIB.SONAME.MAJOR}.$(SO_MINOR)
+LIB.SONAME.MINOR    = lib$(NAME).so.$(SO_MAJOR).$(SO_MINOR)
 LIB.DEVLNK    = lib$(NAME).so
 LIB.SHARED    = lib$(NAME).so.$(SO_VERSION)
 LIB.STATIC    = lib$(NAME).a
