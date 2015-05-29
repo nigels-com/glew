@@ -7,7 +7,8 @@
 int main (int argc, char** argv)
 {
   GLuint err;
-  struct createParams params = {
+  struct createParams params = 
+  {
 #if defined(_WIN32)
     -1,  /* pixelformat */
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)

@@ -30,16 +30,21 @@ GLXEWContext _glxewctx;
 #endif
 #endif
 
-struct createParams {
+/* Command-line parameters for GL context creation */
+
+struct createParams
+{
 #if defined(_WIN32)
   int         pixelformat;
 #elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
   const char* display;
   int         visual;
 #endif
-  int         major, minor;
-  int         profile_mask;
-  int         flags;
+  int         major, minor;  /* GL context version number */
+
+  /* https://www.opengl.org/registry/specs/ARB/glx_create_context.txt */
+  int         profile_mask;  /* core = 1, compatibility = 2 */
+  int         flags;         /* debug = 1, forward compatible = 2 */
 };
 
 GLboolean glewCreateContext (struct createParams *params);
