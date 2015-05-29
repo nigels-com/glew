@@ -12,10 +12,15 @@ use warnings;
 
 do 'bin/make.pl';
 
-my @extlist = ();
-my %extensions = ();
+##
+## Make Index
+##
+## Output sorted array of extension strings for indexing into extension
+## enable/disable flags.  This provides a way to convert an extension string
+## into an integer index.
+##
 
-our $type = shift;
+my @extlist = ();
 
 if (@ARGV)
 {
@@ -23,9 +28,11 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
-		my $extvar = $extname;
-		$extvar =~ s/GL(X*)_/GL$1EW_/;
-		print "GLboolean " . prefix_varname($extvar) . " = GL_FALSE;\n";
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
+			parse_ext($ext);
+
+		print "#ifdef $extname\n";
+		print "  \"$extname\",\n";
+		print "#endif\n";
 	}
 }

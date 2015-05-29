@@ -198,6 +198,15 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
+	echo -e "\nstatic const char * _glewExtensionLookup[] = {" >> $@;
+	$(BIN)/make_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
+	echo -e "  NULL\n};\n" >> $@;
+	echo -e "\n#if !defined(GLEW_MX)" >> $@;
+	$(BIN)/make_enable_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
+	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
+	$(BIN)/make_initd.pl GL $(GL_CORE_SPEC) >> $@
+	$(BIN)/make_initd.pl GL $(GL_EXT_SPEC) >> $@
+	echo -e "" >> $@;
 	$(BIN)/make_init.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GL $(GL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_gl.c >> $@

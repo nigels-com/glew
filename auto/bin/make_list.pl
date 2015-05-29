@@ -44,7 +44,7 @@ if (@ARGV)
 
 		print "#ifdef $extname\n";
 
-		if (length($extstring))
+		if (length($extstring) && $extstring !~ /^GL_/)
 		{
 				print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
 		}

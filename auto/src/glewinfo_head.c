@@ -8,6 +8,10 @@
 #include <GL/glxew.h>
 #endif
 
+#if defined(__APPLE__)
+#include <AvailabilityMacros.h>
+#endif
+
 #ifdef GLEW_REGAL
 #include <GL/Regal.h>
 #endif
@@ -26,17 +30,21 @@ GLXEWContext _glxewctx;
 #endif
 #endif
 
+struct createParams {
 #if defined(_WIN32)
-GLboolean glewCreateContext (int* pixelformat);
+  int         pixelformat;
 #elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLboolean glewCreateContext (const char* display, int* visual);
-#else
-GLboolean glewCreateContext ();
+  const char* display;
+  int         visual;
 #endif
+  int         major, minor;
+  int         profile_mask;
+  int         flags;
+};
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
-#endif
+GLboolean glewCreateContext (struct createParams *params);
+
+GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
 
 void glewDestroyContext ();
 
