@@ -31,8 +31,8 @@ int main (int argc, char** argv)
 	    "[-visual <visual id>] "
 #endif
 	    "[-version <OpenGL version>] "
-	    "[-profiles <OpenGL profile mask>] "
-	    "[-flags <OpenGL flags>]"
+	    "[-profile core|compatibility] "
+	    "[-flag debug|forward]"
 	    "\n");
     return 1;
   }
@@ -108,15 +108,21 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       if (++p >= argc) return GL_TRUE;
       if (sscanf(argv[p++], "%d.%d", &params->major, &params->minor) != 2) return GL_TRUE;
     }
-    else if (!strcmp(argv[p], "-profiles"))
+    else if (!strcmp(argv[p], "-profile"))
     {
       if (++p >= argc) return GL_TRUE;
-      params->profile_mask = (int)strtol(argv[p++], NULL, 0);
+      if      (strcmp("core",         argv[p]) == 0) params->profile |= 1;
+      else if (strcmp("compatibility",argv[p]) == 0) params->profile |= 2;
+      else return GL_TRUE;
+      ++p;
     }
-    else if (!strcmp(argv[p], "-flags"))
+    else if (!strcmp(argv[p], "-flag"))
     {
       if (++p >= argc) return GL_TRUE;
-      params->flags = (int)strtol(argv[p++], NULL, 0);
+      if      (strcmp("debug",  argv[p]) == 0) params->flags |= 1;
+      else if (strcmp("forward",argv[p]) == 0) params->flags |= 2;
+      else return GL_TRUE;
+      ++p;
     }
 #if defined(_WIN32)
     else if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
@@ -183,7 +189,7 @@ GLboolean glewCreateContext (struct createParams* params)
   rc = wglCreateContext(dc);
   if (NULL == rc) return GL_TRUE;
   if (FALSE == wglMakeCurrent(dc, rc)) return GL_TRUE;
-  if (params->major || params->profile_mask || params->flags)
+  if (params->major || params->profile || params->flags)
   {
     HGLRC oldRC = rc;
     int contextAttrs[20];
@@ -196,19 +202,19 @@ GLboolean glewCreateContext (struct createParams* params)
       return GL_TRUE;
 
     i = 0;
-    if( params->major )
+    if (params->major)
     {
       contextAttrs[i++] = WGL_CONTEXT_MAJOR_VERSION_ARB;
       contextAttrs[i++] = params->major;
       contextAttrs[i++] = WGL_CONTEXT_MINOR_VERSION_ARB;
       contextAttrs[i++] = params->minor;
     }
-    if( params->profile_mask )
+    if (params->profile)
     {
       contextAttrs[i++] = WGL_CONTEXT_PROFILE_MASK_ARB;
-      contextAttrs[i++] = params->profile_mask;
+      contextAttrs[i++] = params->profile;
     }
-    if( params->flags )
+    if (params->flags)
     {
       contextAttrs[i++] = WGL_CONTEXT_FLAGS_ARB;
       contextAttrs[i++] = params->flags;
@@ -254,7 +260,7 @@ GLboolean glewCreateContext (struct createParams *params)
   contextAttrs[i++] = kCGLPFAAccelerated; /* No software rendering */
 
   #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_7
-  if (params->profile_mask & GL_CONTEXT_CORE_PROFILE_BIT)
+  if (params->profile & GL_CONTEXT_CORE_PROFILE_BIT)
   {
     if (params->major==3 && params->minor>=2)
     {
@@ -354,7 +360,7 @@ GLboolean glewCreateContext (struct createParams *params)
                       CWBorderPixel | CWColormap, &swa);
   /* make context current */
   if (!glXMakeCurrent(dpy, wnd, ctx)) return GL_TRUE;
-  if (params->major || params->profile_mask || params->flags)
+  if (params->major || params->profile || params->flags)
   {
     GLXContext oldCtx = ctx;
     GLXFBConfig *FBConfigs;
@@ -375,19 +381,19 @@ GLboolean glewCreateContext (struct createParams *params)
       return GL_TRUE;
 
     i = 0;
-    if( params->major )
+    if (params->major)
     {
       contextAttrs[i++] = GLX_CONTEXT_MAJOR_VERSION_ARB;
       contextAttrs[i++] = params->major;
       contextAttrs[i++] = GLX_CONTEXT_MINOR_VERSION_ARB;
       contextAttrs[i++] = params->minor;
     }
-    if( params->profile_mask )
+    if (params->profile)
     {
       contextAttrs[i++] = GLX_CONTEXT_PROFILE_MASK_ARB;
-      contextAttrs[i++] = params->profile_mask;
+      contextAttrs[i++] = params->profile;
     }
-    if( params->flags )
+    if (params->flags)
     {
       contextAttrs[i++] = GLX_CONTEXT_FLAGS_ARB;
       contextAttrs[i++] = params->flags;

@@ -43,7 +43,7 @@ struct createParams
   int         major, minor;  /* GL context version number */
 
   /* https://www.opengl.org/registry/specs/ARB/glx_create_context.txt */
-  int         profile_mask;  /* core = 1, compatibility = 2 */
+  int         profile;       /* core = 1, compatibility = 2 */
   int         flags;         /* debug = 1, forward compatible = 2 */
 };
 
