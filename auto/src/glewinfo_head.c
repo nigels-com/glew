@@ -8,6 +8,10 @@
 #include <GL/glxew.h>
 #endif
 
+#if defined(__APPLE__)
+#include <AvailabilityMacros.h>
+#endif
+
 #ifdef GLEW_REGAL
 #include <GL/Regal.h>
 #endif
@@ -40,9 +44,7 @@ struct createParams {
 
 GLboolean glewCreateContext (struct createParams *params);
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
-#endif
 
 void glewDestroyContext ();
 

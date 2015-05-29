@@ -4,17 +4,13 @@
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 int main (int argc, char** argv)
-#else
-int main (void)
-#endif
 {
   GLuint err;
   struct createParams params = {
 #if defined(_WIN32)
     -1,  /* pixelformat */
-#elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
+#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
     "",  /* display */
     -1,  /* visual */
 #endif
@@ -24,13 +20,12 @@ int main (void)
     0    /* flags */
   };
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   if (glewParseArgs(argc-1, argv+1, &params))
   {
     fprintf(stderr, "Usage: glewinfo "
 #if defined(_WIN32)
 	    "[-pf <pixelformat>] "
-#else
+#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 	    "[-display <display>] "
 	    "[-visual <visual id>] "
 #endif
@@ -40,7 +35,6 @@ int main (void)
 	    "\n");
     return 1;
   }
-#endif
 
   if (GL_TRUE == glewCreateContext(&params))
   {
@@ -53,7 +47,7 @@ int main (void)
   err = glewContextInit(glewGetContext());
 #ifdef _WIN32
   err = err || wglewContextInit(wglewGetContext());
-#elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
   err = err || glxewContextInit(glxewGetContext());
 #endif
 
@@ -103,7 +97,6 @@ int main (void)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 {
   int p = 0;
@@ -130,7 +123,7 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       if (++p >= argc) return GL_TRUE;
       params->pixelformat = strtol(argv[p++], NULL, 0);
     }
-#else
+#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
     else if (!strcmp(argv[p], "-display"))
     {
       if (++p >= argc) return GL_TRUE;
@@ -147,7 +140,6 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
   }
   return GL_FALSE;
 }
-#endif
 
 /* ------------------------------------------------------------------------ */
 
@@ -251,23 +243,29 @@ CGLContextObj ctx, octx;
 
 GLboolean glewCreateContext (struct createParams *params)
 {
-  const CGLPixelFormatAttribute attrib[4] =
-  {
-    kCGLPFAAccelerated,                                  /* No software rendering */
-    kCGLPFAOpenGLProfile,                                /* OSX 10.7 Lion onwards */
-    (CGLPixelFormatAttribute) kCGLOGLPVersion_3_2_Core,  /* 3.2 Core Context      */
-    0
-  };
+  CGLPixelFormatAttribute contextAttrs[20];
+  int i;
   CGLPixelFormatObj pf;
   GLint npix;
   CGLError error;
 
-  if( params->major < 3 &&
-      !(params->profile_mask & GL_CONTEXT_CORE_PROFILE_BIT) ) {
-    attrib[1] = 0; // terminate attrib array before the core profile attribute
-  }
+  i = 0;
+  contextAttrs[i++] = kCGLPFAAccelerated; /* No software rendering */
 
-  error = CGLChoosePixelFormat(attrib, &pf, &npix);
+  #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_7
+  if (params->profile_mask & GL_CONTEXT_CORE_PROFILE_BIT)
+  {
+    if (params->major==3 && params->minor>=2)
+    {
+      contextAttrs[i++] = kCGLPFAOpenGLProfile;                                /* OSX 10.7 Lion onwards */
+      contextAttrs[i++] = (CGLPixelFormatAttribute) kCGLOGLPVersion_3_2_Core;  /* 3.2 Core Context      */
+    }
+  }
+  #endif
+
+  contextAttrs[i++] = 0;
+
+  error = CGLChoosePixelFormat(contextAttrs, &pf, &npix);
   if (error) return GL_TRUE;
   error = CGLCreateContext(pf, NULL, &ctx);
   if (error) return GL_TRUE;
