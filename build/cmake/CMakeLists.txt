@@ -89,3 +89,5 @@ configure_file (${GLEW_DIR}/glew.pc.in ${GLEW_DIR}/glewmx.pc @ONLY)
 install(FILES ${GLEW_DIR}/glew.pc ${GLEW_DIR}/glewmx.pc
         DESTINATION lib/pkgconfig
 )
+
+install (DIRECTORY ${GLEW_DIR}/include/ DESTINATION include)
