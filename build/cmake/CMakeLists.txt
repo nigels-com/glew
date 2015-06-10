@@ -90,4 +90,8 @@ install(FILES ${GLEW_DIR}/glew.pc ${GLEW_DIR}/glewmx.pc
         DESTINATION lib/pkgconfig
 )
 
-install (DIRECTORY ${GLEW_DIR}/include/ DESTINATION include)
+install (FILES
+    ${GLEW_DIR}/include/wglew.h
+    ${GLEW_DIR}/include/glew.h
+    ${GLEW_DIR}/include/glxew.h
+    DESTINATION include/GL)
