@@ -22,7 +22,7 @@ if (@ARGV)
 	my $curexttype = "";
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts, $loadexts) = parse_ext($ext);
 		my $exttype = $extname;
 		$exttype =~ s/(W*?)GL(X*?)_(.*?_)(.*)/$3/;
 		my $extrem = $extname;

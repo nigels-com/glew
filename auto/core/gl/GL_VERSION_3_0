@@ -161,3 +161,7 @@ https://www.opengl.org/registry/doc/glspec30.20080923.pdf
 	void glClearBufferfv (GLenum buffer, GLint drawBuffer, const GLfloat* value)
 	void glClearBufferfi (GLenum buffer, GLint drawBuffer, GLfloat depth, GLint stencil)
 	const GLubyte* glGetStringi (GLenum name, GLuint index)
+	LOAD GL_ARB_framebuffer_object
+	LOAD GL_ARB_map_buffer_range
+	LOAD GL_ARB_uniform_buffer_object
+	LOAD GL_ARB_vertex_array_object

@@ -12,6 +12,7 @@ my %regex = (
     function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
     token    => qr/^([A-Z][A-Z0-9_x]*)\s+((?:0x)?[0-9A-Fa-f]+|[A-Z][A-Z0-9_]*)$/,
     type     => qr/^typedef\s+(.+)$/,
+    loadexts => qr/^LOAD (.*)$/,
     exact    => qr/.*;$/,
 );
 
@@ -71,6 +72,7 @@ sub parse_ext($)
     my %tokens = ();
     my @types = ();
     my @exacts = ();
+    my @loadexts = ();
     my $extname = "";    # Full extension name GL_FOO_extension
     my $exturl = "";     # Info URL
     my $extstring = "";  # Relevant extension string 
@@ -104,7 +106,11 @@ sub parse_ext($)
         chomp;
         if (s/^\s+//)
         {
-            if (/$regex{exact}/)
+            if (/$regex{loadexts}/)
+            {
+                push @loadexts, $1;
+            }
+            elsif (/$regex{exact}/)
             {
                 push @exacts, $_;
             }
@@ -132,7 +138,7 @@ sub parse_ext($)
 
     close EXT;
 
-    return ($extname, $exturl, $extstring, \@types, \%tokens, \%functions, \@exacts);
+    return ($extname, $exturl, $extstring, \@types, \%tokens, \%functions, \@exacts, \@loadexts);
 }
 
 sub output_tokens($$)
@@ -207,3 +213,14 @@ sub output_exacts($$)
     }
 }
 
+sub output_loadexts($$)
+{
+    my ($tbl, $fnc) = @_;
+    if (scalar @{$tbl})
+    {
+        local $, = "\n";
+        print "\n";
+        print map { &{$fnc}($_) } sort @{$tbl};
+        print "\n";
+    }
+}

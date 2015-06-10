@@ -26,3 +26,7 @@ https://www.opengl.org/registry/doc/glspec32.compatibility.20091207.pdf
 	void glGetInteger64i_v (GLenum pname, GLuint index, GLint64 * data)
 	void glGetBufferParameteri64v (GLenum target, GLenum value, GLint64 * data)
 	void glFramebufferTexture (GLenum target, GLenum attachment, GLuint texture, GLint level)
+	LOAD GL_ARB_draw_elements_base_vertex
+	LOAD GL_ARB_provoking_vertex
+	LOAD GL_ARB_sync
+	LOAD GL_ARB_texture_multisample

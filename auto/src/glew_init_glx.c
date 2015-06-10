@@ -1,22 +1,18 @@
 /* ------------------------------------------------------------------------ */
 
 GLboolean glxewGetExtension (const char* name)
-{    
-  const GLubyte* start;
-  const GLubyte* end;
-
-  if (glXGetCurrentDisplay == NULL) return GL_FALSE;
-  start = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
-  if (0 == start) return GL_FALSE;
-  end = start + _glewStrLen(start);
-  return _glewSearchExtension(name, start, end);
+{
+#if GLEW_MX
+    GLXEWContext *ctx = glxewGetContext();
+#endif
+  return _glewHashListExists(GLXEW_GET_VAR(GLEW_GLX_EXTENSIONS), name);
 }
 
 GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
 {
   int major, minor;
-  const GLubyte* extStart;
-  const GLubyte* extEnd;
+  const GLubyte* extensions;
+  GLEWHashList *ext_hashlist;
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR_INIT)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
@@ -44,10 +40,11 @@ GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
     }
   }
   /* query GLX extension string */
-  extStart = 0;
-  if (glXGetCurrentDisplay != NULL)
-    extStart = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
-  if (extStart == 0)
-    extStart = (const GLubyte *)"";
-  extEnd = extStart + _glewStrLen(extStart);
+  GLXEW_GET_VAR(GLEW_GLX_EXTENSIONS) = calloc(1, sizeof(GLEWHashList));
+
+  ext_hashlist = GLXEW_GET_VAR(GLEW_GLX_EXTENSIONS);
+
+  extensions = (const GLubyte*)glXGetClientString(glXGetCurrentDisplay(), GLX_EXTENSIONS);
+  _glewBuildHashListFromString(extensions, ext_hashlist);
+
   /* initialize extensions */
