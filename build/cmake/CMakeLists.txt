@@ -91,7 +91,7 @@ install(FILES ${GLEW_DIR}/glew.pc ${GLEW_DIR}/glewmx.pc
 )
 
 install (FILES
-    ${GLEW_DIR}/include/wglew.h
-    ${GLEW_DIR}/include/glew.h
-    ${GLEW_DIR}/include/glxew.h
+    ${GLEW_DIR}/include/GL/wglew.h
+    ${GLEW_DIR}/include/GL/glew.h
+    ${GLEW_DIR}/include/GL/glxew.h
     DESTINATION include/GL)
