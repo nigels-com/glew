@@ -89,3 +89,9 @@ configure_file (${GLEW_DIR}/glew.pc.in ${GLEW_DIR}/glewmx.pc @ONLY)
 install(FILES ${GLEW_DIR}/glew.pc ${GLEW_DIR}/glewmx.pc
         DESTINATION lib/pkgconfig
 )
+
+install (FILES
+    ${GLEW_DIR}/include/GL/wglew.h
+    ${GLEW_DIR}/include/GL/glew.h
+    ${GLEW_DIR}/include/GL/glxew.h
+    DESTINATION include/GL)
