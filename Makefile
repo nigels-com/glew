@@ -4,24 +4,24 @@
 ## Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ## Copyright (C) 2002, Lev Povalahev
 ## All rights reserved.
-## 
-## Redistribution and use in source and binary forms, with or without 
+##
+## Redistribution and use in source and binary forms, with or without
 ## modification, are permitted provided that the following conditions are met:
-## 
-## * Redistributions of source code must retain the above copyright notice, 
+##
+## * Redistributions of source code must retain the above copyright notice,
 ##   this list of conditions and the following disclaimer.
-## * Redistributions in binary form must reproduce the above copyright notice, 
-##   this list of conditions and the following disclaimer in the documentation 
+## * Redistributions in binary form must reproduce the above copyright notice,
+##   this list of conditions and the following disclaimer in the documentation
 ##   and/or other materials provided with the distribution.
-## * The name of the author may be used to endorse or promote products 
+## * The name of the author may be used to endorse or promote products
 ##   derived from this software without specific prior written permission.
 ##
-## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-## AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+## AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 ## IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-## LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-## CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+## LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+## CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 ## SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 ## INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 ## CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
@@ -116,9 +116,13 @@ endif
 
 lib/$(LIB.SHARED): $(LIB.SOBJS)
 	$(LD) $(LDFLAGS.SO) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifneq ($(LN),)
+ifdef LIB.SONAME
 	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME)
 	$(LN) $(LIB.SHARED) lib/$(LIB.DEVLNK)
+else
+	$(LN) $(LIB.SHARED) lib/$(LIB.SONAME.MINOR)
+	$(LN) $(LIB.SONAME.MINOR) lib/$(LIB.SONAME.MAJOR)
+	$(LN) $(LIB.SONAME.MAJOR) lib/$(LIB.DEVLNK)
 endif
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
@@ -165,8 +169,14 @@ endif
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
 	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
 ifneq ($(LN),)
+ifdef LIB.SONAME.MX
 	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MX)
 	$(LN) $(LIB.SHARED.MX) lib/$(LIB.DEVLNK.MX)
+else
+	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MINOR.MX)
+	$(LN) $(LIB.SONAME.MINOR.MX) lib/$(LIB.SONAME.MAJOR.MX)
+	$(LN) $(LIB.SONAME.MAJOR.MX) lib/$(LIB.DEVLNK.MX)
+endif
 endif
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
@@ -215,7 +225,7 @@ VISUALINFO.BIN.OBJ := $(VISUALINFO.BIN.OBJ:.c=.o)
 ifneq ($(filter nacl%,$(SYSTEM)),)
 glew.bin: glew.lib bin
 else
-glew.bin: glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) 
+glew.bin: glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN)
 endif
 
 bin:
@@ -320,8 +330,14 @@ uninstall:
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
 	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)" "$(DESTDIR)$(BINDIR)/$(LIB.SHARED.MX)"
 else
+ifdef LIB.SONAME
 	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
 	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)" "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED.MX)"
+else
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MINOR)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MINOR.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MAJOR)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MAJOR.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)" "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED.MX)"
+endif
 endif
 	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)" "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC.MX)"
 	$(RM) "$(DESTDIR)$(BINDIR)/$(GLEWINFO.BIN)" "$(DESTDIR)$(BINDIR)/$(VISUALINFO.BIN)"
@@ -347,7 +363,7 @@ dist-win32:
 	cp -a bin $(DIST_DIR)
 	cp -a lib $(DIST_DIR)
 	$(RM) -f $(DIST_DIR)/bin/*/*/*.pdb $(DIST_DIR)/bin/*/*/*.exp
-	$(RM) -f $(DIST_DIR)/bin/*/*/glewinfo-*.exe $(DIST_DIR)/bin/*/*/visualinfo-*.exe 
+	$(RM) -f $(DIST_DIR)/bin/*/*/glewinfo-*.exe $(DIST_DIR)/bin/*/*/visualinfo-*.exe
 	$(RM) -f $(DIST_DIR)/lib/*/*/*.pdb $(DIST_DIR)/lib/*/*/*.exp
 	unix2dos $(DIST_DIR)/include/GL/*.h
 	unix2dos $(DIST_DIR)/doc/*.txt
