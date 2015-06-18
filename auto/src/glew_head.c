@@ -7,6 +7,8 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
+#include <stdlib.h>  /* For malloc, free */
+#include <string.h>  /* For memset */
 
 /*
  * Define glewGetContext and related helper macros.
