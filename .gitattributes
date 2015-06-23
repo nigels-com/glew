@@ -2,3 +2,4 @@
 *.png          binary
 build/*/*      text eol=crlf
 CMakeLists.txt text eol=lf
+build/cmake/*  text eol=lf
