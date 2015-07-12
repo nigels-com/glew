@@ -10,9 +10,9 @@ target_link_libraries(cmake-test PRIVATE GLEW::GLEW ${OPENGL_LIBRARIES})
 target_include_directories(cmake-test PRIVATE ${OPENGL_INCLUDE_DIR})
 
 if(CMAKE_VERSION VERSION_LESS 3.0)
-    set(cgex $<CONFIG>)
-else()
     set(cgex $<CONFIGURATION>)
+else()
+    set(cgex $<CONFIG>)
 endif()
 
 target_compile_definitions(cmake-test PRIVATE
