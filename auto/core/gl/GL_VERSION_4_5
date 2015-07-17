@@ -2,3 +2,4 @@ GL_VERSION_4_5
 https://www.opengl.org/registry/doc/glspec45.compatibility.pdf
 
     GLenum glGetGraphicsResetStatus (void)
+    void glGetnTexImage (GLenum tex, GLint level, GLenum format, GLenum type, GLsizei bufSize, GLvoid *pixels)
