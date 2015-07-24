@@ -195,7 +195,6 @@ GLboolean glewCreateContext (struct createParams* params)
     int contextAttrs[20];
     int i;
 
-    extern GLenum GLEWAPIENTRY wglewContextInit();
     wglewContextInit();
 
     if (!wglewGetExtension("WGL_ARB_create_context_profile"))
