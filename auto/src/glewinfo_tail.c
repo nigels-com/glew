@@ -370,7 +370,7 @@ GLboolean glewCreateContext (struct createParams *params)
 
     glxewContextInit();
 
-    if (!glxewGetExtension("GLX_ARB_create_context_profile"))
+    if (!glxewGetExtension("GLX_ARB_create_context"))
       return GL_TRUE;
 
     if (glXQueryContext(dpy, oldCtx, GLX_FBCONFIG_ID, &FBConfigAttrs[1]))
