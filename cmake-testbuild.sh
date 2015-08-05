@@ -65,6 +65,7 @@ cmake out/build/cmake-testbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build out/build/cmake-testbuild --target install --config Release --clean-first
 
 export LD_LIBRARY_PATH=${PWD}/out/lib:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=${PWD}/out/lib:$DYLD_LIBRARY_PATH
 
 out/bin/cmake-test_d
 out/bin/cmake-test
