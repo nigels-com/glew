@@ -15,10 +15,9 @@ GLEWAPI GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext *ctx,
 #else /* GLEW_MX */
 
 GLEWAPI GLenum GLEWAPIENTRY wglewContextInit ();
-GLEWAPI GLboolean GLEWAPIENTRY wglewContextIsSupported (const char *name);
+GLEWAPI GLboolean GLEWAPIENTRY wglewIsSupported (const char *name);
 
 #define wglewInit() wglewContextInit()
-#define wglewIsSupported(x) wglewContextIsSupported(x)
 
 #define WGLEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define WGLEW_GET_FUN(x) x

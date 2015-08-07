@@ -9,7 +9,7 @@
 #if defined(GLEW_MX)
 GLboolean glxewContextIsSupported (const GLXEWContext* ctx, const char* name)
 #else
-GLboolean glxewContextIsSupported (const char* name)
+GLboolean glxewIsSupported (const char* name)
 #endif
 {
   const GLubyte* pos = (const GLubyte*)name;
