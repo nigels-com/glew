@@ -37,7 +37,8 @@
 #if defined(_WIN32)
 #include <GL/wglew.h>
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
-#include <AGL/agl.h>
+#include <OpenGL/OpenGL.h>
+#include <OpenGL/CGLTypes.h>
 #elif !defined(__HAIKU__)
 #include <GL/glxew.h>
 #endif
@@ -61,7 +62,7 @@ typedef struct GLContextStruct
   HDC dc;
   HGLRC rc;
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
-  AGLContext ctx, octx;
+  CGLContextObj ctx, octx;
 #elif !defined(__HAIKU__)
   Display* dpy;
   XVisualInfo* vi;
@@ -1072,30 +1073,28 @@ void InitContext (GLContext* ctx)
 
 GLboolean CreateContext (GLContext* ctx)
 {
-  int attrib[] = { AGL_RGBA, AGL_NONE };
-  AGLPixelFormat pf;
+  CGLPixelFormatAttribute attrib[] = { kCGLPFAAccelerated, 0 };
+  CGLPixelFormatObj pf;
+  GLint npix;
+  CGLError error;
   /* check input */
   if (NULL == ctx) return GL_TRUE;
-  /*int major, minor;
-  SetPortWindowPort(wnd);
-  aglGetVersion(&major, &minor);
-  fprintf(stderr, "GL %d.%d\n", major, minor);*/
-  pf = aglChoosePixelFormat(NULL, 0, attrib);
-  if (NULL == pf) return GL_TRUE;
-  ctx->ctx = aglCreateContext(pf, NULL);
-  if (NULL == ctx->ctx || AGL_NO_ERROR != aglGetError()) return GL_TRUE;
-  aglDestroyPixelFormat(pf);
-  /*aglSetDrawable(ctx, GetWindowPort(wnd));*/
-  ctx->octx = aglGetCurrentContext();
-  if (GL_FALSE == aglSetCurrentContext(ctx->ctx)) return GL_TRUE;
+  error = CGLChoosePixelFormat(attrib, &pf, &npix);
+  if (error) return GL_TRUE;
+  error = CGLCreateContext(pf, NULL, &ctx->ctx);
+  if (error) return GL_TRUE;
+  CGLReleasePixelFormat(pf);
+  ctx->octx = CGLGetCurrentContext();
+  error = CGLSetCurrentContext(ctx->ctx);
+  if (error) return GL_TRUE;
   return GL_FALSE;
 }
 
 void DestroyContext (GLContext* ctx)
 {
   if (NULL == ctx) return;
-  aglSetCurrentContext(ctx->octx);
-  if (NULL != ctx->ctx) aglDestroyContext(ctx->ctx);
+  CGLSetCurrentContext(ctx->octx);
+  if (NULL != ctx->ctx) CGLReleaseContext(ctx->ctx);
 }
 
 /* ------------------------------------------------------------------------ */
