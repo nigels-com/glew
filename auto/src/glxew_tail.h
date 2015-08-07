@@ -14,10 +14,8 @@ GLEWAPI GLboolean GLEWAPIENTRY glxewContextIsSupported (const GLXEWContext *ctx,
 
 #else /* GLEW_MX */
 
-GLEWAPI GLenum GLEWAPIENTRY glxewContextInit ();
+GLEWAPI GLenum GLEWAPIENTRY glxewInit ();
 GLEWAPI GLboolean GLEWAPIENTRY glxewIsSupported (const char *name);
-
-#define glxewInit() glxewContextInit()
 
 #define GLXEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define GLXEW_GET_FUN(x) x

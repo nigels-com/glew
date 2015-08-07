@@ -12,7 +12,11 @@ GLboolean glxewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
+#ifdef GLEW_MX
 GLenum glxewContextInit (GLXEW_CONTEXT_ARG_DEF_LIST)
+#else
+GLenum glxewInit (GLXEW_CONTEXT_ARG_DEF_LIST)
+#endif
 {
   int major, minor;
   const GLubyte* extStart;
