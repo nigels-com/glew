@@ -34,21 +34,15 @@ GLboolean glewExperimental = GL_FALSE;
 
 #if !defined(GLEW_MX)
 
-#if defined(_WIN32)
-extern GLenum GLEWAPIENTRY wglewContextInit (void);
-#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
-extern GLenum GLEWAPIENTRY glxewContextInit (void);
-#endif /* _WIN32 */
-
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
   r = glewContextInit();
   if ( r != 0 ) return r;
 #if defined(_WIN32)
-  return wglewContextInit();
+  return wglewInit();
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX)) /* _UNIX */
-  return glxewContextInit();
+  return glxewInit();
 #else
   return r;
 #endif /* _WIN32 */
