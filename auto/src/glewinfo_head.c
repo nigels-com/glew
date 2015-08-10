@@ -8,6 +8,10 @@
 #include <GL/glxew.h>
 #endif
 
+#if defined(__APPLE__)
+#include <AvailabilityMacros.h>
+#endif
+
 #ifdef GLEW_REGAL
 #include <GL/Regal.h>
 #endif
@@ -26,17 +30,26 @@ GLXEWContext _glxewctx;
 #endif
 #endif
 
-#if defined(_WIN32)
-GLboolean glewCreateContext (int* pixelformat);
-#elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLboolean glewCreateContext (const char* display, int* visual);
-#else
-GLboolean glewCreateContext ();
-#endif
+/* Command-line parameters for GL context creation */
 
-#if defined(_WIN32) || !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-GLboolean glewParseArgs (int argc, char** argv, char** display, int* visual);
+struct createParams
+{
+#if defined(_WIN32)
+  int         pixelformat;
+#elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
+  const char* display;
+  int         visual;
 #endif
+  int         major, minor;  /* GL context version number */
+
+  /* https://www.opengl.org/registry/specs/ARB/glx_create_context.txt */
+  int         profile;       /* core = 1, compatibility = 2 */
+  int         flags;         /* debug = 1, forward compatible = 2 */
+};
+
+GLboolean glewCreateContext (struct createParams *params);
+
+GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
 
 void glewDestroyContext ();
 

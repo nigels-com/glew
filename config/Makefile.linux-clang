@@ -1,6 +1,6 @@
 NAME = $(GLEW_NAME)
-CC = cc
-LD = cc
+CC = clang
+LD = clang
 M_ARCH ?= $(shell uname -m)
 ARCH64 = false
 ifeq (x86_64,${M_ARCH})

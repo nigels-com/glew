@@ -19,7 +19,7 @@ our $type = shift;
 
 if (@ARGV)
 {
-    @extlist = @ARGV;
+	@extlist = @ARGV;
 
 	foreach my $ext (sort @extlist)
 	{

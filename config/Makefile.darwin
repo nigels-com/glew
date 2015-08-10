@@ -2,13 +2,14 @@ NAME = $(GLEW_NAME)
 CC = cc
 LD = cc
 CFLAGS.EXTRA = -dynamic -fno-common
+CFLAGS.EXTRA += -ansi -pedantic
 #CFLAGS.EXTRA += -no-cpp-precomp
 LDFLAGS.EXTRA =
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
 LDFLAGS.GL = -L/usr/X11R6/lib -lGL -lX11
 else
-LDFLAGS.GL = -framework AGL -framework OpenGL
+LDFLAGS.GL = -framework OpenGL
 endif
 LDFLAGS.STATIC =
 LDFLAGS.DYNAMIC =
