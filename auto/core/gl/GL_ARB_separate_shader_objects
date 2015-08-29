@@ -1,6 +1,7 @@
 GL_ARB_separate_shader_objects
 http://www.opengl.org/registry/specs/ARB/separate_shader_objects.txt
 GL_ARB_separate_shader_objects
+
 	GL_VERTEX_SHADER_BIT 0x00000001
 	GL_FRAGMENT_SHADER_BIT 0x00000002
 	GL_GEOMETRY_SHADER_BIT 0x00000004
