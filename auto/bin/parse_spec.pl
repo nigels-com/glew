@@ -333,6 +333,7 @@ foreach my $spec (sort @speclist)
         $specname =~ s/registry\/gl\/specs\///;
         print EXT $reg_http . $specname . "\n";      # Extension info URL
         print EXT $ext . "\n";                       # Extension string
+        print EXT "\n";                              # Resuses nothing by default
 
         my $prefix = $ext;
         $prefix =~ s/^(.+?)(_.+)$/$1/;

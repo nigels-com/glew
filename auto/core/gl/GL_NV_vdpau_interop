@@ -1,6 +1,7 @@
 GL_NV_vdpau_interop
 http://www.opengl.org/registry/specs/NV/vdpau_interop.txt
 GL_NV_vdpau_interop
+
 	GL_SURFACE_STATE_NV 0x86EB
 	GL_SURFACE_REGISTERED_NV 0x86FD
 	GL_SURFACE_MAPPED_NV 0x8700
