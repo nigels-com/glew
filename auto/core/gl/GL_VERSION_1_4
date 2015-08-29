@@ -1,6 +1,7 @@
 GL_VERSION_1_4
 http://www.opengl.org/documentation/specs/version1.4/glspec14.pdf
 
+
 	GL_GENERATE_MIPMAP 0x8191
 	GL_GENERATE_MIPMAP_HINT 0x8192
 	GL_DEPTH_COMPONENT16 0x81A5

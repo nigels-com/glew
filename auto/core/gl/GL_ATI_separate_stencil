@@ -1,6 +1,7 @@
 GL_ATI_separate_stencil
 http://www.opengl.org/registry/specs/ATI/separate_stencil.txt
 GL_ATI_separate_stencil
+
 	GL_STENCIL_BACK_FUNC_ATI 0x8800
 	GL_STENCIL_BACK_FAIL_ATI 0x8801
 	GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI 0x8802
