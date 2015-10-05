@@ -1,5 +1,7 @@
 # GLEW - The OpenGL Extension Wrangler Library
 
+![](http://glew.sourceforge.net/glew.png)
+
 http://glew.sourceforge.net/
 
 https://github.com/nigels-com/glew
