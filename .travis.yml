@@ -5,7 +5,7 @@ install:
 script:
 - make -C auto clobber
 - make extensions
-- make
+#- make
 - make dist-src
 addons:
   artifacts:
