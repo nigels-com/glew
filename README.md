@@ -15,10 +15,9 @@ you just need to:
 
 ### Unix
 
-* make
-* sudo -s
-* make install
-* make clean
+    $ make
+    $ sudo -s make install
+    $ make clean
 
 ### Windows
 
