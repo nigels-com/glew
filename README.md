@@ -29,7 +29,7 @@ the net or add your own extension information), you need a Unix
 environment (including wget, perl, and GNU make).  The extension data
 is regenerated from the top level source directory with:
 
-  make extensions
+    make extensions
 
 An alternative to generating the GLEW sources from scratch is to
 download a pre-generated (unsupported) snapshot:
