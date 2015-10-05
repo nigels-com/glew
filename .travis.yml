@@ -1,0 +1,15 @@
+language: cpp
+#sudo: false
+install:
+- sudo apt-get install git dos2unix
+script:
+- make -C auto clobber
+- make extensions
+- make
+- make dist-src
+addons:
+  artifacts:
+    bucket: glew
+    s3_region: "us-east-1"
+    paths:
+    - $(ls *.zip *.tgz | tr "\n" ":")
