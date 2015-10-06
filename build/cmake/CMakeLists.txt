@@ -43,16 +43,22 @@ add_definitions (-DGLEW_NO_GLU)
 
 include_directories (${GLEW_DIR}/include)
 
-add_library (glew SHARED ${GLEW_DIR}/src/glew.c)
+set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
+
+if (WIN32)
+  list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
+endif ()
+
+add_library (glew SHARED ${GLEW_SRC_FILES})
 set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX "${DLL_PREFIX}")
-add_library (glew_s STATIC ${GLEW_DIR}/src/glew.c)
+add_library (glew_s STATIC ${GLEW_SRC_FILES})
 set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
 target_link_libraries (glew ${GLEW_LIBRARIES})
 target_link_libraries (glew_s ${GLEW_LIBRARIES})
 
-add_library(glewmx SHARED ${GLEW_DIR}/src/glew.c )
+add_library(glewmx SHARED ${GLEW_SRC_FILES})
 set_target_properties (glewmx PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD;GLEW_MX" OUTPUT_NAME "${GLEW_LIB_NAME}mx" PREFIX "${DLL_PREFIX}")
-add_library(glewmx_s STATIC ${GLEW_DIR}/src/glew.c )
+add_library(glewmx_s STATIC ${GLEW_SRC_FILES})
 set_target_properties (glewmx_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC;GLEW_MX" OUTPUT_NAME "${GLEW_LIB_NAME}mx" PREFIX lib)
 target_link_libraries (glewmx ${GLEW_LIBRARIES})
 target_link_libraries (glewmx_s ${GLEW_LIBRARIES})
@@ -86,10 +92,18 @@ install ( TARGETS ${targets_to_install}
 )
 
 if (BUILD_UTILS)
-  add_executable (glewinfo ${GLEW_DIR}/src/glewinfo.c)
+  set (GLEWINFO_SRC_FILES ${GLEW_DIR}/src/glewinfo.c)
+  if (WIN32)
+    list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
+  endif ()
+  add_executable (glewinfo ${GLEWINFO_SRC_FILES})
   target_link_libraries (glewinfo glew)
 
-  add_executable (visualinfo ${GLEW_DIR}/src/visualinfo.c)
+  set (VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.c)
+  if (WIN32)
+    list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
+  endif ()
+  add_executable (visualinfo ${VISUALINFO_SRC_FILES})
   target_link_libraries (visualinfo glew)
 
   install ( TARGETS glewinfo visualinfo
