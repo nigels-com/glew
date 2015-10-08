@@ -159,7 +159,7 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 #if defined(GLEW_OSMESA)
 OSMesaContext ctx;
 
-GLboolean glewCreateContext ()
+GLboolean glewCreateContext (struct createParams *params)
 {
   ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
   if (NULL == ctx) return GL_TRUE;
