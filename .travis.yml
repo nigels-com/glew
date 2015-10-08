@@ -7,7 +7,9 @@ script:
 - make extensions
 - make dist-src
 - make clean; SYSTEM=linux        make 
+- make clean; SYSTEM=linux-osmesa make
 - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                ; make; popd
+- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 .; make; popd
 addons:
   artifacts:
     bucket: glew

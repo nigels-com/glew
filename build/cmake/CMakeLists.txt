@@ -14,6 +14,7 @@ set(CMAKE_DEBUG_POSTFIX d)
 
 option (BUILD_UTILS "utilities" ON)
 option (GLEW_REGAL "Regal mode" FALSE)
+option (GLEW_OSMESA "OSMesa mode" FALSE)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -52,6 +53,18 @@ if (GLEW_REGAL)
   endif ()
   add_definitions (-DGLEW_REGAL)
   set (GLEW_LIBRARIES ${REGAL_LIB_NAME})
+endif ()
+
+#### OSMesa mode ####
+
+if (GLEW_OSMESA)
+  if (WIN32)
+    set (OSMESA_LIB_NAME osmesa)
+  else ()
+    set (OSMESA_LIB_NAME OSMesa)
+  endif ()
+  add_definitions (-DGLEW_OSMESA)
+  set (GLEW_LIBRARIES ${OSMESA_LIB_NAME} ${OPENGL_LIBRARIES})
 endif ()
 
 #### GLEW ####

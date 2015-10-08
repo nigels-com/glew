@@ -204,8 +204,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
-	echo -e "\n#if defined(GLEW_OSMESA)" >> $@
-	echo -e "\n#elif defined(_WIN32)" >> $@
+	echo -e "\n#if defined(_WIN32) && ! defined(GLEW_OSMESA)" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
@@ -214,7 +213,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_init_wgl.c >> $@
 	$(BIN)/make_list.pl $(WGL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}" >> $@;
-	echo -e "\n#elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
+	echo -e "\n#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@;

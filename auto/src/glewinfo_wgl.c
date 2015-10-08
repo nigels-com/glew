@@ -2,8 +2,7 @@
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(GLEW_OSMESA)
-#elif defined(_WIN32)
+#if defined(_WIN32) && !defined(GLEW_OSMESA)
 
 static void wglewInfo ()
 {

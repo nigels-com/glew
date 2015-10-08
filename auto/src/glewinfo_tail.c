@@ -129,7 +129,8 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       else return GL_TRUE;
       ++p;
     }
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
     else if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
     {
       if (++p >= argc) return GL_TRUE;
@@ -158,7 +159,7 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 #if defined(GLEW_OSMESA)
 OSMesaContext ctx;
 
-GLboolean glewCreateContext ()
+GLboolean glewCreateContext (struct createParams *params)
 {
   ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
   if (NULL == ctx) return GL_TRUE;
