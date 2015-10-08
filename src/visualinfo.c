@@ -264,7 +264,14 @@ void PrintExtensions (const char* s)
 
 /* ---------------------------------------------------------------------- */
 
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+
+void
+VisualInfo (GLContext* ctx)
+{
+}
+
+#elif defined(_WIN32)
 
 void
 VisualInfoARB (GLContext* ctx)
