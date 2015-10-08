@@ -129,7 +129,8 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       else return GL_TRUE;
       ++p;
     }
-#if defined(_WIN32)
+#if defined(GLEW_OSMESA)
+#elif defined(_WIN32)
     else if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
     {
       if (++p >= argc) return GL_TRUE;
