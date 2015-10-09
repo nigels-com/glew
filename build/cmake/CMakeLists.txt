@@ -13,6 +13,7 @@ endif()
 set(CMAKE_DEBUG_POSTFIX d)
 
 option (BUILD_UTILS "utilities" ON)
+option (GLEW_OSMESA "OSMesa mode" FALSE)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -40,6 +41,20 @@ find_package (OpenGL REQUIRED)
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
+
+#### OSMesa ####
+
+if (GLEW_OSMESA)
+  if (WIN32)
+    set (OSMESA_LIB_NAME osmesa)
+  else ()
+    set (OSMESA_LIB_NAME OSMesa)
+  endif ()
+  add_definitions (-DGLEW_OSMESA)
+  set (GLEW_LIBRARIES ${OSMESA_LIB_NAME} ${OPENGL_LIBRARIES})
+endif ()
+
+#### GLEW ####
 
 include_directories (${GLEW_DIR}/include)
 

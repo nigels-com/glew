@@ -1,7 +1,7 @@
 language: cpp
 #sudo: false
 install:
-- sudo apt-get install git dos2unix
+- sudo apt-get install git dos2unix libosmesa-dev
 script:
 - make -C auto clobber
 - make extensions

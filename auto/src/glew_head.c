@@ -140,10 +140,10 @@ void* NSGLGetProcAddress (const GLubyte *name)
 /*
  * Define glewGetProcAddress.
  */
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_REGAL)
+#  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
+#elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
-#elif defined(GLEW_REGAL)
-#  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *) name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
