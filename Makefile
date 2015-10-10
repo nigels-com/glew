@@ -64,12 +64,14 @@ DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 # To disable symlinks:
 #   - use LN= on gmake command-line
 
-AR      ?= ar
-ARFLAGS ?= cr
-INSTALL ?= install
-STRIP   ?= strip
-RM      ?= rm -f
-LN      ?= ln -sf
+AR       ?= ar
+ARFLAGS  ?= cr
+INSTALL  ?= install
+STRIP    ?= strip
+RM       ?= rm -f
+LN       ?= ln -sf
+UNIX2DOS ?= unix2dos -q
+DOS2UNIX ?= dos2unix -q
 
 ifneq (,$(filter debug,$(MAKECMDGOALS)))
 OPT = -g
@@ -349,12 +351,12 @@ dist-win32:
 	$(RM) -f $(DIST_DIR)/bin/*/*/*.pdb $(DIST_DIR)/bin/*/*/*.exp
 	$(RM) -f $(DIST_DIR)/bin/*/*/glewinfo-*.exe $(DIST_DIR)/bin/*/*/visualinfo-*.exe 
 	$(RM) -f $(DIST_DIR)/lib/*/*/*.pdb $(DIST_DIR)/lib/*/*/*.exp
-	unix2dos $(DIST_DIR)/include/GL/*.h
-	unix2dos $(DIST_DIR)/doc/*.txt
-	unix2dos $(DIST_DIR)/doc/*.html
-	unix2dos $(DIST_DIR)/*.txt
+	$(UNIX2DOS) $(DIST_DIR)/include/GL/*.h
+	$(UNIX2DOS) $(DIST_DIR)/doc/*.txt
+	$(UNIX2DOS) $(DIST_DIR)/doc/*.html
+	$(UNIX2DOS) $(DIST_DIR)/*.txt
 	rm -f $(DIST_WIN32)
-	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_WIN32) $(DIST_NAME)
+	cd $(DIST_DIR)/.. && zip -rq9 $(DIST_WIN32) $(DIST_NAME)
 	$(RM) -r $(DIST_DIR)
 
 dist-src:
@@ -377,42 +379,42 @@ dist-src:
 	find $(DIST_DIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
 	find $(DIST_DIR) -name .svn | xargs $(RM) -r
 	find $(DIST_DIR) -name "*.patch" | xargs $(RM) -r
-	dos2unix $(DIST_DIR)/Makefile
-	dos2unix $(DIST_DIR)/auto/Makefile
-	dos2unix $(DIST_DIR)/config/*
-	unix2dos $(DIST_DIR)/auto/core/*
-	unix2dos $(DIST_DIR)/auto/extensions/*
-	find $(DIST_DIR) -name '*.h' | xargs unix2dos
-	find $(DIST_DIR) -name '*.c' | xargs unix2dos
-	find $(DIST_DIR) -name '*.txt' | xargs unix2dos
-	find $(DIST_DIR) -name '*.html' | xargs unix2dos
-	find $(DIST_DIR) -name '*.css' | xargs unix2dos
-	find $(DIST_DIR) -name '*.sh' | xargs unix2dos
-	find $(DIST_DIR) -name '*.pl' | xargs unix2dos
-	find $(DIST_DIR) -name 'Makefile' | xargs unix2dos
-	find $(DIST_DIR) -name '*.in' | xargs unix2dos
-	find $(DIST_DIR) -name '*.pm' | xargs unix2dos
-	find $(DIST_DIR) -name '*.rc' | xargs unix2dos
+	$(DOS2UNIX) $(DIST_DIR)/Makefile
+	$(DOS2UNIX) $(DIST_DIR)/auto/Makefile
+	$(DOS2UNIX) $(DIST_DIR)/config/*
+	$(UNIX2DOS) $(DIST_DIR)/auto/core/*
+	$(UNIX2DOS) $(DIST_DIR)/auto/extensions/*
+	find $(DIST_DIR) -name '*.h' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.c' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.txt' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.html' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.css' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.sh' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.pl' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name 'Makefile' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.in' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.pm' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.rc' | xargs $(UNIX2DOS)
 	rm -f $(DIST_SRC_ZIP)
-	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_NAME)
-	dos2unix $(DIST_DIR)/Makefile
-	dos2unix $(DIST_DIR)/auto/Makefile
-	dos2unix $(DIST_DIR)/config/*
-	dos2unix $(DIST_DIR)/auto/core/*
-	dos2unix $(DIST_DIR)/auto/extensions/*
-	find $(DIST_DIR) -name '*.h' | xargs dos2unix
-	find $(DIST_DIR) -name '*.c' | xargs dos2unix
-	find $(DIST_DIR) -name '*.txt' | xargs dos2unix
-	find $(DIST_DIR) -name '*.html' | xargs dos2unix
-	find $(DIST_DIR) -name '*.css' | xargs dos2unix
-	find $(DIST_DIR) -name '*.sh' | xargs dos2unix
-	find $(DIST_DIR) -name '*.pl' | xargs dos2unix
-	find $(DIST_DIR) -name 'Makefile' | xargs dos2unix
-	find $(DIST_DIR) -name '*.in' | xargs dos2unix
-	find $(DIST_DIR) -name '*.pm' | xargs dos2unix
-	find $(DIST_DIR) -name '*.rc' | xargs dos2unix
+	cd $(DIST_DIR)/.. && zip -rq9 $(DIST_SRC_ZIP) $(DIST_NAME)
+	$(DOS2UNIX) $(DIST_DIR)/Makefile
+	$(DOS2UNIX) $(DIST_DIR)/auto/Makefile
+	$(DOS2UNIX) $(DIST_DIR)/config/*
+	$(DOS2UNIX) $(DIST_DIR)/auto/core/*
+	$(DOS2UNIX) $(DIST_DIR)/auto/extensions/*
+	find $(DIST_DIR) -name '*.h' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.c' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.txt' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.html' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.css' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.sh' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.pl' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name 'Makefile' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.in' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.pm' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.rc' | xargs $(DOS2UNIX)
 	rm -f $(DIST_SRC_TGZ)
-	cd $(DIST_DIR)/.. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_NAME)
+	cd $(DIST_DIR)/.. && env GZIP=-9 tar czf $(DIST_SRC_TGZ) $(DIST_NAME)
 	$(RM) -r $(DIST_DIR)
 
 extensions:
