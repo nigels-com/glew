@@ -13,6 +13,7 @@ endif()
 set(CMAKE_DEBUG_POSTFIX d)
 
 option (BUILD_UTILS "utilities" ON)
+option (GLEW_REGAL "Regal mode" FALSE)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -40,6 +41,20 @@ find_package (OpenGL REQUIRED)
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
+
+#### Regal mode ####
+
+if (GLEW_REGAL)
+  if (WIN32)
+    set (REGAL_LIB_NAME regal32)
+  else ()
+    set (REGAL_LIB_NAME Regal)
+  endif ()
+  add_definitions (-DGLEW_REGAL)
+  set (GLEW_LIBRARIES ${REGAL_LIB_NAME})
+endif ()
+
+#### GLEW ####
 
 include_directories (${GLEW_DIR}/include)
 
