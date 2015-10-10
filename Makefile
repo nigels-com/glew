@@ -396,7 +396,7 @@ dist-src:
 	find $(DIST_DIR) -name '*.pm' | xargs $(UNIX2DOS)
 	find $(DIST_DIR) -name '*.rc' | xargs $(UNIX2DOS)
 	rm -f $(DIST_SRC_ZIP)
-	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_NAME)
+	cd $(DIST_DIR)/.. && zip -r9 $(DIST_SRC_ZIP) $(DIST_NAME)
 	$(DOS2UNIX) $(DIST_DIR)/Makefile
 	$(DOS2UNIX) $(DIST_DIR)/auto/Makefile
 	$(DOS2UNIX) $(DIST_DIR)/config/*
