@@ -159,10 +159,23 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 #if defined(GLEW_OSMESA)
 OSMesaContext ctx;
 
+static const GLint osmFormat = GL_UNSIGNED_BYTE;
+static const GLint osmWidth = 640;
+static const GLint osmHeight = 480;
+static GLubyte *osmPixels = NULL;
+
 GLboolean glewCreateContext (struct createParams *params)
 {
   ctx = OSMesaCreateContext(OSMESA_RGBA, NULL);
   if (NULL == ctx) return GL_TRUE;
+  if (NULL == osmPixels)
+  {
+    osmPixels = (GLubyte *) calloc(osmWidth*osmHeight*4, 1);
+  }
+  if (!OSMesaMakeCurrent(ctx, osmPixels, GL_UNSIGNED_BYTE, osmWidth, osmHeight))
+  {
+      return GL_TRUE;
+  }
   return GL_FALSE;
 }
 
