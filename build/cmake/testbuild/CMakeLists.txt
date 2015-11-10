@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(glew-cmake-test)
 
 find_package(GLEW REQUIRED CONFIG)
+find_package(GLEW REQUIRED CONFIG) # call twice to test multiple call
 find_package(OpenGL REQUIRED)
 
 add_executable(cmake-test main.c)
