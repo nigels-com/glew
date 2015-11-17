@@ -9,7 +9,9 @@
 #  include <GL/glxew.h>
 #endif
 
+#include <alloca.h>
 #include <stddef.h>  /* For size_t */
+#include <string.h>
 
 /*
  * Define glewGetContext and related helper macros.
