@@ -1,4 +1,4 @@
-GLEW_DEST=/usr/local
+GLEW_DEST = /usr/local
 NAME = $(GLEW_NAME)
 CC = cc
 LD = cc
