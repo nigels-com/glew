@@ -6,11 +6,7 @@
 
 #if defined(_WIN32) && !defined(GLEW_OSMESA)
 
-#if defined(GLEW_MX)
-GLboolean GLEWAPIENTRY wglewContextIsSupported (const WGLEWContext* ctx, const char* name)
-#else
 GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
-#endif
 {
   const GLubyte* pos = (const GLubyte*)name;
   GLuint len = _glewStrLen(pos);

@@ -81,7 +81,7 @@ endif
 INCLUDE = -Iinclude
 CFLAGS = $(OPT) $(WARN) $(INCLUDE) $(CFLAGS.EXTRA)
 
-all debug: glew.lib glew.lib.mx glew.bin
+all debug: glew.lib glew.bin
 
 # GLEW shared and static libraries
 
@@ -95,11 +95,6 @@ LIB.OBJS           := $(addprefix tmp/$(SYSTEM)/default/static/,$(LIB.SRCS.NAMES
 LIB.OBJS           := $(LIB.OBJS:.c=.o)
 LIB.SOBJS          := $(addprefix tmp/$(SYSTEM)/default/shared/,$(LIB.SRCS.NAMES))
 LIB.SOBJS          := $(LIB.SOBJS:.c=.o)
-
-LIB.OBJS.MX        := $(addprefix tmp/$(SYSTEM)/mx/static/,$(LIB.SRCS.NAMES))
-LIB.OBJS.MX        := $(LIB.OBJS.MX:.c=.o)
-LIB.SOBJS.MX       := $(addprefix tmp/$(SYSTEM)/mx/shared/,$(LIB.SRCS.NAMES))
-LIB.SOBJS.MX       := $(LIB.SOBJS.MX:.c=.o)
 
 glew.lib: lib lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc
 
@@ -150,54 +145,6 @@ glew.pc: glew.pc.in
 		-e "s|@requireslib@|$(LIBGLU)|g" \
 		< $< > $@
 
-# GLEW MX static and shared libraries
-
-glew.lib.mx:  lib lib/$(LIB.SHARED.MX) lib/$(LIB.STATIC.MX) glewmx.pc
-
-lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
-ifneq ($(AR),)
-	$(AR) $(ARFLAGS) $@ $^
-else ifneq ($(LIBTOOL),)
-	$(LIBTOOL) $@ $^
-endif
-ifneq ($(STRIP),)
-	$(STRIP) -x $@
-endif
-
-lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
-	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
-ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) lib/$(LIB.SONAME.MX)
-	$(LN) $(LIB.SHARED.MX) lib/$(LIB.DEVLNK.MX)
-endif
-ifneq ($(STRIP),)
-	$(STRIP) -x $@
-endif
-
-tmp/$(SYSTEM)/mx/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_MX -DGLEW_STATIC $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
-	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_MX -DGLEW_BUILD $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-# Force re-write of glewmx.pc, GLEW_DEST can vary
-
-.PHONY: glewmx.pc
-
-glewmx.pc: glew.pc.in
-	sed \
-		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
-		-e "s|@libdir@|$(LIBDIR)|g" \
-		-e "s|@exec_prefix@|$(BINDIR)|g" \
-		-e "s|@includedir@|$(INCDIR)|g" \
-		-e "s|@version@|$(GLEW_VERSION)|g" \
-		-e "s|@cflags@|-DGLEW_MX|g" \
-		-e "s|@libname@|$(NAME)mx|g" \
-		-e "s|@requireslib@|$(LIBGLU)|g" \
-		< $< > $@
-
 # GLEW utility programs
 
 BIN.LIBS = -Llib $(LDFLAGS.DYNAMIC) -l$(NAME) $(LDFLAGS.EXTRA) $(LDFLAGS.GL)
@@ -245,11 +192,9 @@ $(VISUALINFO.BIN.OBJ): $(VISUALINFO.BIN.SRC) include/GL/glew.h include/GL/wglew.
 
 # Install targets
 
-install.all: install install.mx install.bin
+install.all: install install.bin
 
 install:     install.include install.lib install.pkgconfig
-
-install.mx:  install.include install.lib.mx install.pkgconfig.mx
 
 install.lib: glew.lib
 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
@@ -273,27 +218,6 @@ ifneq ($(LN),)
 endif
 	$(INSTALL) -m 0644 lib/$(LIB.STATIC) "$(DESTDIR)$(LIBDIR)/"
 
-install.lib.mx: glew.lib.mx
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
-# runtime
-ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(BINDIR)/"
-else
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/"
-endif
-ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
-endif
-# development files
-ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) "$(DESTDIR)$(LIBDIR)/"
-endif
-ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
-endif
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) "$(DESTDIR)$(LIBDIR)/"
-
 install.bin: glew.bin
 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
 	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) "$(DESTDIR)$(BINDIR)/"
@@ -309,30 +233,25 @@ install.pkgconfig: glew.pc
 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
 	$(INSTALL) -m 0644 glew.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
 
-install.pkgconfig.mx: glewmx.pc
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
-	$(INSTALL) -m 0644 glewmx.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
-
 uninstall:
 	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
 	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
 	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)" "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)"
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)" "$(DESTDIR)$(BINDIR)/$(LIB.SHARED.MX)"
+	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)"
 else
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)" "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)"
 endif
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)" "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC.MX)"
+	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)"
 	$(RM) "$(DESTDIR)$(BINDIR)/$(GLEWINFO.BIN)" "$(DESTDIR)$(BINDIR)/$(VISUALINFO.BIN)"
 
 clean:
 	$(RM) -r tmp/
 	$(RM) -r lib/
 	$(RM) -r bin/
-	$(RM) glew.pc glewmx.pc
+	$(RM) glew.pc
 
 distclean: clean
 	find . -name \*~ | xargs $(RM)

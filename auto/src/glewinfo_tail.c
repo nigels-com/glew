@@ -46,18 +46,7 @@ int main (int argc, char** argv)
     return 1;
   }
   glewExperimental = GL_TRUE;
-#ifdef GLEW_MX
-  err = glewContextInit(glewGetContext());
-#if defined(GLEW_OSMESA)
-#elif defined(_WIN32)
-  err = err || wglewContextInit(wglewGetContext());
-#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-  err = err || glxewContextInit(glxewGetContext());
-#endif
-
-#else
   err = glewInit();
-#endif
   if (GLEW_OK != err)
   {
     fprintf(stderr, "Error [main]: glewInit failed: %s\n", glewGetErrorString(err));

@@ -1,18 +1,10 @@
 
 #include <windows.h>
 
-#ifdef GLEW_MX
-#  ifdef _DEBUG
-#    define FILENAME "visualinfo-mxd.exe"
-#  else
-#    define FILENAME "visualinfo-mx.exe"
-#  endif
+#ifdef _DEBUG
+#  define FILENAME "visualinfod.exe"
 #else
-#  ifdef _DEBUG
-#    define FILENAME "visualinfod.exe"
-#  else
-#    define FILENAME "visualinfo.exe"
-#  endif
+#  define FILENAME "visualinfo.exe"
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

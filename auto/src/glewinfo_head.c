@@ -21,18 +21,6 @@
 
 static FILE* f;
 
-#ifdef GLEW_MX
-GLEWContext _glewctx;
-#define glewGetContext() (&_glewctx)
-#if defined(_WIN32)
-WGLEWContext _wglewctx;
-#define wglewGetContext() (&_wglewctx)
-#elif !defined(GLEW_OSMESA) && !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLXEWContext _glxewctx;
-#define glxewGetContext() (&_glxewctx)
-#endif
-#endif
-
 /* Command-line parameters for GL context creation */
 
 struct createParams

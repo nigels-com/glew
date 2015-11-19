@@ -56,11 +56,11 @@ if (@ARGV)
 		{
 			if ($extname =~ /WGL_.*/)
 			{
-				print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . "|| crippled) " . $extvar . "= !_glewInit_$extname();\n";
 			}
 			else
 			{
-				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname(GLEW_CONTEXT_ARG_VAR_INIT);\n";
+				print "  if (glewExperimental || " . $extvar . ") " . $extvar . " = !_glewInit_$extname();\n";
 			}
 		}
 

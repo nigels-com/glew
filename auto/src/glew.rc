@@ -1,34 +1,18 @@
 
 #include <windows.h>
 
-#ifdef GLEW_MX
-#  ifdef GLEW_STATIC
-#    ifdef _DEBUG
-#      define FILENAME "glew32mxsd.dll"
-#    else
-#      define FILENAME "glew32mxs.dll"
-#    endif
-#  else
-#    ifdef _DEBUG
-#      define FILENAME "glew32mxd.dll"
-#    else
-#      define FILENAME "glew32mx.dll"
-#    endif
-#  endif
+#ifdef GLEW_STATIC
+# ifdef _DEBUG
+#  define FILENAME "glew32sd.dll"
+# else
+#   define FILENAME "glew32s.dll"
+# endif
 #else
-#  ifdef GLEW_STATIC
-#    ifdef _DEBUG
-#      define FILENAME "glew32sd.dll"
-#    else
-#      define FILENAME "glew32s.dll"
-#    endif
-#  else
-#    ifdef _DEBUG
-#      define FILENAME "glew32d.dll"
-#    else
-#      define FILENAME "glew32.dll"
-#    endif
-#  endif
+# ifdef _DEBUG
+#  define FILENAME "glew32d.dll"
+# else
+#  define FILENAME "glew32.dll"
+# endif
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

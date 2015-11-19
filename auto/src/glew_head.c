@@ -13,35 +13,6 @@
 #include <stdlib.h>  /* For malloc, free */
 #include <string.h>  /* For memset */
 
-/*
- * Define glewGetContext and related helper macros.
- */
-#ifdef GLEW_MX
-#  define glewGetContext() ctx
-#  ifdef _WIN32
-#    define GLEW_CONTEXT_ARG_DEF_INIT GLEWContext* ctx
-#    define GLEW_CONTEXT_ARG_VAR_INIT ctx
-#    define wglewGetContext() ctx
-#    define WGLEW_CONTEXT_ARG_DEF_INIT WGLEWContext* ctx
-#    define WGLEW_CONTEXT_ARG_DEF_LIST WGLEWContext* ctx
-#  else /* _WIN32 */
-#    define GLEW_CONTEXT_ARG_DEF_INIT void
-#    define GLEW_CONTEXT_ARG_VAR_INIT
-#    define glxewGetContext() ctx
-#    define GLXEW_CONTEXT_ARG_DEF_INIT void
-#    define GLXEW_CONTEXT_ARG_DEF_LIST GLXEWContext* ctx
-#  endif /* _WIN32 */
-#  define GLEW_CONTEXT_ARG_DEF_LIST GLEWContext* ctx
-#else /* GLEW_MX */
-#  define GLEW_CONTEXT_ARG_DEF_INIT void
-#  define GLEW_CONTEXT_ARG_VAR_INIT
-#  define GLEW_CONTEXT_ARG_DEF_LIST void
-#  define WGLEW_CONTEXT_ARG_DEF_INIT void
-#  define WGLEW_CONTEXT_ARG_DEF_LIST void
-#  define GLXEW_CONTEXT_ARG_DEF_INIT void
-#  define GLXEW_CONTEXT_ARG_DEF_LIST void
-#endif /* GLEW_MX */
-
 #if defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
@@ -165,28 +136,16 @@ void* NSGLGetProcAddress (const GLubyte *name)
  */
 
 #undef GLEW_GET_VAR
-#ifdef GLEW_MX
-# define GLEW_GET_VAR(x) (glewGetContext()->x)
-#else /* GLEW_MX */
 # define GLEW_GET_VAR(x) (x)
-#endif /* GLEW_MX */
 
 #ifdef WGLEW_GET_VAR
 # undef WGLEW_GET_VAR
-# ifdef GLEW_MX
-#  define WGLEW_GET_VAR(x) (wglewGetContext()->x)
-# else /* GLEW_MX */
-#  define WGLEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define WGLEW_GET_VAR(x) (x)
 #endif /* WGLEW_GET_VAR */
 
 #ifdef GLXEW_GET_VAR
 # undef GLXEW_GET_VAR
-# ifdef GLEW_MX
-#  define GLXEW_GET_VAR(x) (glxewGetContext()->x)
-# else /* GLEW_MX */
-#  define GLXEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define GLXEW_GET_VAR(x) (x)
 #endif /* GLXEW_GET_VAR */
 
 /*

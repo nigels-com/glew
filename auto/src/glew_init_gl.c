@@ -59,10 +59,7 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 
 /* ------------------------------------------------------------------------- */
 
-#ifndef GLEW_MX
-static
-#endif
-GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
+static GLenum GLEWAPIENTRY glewContextInit ()
 {
   const GLubyte* s;
   GLuint dot;

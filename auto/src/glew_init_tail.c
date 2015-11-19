@@ -32,8 +32,6 @@ const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
 
 GLboolean glewExperimental = GL_FALSE;
 
-#if !defined(GLEW_MX)
-
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
@@ -49,5 +47,3 @@ GLenum GLEWAPIENTRY glewInit (void)
   return r;
 #endif /* _WIN32 */
 }
-
-#endif /* !GLEW_MX */
