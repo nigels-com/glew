@@ -250,7 +250,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	perl -e "s/GLEW_VERSION_MAJOR_STRING/$(GLEW_MAJOR)/g" -pi $@
 	perl -e "s/GLEW_VERSION_MINOR_STRING/$(GLEW_MINOR)/g" -pi $@
 	perl -e "s/GLEW_VERSION_MICRO_STRING/$(GLEW_MICRO)/g" -pi $@
-	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(GLEW_CONTEXT_ARG_VAR_INIT\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(GLEW_CONTEXT_ARG_VAR_INIT); _glewInit_GL_ARB_vertex_program(GLEW_CONTEXT_ARG_VAR_INIT); }/g" -pi $@
+	perl -e "s/GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader\(\);/{ GLEW_ARB_vertex_shader = !_glewInit_GL_ARB_vertex_shader(); _glewInit_GL_ARB_vertex_program(); }/g" -pi $@
 	perl -e "s/\(\(glColorSubTable = /((glBlendEquation = (PFNGLBLENDEQUATIONPROC)glewGetProcAddress((const GLubyte*)\"glBlendEquation\")) == NULL) || r;\n  r = ((glColorSubTable = /g" -pi $@
 	rm -f $@.bak
 

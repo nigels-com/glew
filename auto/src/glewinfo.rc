@@ -1,18 +1,10 @@
 
 #include <windows.h>
 
-#ifdef GLEW_MX
-#  ifdef _DEBUG
-#    define FILENAME "glewinfo-mxd.exe"
-#  else
-#    define FILENAME "glewinfo-mx.exe"
-#  endif
+#ifdef _DEBUG
+# define FILENAME "glewinfod.exe"
 #else
-#  ifdef _DEBUG
-#    define FILENAME "glewinfod.exe"
-#  else
-#    define FILENAME "glewinfo.exe"
-#  endif
+# define FILENAME "glewinfo.exe"
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

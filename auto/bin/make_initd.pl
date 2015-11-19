@@ -36,8 +36,7 @@ if (@ARGV)
 		#print "#ifdef $extname\n\n";
 		if (keys %$functions)
 		{
-			print "static GLboolean _glewInit_$extname (" . $type . 
-				"EW_CONTEXT_ARG_DEF_INIT);\n";
+			print "static GLboolean _glewInit_$extname ();\n";
 		}
 		#print "#endif /* $extname */\n\n";
 	}
