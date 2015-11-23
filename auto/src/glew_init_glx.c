@@ -21,6 +21,8 @@ GLenum glxewInit (GLXEW_CONTEXT_ARG_DEF_LIST)
   int major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  GLint context_profile = 0, context_flags = 0;
+
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2(GLEW_CONTEXT_ARG_VAR_INIT)) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
@@ -54,4 +56,20 @@ GLenum glxewInit (GLXEW_CONTEXT_ARG_DEF_LIST)
   if (extStart == 0)
     extStart = (const GLubyte *)"";
   extEnd = extStart + _glewStrLen(extStart);
+
+  while (extStart < extEnd)
+  {
+    GLuint len = _glewStrCLen(extStart, ' ');
+    struct initflag *ptr = in_word_set(extStart, len);
+
+    if (ptr != NULL && ptr->flag != NULL) {
+#ifdef GLEW_MX
+      *(GLboolean *)((char *)ctx + (size_t)(ptr->flag)) = GL_TRUE;
+#else
+      *ptr->flag = GL_TRUE;
+#endif
+    }
+    extStart += len + 1;
+  }
+
   /* initialize extensions */

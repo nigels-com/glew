@@ -29,6 +29,8 @@ GLenum GLEWAPIENTRY wglewInit (WGLEW_CONTEXT_ARG_DEF_LIST)
   GLboolean crippled;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  GLint context_profile = 0, context_flags = 0;
+
   /* find wgl extension string query functions */
   _wglewGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringARB");
   _wglewGetExtensionsStringEXT = (PFNWGLGETEXTENSIONSSTRINGEXTPROC)glewGetProcAddress((const GLubyte*)"wglGetExtensionsStringEXT");
@@ -41,5 +43,21 @@ GLenum GLEWAPIENTRY wglewInit (WGLEW_CONTEXT_ARG_DEF_LIST)
   else
     extStart = (const GLubyte*)_wglewGetExtensionsStringARB(wglGetCurrentDC());
   extEnd = extStart + _glewStrLen(extStart);
+
+  while (extStart < extEnd)
+  {
+    GLuint len = _glewStrCLen(extStart, ' ');
+    struct initflag *ptr = in_word_set(extStart, len);
+
+    if (ptr != NULL && ptr->flag != NULL) {
+#ifdef GLEW_MX
+      *(GLboolean *)((char *)ctx + (size_t)(ptr->flag)) = GL_TRUE;
+#else
+      *ptr->flag = GL_TRUE;
+#endif
+    }
+    extStart += len + 1;
+  }
+
   /* initialize extensions */
   crippled = _wglewGetExtensionsStringARB == NULL && _wglewGetExtensionsStringEXT == NULL;

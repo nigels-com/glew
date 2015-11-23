@@ -44,11 +44,6 @@ if (@ARGV)
 
 		print "#ifdef $extname\n";
 
-		if (length($extstring))
-		{
-				print "  " . $extvar . " = _glewSearchExtension(\"$extstring\", extStart, extEnd);\n";
-		}
-
 		if (keys %$functions)
 		{
 			if ($extname =~ /WGL_.*/)

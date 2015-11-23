@@ -9,7 +9,7 @@
 my %regex = (
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
     exturl   => qr/^http.+$/,
-    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i, 
+    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)\s*(~.*)?$/i, 
     token    => qr/^([A-Z][A-Z0-9_x]*)\s+((?:0x)?[0-9A-Fa-f]+|[A-Z][A-Z0-9_]*)$/,
     type     => qr/^typedef\s+(.+)$/,
     exact    => qr/.*;$/,
@@ -119,10 +119,11 @@ sub parse_ext($)
             }
             elsif (/$regex{function}/)
             {
-                my ($return, $name, $parms) = ($1, $2, $3);
+                my ($return, $name, $parms, $deleted) = ($1, $2, $3, $4);
                 $functions{$name} = {
 		    rtype => $return,
 		    parms => $parms,
+		    deleted => $deleted,
 		};
             } else {
                 print STDERR "'$_' matched no regex.\n";

@@ -307,8 +307,10 @@ sub parse_spec($)
 
 my @speclist = ();
 my %extensions = ();
+my %fcn_in_core = ();
 
 my $ext_dir = shift;
+my $core_dir = shift;
 my $reg_http = "http://www.opengl.org/registry/specs/";
 
 # Take command line arguments or read list from file
@@ -318,6 +320,24 @@ if (@ARGV)
 } else {
     local $/; #???
     @speclist = split "\n", (<>);
+}
+
+# Get functions moved to the GL core
+my %core_fnc = ();
+foreach my $spec (<$core_dir/GL_VERSION_*>)
+{
+    my $vsn = $spec;
+    $vsn =~ s/.*\/GL_VERSION_(\d+)_(\d+)/$1.$2/;
+
+    open SPEC, "<$spec";
+    while (<SPEC>)
+    {
+	if ($_ =~ qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)\s*(~.*)?$/i )
+	{
+	    $core_fnc{$2} = $vsn;
+	}
+    }
+    close SPEC;
 }
 
 foreach my $spec (sort @speclist)
@@ -370,7 +390,13 @@ foreach my $spec (sort @speclist)
         {
             if ($function =~ /^$prefix.*/i)
             {
-                print EXT "\t" . ${$functions}{$function}{rtype} . " " . $function . " (" . ${$functions}{$function}{parms} . ")" . "\n";
+		my $deleter = "";
+
+		if ($core_fnc{$function})
+		{
+		    $deleter = " ~ " . $core_fnc{$function};
+		}
+                print EXT "\t" . ${$functions}{$function}{rtype} . " " . $function . " (" . ${$functions}{$function}{parms} . ")" . $deleter . "\n";
             }
         }
         close EXT;

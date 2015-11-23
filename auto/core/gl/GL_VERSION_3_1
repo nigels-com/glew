@@ -37,5 +37,13 @@ https://www.opengl.org/registry/doc/glspec31.20090528.pdf
 	GL_BUFFER_MAP_OFFSET 0x9121
 	void glDrawArraysInstanced (GLenum mode, GLint first, GLsizei count, GLsizei primcount)
 	void glDrawElementsInstanced (GLenum mode, GLsizei count, GLenum type, const void* indices, GLsizei primcount)
+	void glCopyBufferSubData (GLenum readtarget, GLenum writetarget, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size)
 	void glTexBuffer (GLenum target, GLenum internalFormat, GLuint buffer)
 	void glPrimitiveRestartIndex (GLuint buffer)
+	GLuint glGetUniformBlockIndex (GLuint program, const GLchar* uniformBlockName)
+	void glGetActiveUniformBlockName (GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformBlockName)
+	void glGetActiveUniformBlockiv (GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint *params)
+	void glGetUniformIndices (GLuint program, GLsizei uniformCount, const GLchar* const * uniformNames, GLuint* uniformIndices)
+	void glGetActiveUniformName (GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformName)
+	void glGetActiveUniformsiv (GLuint program, GLsizei uniformCount, const GLuint* uniformIndices, GLenum pname, GLint* params)
+	void glUniformBlockBinding (GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding)
