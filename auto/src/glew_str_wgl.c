@@ -4,7 +4,7 @@
   return ret;
 }
 
-#if defined(_WIN32) && !defined(GLEW_OSMESA)
+#if defined(_WIN32) && !defined(GLEW_EGL) && !defined(GLEW_OSMESA)
 
 GLboolean GLEWAPIENTRY wglewIsSupported (const char* name)
 {
