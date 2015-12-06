@@ -7,9 +7,10 @@
 int main (int argc, char** argv)
 {
   GLuint err;
-  struct createParams params = 
+  struct createParams params =
   {
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #elif defined(_WIN32)
     -1,  /* pixelformat */
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
@@ -25,17 +26,18 @@ int main (int argc, char** argv)
   if (glewParseArgs(argc-1, argv+1, &params))
   {
     fprintf(stderr, "Usage: glewinfo "
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #elif defined(_WIN32)
-	    "[-pf <pixelformat>] "
+      "[-pf <pixelformat>] "
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-	    "[-display <display>] "
-	    "[-visual <visual id>] "
+      "[-display <display>] "
+      "[-visual <visual id>] "
 #endif
-	    "[-version <OpenGL version>] "
-	    "[-profile core|compatibility] "
-	    "[-flag debug|forward]"
-	    "\n");
+      "[-version <OpenGL version>] "
+      "[-profile core|compatibility] "
+      "[-flag debug|forward]"
+      "\n");
     return 1;
   }
 
@@ -68,18 +70,20 @@ int main (int argc, char** argv)
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #elif defined(_WIN32)
   fprintf(f, "Reporting capabilities of pixelformat %d\n", params.pixelformat);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
-  fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n", 
+  fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n",
     params.display == NULL ? getenv("DISPLAY") : params.display, params.visual);
 #endif
-  fprintf(f, "Running on a %s from %s\n", 
-	  glGetString(GL_RENDERER), glGetString(GL_VENDOR));
+  fprintf(f, "Running on a %s from %s\n",
+    glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
   glewInfo();
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #elif defined(_WIN32)
   wglewInfo();
 #else
@@ -118,7 +122,8 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       else return GL_TRUE;
       ++p;
     }
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #elif defined(_WIN32)
     else if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
     {
@@ -145,7 +150,44 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
 
 /* ------------------------------------------------------------------------ */
 
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+EGLDisplay  display;
+EGLContext  ctx;
+
+/* See: http://stackoverflow.com/questions/12662227/opengl-es2-0-offscreen-context-for-fbo-rendering */
+
+GLboolean glewCreateContext (struct createParams *params)
+{
+  EGLSurface  surface;
+  EGLint majorVersion, minorVersion;
+  const EGLint attr[] = {
+      EGL_BUFFER_SIZE, 32,
+      EGL_COLOR_BUFFER_TYPE, EGL_RGB_BUFFER,
+      EGL_CONFORMANT, EGL_OPENGL_BIT,
+      EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
+      EGL_NONE
+   };
+  EGLConfig config;
+  EGLint numConfig;
+  display = eglGetDisplay((EGLNativeDisplayType) 0);
+  if (!eglInitialize(display, &majorVersion, &minorVersion))
+      return GL_TRUE;
+  eglBindAPI(EGL_OPENGL_API);
+  if (!eglChooseConfig(display, attr, &config, 1, &numConfig) || (numConfig != 1))
+      return GL_TRUE;
+  surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
+  ctx = eglCreateContext(display, config, NULL, NULL);
+  if (NULL == ctx) return GL_TRUE;
+  eglMakeCurrent(display, surface, surface, ctx);
+  return GL_FALSE;
+}
+
+void glewDestroyContext ()
+{
+  if (NULL != ctx) eglDestroyContext(display, ctx);
+}
+
+#elif defined(GLEW_OSMESA)
 OSMesaContext ctx;
 
 static const GLint osmFormat = GL_UNSIGNED_BYTE;
@@ -190,7 +232,7 @@ GLboolean glewCreateContext (struct createParams* params)
   wc.lpszClassName = "GLEW";
   if (0 == RegisterClass(&wc)) return GL_TRUE;
   /* create window */
-  wnd = CreateWindow("GLEW", "GLEW", 0, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 
+  wnd = CreateWindow("GLEW", "GLEW", 0, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
                      CW_USEDEFAULT, NULL, NULL, GetModuleHandle(NULL), NULL);
   if (NULL == wnd) return GL_TRUE;
   /* get the device context */
@@ -378,8 +420,8 @@ GLboolean glewCreateContext (struct createParams *params)
   cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
   swa.border_pixel = 0;
   swa.colormap = cmap;
-  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 
-                      0, 0, 1, 1, 0, vi->depth, InputOutput, vi->visual, 
+  wnd = XCreateWindow(dpy, RootWindow(dpy, vi->screen),
+                      0, 0, 1, 1, 0, vi->depth, InputOutput, vi->visual,
                       CWBorderPixel | CWColormap, &swa);
   /* make context current */
   if (!glXMakeCurrent(dpy, wnd, ctx)) return GL_TRUE;

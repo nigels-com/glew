@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_OSMESA)
 #  define GLAPI extern
 #  include <GL/osmesa.h>
 #elif defined(_WIN32)
@@ -13,7 +14,9 @@
 #include <stdlib.h>  /* For bsearch */
 #include <string.h>  /* For memset */
 
-#if defined(GLEW_REGAL)
+#if defined(GLEW_EGL)
+extern void * eglGetProcAddress (const char *procname);
+#elif defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
@@ -113,7 +116,9 @@ void* NSGLGetProcAddress (const GLubyte *name)
 /*
  * Define glewGetProcAddress.
  */
-#if defined(GLEW_REGAL)
+#if defined(GLEW_EGL)
+#  define glewGetProcAddress(name) eglGetProcAddress((const char *)name)
+#elif defined(GLEW_REGAL)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
