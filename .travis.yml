@@ -1,7 +1,6 @@
 language: cpp
-#sudo: false
+sudo: false
 install:
-- sudo apt-get install git cmake dos2unix libosmesa-dev
 script:
 - make -C auto clobber
 - make extensions
@@ -11,6 +10,12 @@ script:
 - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                ; make; popd
 - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 .; make; popd
 addons:
+  apt:
+    packages:
+    - git
+    - cmake
+    - dos2unix
+    - libosmesa6-dev
   artifacts:
     bucket: glew
     s3_region: "us-east-1"
