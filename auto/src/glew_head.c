@@ -15,7 +15,7 @@
 #include <string.h>  /* For memset */
 
 #if defined(GLEW_EGL)
-extern void * eglGetProcAddress (const char *procname);
+extern void (*eglGetProcAddress (const char *procname))();
 #elif defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
