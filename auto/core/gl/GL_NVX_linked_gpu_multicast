@@ -1,0 +1,9 @@
+GL_NVX_linked_gpu_multicast
+http://developer.download.nvidia.com/opengl/specs/GL_NVX_linked_gpu_multicast.txt
+GL_NVX_linked_gpu_multicast
+
+    LGPU_SEPARATE_STORAGE_BIT_NVX 0x0800
+    GL_MAX_LGPU_GPUS_NVX 0x92BA
+    void glLGPUCopyImageSubDataNVX (GLuint sourceGpu, GLbitfield destinationGpuMask, GLuint srcName, GLuint srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLuint dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth)
+    void glLGPUNamedBufferSubDataNVX (GLbitfield gpuMask, GLuint buffer, GLintptr offset, GLsizeiptr size, const GLvoid *data)
+    void glLGPUInterlockNVX (void)
