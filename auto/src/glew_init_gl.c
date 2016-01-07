@@ -4,7 +4,7 @@ static int _glewExtensionCompare(const void *a, const void *b)
 {
   /* http://www.chanduthedev.com/2012/07/strcmp-implementation-in-c.html */
   const char *s1 = (const char *) a;
-  const char *s2 = (const char *) b;
+  const char *s2 = *(const char * const *) b;
   while (*s1 || *s2)
   {
       if (*s1 > *s2)
