@@ -2,7 +2,19 @@
 
 static int _glewExtensionCompare(const void *a, const void *b)
 {
-   return strcmp((const char *) a, *(const char * const *) b);
+  /* http://www.chanduthedev.com/2012/07/strcmp-implementation-in-c.html */
+  const char *s1 = (const char *) a;
+  const char *s2 = (const char *) b;
+  while (*s1 || *s2)
+  {
+      if (*s1 > *s2)
+          return 1;
+      if (*s1 < *s2)
+          return -1;
+      s1++;
+      s2++;
+  }
+  return 0;
 }
 
 static GLboolean *_glewGetExtensionString(const char *name)
