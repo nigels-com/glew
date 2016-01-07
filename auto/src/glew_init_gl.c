@@ -8,7 +8,7 @@ static int _glewExtensionCompare(const void *a, const void *b)
 static GLboolean *_glewGetExtensionString(const char *name)
 {
   const char **n = (const char **) bsearch(name, _glewExtensionLookup, sizeof(_glewExtensionLookup)/sizeof(char *)-1, sizeof(char *), _glewExtensionCompare);
-  int i;
+  ptrdiff_t i;
 
   if (n)
   {
@@ -22,7 +22,7 @@ static GLboolean *_glewGetExtensionString(const char *name)
 static GLboolean *_glewGetExtensionEnable(const char *name)
 {
   const char **n = (const char **) bsearch(name, _glewExtensionLookup, sizeof(_glewExtensionLookup)/sizeof(char *)-1, sizeof(char *), _glewExtensionCompare);
-  int i;
+  ptrdiff_t i;
 
   if (n)
   {
