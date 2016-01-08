@@ -212,6 +212,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_init_gl.c >> $@
 	$(BIN)/make_list.pl $(GL_CORE_SPEC) | grep -v '\"GL_VERSION' >> $@
 	$(BIN)/make_list.pl $(GL_EXT_SPEC) >> $@
+	$(BIN)/make_list2.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
 	echo -e "\n#if defined(_WIN32) && ! defined(GLEW_OSMESA)" >> $@
 	echo -e "\n#if !defined(GLEW_MX)" >> $@
