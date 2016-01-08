@@ -39,6 +39,8 @@ else ()
 endif ()
 
 find_package (OpenGL REQUIRED)
+find_package (X11)
+
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
@@ -65,6 +67,7 @@ if (GLEW_OSMESA)
   endif ()
   add_definitions (-DGLEW_OSMESA)
   set (GLEW_LIBRARIES ${OSMESA_LIB_NAME} ${OPENGL_LIBRARIES})
+  set (X11_LIBRARIES)
 endif ()
 
 #### GLEW ####
@@ -116,14 +119,14 @@ if (BUILD_UTILS)
     list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
   endif ()
   add_executable (glewinfo ${GLEWINFO_SRC_FILES})
-  target_link_libraries (glewinfo glew)
+  target_link_libraries (glewinfo glew ${X11_LIBRARIES})
 
   set (VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.c)
   if (WIN32)
     list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
   endif ()
   add_executable (visualinfo ${VISUALINFO_SRC_FILES})
-  target_link_libraries (visualinfo glew)
+  target_link_libraries (visualinfo glew ${X11_LIBRARIES}) 
 
   install ( TARGETS glewinfo visualinfo
             DESTINATION bin)
