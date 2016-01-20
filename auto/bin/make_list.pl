@@ -38,7 +38,7 @@ if (@ARGV)
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
 
 		my $extpre = $extname;
-		$extpre =~ s/^(W?)GL(X?).*$/\l$1gl\l$2ew/;
+		$extpre =~ s/^(W?E?)GL(X?).*$/\l$1gl\l$2ew/;
 
 		#my $pextvar = prefix_varname($extvar);
 
