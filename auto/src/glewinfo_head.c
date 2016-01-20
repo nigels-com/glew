@@ -27,8 +27,8 @@ static FILE* f;
 
 struct createParams
 {
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
   int         pixelformat;
 #elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)

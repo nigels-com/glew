@@ -9,8 +9,8 @@ int main (int argc, char** argv)
   GLuint err;
   struct createParams params =
   {
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
     -1,  /* pixelformat */
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
@@ -26,8 +26,8 @@ int main (int argc, char** argv)
   if (glewParseArgs(argc-1, argv+1, &params))
   {
     fprintf(stderr, "Usage: glewinfo "
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
       "[-pf <pixelformat>] "
 #elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
@@ -70,8 +70,8 @@ int main (int argc, char** argv)
   fprintf(f, "    GLEW Extension Info\n");
   fprintf(f, "---------------------------\n\n");
   fprintf(f, "GLEW version %s\n", glewGetString(GLEW_VERSION));
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
   fprintf(f, "Reporting capabilities of pixelformat %d\n", params.pixelformat);
 #elif !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
@@ -82,8 +82,8 @@ int main (int argc, char** argv)
     glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
   glewInfo();
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
   wglewInfo();
 #else
@@ -122,8 +122,8 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
       else return GL_TRUE;
       ++p;
     }
-#if defined(GLEW_EGL)
-#elif defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
     else if (!strcmp(argv[p], "-pf") || !strcmp(argv[p], "-pixelformat"))
     {
