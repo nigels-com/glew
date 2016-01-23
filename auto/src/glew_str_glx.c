@@ -4,7 +4,7 @@
   return ret;
 }
 
-#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+#elif !defined(GLEW_OSMESA) && !defined(GLEW_EGL) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 
 GLboolean glxewIsSupported (const char* name)
 {

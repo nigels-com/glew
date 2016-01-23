@@ -3,7 +3,7 @@
 #include <string.h>
 #include <GL/glew.h>
 #if defined(GLEW_EGL)
-#include <EGL/egl.h>
+#include <GL/eglew.h>
 #elif defined(GLEW_OSMESA)
 #define GLAPI extern
 #include <GL/osmesa.h>
