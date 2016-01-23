@@ -118,6 +118,7 @@ $(EXT)/.dummy: $(REGISTRY)/.dummy
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
 	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+	$(BIN)/parse_xml.py registry/xml/egl.xml --core core/gl --extensions extensions/gl
 	$(BIN)/$(FILTER)     $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
