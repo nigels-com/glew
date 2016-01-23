@@ -66,6 +66,8 @@ typedef khronos_utime_nanoseconds_t EGLuint64NV;
 
 struct EGLClientPixmapHI;
 
+#define EGL_DEFAULT_DISPLAY               ((EGLNativeDisplayType)0)
+
 EGLAPI __eglMustCastToProperFunctionPointerType EGLAPIENTRY eglGetProcAddress (const char *procname);
 
 #ifdef __cplusplus
