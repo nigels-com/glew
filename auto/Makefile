@@ -280,6 +280,8 @@ $(S.DEST)/glewinfo.c: $(EXT)/.dummy
 	$(BIN)/make_info.pl $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_info.pl $(GL_EXT_SPEC) >> $@
 	echo -e "#if defined(GLEW_EGL)\n" >> $@
+	$(BIN)/make_info.pl $(EGL_CORE_SPEC) >> $@
+	$(BIN)/make_info.pl $(EGL_EXT_SPEC) >> $@
 	echo -e "#elif _WIN32\n" >> $@
 	$(BIN)/make_info.pl $(WGL_EXT_SPEC) >> $@
 	echo -e "#else /* _UNIX */\n" >> $@
