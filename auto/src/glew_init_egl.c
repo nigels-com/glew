@@ -18,11 +18,19 @@ GLenum eglewInit ()
   const GLubyte* version;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  PFNEGLGETDISPLAYPROC getDisplay = NULL;
+  PFNEGLQUERYSTRINGPROC queryString = NULL;
+
+  /* Load necessary entry points */
+  getDisplay = (PFNEGLGETDISPLAYPROC) glewGetProcAddress("eglGetDisplay");
+  queryString = (PFNEGLQUERYSTRINGPROC) glewGetProcAddress("eglQueryString");
+  if (!getDisplay || !queryString)
+    return 1;
 
   /* query EGK version */
   major = 0;
   minor = 0;
-  version = (const GLubyte*) eglQueryString(eglGetDisplay(EGL_DEFAULT_DISPLAY), EGL_VERSION);
+  version = (const GLubyte*) queryString(getDisplay(EGL_DEFAULT_DISPLAY), EGL_VERSION);
   dot = _glewStrCLen(version, '.');
   if (dot != 0)
   {
@@ -38,7 +46,7 @@ GLenum eglewInit ()
   EGLEW_VERSION_1_0   = EGLEW_VERSION_1_1 == GL_TRUE || ( major == 1 && minor >= 0 ) ? GL_TRUE : GL_FALSE;
 
   /* query EGL extension string */
-  extStart = (const GLubyte*) eglQueryString(eglGetDisplay(EGL_DEFAULT_DISPLAY), EGL_EXTENSIONS);
+  extStart = (const GLubyte*) queryString(getDisplay(EGL_DEFAULT_DISPLAY), EGL_EXTENSIONS);
   if (extStart == 0)
     extStart = (const GLubyte *)"";
   extEnd = extStart + _glewStrLen(extStart);
