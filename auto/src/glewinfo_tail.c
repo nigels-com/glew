@@ -84,6 +84,7 @@ int main (int argc, char** argv)
   glewInfo();
 #if defined(GLEW_OSMESA)
 #elif defined(GLEW_EGL)
+  eglewInfo();
 #elif defined(_WIN32)
   wglewInfo();
 #else
@@ -135,7 +136,7 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
     {
       if (++p >= argc) return GL_TRUE;
       params->display = argv[p++];
-    }
+     }
     else if (!strcmp(argv[p], "-visual"))
     {
       if (++p >= argc) return GL_TRUE;
@@ -169,16 +170,36 @@ GLboolean glewCreateContext (struct createParams *params)
    };
   EGLConfig config;
   EGLint numConfig;
-  display = eglGetDisplay((EGLNativeDisplayType) 0);
-  if (!eglInitialize(display, &majorVersion, &minorVersion))
+
+  PFNEGLGETDISPLAYPROC          getDisplay = NULL;
+  PFNEGLINITIALIZEPROC          initialize = NULL;
+  PFNEGLBINDAPIPROC             bindAPI    = NULL;
+  PFNEGLCHOOSECONFIGPROC        chooseConfig = NULL;
+  PFNEGLCREATEWINDOWSURFACEPROC createWindowSurface = NULL;
+  PFNEGLCREATECONTEXTPROC       createContext = NULL;
+  PFNEGLMAKECURRENTPROC         makeCurrent = NULL;
+
+  /* Load necessary entry points */
+  getDisplay          = (PFNEGLGETDISPLAYPROC)          eglGetProcAddress("eglGetDisplay");
+  initialize          = (PFNEGLINITIALIZEPROC)          eglGetProcAddress("eglInitialize");
+  bindAPI             = (PFNEGLBINDAPIPROC)             eglGetProcAddress("eglBindAPI");
+  chooseConfig        = (PFNEGLCHOOSECONFIGPROC)        eglGetProcAddress("eglChooseConfig");
+  createWindowSurface = (PFNEGLCREATEWINDOWSURFACEPROC) eglGetProcAddress("eglCreateWindowSurface");
+  createContext       = (PFNEGLCREATECONTEXTPROC)       eglGetProcAddress("eglCreateContext");
+  makeCurrent         = (PFNEGLMAKECURRENTPROC)         eglGetProcAddress("eglMakeCurrent");
+  if (!getDisplay || !initialize || !bindAPI || !chooseConfig || !createWindowSurface || !createContext || !makeCurrent)
+    return GL_TRUE;
+
+  display = getDisplay((EGLNativeDisplayType) 0);
+  if (!initialize(display, &majorVersion, &minorVersion))
       return GL_TRUE;
-  eglBindAPI(EGL_OPENGL_API);
-  if (!eglChooseConfig(display, attr, &config, 1, &numConfig) || (numConfig != 1))
+  bindAPI(EGL_OPENGL_API);
+  if (!chooseConfig(display, attr, &config, 1, &numConfig) || (numConfig != 1))
       return GL_TRUE;
-  surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
-  ctx = eglCreateContext(display, config, NULL, NULL);
+  surface = createWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
+  ctx = createContext(display, config, NULL, NULL);
   if (NULL == ctx) return GL_TRUE;
-  eglMakeCurrent(display, surface, surface, ctx);
+  makeCurrent(display, surface, surface, ctx);
   return GL_FALSE;
 }
 
