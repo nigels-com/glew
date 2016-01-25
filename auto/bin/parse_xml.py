@@ -93,7 +93,10 @@ def writeExtension(f, name, extension, enums, commands):
         f.write('\t%s %s\n'%(e[0], e[1]))
     commands = [ (j, commands[j]) for j in extension[1] ]
     for c in sorted(commands):
-        f.write('\t%s %s (%s)\n'%(c[1][0], c[0], ', '.join( [ '%s %s'%(j[0], j[1]) for j in c[1][1] ] )))
+        params = ', '.join( [ '%s %s'%(j[0], j[1]) for j in c[1][1] ] )
+        if len(params)==0:
+            params = ' void '
+        f.write('\t%s %s (%s)\n'%(c[1][0], c[0], params))
 
 if __name__ == '__main__':
 
