@@ -35,10 +35,14 @@ GLboolean glewExperimental = GL_FALSE;
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
+#if defined(GLEW_EGL)
+  PFNEGLGETCURRENTDISPLAYPROC getCurrentDisplay = NULL;
+#endif
   r = glewContextInit();
   if ( r != 0 ) return r;
 #if defined(GLEW_EGL)
-  return eglewInit();
+  getCurrentDisplay = (PFNEGLGETCURRENTDISPLAYPROC) glewGetProcAddress("eglGetCurrentDisplay");
+  return eglewInit(getCurrentDisplay());
 #elif defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
   return r;
 #elif defined(_WIN32)

@@ -1,7 +1,7 @@
-/* ------------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------------ */
 
 GLboolean eglewGetExtension (const char* name)
-{    
+{
   const GLubyte* start;
   const GLubyte* end;
 
@@ -11,34 +11,25 @@ GLboolean eglewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
-GLenum eglewInit ()
+GLenum eglewInit (EGLDisplay display)
 {
-  GLuint dot;
-  GLint major, minor;
-  const GLubyte* version;
+  EGLint major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
-  PFNEGLGETDISPLAYPROC getDisplay = NULL;
+  PFNEGLINITIALIZEPROC initialize = NULL;
   PFNEGLQUERYSTRINGPROC queryString = NULL;
 
   /* Load necessary entry points */
-  getDisplay = (PFNEGLGETDISPLAYPROC) glewGetProcAddress("eglGetDisplay");
+  initialize = (PFNEGLINITIALIZEPROC)   glewGetProcAddress("eglInitialize");
   queryString = (PFNEGLQUERYSTRINGPROC) glewGetProcAddress("eglQueryString");
-  if (!getDisplay || !queryString)
+  if (!initialize || !queryString)
     return 1;
 
   /* query EGK version */
-  major = 0;
-  minor = 0;
-  version = (const GLubyte*) queryString(getDisplay(EGL_DEFAULT_DISPLAY), EGL_VERSION);
-  dot = _glewStrCLen(version, '.');
-  if (dot != 0)
-  {
-    major = version[dot-1]-'0';
-    minor = version[dot+1]-'0';
-  }
+  if (initialize(display, &major, &minor) != EGL_TRUE)
+    return 1;
 
-  EGLEW_VERSION_1_5   = ( major > 1 )              || ( major == 1 && minor >= 5 ) ? GL_TRUE : GL_FALSE;
+  EGLEW_VERSION_1_5   = ( major > 1 )                || ( major == 1 && minor >= 5 ) ? GL_TRUE : GL_FALSE;
   EGLEW_VERSION_1_4   = EGLEW_VERSION_1_5 == GL_TRUE || ( major == 1 && minor >= 4 ) ? GL_TRUE : GL_FALSE;
   EGLEW_VERSION_1_3   = EGLEW_VERSION_1_4 == GL_TRUE || ( major == 1 && minor >= 3 ) ? GL_TRUE : GL_FALSE;
   EGLEW_VERSION_1_2   = EGLEW_VERSION_1_3 == GL_TRUE || ( major == 1 && minor >= 2 ) ? GL_TRUE : GL_FALSE;
@@ -46,7 +37,7 @@ GLenum eglewInit ()
   EGLEW_VERSION_1_0   = EGLEW_VERSION_1_1 == GL_TRUE || ( major == 1 && minor >= 0 ) ? GL_TRUE : GL_FALSE;
 
   /* query EGL extension string */
-  extStart = (const GLubyte*) queryString(getDisplay(EGL_DEFAULT_DISPLAY), EGL_EXTENSIONS);
+  extStart = (const GLubyte*) queryString(display, EGL_EXTENSIONS);
   if (extStart == 0)
     extStart = (const GLubyte *)"";
   extEnd = extStart + _glewStrLen(extStart);
