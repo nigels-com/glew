@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------ */
 
-GLEWAPI GLenum GLEWAPIENTRY eglewInit ();
+GLEWAPI GLenum GLEWAPIENTRY eglewInit (EGLDisplay display);
 GLEWAPI GLboolean GLEWAPIENTRY eglewIsSupported (const char *name);
 
 #define EGLEW_GET_VAR(x) (*(const GLboolean*)&x)

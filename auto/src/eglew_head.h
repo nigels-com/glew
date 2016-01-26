@@ -27,6 +27,12 @@
 #include <KHR/khrplatform.h>
 #include <EGL/eglplatform.h>
 
+#include <GL/glew.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef int32_t EGLint;
 
 typedef unsigned int EGLBoolean;
@@ -79,8 +85,3 @@ struct EGLClientPixmapHI;
 #define EGL_DEFAULT_DISPLAY               ((EGLNativeDisplayType)0)
 
 EGLAPI __eglMustCastToProperFunctionPointerType EGLAPIENTRY eglGetProcAddress (const char *procname);
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
