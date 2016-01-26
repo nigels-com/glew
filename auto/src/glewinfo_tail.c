@@ -159,47 +159,110 @@ EGLContext  ctx;
 
 GLboolean glewCreateContext (struct createParams *params)
 {
+  EGLDeviceEXT devices[1];
+  EGLint numDevices;
   EGLSurface  surface;
   EGLint majorVersion, minorVersion;
-  const EGLint attr[] = {
-      EGL_BUFFER_SIZE, 32,
-      EGL_COLOR_BUFFER_TYPE, EGL_RGB_BUFFER,
-      EGL_CONFORMANT, EGL_OPENGL_BIT,
-      EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
-      EGL_NONE
+  static const EGLint configAttribs[] = {
+        EGL_RED_SIZE, 1,
+        EGL_GREEN_SIZE, 1,
+        EGL_BLUE_SIZE, 1,
+        EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
+        EGL_NONE
    };
+  static const EGLint contextAttribs[] = {
+    EGL_CONTEXT_CLIENT_VERSION, 2,
+    EGL_NONE
+  };
+  static const EGLint pBufferAttribs[] = {
+    EGL_WIDTH,  128,
+    EGL_HEIGHT, 128,
+    EGL_NONE
+  };
   EGLConfig config;
   EGLint numConfig;
+  EGLint error;
 
-  PFNEGLGETDISPLAYPROC          getDisplay = NULL;
-  PFNEGLINITIALIZEPROC          initialize = NULL;
-  PFNEGLBINDAPIPROC             bindAPI    = NULL;
-  PFNEGLCHOOSECONFIGPROC        chooseConfig = NULL;
-  PFNEGLCREATEWINDOWSURFACEPROC createWindowSurface = NULL;
-  PFNEGLCREATECONTEXTPROC       createContext = NULL;
-  PFNEGLMAKECURRENTPROC         makeCurrent = NULL;
+  PFNEGLQUERYDEVICESEXTPROC       queryDevices = NULL;
+  PFNEGLGETPLATFORMDISPLAYEXTPROC getPlatformDisplay = NULL;
+  PFNEGLGETERRORPROC              getError = NULL;
+  PFNEGLGETDISPLAYPROC            getDisplay = NULL;
+  PFNEGLINITIALIZEPROC            initialize = NULL;
+  PFNEGLBINDAPIPROC               bindAPI    = NULL;
+  PFNEGLCHOOSECONFIGPROC          chooseConfig = NULL;
+  PFNEGLCREATEWINDOWSURFACEPROC   createWindowSurface = NULL;
+  PFNEGLCREATECONTEXTPROC         createContext = NULL;
+  PFNEGLMAKECURRENTPROC           makeCurrent = NULL;
+  PFNEGLCREATEPBUFFERSURFACEPROC  createPbufferSurface = NULL;
 
   /* Load necessary entry points */
-  getDisplay          = (PFNEGLGETDISPLAYPROC)          eglGetProcAddress("eglGetDisplay");
-  initialize          = (PFNEGLINITIALIZEPROC)          eglGetProcAddress("eglInitialize");
-  bindAPI             = (PFNEGLBINDAPIPROC)             eglGetProcAddress("eglBindAPI");
-  chooseConfig        = (PFNEGLCHOOSECONFIGPROC)        eglGetProcAddress("eglChooseConfig");
-  createWindowSurface = (PFNEGLCREATEWINDOWSURFACEPROC) eglGetProcAddress("eglCreateWindowSurface");
-  createContext       = (PFNEGLCREATECONTEXTPROC)       eglGetProcAddress("eglCreateContext");
-  makeCurrent         = (PFNEGLMAKECURRENTPROC)         eglGetProcAddress("eglMakeCurrent");
-  if (!getDisplay || !initialize || !bindAPI || !chooseConfig || !createWindowSurface || !createContext || !makeCurrent)
+  queryDevices         = (PFNEGLQUERYDEVICESEXTPROC)       eglGetProcAddress("eglQueryDevicesEXT");
+  getPlatformDisplay   = (PFNEGLGETPLATFORMDISPLAYEXTPROC) eglGetProcAddress("eglGetPlatformDisplayEXT");
+  getError             = (PFNEGLGETERRORPROC)              eglGetProcAddress("eglGetError");
+  getDisplay           = (PFNEGLGETDISPLAYPROC)            eglGetProcAddress("eglGetDisplay");
+  initialize           = (PFNEGLINITIALIZEPROC)            eglGetProcAddress("eglInitialize");
+  bindAPI              = (PFNEGLBINDAPIPROC)               eglGetProcAddress("eglBindAPI");
+  chooseConfig         = (PFNEGLCHOOSECONFIGPROC)          eglGetProcAddress("eglChooseConfig");
+  createWindowSurface  = (PFNEGLCREATEWINDOWSURFACEPROC)   eglGetProcAddress("eglCreateWindowSurface");
+  createPbufferSurface = (PFNEGLCREATEPBUFFERSURFACEPROC)  eglGetProcAddress("eglCreatePbufferSurface");
+  createContext        = (PFNEGLCREATECONTEXTPROC)         eglGetProcAddress("eglCreateContext");
+  makeCurrent          = (PFNEGLMAKECURRENTPROC)           eglGetProcAddress("eglMakeCurrent");
+  if (!getError || !getDisplay || !initialize || !bindAPI || !chooseConfig || !createWindowSurface || !createContext || !makeCurrent)
     return GL_TRUE;
 
-  display = getDisplay((EGLNativeDisplayType) 0);
-  if (!initialize(display, &majorVersion, &minorVersion))
-      return GL_TRUE;
-  bindAPI(EGL_OPENGL_API);
-  if (!chooseConfig(display, attr, &config, 1, &numConfig) || (numConfig != 1))
-      return GL_TRUE;
-  surface = createWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
-  ctx = createContext(display, config, NULL, NULL);
-  if (NULL == ctx) return GL_TRUE;
-  makeCurrent(display, surface, surface, ctx);
+  display = EGL_NO_DISPLAY;
+  if (queryDevices && getPlatformDisplay)
+  {
+    queryDevices(1, devices, &numDevices);
+    if (numDevices==1)
+    {
+      display = getPlatformDisplay(EGL_PLATFORM_DEVICE_EXT, devices[0], 0);
+    }
+  }
+  if (display==EGL_NO_DISPLAY)
+  {
+    display = getDisplay(EGL_DEFAULT_DISPLAY);
+  }
+  if (display == EGL_NO_DISPLAY)
+    return GL_TRUE;
+
+  eglewInit(display);
+
+  if (bindAPI(EGL_OPENGL_API) != EGL_TRUE)
+    return GL_TRUE;
+
+  if (chooseConfig(display, configAttribs, &config, 1, &numConfig) != EGL_TRUE || (numConfig != 1))
+    return GL_TRUE;
+
+  ctx = createContext(display, config, EGL_NO_CONTEXT, contextAttribs);
+  if (NULL == ctx)
+    return GL_TRUE;
+
+  surface = EGL_NO_SURFACE;
+  /* Create a p-buffer surface if possible */
+  if (createPbufferSurface)
+  {
+    surface = createPbufferSurface(display, config, pBufferAttribs);
+  }
+  /* Create a generic surface without a native window, if necessary */
+  if (surface==EGL_NO_SURFACE)
+  {
+    surface = createWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
+  }
+  if (surface == EGL_NO_SURFACE)
+    return GL_TRUE;
+
+  if (makeCurrent(display, surface, surface, ctx) != EGL_TRUE)
+    return GL_TRUE;
+
+  error = getError();
+  if (error!=EGL_SUCCESS)
+  {
+    printf("eglGetError: %d\n", error);
+    return GL_TRUE;
+  }
+
   return GL_FALSE;
 }
 
