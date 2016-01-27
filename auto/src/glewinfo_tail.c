@@ -23,6 +23,11 @@ int main (int argc, char** argv)
     0    /* flags */
   };
 
+#if defined(GLEW_EGL)
+  typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
+  PFNGLGETSTRINGPROC getString;
+#endif
+
   if (glewParseArgs(argc-1, argv+1, &params))
   {
     fprintf(stderr, "Usage: glewinfo "
@@ -55,6 +60,17 @@ int main (int argc, char** argv)
     glewDestroyContext();
     return 1;
   }
+
+#if defined(GLEW_EGL)
+  getString = (PFNGLGETSTRINGPROC) eglGetProcAddress("glGetString");
+  if (!getString)
+  {
+    fprintf(stderr, "Error: eglGetProcAddress failed to fetch glGetString\n");
+    glewDestroyContext();
+    return 1;
+  }
+#endif
+
 #if defined(_WIN32)
 #if defined(_MSC_VER) && (_MSC_VER >= 1400)
   if (fopen_s(&f, "glewinfo.txt", "w") != 0)
@@ -78,9 +94,15 @@ int main (int argc, char** argv)
   fprintf(f, "Reporting capabilities of display %s, visual 0x%x\n",
     params.display == NULL ? getenv("DISPLAY") : params.display, params.visual);
 #endif
+#if defined(GLEW_EGL)
+  fprintf(f, "Running on a %s from %s\n",
+    getString(GL_RENDERER), getString(GL_VENDOR));
+  fprintf(f, "OpenGL version %s is supported\n", getString(GL_VERSION));
+#else
   fprintf(f, "Running on a %s from %s\n",
     glGetString(GL_RENDERER), glGetString(GL_VENDOR));
   fprintf(f, "OpenGL version %s is supported\n", glGetString(GL_VERSION));
+#endif
   glewInfo();
 #if defined(GLEW_OSMESA)
 #elif defined(GLEW_EGL)

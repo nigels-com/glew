@@ -71,14 +71,22 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 
 /* ------------------------------------------------------------------------- */
 
+typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
+typedef void (GLAPIENTRY * PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
+
 static GLenum GLEWAPIENTRY glewContextInit ()
 {
+  PFNGLGETSTRINGPROC getString;
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
 
   /* query opengl version */
-  s = glGetString(GL_VERSION);
+  getString = (PFNGLGETSTRINGPROC)  glewGetProcAddress((const GLubyte*)"glGetString");
+  if (!getString)
+    return GLEW_ERROR_NO_GL_VERSION;
+
+  s = getString(GL_VERSION);
   dot = _glewStrCLen(s, '.');
   if (dot == 0)
     return GLEW_ERROR_NO_GL_VERSION;
@@ -123,11 +131,14 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   {
     GLint n = 0;
     GLint i;
+    PFNGLGETINTEGERVPROC getIntegerv;
     PFNGLGETSTRINGIPROC getStringi;
     const char *ext;
     GLboolean *enable;
 
-    glGetIntegerv(GL_NUM_EXTENSIONS, &n);
+    getIntegerv = (PFNGLGETINTEGERVPROC) glewGetProcAddress((const GLubyte*)"glGetIntegerv");
+    if (getIntegerv)
+      getIntegerv(GL_NUM_EXTENSIONS, &n);
 
     /* glGetStringi is OpenGL 3.0 */
     getStringi = (PFNGLGETSTRINGIPROC) glewGetProcAddress((const GLubyte*)"glGetStringi");
@@ -156,7 +167,7 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     char ext[128];
     GLboolean *enable;
 
-    extensions = (const char *) glGetString(GL_EXTENSIONS);
+    extensions = (const char *) getString(GL_EXTENSIONS);
 
     if (extensions)
     {
