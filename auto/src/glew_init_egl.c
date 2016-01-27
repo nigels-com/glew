@@ -5,7 +5,7 @@ GLboolean eglewGetExtension (const char* name)
   const GLubyte* start;
   const GLubyte* end;
 
-  start = (const GLubyte*) eglQueryString(eglGetDisplay(EGL_DEFAULT_DISPLAY), EGL_EXTENSIONS);
+  start = (const GLubyte*) eglQueryString(eglGetCurrentDisplay(), EGL_EXTENSIONS);
   if (0 == start) return GL_FALSE;
   end = start + _glewStrLen(start);
   return _glewSearchExtension(name, start, end);
