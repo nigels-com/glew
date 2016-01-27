@@ -185,11 +185,11 @@ GLboolean glewCreateContext (struct createParams *params)
   EGLint numDevices;
   EGLSurface  surface;
   EGLint majorVersion, minorVersion;
-  static const EGLint configAttribs[] = {
+  EGLint configAttribs[] = {
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
         EGL_RED_SIZE, 1,
         EGL_GREEN_SIZE, 1,
         EGL_BLUE_SIZE, 1,
-        EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
         EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
         EGL_NONE
    };
@@ -204,7 +204,7 @@ GLboolean glewCreateContext (struct createParams *params)
   };
   EGLConfig config;
   EGLint numConfig;
-  EGLint error;
+  EGLBoolean pBuffer;
 
   PFNEGLQUERYDEVICESEXTPROC       queryDevices = NULL;
   PFNEGLGETPLATFORMDISPLAYEXTPROC getPlatformDisplay = NULL;
@@ -233,17 +233,22 @@ GLboolean glewCreateContext (struct createParams *params)
   if (!getError || !getDisplay || !initialize || !bindAPI || !chooseConfig || !createWindowSurface || !createContext || !makeCurrent)
     return GL_TRUE;
 
+  pBuffer = 0;
   display = EGL_NO_DISPLAY;
   if (queryDevices && getPlatformDisplay)
   {
     queryDevices(1, devices, &numDevices);
     if (numDevices==1)
     {
+      /* Nvidia EGL doesn't need X11 for p-buffer surface */
       display = getPlatformDisplay(EGL_PLATFORM_DEVICE_EXT, devices[0], 0);
+      configAttribs[1] = EGL_PBUFFER_BIT;
+      pBuffer = 1;
     }
   }
   if (display==EGL_NO_DISPLAY)
   {
+    /* Fall-back to X11 surface, works on Mesa */
     display = getDisplay(EGL_DEFAULT_DISPLAY);
   }
   if (display == EGL_NO_DISPLAY)
@@ -257,13 +262,13 @@ GLboolean glewCreateContext (struct createParams *params)
   if (chooseConfig(display, configAttribs, &config, 1, &numConfig) != EGL_TRUE || (numConfig != 1))
     return GL_TRUE;
 
-  ctx = createContext(display, config, EGL_NO_CONTEXT, contextAttribs);
+  ctx = createContext(display, config, EGL_NO_CONTEXT, pBuffer ? contextAttribs : NULL);
   if (NULL == ctx)
     return GL_TRUE;
 
   surface = EGL_NO_SURFACE;
   /* Create a p-buffer surface if possible */
-  if (createPbufferSurface)
+  if (pBuffer && createPbufferSurface)
   {
     surface = createPbufferSurface(display, config, pBufferAttribs);
   }
@@ -272,18 +277,13 @@ GLboolean glewCreateContext (struct createParams *params)
   {
     surface = createWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
   }
+#if 0
   if (surface == EGL_NO_SURFACE)
     return GL_TRUE;
+#endif
 
   if (makeCurrent(display, surface, surface, ctx) != EGL_TRUE)
     return GL_TRUE;
-
-  error = getError();
-  if (error!=EGL_SUCCESS)
-  {
-    printf("eglGetError: %d\n", error);
-    return GL_TRUE;
-  }
 
   return GL_FALSE;
 }
