@@ -24,7 +24,8 @@ Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/f
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
-[glew-20160131.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160131.tgz/download) GLEW 2.0.0 release candidate: Core context support, MX discontinued
+[glew-20160131.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160131.tgz/download) 
+*GLEW 2.0.0 release candidate: Core context support, MX discontinued*
 
 [glew-20151117.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20151117.tgz/download)
 
