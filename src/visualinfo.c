@@ -37,6 +37,8 @@
 #if defined(GLEW_OSMESA)
 #define GLAPI extern
 #include <GL/osmesa.h>
+#elif defined(GLEW_EGL)
+#include <GL/eglew.h>
 #elif defined(_WIN32)
 #include <GL/wglew.h>
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -62,6 +64,8 @@ typedef struct GLContextStruct
 {
 #if defined(GLEW_OSMESA)
   OSMesaContext ctx;
+#elif defined(GLEW_EGL)
+  EGLContext ctx;
 #elif defined(_WIN32)
   HWND wnd;
   HDC dc;
@@ -186,6 +190,7 @@ main (int argc, char** argv)
   /* ---------------------------------------------------------------------- */
   /* extensions string */
 #if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
   /* WGL extensions */
   if (WGLEW_ARB_extensions_string || WGLEW_EXT_extensions_string)
@@ -264,7 +269,7 @@ void PrintExtensions (const char* s)
 
 /* ---------------------------------------------------------------------- */
 
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_OSMESA) || defined(GLEW_EGL)
 
 void
 VisualInfo (GLContext* ctx)
@@ -1048,6 +1053,27 @@ void DestroyContext (GLContext* ctx)
   if (NULL == ctx) return;
   if (NULL != ctx->ctx) OSMesaDestroyContext(ctx->ctx);
 }
+/* ------------------------------------------------------------------------ */
+
+#elif defined(GLEW_EGL)
+void InitContext (GLContext* ctx)
+{
+  ctx->ctx = NULL;
+}
+
+GLboolean CreateContext (GLContext* ctx)
+{
+  return GL_FALSE;
+}
+
+void DestroyContext (GLContext* ctx)
+{
+  if (NULL == ctx) return;
+  return;
+}
+
+/* ------------------------------------------------------------------------ */
+
 #elif defined(_WIN32)
 
 void InitContext (GLContext* ctx)
