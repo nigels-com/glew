@@ -73,7 +73,36 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel g
 
 ### Windows
 
+#### Visual Studio
+
 Use the provided Visual Studio project file in build/vc12/
+
+Projects for vc6 and vc10 are also provided
+
+#### MSYS/Mingw
+
+Available from [Mingw](http://www.mingw.org/)
+
+Requirements: bash, make, gcc
+
+	$ mingw32-make
+	$ mingw32-make install
+	$ mingw32-make install.all
+
+Alternative toolchain:  `SYSTEM=mingw-win32`
+
+#### MSYS2/Mingw-w64
+
+Available from [Msys2](http://msys2.github.io/) and/or [Mingw-w64](http://mingw-w64.org/)
+
+Requirements: bash, make, gcc
+
+	$ pacman -S gcc make  mingw-w64-i686-gcc mingw-w64-x86_64-gcc 
+	$ make
+	$ make install
+	$ make install.all
+
+Alternative toolchain:  `SYSTEM=msys, SYSTEM=msys-win32, SYSTEM=msys-win64`
 
 ## glewinfo
 

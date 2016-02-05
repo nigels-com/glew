@@ -3,6 +3,7 @@ NAME = glew32
 CC := gcc
 LD := gcc
 LN :=
+CFLAGS.EXTRA += -D_WIN32
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA =
 LIBDIR = $(GLEW_DEST)/bin
