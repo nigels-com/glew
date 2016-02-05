@@ -1,10 +1,8 @@
 /* ------------------------------------------------------------------------- */
 
-static int _glewExtensionCompare(const void *a, const void *b)
+static int _glewExtensionCompare(const char *s1, const char *s2)
 {
   /* http://www.chanduthedev.com/2012/07/strcmp-implementation-in-c.html */
-  const char *s1 = (const char *) a;
-  const char *s2 = *(const char * const *) b;
   while (*s1 || *s2)
   {
       if (*s1 > *s2)
@@ -17,31 +15,32 @@ static int _glewExtensionCompare(const void *a, const void *b)
   return 0;
 }
 
+static ptrdiff_t _glewBsearchExtension(const char* name)
+{
+  ptrdiff_t lo = 0, hi = sizeof(_glewExtensionLookup) / sizeof(char*) - 2;
+
+  while (lo <= hi)
+  {
+    ptrdiff_t mid = (lo + hi) / 2;
+    const int cmp = _glewExtensionCompare(name, _glewExtensionLookup[mid]);
+    if (cmp < 0) hi = mid - 1;
+    else if (cmp > 0) lo = mid + 1;
+    else return mid;
+  }
+  return -1;
+}
+
 static GLboolean *_glewGetExtensionString(const char *name)
 {
-  const char **n = (const char **) bsearch(name, _glewExtensionLookup, sizeof(_glewExtensionLookup)/sizeof(char *)-1, sizeof(char *), _glewExtensionCompare);
-  ptrdiff_t i;
-
-  if (n)
-  {
-      i = n-_glewExtensionLookup;
-      return _glewExtensionString+i;
-  }
-
+  ptrdiff_t n = _glewBsearchExtension(name);
+  if (n >= 0) return &_glewExtensionString[n];
   return NULL;
 }
 
 static GLboolean *_glewGetExtensionEnable(const char *name)
 {
-  const char **n = (const char **) bsearch(name, _glewExtensionLookup, sizeof(_glewExtensionLookup)/sizeof(char *)-1, sizeof(char *), _glewExtensionCompare);
-  ptrdiff_t i;
-
-  if (n)
-  {
-      i = n-_glewExtensionLookup;
-      return _glewExtensionEnabled[i];
-  }
-
+  ptrdiff_t n = _glewBsearchExtension(name);
+  if (n >= 0) return _glewExtensionEnabled[n];
   return NULL;
 }
 
@@ -117,7 +116,7 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     GLEW_VERSION_1_1   = GLEW_VERSION_1_2   == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
   }
 
-  memset(_glewExtensionString,0,sizeof(_glewExtensionString));
+  for (size_t i = 0; i < sizeof(_glewExtensionLookup) / sizeof(char*); ++i) _glewExtensionString[i] = GL_FALSE;
 
   if (GLEW_VERSION_3_0)
   {

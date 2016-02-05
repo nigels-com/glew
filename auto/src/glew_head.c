@@ -10,8 +10,6 @@
 #endif
 
 #include <stddef.h>  /* For size_t */
-#include <stdlib.h>  /* For bsearch */
-#include <string.h>  /* For memset */
 
 #if defined(GLEW_REGAL)
 
