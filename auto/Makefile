@@ -135,13 +135,9 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	cat $(SRC)/glew_head.h >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl GLAPIENTRY GL $(GL_EXT_SPEC) >> $@
-	echo -e "/* ------------------------------------------------------------------------- */\n\n#if defined(GLEW_MX) && defined(_WIN32)\n#define GLEW_FUN_EXPORT\n#else\n#define GLEW_FUN_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n" >> $@
-	echo -e "#if defined(GLEW_MX)\n#define GLEW_VAR_EXPORT\n#else\n#define GLEW_VAR_EXPORT GLEWAPI\n#endif /* GLEW_MX */\n" >> $@
-	echo -e "#if defined(GLEW_MX) && defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
+	echo -e "/* ------------------------------------------------------------------------- */\n\n" >> $@
 	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
-	echo -e "\n#if defined(GLEW_MX) && !defined(_WIN32)\nstruct GLEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
-	echo -e "\n#ifdef GLEW_MX\n}; /* GLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
 	cat $(SRC)/glew_tail.h >> $@
 	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
@@ -159,10 +155,8 @@ $(I.DEST)/wglew.h: $(EXT)/.dummy
 	cat $(SRC)/wglew_head.h >> $@
 	$(BIN)/make_header.pl WINAPI WGL $(WGL_EXT_SPEC) >> $@
 	cat $(SRC)/wglew_mid.h >> $@
-	echo -e "\n#ifdef GLEW_MX\nstruct WGLEWContextStruct\n{\n#endif /* GLEW_MX */" >> $@
 	$(BIN)/make_struct_fun.pl WGLEW_FUN_EXPORT $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_struct_var.pl WGLEW_VAR_EXPORT $(WGL_EXT_SPEC) >> $@
-	echo -e "\n#ifdef GLEW_MX\n}; /* WGLEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	cat $(SRC)/wglew_tail.h >> $@
 
 $(I.DEST)/glxew.h: $(EXT)/.dummy
@@ -177,9 +171,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	$(BIN)/make_header.pl "" GLX $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glxew_mid.h >> $@
 	$(BIN)/make_struct_fun.pl GLXEW_FUN_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
-	echo -e "\n#if defined(GLEW_MX)\nstruct GLXEWContextStruct\n{\n#endif /* GLEW_MX */\n" >> $@
 	$(BIN)/make_struct_var.pl GLXEW_VAR_EXPORT $(GLX_CORE_SPEC) $(GLX_EXT_SPEC) >> $@
-	echo -e "\n#ifdef GLEW_MX\n}; /* GLXEWContextStruct */\n#endif /* GLEW_MX */\n" >> $@
 	perl -e "s/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/GLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_0;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_1;\nGLXEW_VAR_EXPORT GLboolean __GLXEW_VERSION_1_2;/" -pi $@
 	cat $(SRC)/glxew_tail.h >> $@
 
@@ -189,21 +181,15 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	@echo "--------------------------------------------------------------------"
 	cp -f $(SRC)/glew_license.h $@
 	cat $(SRC)/glew_head.c >> $@
-	echo -e "\n#if !defined(_WIN32) || !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
-	echo -e "\n#endif /* !WIN32 || !GLEW_MX */" >> $@
-	echo -e "\n#if !defined(GLEW_MX)" >> $@;
 	echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
-	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	echo -e "\nstatic const char * _glewExtensionLookup[] = {" >> $@;
 	$(BIN)/make_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	echo -e "  NULL\n};\n" >> $@;
-	echo -e "\n#if !defined(GLEW_MX)" >> $@;
 	$(BIN)/make_enable_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
-	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_initd.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_initd.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "" >> $@;
@@ -215,10 +201,8 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_list2.pl $(GL_EXT_SPEC) >> $@
 	echo -e "\n  return GLEW_OK;\n}\n" >> $@
 	echo -e "\n#if defined(_WIN32) && ! defined(GLEW_OSMESA)" >> $@
-	echo -e "\n#if !defined(GLEW_MX)" >> $@
 	$(BIN)/make_def_fun.pl WGL $(WGL_EXT_SPEC) >> $@
 	$(BIN)/make_def_var.pl WGL $(WGL_EXT_SPEC) >> $@
-	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_init.pl WGL $(WGL_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_wgl.c >> $@
 	$(BIN)/make_list.pl $(WGL_EXT_SPEC) >> $@
@@ -226,12 +210,10 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	echo -e "\n#elif !defined(GLEW_OSMESA) && !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))" >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GLX $(GLX_EXT_SPEC) >> $@
-	echo -e "\n#if !defined(GLEW_MX)" >> $@;
 	echo -e "\nGLboolean __GLXEW_VERSION_1_0 = GL_FALSE;" >> $@
 	echo -e "GLboolean __GLXEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GLX $(GLX_EXT_SPEC) >> $@
-	echo -e "\n#endif /* !GLEW_MX */\n" >> $@;
 	$(BIN)/make_init.pl GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_init.pl GLX $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glew_init_glx.c >> $@
