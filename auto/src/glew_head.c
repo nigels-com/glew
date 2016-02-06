@@ -3,6 +3,8 @@
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
 #  include <GL/osmesa.h>
+#elif defined(GLEW_EGL)
+#  include <GL/eglew.h>
 #elif defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
@@ -11,7 +13,8 @@
 
 #include <stddef.h>  /* For size_t */
 
-#if defined(GLEW_REGAL)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
@@ -115,6 +118,8 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
+#elif defined(GLEW_EGL)
+#  define glewGetProcAddress(name) eglGetProcAddress((const char *)name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -145,6 +150,11 @@ void* NSGLGetProcAddress (const GLubyte *name)
 # undef GLXEW_GET_VAR
 # define GLXEW_GET_VAR(x) (x)
 #endif /* GLXEW_GET_VAR */
+
+#ifdef EGLEW_GET_VAR
+# undef EGLEW_GET_VAR
+# define EGLEW_GET_VAR(x) (x)
+#endif /* EGLEW_GET_VAR */
 
 /*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
