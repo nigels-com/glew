@@ -78,6 +78,10 @@ set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
 if (WIN32)
   list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
+  if ((CMAKE_C_COMPILER_ID MATCHES "GNU") OR (CMAKE_C_COMPILER_ID MATCHES "Clang"))
+    # GCC can't handle not having a DLL entry point, so give it a fake one
+    list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/src/gcc_dll_entry.c)
+  endif ()
 endif ()
 
 add_library (glew SHARED ${GLEW_SRC_FILES})
@@ -85,18 +89,21 @@ set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_N
 add_library (glew_s STATIC ${GLEW_SRC_FILES})
 set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
 if (MSVC)
-  # add options from visual studio project and remove stdlib dependency
+  # add options from visual studio project
   target_compile_definitions (glew PRIVATE "GLEW_BUILD;VC_EXTRALEAN")
   target_compile_definitions (glew_s PRIVATE "GLEW_STATIC;VC_EXTRALEAN")
+  target_link_libraries (glew PRIVATE -BASE:0x62AA0000)
   # kill security checks which are dependent on stdlib
   target_compile_options (glew PRIVATE -GS-)
   target_compile_options (glew_s PRIVATE -GS-)
-  target_link_libraries (glew PRIVATE -BASE:0x62AA0000 -nodefaultlib -noentry)
+  # remove stdlib dependency
+  target_link_libraries (glew PRIVATE -nodefaultlib -noentry)
 elseif (WIN32 AND ((CMAKE_C_COMPILER_ID MATCHES "GNU") OR (CMAKE_C_COMPILER_ID MATCHES "Clang")))
   # remove stdlib dependency on windows with GCC and Clang (for similar reasons
   # as to MSVC - to allow it to be used with any Windows compiler)
-  # not thoroughly tested yet!
-  target_link_libraries (glew PRIVATE -nostdlibs -lgcc)
+  target_compile_options (glew PRIVATE -fno-builtin -fno-stack-protector)
+  target_compile_options (glew_s PRIVATE -fno-builtin -fno-stack-protector)
+  target_link_libraries (glew PRIVATE -nostdlib)
 endif ()
 target_link_libraries (glew PUBLIC ${GLEW_LIBRARIES})
 target_link_libraries (glew_s ${GLEW_LIBRARIES})

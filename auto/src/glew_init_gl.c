@@ -124,7 +124,9 @@ static GLenum GLEWAPIENTRY glewContextInit ()
     GLEW_VERSION_1_1   = GLEW_VERSION_1_2   == GL_TRUE || ( major == 1 && minor >= 1 ) ? GL_TRUE : GL_FALSE;
   }
 
-  for (size_t i = 0; i < sizeof(_glewExtensionLookup) / sizeof(char*); ++i) _glewExtensionString[i] = GL_FALSE;
+  size_t n;
+  for (n = 0; n < sizeof(_glewExtensionString) / sizeof(_glewExtensionString[0]); ++n)
+    _glewExtensionString[n] = GL_FALSE;
 
   if (GLEW_VERSION_3_0)
   {
