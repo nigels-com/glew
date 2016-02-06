@@ -29,8 +29,13 @@ GLEWAPI GLenum GLEWAPIENTRY glewInit (void);
 GLEWAPI GLboolean GLEWAPIENTRY glewIsSupported (const char *name);
 #define glewIsExtensionSupported(x) glewIsSupported(x)
 
+#ifndef GLEW_GET_VAR
 #define GLEW_GET_VAR(x) (*(const GLboolean*)&x)
+#endif
+
+#ifndef GLEW_GET_FUN
 #define GLEW_GET_FUN(x) x
+#endif
 
 GLEWAPI GLboolean glewExperimental;
 GLEWAPI GLboolean GLEWAPIENTRY glewGetExtension (const char *name);
