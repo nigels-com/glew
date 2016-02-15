@@ -91,6 +91,7 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -116,6 +117,8 @@
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <NoEntryPoint>true</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +132,7 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;VC_EXTRALEAN;GLEW_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -153,6 +157,8 @@
       <AdditionalOptions> /ignore:4089</AdditionalOptions>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <NoEntryPoint>true</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -166,6 +172,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -204,6 +211,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(INCLUDE_DIR)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
