@@ -12,7 +12,3 @@ LIB.SONAME    = lib$(NAME).so.$(SO_MAJOR)
 LIB.DEVLNK    = lib$(NAME).so
 LIB.SHARED    = lib$(NAME).so.$(SO_VERSION)
 LIB.STATIC    = lib$(NAME).a
-LIB.SONAME.MX = lib$(NAME)mx.so.$(SO_MAJOR)
-LIB.DEVLNK.MX = lib$(NAME)mx.so
-LIB.SHARED.MX = lib$(NAME)mx.so.$(SO_VERSION)
-LIB.STATIC.MX = lib$(NAME)mx.a
