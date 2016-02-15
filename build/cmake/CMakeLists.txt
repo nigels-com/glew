@@ -78,10 +78,6 @@ set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
 if (WIN32)
   list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
-  if ((CMAKE_C_COMPILER_ID MATCHES "GNU") OR (CMAKE_C_COMPILER_ID MATCHES "Clang"))
-    # GCC can't handle not having a DLL entry point, so give it a fake one
-    list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/src/gcc_dll_entry.c)
-  endif ()
 endif ()
 
 add_library (glew SHARED ${GLEW_SRC_FILES})
