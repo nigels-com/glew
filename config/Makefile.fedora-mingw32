@@ -6,6 +6,6 @@
 
 include config/Makefile.linux-mingw32
 
-CC    := i686-pc-mingw32-gcc
-LD    := i686-pc-mingw32-ld
+CC    := i686-pc-mingw32-gcc -fno-builtin -fno-stack-protector
+LD    := i686-pc-mingw32-ld -nostdlib
 LDFLAGS.GL += -L/usr/i686-pc-mingw32/sys-root/mingw/lib

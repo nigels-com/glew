@@ -1,7 +1,7 @@
 NAME = glew32
 # use gcc for linking, with ld it does not work
-CC := gcc
-LD := gcc
+CC := gcc -fno-builtin -fno-stack-protector
+LD := gcc -nostdlib
 LN :=
 CFLAGS.EXTRA += -D_WIN32
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
