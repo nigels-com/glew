@@ -5,11 +5,13 @@
 #
 
 NAME  := glew32
-CC    := i686-w64-mingw32-gcc -fno-builtin -fno-stack-protector
-LD    := i686-w64-mingw32-ld -nostdlib
+CC    := i686-w64-mingw32-gcc
+LD    := i686-w64-mingw32-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
+CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
+LDFLAGS.EXTRA += -nostdlib
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX = .exe

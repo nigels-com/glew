@@ -2,15 +2,16 @@
 # http://www.mingw.org/
 #
 # $ make SYSTEM=linux-mingw64
-#
 
 NAME  := glew32
 HOST  := i686-w64-mingw32
-CC    := $(HOST)-gcc -fno-builtin -fno-stack-protector
-LD    := $(HOST)-ld -nostdlib
+CC    := $(HOST)-gcc
+LD    := $(HOST)-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
+CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
+LDFLAGS.EXTRA += -nostdlib
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX = .exe

@@ -1,11 +1,13 @@
 NAME = glew32
 # use gcc for linking, with ld it does not work
-CC := gcc -fno-builtin -fno-stack-protector
-LD := gcc -nostdlib
+CC := gcc
+LD := gcc
 LN :=
 CFLAGS.EXTRA += -D_WIN32
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
 LDFLAGS.EXTRA =
+CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
+LDFLAGS.EXTRA += -nostdlib
 LIBDIR = $(GLEW_DEST)/bin
 WARN = -Wall -W
 POPT = -O2
