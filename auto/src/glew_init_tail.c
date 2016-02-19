@@ -59,6 +59,9 @@ GLenum GLEWAPIENTRY glewInit (void)
 /* Types extracted from windows.h to avoid polluting the rest of the file. */
 int __stdcall DllMainCRTStartup(void* instance, unsigned reason, void* reserved)
 {
+  (void) instance;
+  (void) reason;
+  (void) reserved;
   return 1;
 }
 #endif
