@@ -6,6 +6,8 @@ project (glew)
 
 cmake_minimum_required (VERSION 2.8.7)
 
+include(GNUInstallDirs)
+
 if (COMMAND cmake_policy)
   cmake_policy (SET CMP0003 NEW)
 endif()
@@ -125,9 +127,9 @@ endif()
 
 install ( TARGETS ${targets_to_install}
           ${MAYBE_EXPORT}
-          RUNTIME DESTINATION bin
-          LIBRARY DESTINATION lib${LIB_SUFFIX}
-          ARCHIVE DESTINATION lib${LIB_SUFFIX}
+          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+          LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+          ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 if (BUILD_UTILS)
@@ -152,7 +154,7 @@ if (BUILD_UTILS)
   endif ()
 
   install ( TARGETS glewinfo visualinfo
-            DESTINATION bin)
+            DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif ()
 
 set (prefix ${CMAKE_INSTALL_PREFIX})
@@ -167,20 +169,20 @@ set (requireslib glu)
 configure_file (${GLEW_DIR}/glew.pc.in ${GLEW_DIR}/glew.pc @ONLY)
 
 install(FILES ${GLEW_DIR}/glew.pc 
-        DESTINATION lib/pkgconfig
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
 
 install (FILES
     ${GLEW_DIR}/include/GL/wglew.h
     ${GLEW_DIR}/include/GL/glew.h
     ${GLEW_DIR}/include/GL/glxew.h
-    DESTINATION include/GL)
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL)
 
 if(MAYBE_EXPORT)
-  install(EXPORT glew-targets DESTINATION lib/cmake/glew
+  install(EXPORT glew-targets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew
     NAMESPACE GLEW::)
   install(FILES
       ${CMAKE_CURRENT_SOURCE_DIR}/glew-config.cmake
       ${CMAKE_CURRENT_SOURCE_DIR}/CopyImportedTargetProperties.cmake
-    DESTINATION lib/cmake/glew)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew)
 endif()
