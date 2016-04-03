@@ -72,6 +72,24 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel g
 	$ cmake ./cmake 
 	$ make -j4
 
+| Target     | Description |
+| ---------- | ----------- |
+| glew       | Build the glew shared library. |
+| glew_s     | Build the glew static library. |
+| glewinfo   | Build the `glewinfo` executable (requires `BUILD_UTILS` to be `ON`). |
+| visualinfo | Build the `visualinfo` executable (requires `BUILD_UTILS` to be `ON`). |
+| install    | Install all enabled targts into `CMAKE_INSTALL_PREFIX`. |
+| clean      | Clean up build artifacts. |
+| all        | Build all enabled targets (default target). |
+
+| Variables       | Description |
+| --------------- | ----------- |
+| BUILD_UTILS     | Build the `glewinfo` and `visualinfo` executables. |
+| GLEW_REGAL      | Add the Regal project as dependency. |
+| GLEW_OSMESA     | Add the OSMesa project as dependency. |
+| BUILD_FRAMEWORK | Build glew as MacOSX Framework. When setting this you should set also `CMAKE_INSTALL_PREFIX` to a sensible install location like `/Library/Frameworks`. |
+
+
 ### Windows
 
 #### Visual Studio
