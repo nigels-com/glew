@@ -28,7 +28,7 @@ Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of 
 *GLEW 2.0.0 release candidate, Core context, EGL support, no MX*
 
 [glew-20160131.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160131.tgz/download) 
-*GLEW 2.0.0 release candidate: Core context support, MX discontinued*
+*GLEW 2.0.0 release candidate: Core context support, no MX*
 
 [glew-20151117.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20151117.tgz/download)
 
@@ -78,17 +78,16 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel g
 | glew_s     | Build the glew static library. |
 | glewinfo   | Build the `glewinfo` executable (requires `BUILD_UTILS` to be `ON`). |
 | visualinfo | Build the `visualinfo` executable (requires `BUILD_UTILS` to be `ON`). |
-| install    | Install all enabled targts into `CMAKE_INSTALL_PREFIX`. |
+| install    | Install all enabled targets into `CMAKE_INSTALL_PREFIX`. |
 | clean      | Clean up build artifacts. |
 | all        | Build all enabled targets (default target). |
 
 | Variables       | Description |
 | --------------- | ----------- |
 | BUILD_UTILS     | Build the `glewinfo` and `visualinfo` executables. |
-| GLEW_REGAL      | Add the Regal project as dependency. |
-| GLEW_OSMESA     | Add the OSMesa project as dependency. |
-| BUILD_FRAMEWORK | Build glew as MacOSX Framework. When setting this you should set also `CMAKE_INSTALL_PREFIX` to a sensible install location like `/Library/Frameworks`. |
-
+| GLEW_REGAL      | Build in Regal mode. |
+| GLEW_OSMESA     | Build in off-screen Mesa mode. |
+| BUILD_FRAMEWORK | Build as MacOSX Framework.  Setting `CMAKE_INSTALL_PREFIX` to `/Library/Frameworks` is recommended. |
 
 ### Windows
 
