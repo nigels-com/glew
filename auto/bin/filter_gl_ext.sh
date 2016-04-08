@@ -512,5 +512,12 @@ EOT
     grep -v "RasterSamplesEXT" $1/GL_NV_framebuffer_mixed_samples > tmp
     mv tmp $1/GL_NV_framebuffer_mixed_samples
 
+# Append GLVULKANPROCNV to GL_NV_draw_vulkan_image
+# Probably ought to be explicitly mentioned in the spec language
+
+    cat >> $1/GL_NV_draw_vulkan_image <<EOT
+    typedef void (APIENTRY *GLVULKANPROCNV)(void)
+EOT
+
 # clean up
     rm -f $1/*.bak

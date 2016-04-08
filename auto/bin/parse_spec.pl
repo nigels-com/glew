@@ -81,6 +81,8 @@ my %typemap = (
 
     DEBUGPROC => "GLDEBUGPROC",
 
+    VULKANPROCNV => "GLVULKANPROCNV",
+
     vdpauSurfaceNV => "GLvdpauSurfaceNV",
     
     # GLX 1.3 defines new types which might not be available at compile time
