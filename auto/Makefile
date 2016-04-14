@@ -144,7 +144,7 @@ $(I.DEST)/glew.h: $(EXT)/.dummy
 	echo -e "/* ------------------------------------------------------------------------- */\n\n" >> $@
 	$(BIN)/make_struct_fun.pl GLEW_FUN_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	$(BIN)/make_struct_var.pl GLEW_VAR_EXPORT $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
-	perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
+	#perl -e "s/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/GLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_1;\nGLEW_VAR_EXPORT GLboolean __GLEW_VERSION_1_2;/" -pi $@
 	cat $(SRC)/glew_tail.h >> $@
 	perl -e "s/GLEW_VERSION_STRING/$(GLEW_VERSION)/g" -pi $@
 	perl -e "s/GLEW_VERSION_MAJOR_STRING/$(GLEW_MAJOR)/g" -pi $@
@@ -204,7 +204,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_head.c >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
-	echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
+	#echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "\nstatic const char * _glewExtensionLookup[] = {" >> $@;

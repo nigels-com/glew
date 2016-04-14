@@ -38,6 +38,12 @@ GLenum GLEWAPIENTRY glewInit (void)
 #if defined(GLEW_EGL)
   PFNEGLGETCURRENTDISPLAYPROC getCurrentDisplay = NULL;
 #endif
+
+#ifdef GLX_ARB_get_proc_address
+  r = _glewInit_GLX_ARB_get_proc_address();
+  if ( r != 0 ) return r;
+#endif
+
   r = glewContextInit();
   if ( r != 0 ) return r;
 #if defined(GLEW_EGL)
