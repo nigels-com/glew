@@ -173,6 +173,7 @@ $(I.DEST)/glxew.h: $(EXT)/.dummy
 	cat $(SRC)/mesa_license.h >> $@
 	cat $(SRC)/khronos_license.h >> $@
 	cat $(SRC)/glxew_head.h >> $@
+	rm -f $(EXT)/GLX_ARB_get_proc_address
 	$(BIN)/make_header.pl "" GLX $(GLX_CORE_SPEC) >> $@
 	$(BIN)/make_header.pl "" GLX $(GLX_EXT_SPEC) >> $@
 	cat $(SRC)/glxew_mid.h >> $@
