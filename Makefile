@@ -51,16 +51,17 @@ ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
 LIBGLU = glu
 endif
 
-DIST_NAME     ?= glew-$(GLEW_VERSION)
+DIST_NAME    ?= glew-$(GLEW_VERSION)
 DIST_SRC_ZIP ?= $(shell pwd)/$(DIST_NAME).zip
 DIST_SRC_TGZ ?= $(shell pwd)/$(DIST_NAME).tgz
 DIST_WIN32   ?= $(shell pwd)/$(DIST_NAME)-win32.zip
 
 DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 
-# To disable stripping of binaries either:
+# To disable stripping of linked binaries either:
 #   - use STRIP= on gmake command-line
 #   - edit this makefile to set STRIP to the empty string
+# (Note: STRIP does not affect the strip in the install step)
 #
 # To disable symlinks:
 #   - use LN= on gmake command-line
