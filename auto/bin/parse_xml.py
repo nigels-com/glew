@@ -114,8 +114,8 @@ if __name__ == '__main__':
     dom = parse(i)
     api = findApi(dom, 'egl')
 
-    print 'Found {} enums, {} commands, {} features and {} extensions.'.format(
-        len(api[0]), len(api[1]), len(api[2]), len(api[3]))
+    print('Found {} enums, {} commands, {} features and {} extensions.'.format(
+        len(api[0]), len(api[1]), len(api[2]), len(api[3])))
 
     if len(options.core):
         for i in api[2].keys():
