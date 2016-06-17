@@ -69,6 +69,7 @@ typedef void *EGLOutputPortEXT;
 typedef void *EGLSyncNV;
 typedef khronos_utime_nanoseconds_t EGLTimeNV;
 typedef khronos_utime_nanoseconds_t EGLuint64NV;
+typedef khronos_stime_nanoseconds_t EGLnsecsANDROID;
 
 struct EGLClientPixmapHI;
 
