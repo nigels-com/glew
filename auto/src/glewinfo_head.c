@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
-#if defined(GLEW_OSMESA)
+#if defined(GLEW_EGL)
+#include <GL/eglew.h>
+#elif defined(GLEW_OSMESA)
 #define GLAPI extern
 #include <GL/osmesa.h>
 #elif defined(_WIN32)
@@ -21,23 +23,12 @@
 
 static FILE* f;
 
-#ifdef GLEW_MX
-GLEWContext _glewctx;
-#define glewGetContext() (&_glewctx)
-#if defined(_WIN32)
-WGLEWContext _wglewctx;
-#define wglewGetContext() (&_wglewctx)
-#elif !defined(GLEW_OSMESA) && !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLXEWContext _glxewctx;
-#define glxewGetContext() (&_glxewctx)
-#endif
-#endif
-
 /* Command-line parameters for GL context creation */
 
 struct createParams
 {
 #if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
 #elif defined(_WIN32)
   int         pixelformat;
 #elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)

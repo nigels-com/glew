@@ -1,6 +1,7 @@
 GL_EXT_geometry_shader4
 http://developer.download.nvidia.com/opengl/specs/GL_EXT_geometry_shader4.txt
 GL_EXT_geometry_shader4
+
 	GL_GEOMETRY_SHADER_EXT 0x8DD9
 	GL_MAX_GEOMETRY_VARYING_COMPONENTS_EXT 0x8DDD
 	GL_MAX_VERTEX_VARYING_COMPONENTS_EXT 0x8DDE

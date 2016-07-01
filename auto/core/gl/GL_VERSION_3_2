@@ -1,6 +1,7 @@
 GL_VERSION_3_2
 https://www.opengl.org/registry/doc/glspec32.compatibility.20091207.pdf
 
+GL_ARB_draw_elements_base_vertex GL_ARB_provoking_vertex GL_ARB_sync GL_ARB_texture_multisample
  	GL_CONTEXT_CORE_PROFILE_BIT 0x00000001
 	GL_CONTEXT_COMPATIBILITY_PROFILE_BIT 0x00000002
 	GL_LINES_ADJACENCY 0x000A

@@ -1,6 +1,7 @@
 GL_EXT_secondary_color
 http://oss.sgi.com/projects/ogl-sample/registry/EXT/secondary_color.txt
 GL_EXT_secondary_color
+
 	GL_COLOR_SUM_EXT 0x8458
 	GL_CURRENT_SECONDARY_COLOR_EXT 0x8459
 	GL_SECONDARY_COLOR_ARRAY_SIZE_EXT 0x845A

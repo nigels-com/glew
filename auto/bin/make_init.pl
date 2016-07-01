@@ -21,6 +21,11 @@ sub make_pfn_def_init($%)
     return "  r = ((" . $_[0] . " = (PFN" . (uc $_[0]) . "PROC)glewGetProcAddress((const GLubyte*)\"" . $_[0] . "\")) == NULL) || r;";
 }
 
+sub make_reuse_call($%)
+{
+	return "  r = _glewInit_" . $_[0] . "() || r;";
+}
+
 #-------------------------------------------------------------------------------
 
 my @extlist = ();
@@ -34,18 +39,18 @@ if (@ARGV)
 
 	foreach my $ext (sort @extlist)
 	{
-		my ($extname, $exturl, $extstring, $types, $tokens, $functions, $exacts) = 
+		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = 
 			parse_ext($ext);
 
 		#make_separator($extname);
 		my $extvar = $extname;
 		my $extvardef = $extname;
 		$extvar =~ s/GL(X*)_/GL$1EW_/;
-		if (keys %$functions)
+		if (keys %$functions or keys @$reuse)
 		{
 			print "#ifdef $extname\n\n";
-			print "static GLboolean _glewInit_$extname (" . $type . 
-				"EW_CONTEXT_ARG_DEF_INIT)\n{\n  GLboolean r = GL_FALSE;\n";
+			print "static GLboolean _glewInit_$extname ()\n{\n  GLboolean r = GL_FALSE;\n";
+			output_reuse($reuse, \&make_reuse_call);
 			output_decls($functions, \&make_pfn_def_init);
 			print "\n  return r;\n}\n\n";
 			print "#endif /* $extname */\n\n";

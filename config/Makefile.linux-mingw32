@@ -2,7 +2,6 @@
 # http://www.mingw.org/
 #
 # $ make SYSTEM=linux-mingw32
-#
 
 NAME  := glew32
 HOST  := i586-mingw32msvc
@@ -11,6 +10,8 @@ LD    := $(HOST)-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
+CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
+#LDFLAGS.EXTRA += -nostdlib
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX = .exe
@@ -19,8 +20,3 @@ LIB.DEVLNK    = lib$(NAME).dll.a    # for mingw this is the dll import lib
 LIB.SHARED    = $(NAME).dll
 LIB.STATIC    = lib$(NAME).a        # the static lib will be broken
 LDFLAGS.SO    = -shared -soname $(LIB.SONAME) --out-implib lib/$(LIB.DEVLNK)
-LIB.SONAME.MX = lib$(NAME)mx.dll
-LIB.DEVLNK.MX = lib$(NAME)mx.dll.a  # for mingw this is the dll import lib
-LIB.SHARED.MX = $(NAME)mx.dll
-LIB.STATIC.MX = lib$(NAME)mx.a      # the static lib will be broken
-LDFLAGS.SO.MX = -shared -soname $(LIB.SONAME.MX) --out-implib lib/$(LIB.DEVLNK.MX)

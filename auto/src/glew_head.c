@@ -3,6 +3,8 @@
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
 #  include <GL/osmesa.h>
+#elif defined(GLEW_EGL)
+#  include <GL/eglew.h>
 #elif defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
@@ -11,36 +13,8 @@
 
 #include <stddef.h>  /* For size_t */
 
-/*
- * Define glewGetContext and related helper macros.
- */
-#ifdef GLEW_MX
-#  define glewGetContext() ctx
-#  ifdef _WIN32
-#    define GLEW_CONTEXT_ARG_DEF_INIT GLEWContext* ctx
-#    define GLEW_CONTEXT_ARG_VAR_INIT ctx
-#    define wglewGetContext() ctx
-#    define WGLEW_CONTEXT_ARG_DEF_INIT WGLEWContext* ctx
-#    define WGLEW_CONTEXT_ARG_DEF_LIST WGLEWContext* ctx
-#  else /* _WIN32 */
-#    define GLEW_CONTEXT_ARG_DEF_INIT void
-#    define GLEW_CONTEXT_ARG_VAR_INIT
-#    define glxewGetContext() ctx
-#    define GLXEW_CONTEXT_ARG_DEF_INIT void
-#    define GLXEW_CONTEXT_ARG_DEF_LIST GLXEWContext* ctx
-#  endif /* _WIN32 */
-#  define GLEW_CONTEXT_ARG_DEF_LIST GLEWContext* ctx
-#else /* GLEW_MX */
-#  define GLEW_CONTEXT_ARG_DEF_INIT void
-#  define GLEW_CONTEXT_ARG_VAR_INIT
-#  define GLEW_CONTEXT_ARG_DEF_LIST void
-#  define WGLEW_CONTEXT_ARG_DEF_INIT void
-#  define WGLEW_CONTEXT_ARG_DEF_LIST void
-#  define GLXEW_CONTEXT_ARG_DEF_INIT void
-#  define GLXEW_CONTEXT_ARG_DEF_LIST void
-#endif /* GLEW_MX */
-
-#if defined(GLEW_REGAL)
+#if defined(GLEW_EGL)
+#elif defined(GLEW_REGAL)
 
 /* In GLEW_REGAL mode we call direcly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
@@ -92,7 +66,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
 {
   static void* image = NULL;
   void* addr;
-  if (NULL == image) 
+  if (NULL == image)
   {
     image = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_LAZY);
   }
@@ -144,6 +118,8 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
+#elif defined(GLEW_EGL)
+#  define glewGetProcAddress(name) eglGetProcAddress((const char *)name)
 #elif defined(_WIN32)
 #  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
@@ -163,34 +139,28 @@ void* NSGLGetProcAddress (const GLubyte *name)
  */
 
 #undef GLEW_GET_VAR
-#ifdef GLEW_MX
-# define GLEW_GET_VAR(x) (glewGetContext()->x)
-#else /* GLEW_MX */
 # define GLEW_GET_VAR(x) (x)
-#endif /* GLEW_MX */
 
 #ifdef WGLEW_GET_VAR
 # undef WGLEW_GET_VAR
-# ifdef GLEW_MX
-#  define WGLEW_GET_VAR(x) (wglewGetContext()->x)
-# else /* GLEW_MX */
-#  define WGLEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define WGLEW_GET_VAR(x) (x)
 #endif /* WGLEW_GET_VAR */
 
 #ifdef GLXEW_GET_VAR
 # undef GLXEW_GET_VAR
-# ifdef GLEW_MX
-#  define GLXEW_GET_VAR(x) (glxewGetContext()->x)
-# else /* GLEW_MX */
-#  define GLXEW_GET_VAR(x) (x)
-# endif /* GLEW_MX */
+# define GLXEW_GET_VAR(x) (x)
 #endif /* GLXEW_GET_VAR */
+
+#ifdef EGLEW_GET_VAR
+# undef EGLEW_GET_VAR
+# define EGLEW_GET_VAR(x) (x)
+#endif /* EGLEW_GET_VAR */
 
 /*
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
  * These functions implement the functionality required in this file.
  */
+
 static GLuint _glewStrLen (const GLubyte* s)
 {
   GLuint i=0;
@@ -204,9 +174,20 @@ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
   GLuint i=0;
   if (s == NULL) return 0;
   while (s[i] != '\0' && s[i] != c) i++;
-  return (s[i] == '\0' || s[i] == c) ? i : 0;
+  return i;
 }
 
+static GLuint _glewStrCopy(char *d, const char *s, char c)
+{
+  GLuint i=0;
+  if (s == NULL) return 0;
+  while (s[i] != '\0' && s[i] != c) { d[i] = s[i]; i++; }
+  d[i] = '\0';
+  return i;
+}
+
+#if !defined(GLEW_OSMESA)
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
 {
   GLuint i=0;
@@ -215,6 +196,8 @@ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
   while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
   return i == n ? GL_TRUE : GL_FALSE;
 }
+#endif
+#endif
 
 static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
 {
@@ -275,6 +258,8 @@ static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b,
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
+#if !defined(GLEW_OSMESA)
+#if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
 {
   const GLubyte* p;
@@ -288,3 +273,5 @@ static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, c
   }
   return GL_FALSE;
 }
+#endif
+#endif

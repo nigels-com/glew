@@ -81,6 +81,8 @@ my %typemap = (
 
     DEBUGPROC => "GLDEBUGPROC",
 
+    VULKANPROCNV => "GLVULKANPROCNV",
+
     vdpauSurfaceNV => "GLvdpauSurfaceNV",
     
     # GLX 1.3 defines new types which might not be available at compile time
@@ -147,7 +149,7 @@ my %regex = (
     prefix   => qr/^(?:[aw]?gl|glX)/, # gl | agl | wgl | glX
     tprefix  => qr/^(?:[AW]?GL|GLX)_/, # GL_ | AGL_ | WGL_ | GLX_
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
-    token    => qr/^([A-Z0-9][A-Z0-9_x]*):?\s+((?:0x)?[0-9A-F]+)([^\?]*)$/, # define tokens
+    token    => qr/^([A-Z0-9][A-Z0-9_x]*):?\s+((?:0x)?[0-9A-Fa-f]+)(|\s[^\?]*)$/, # define tokens
     types    => compile_regex('\b(', join('|', keys %typemap), ')\b'), # var types
     voidtype => compile_regex('\b(', keys %voidtypemap, ')\b '), # void type
 );
@@ -333,6 +335,7 @@ foreach my $spec (sort @speclist)
         $specname =~ s/registry\/gl\/specs\///;
         print EXT $reg_http . $specname . "\n";      # Extension info URL
         print EXT $ext . "\n";                       # Extension string
+        print EXT "\n";                              # Resuses nothing by default
 
         my $prefix = $ext;
         $prefix =~ s/^(.+?)(_.+)$/$1/;

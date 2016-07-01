@@ -4,7 +4,7 @@
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=glew_static - Win32 Debug MX
+CFG=glew_static - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -19,8 +19,6 @@ CFG=glew_static - Win32 Debug MX
 !MESSAGE 
 !MESSAGE "glew_static - Win32 Release" (based on "Win32 (x86) Static Library")
 !MESSAGE "glew_static - Win32 Debug" (based on "Win32 (x86) Static Library")
-!MESSAGE "glew_static - Win32 Debug MX" (based on "Win32 (x86) Static Library")
-!MESSAGE "glew_static - Win32 Release MX" (based on "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
@@ -42,8 +40,8 @@ RSC=rc.exe
 # PROP Output_Dir "../../lib"
 # PROP Intermediate_Dir "static/release"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c /GS-
+# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c /GS-
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "GLEW_STATIC"
 BSC32=bscmake.exe
@@ -76,60 +74,12 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo /out:"../../lib/glew32sd.lib"
 
-!ELSEIF  "$(CFG)" == "glew_static - Win32 Debug MX"
-
-# PROP BASE Use_MFC 0
-# PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "glew_static___Win32_Debug_MX"
-# PROP BASE Intermediate_Dir "glew_static___Win32_Debug_MX"
-# PROP BASE Target_Dir ""
-# PROP Use_MFC 0
-# PROP Use_Debug_Libraries 1
-# PROP Output_Dir "../../lib"
-# PROP Intermediate_Dir "static/debug-mx"
-# PROP Target_Dir ""
-# ADD BASE CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /GX /Zi /Od /I "../../include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /GZ /c
-# ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /d "_DEBUG" /d "GLEW_MX" /d "GLEW_STATIC"
-BSC32=bscmake.exe
-# ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
-LIB32=link.exe -lib
-# ADD BASE LIB32 /nologo /out:"../../lib/glew32sd.lib"
-# ADD LIB32 /nologo /out:"../../lib/glew32mxsd.lib"
-
-!ELSEIF  "$(CFG)" == "glew_static - Win32 Release MX"
-
-# PROP BASE Use_MFC 0
-# PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "glew_static___Win32_Release_MX"
-# PROP BASE Intermediate_Dir "glew_static___Win32_Release_MX"
-# PROP BASE Target_Dir ""
-# PROP Use_MFC 0
-# PROP Use_Debug_Libraries 0
-# PROP Output_Dir "../../lib"
-# PROP Intermediate_Dir "static/release-mx"
-# PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_STATIC" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "../../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "WIN32_LEAN_AND_MEAN" /D "VC_EXTRALEAN" /D "GLEW_MX" /D "GLEW_STATIC" /YX /FD /c
-# ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /d "NDEBUG" /d "GLEW_MX" /d "GLEW_STATIC"
-BSC32=bscmake.exe
-# ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
-LIB32=link.exe -lib
-# ADD BASE LIB32 /nologo /out:"../../lib/glew32s.lib"
-# ADD LIB32 /nologo /out:"../../lib/glew32mxs.lib"
-
 !ENDIF 
 
 # Begin Target
 
 # Name "glew_static - Win32 Release"
 # Name "glew_static - Win32 Debug"
-# Name "glew_static - Win32 Debug MX"
-# Name "glew_static - Win32 Release MX"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"

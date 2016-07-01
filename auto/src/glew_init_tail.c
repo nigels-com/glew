@@ -32,14 +32,18 @@ const GLubyte * GLEWAPIENTRY glewGetString (GLenum name)
 
 GLboolean glewExperimental = GL_FALSE;
 
-#if !defined(GLEW_MX)
-
 GLenum GLEWAPIENTRY glewInit (void)
 {
   GLenum r;
+#if defined(GLEW_EGL)
+  PFNEGLGETCURRENTDISPLAYPROC getCurrentDisplay = NULL;
+#endif
   r = glewContextInit();
   if ( r != 0 ) return r;
-#if defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
+#if defined(GLEW_EGL)
+  getCurrentDisplay = (PFNEGLGETCURRENTDISPLAYPROC) glewGetProcAddress("eglGetCurrentDisplay");
+  return eglewInit(getCurrentDisplay());
+#elif defined(GLEW_OSMESA) || defined(__ANDROID__) || defined(__native_client__) || defined(__HAIKU__)
   return r;
 #elif defined(_WIN32)
   return wglewInit();
@@ -50,4 +54,14 @@ GLenum GLEWAPIENTRY glewInit (void)
 #endif /* _WIN32 */
 }
 
-#endif /* !GLEW_MX */
+#if defined(_WIN32) && defined(GLEW_BUILD) && defined(__GNUC__)
+/* GCC requires a DLL entry point even without any standard library included. */
+/* Types extracted from windows.h to avoid polluting the rest of the file. */
+int __stdcall DllMainCRTStartup(void* instance, unsigned reason, void* reserved)
+{
+  (void) instance;
+  (void) reason;
+  (void) reserved;
+  return 1;
+}
+#endif

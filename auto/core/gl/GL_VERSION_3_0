@@ -1,6 +1,7 @@
 GL_VERSION_3_0
 https://www.opengl.org/registry/doc/glspec30.20080923.pdf
 
+GL_ARB_framebuffer_object GL_ARB_map_buffer_range GL_ARB_uniform_buffer_object GL_ARB_vertex_array_object
 	GL_COMPARE_REF_TO_TEXTURE GL_COMPARE_R_TO_TEXTURE_ARB
 	GL_CLIP_DISTANCE0 GL_CLIP_PLANE0
 	GL_CLIP_DISTANCE1 GL_CLIP_PLANE1

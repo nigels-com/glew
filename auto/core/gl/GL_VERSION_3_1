@@ -1,6 +1,7 @@
 GL_VERSION_3_1
 https://www.opengl.org/registry/doc/glspec31.20090528.pdf
 
+GL_ARB_copy_buffer
 	GL_SAMPLER_2D_RECT 0x8B63
 	GL_SAMPLER_2D_RECT_SHADOW 0x8B64
 	GL_SAMPLER_BUFFER 0x8DC2

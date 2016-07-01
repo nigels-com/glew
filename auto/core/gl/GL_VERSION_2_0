@@ -1,6 +1,7 @@
 GL_VERSION_2_0
 http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 
+
 	GL_BLEND_EQUATION_RGB GL_BLEND_EQUATION
 	GL_VERTEX_ATTRIB_ARRAY_ENABLED 0x8622
 	GL_VERTEX_ATTRIB_ARRAY_SIZE 0x8623

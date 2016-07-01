@@ -2,6 +2,7 @@
 /src/*.c
 /include/GL/*.h
 /build/vc6/*.rc
+/build/*.rc
 /build/*/*.sdf
 /build/*/*.suo
 /build/*/*.vcxproj.user
