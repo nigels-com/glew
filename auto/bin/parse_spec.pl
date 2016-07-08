@@ -149,7 +149,7 @@ my %regex = (
     prefix   => qr/^(?:[aw]?gl|glX)/, # gl | agl | wgl | glX
     tprefix  => qr/^(?:[AW]?GL|GLX)_/, # GL_ | AGL_ | WGL_ | GLX_
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
-    token    => qr/^([A-Z0-9][A-Z0-9_x]*):?\s+((?:0x)?[0-9A-Fa-f]+)(|\s[^\?]*)$/, # define tokens
+    token    => qr/^([A-Z0-9][A-Z0-9_x]*):?\s+((?:0x)?[0-9A-Fa-f]+(u(ll)?)?)(|\s[^\?]*)$/, # define tokens
     types    => compile_regex('\b(', join('|', keys %typemap), ')\b'), # var types
     voidtype => compile_regex('\b(', keys %voidtypemap, ')\b '), # void type
 );
@@ -353,11 +353,23 @@ foreach my $spec (sort @speclist)
                         if (${$tokens}{$b} =~ /_/) {
                             1
                         } else {
-                            if (hex ${$tokens}{$a} eq hex ${$tokens}{$b})
-                            {
-                                $a cmp $b
-                            } else {
-                                hex ${$tokens}{$a} <=> hex ${$tokens}{$b}
+                            if (${$tokens}{$a} =~ /u(ll)?$/) {
+                                if (${$tokens}{$b} =~ /u(ll)?$/) {
+                                    $a cmp $b
+                                } else {
+                                    -1
+                                }
+			    } else {
+                                if (${$tokens}{$b} =~ /u(ll)?$/) {
+                                    1
+                                } else {
+                                    if (hex ${$tokens}{$a} eq hex ${$tokens}{$b})
+                                    {
+                                        $a cmp $b
+                                    } else {
+                                        hex ${$tokens}{$a} <=> hex ${$tokens}{$b}
+                                    }
+                                }
                             }
                         }                    
                     }
