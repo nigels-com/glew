@@ -292,6 +292,7 @@ dist-src:
 	cp -a src $(DIST_DIR)
 	cp -a doc $(DIST_DIR)
 	cp -a include $(DIST_DIR)
+	cp -a *.md $(DIST_DIR)
 	cp -a *.txt $(DIST_DIR)
 	cp -a Makefile $(DIST_DIR)
 	cp -a glew.pc.in $(DIST_DIR)
@@ -307,6 +308,7 @@ dist-src:
 	$(UNIX2DOS) $(DIST_DIR)/auto/extensions/*
 	find $(DIST_DIR) -name '*.h' | xargs $(UNIX2DOS)
 	find $(DIST_DIR) -name '*.c' | xargs $(UNIX2DOS)
+	find $(DIST_DIR) -name '*.md' | xargs $(UNIX2DOS)
 	find $(DIST_DIR) -name '*.txt' | xargs $(UNIX2DOS)
 	find $(DIST_DIR) -name '*.html' | xargs $(UNIX2DOS)
 	find $(DIST_DIR) -name '*.css' | xargs $(UNIX2DOS)
@@ -325,6 +327,7 @@ dist-src:
 	$(DOS2UNIX) $(DIST_DIR)/auto/extensions/*
 	find $(DIST_DIR) -name '*.h' | xargs $(DOS2UNIX)
 	find $(DIST_DIR) -name '*.c' | xargs $(DOS2UNIX)
+	find $(DIST_DIR) -name '*.md' | xargs $(DOS2UNIX)
 	find $(DIST_DIR) -name '*.txt' | xargs $(DOS2UNIX)
 	find $(DIST_DIR) -name '*.html' | xargs $(DOS2UNIX)
 	find $(DIST_DIR) -name '*.css' | xargs $(DOS2UNIX)
