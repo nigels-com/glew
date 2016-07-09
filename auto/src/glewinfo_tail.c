@@ -430,7 +430,8 @@ GLboolean glewCreateContext (struct createParams *params)
   i = 0;
   contextAttrs[i++] = kCGLPFAAccelerated; /* No software rendering */
 
-  #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_7
+  /* MAC_OS_X_VERSION_10_7  == 1070 */
+  #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
   if (params->profile & GL_CONTEXT_CORE_PROFILE_BIT)
   {
     if (params->major==3 && params->minor>=2)
