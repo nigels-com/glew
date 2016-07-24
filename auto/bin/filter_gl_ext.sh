@@ -520,4 +520,4 @@ EOT
 EOT
 
 # clean up
-    rm -f $1/*.bak
+    rm -f patterns $1/*.bak
