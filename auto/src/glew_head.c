@@ -7,8 +7,82 @@
 #  include <GL/eglew.h>
 #elif defined(_WIN32)
 #  include <GL/wglew.h>
+
+/* 
+ * See: https://www.opengl.org/wiki/Load_OpenGL_Functions
+ */
+void *GetAnyGLFuncAddress(const char *name)
+{
+    void *p = (void *)wglGetProcAddress(name);
+    if(p == 0 ||
+        (p == (void*)0x1) || (p == (void*)0x2) || (p == (void*)0x3) ||
+        (p == (void*)-1) )
+    {
+        HMODULE module = LoadLibraryA("opengl32.dll");
+        p = (void *)GetProcAddress(module, name);
+    }
+
+    return p;
+}
+
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 #  include <GL/glxew.h>
+
+#include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+static GLboolean dlOpenLib(void **handle, const char *lib_name)
+{
+    if (*handle)
+        return GL_TRUE;
+
+    if (!*handle) {
+        *handle = dlopen(lib_name, RTLD_LAZY | RTLD_LOCAL);
+    }
+    return *handle != NULL;
+}
+
+static void * dlGetSymbol(void **handle, const char *lib_name, const char *name)
+{
+    void *result;
+
+    if (!dlOpenLib(handle, lib_name))
+        return NULL;
+
+    result = dlsym(*handle, name);
+
+    if (!result) {
+        const char *error = dlerror();
+        fprintf(stderr,"%s() not found in %s: %s\n", name, lib_name, error);
+    }
+
+    return result;
+}
+
+void * dlGetGLXSymbol(const char *name)
+{
+    static const char *GLX_LIB = "libGL.so.1";
+    static void *glx_handle = NULL;
+
+    return dlGetSymbol(&glx_handle, GLX_LIB, name);
+}
+
+PFNGLXGETPROCADDRESSARBPROC __glewXGetProcAddressARB = NULL;
+
+#ifdef GLX_ARB_get_proc_address
+
+static GLboolean _glewInit_GLX_ARB_get_proc_address ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glXGetProcAddressARB = (PFNGLXGETPROCADDRESSARBPROC)dlGetGLXSymbol("glXGetProcAddressARB")) == NULL) || r;
+
+  return r;
+}
+
+#endif /* GLX_ARB_get_proc_address */
+
 #endif
 
 #include <stddef.h>  /* For size_t */
@@ -121,7 +195,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #elif defined(GLEW_EGL)
 #  define glewGetProcAddress(name) eglGetProcAddress((const char *)name)
 #elif defined(_WIN32)
-#  define glewGetProcAddress(name) wglGetProcAddress((LPCSTR)name)
+#  define glewGetProcAddress(name) GetAnyGLFuncAddress((LPCSTR)name)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 #  define glewGetProcAddress(name) NSGLGetProcAddress(name)
 #elif defined(__sgi) || defined(__sun) || defined(__HAIKU__)

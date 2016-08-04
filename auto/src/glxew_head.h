@@ -63,10 +63,9 @@ typedef struct __glXContextRec *GLXContext;
 typedef struct __GLXcontextRec *GLXContext;
 #endif
 
-typedef unsigned int GLXVideoDeviceNV; 
+typedef unsigned int GLXVideoDeviceNV;
 
 extern Bool glXQueryExtension (Display *dpy, int *errorBase, int *eventBase);
-extern Bool glXQueryVersion (Display *dpy, int *major, int *minor);
 extern int glXGetConfig (Display *dpy, XVisualInfo *vis, int attrib, int *value);
 extern XVisualInfo* glXChooseVisual (Display *dpy, int screen, int *attribList);
 extern GLXPixmap glXCreateGLXPixmap (Display *dpy, XVisualInfo *vis, Pixmap pixmap);
@@ -83,6 +82,9 @@ extern void glXWaitX (void);
 extern void glXSwapBuffers (Display *dpy, GLXDrawable drawable);
 extern void glXUseXFont (Font font, int first, int count, int listBase);
 
+typedef Bool ( * PFNGLXQUERYVERSIONPROC) (Display *dpy, int *major, int *minor);
+#define glXQueryVersion GLXEW_GET_FUN(__glewXQueryVersion)
+
 #define GLXEW_VERSION_1_0 GLXEW_GET_VAR(__GLXEW_VERSION_1_0)
 
 #endif /* GLX_VERSION_1_0 */
@@ -97,10 +99,23 @@ extern void glXUseXFont (Font font, int first, int count, int listBase);
 #define GLX_EXTENSIONS 0x3
 
 extern const char* glXQueryExtensionsString (Display *dpy, int screen);
-extern const char* glXGetClientString (Display *dpy, int name);
 extern const char* glXQueryServerString (Display *dpy, int screen, int name);
+
+typedef const char* ( * PFNGLXGETCLIENTSTRINGPROC) (Display *dpy, int name);
+#define glXGetClientString GLXEW_GET_FUN(__glewXGetClientString)
 
 #define GLXEW_VERSION_1_1 GLXEW_GET_VAR(__GLXEW_VERSION_1_1)
 
 #endif /* GLX_VERSION_1_1 */
+
+/* ------------------------ GLX_ARB_get_proc_address ----------------------- */
+
+#ifndef GLX_ARB_get_proc_address
+#define GLX_ARB_get_proc_address 1
+
+typedef void ( * ( * PFNGLXGETPROCADDRESSARBPROC ) (const GLubyte *procName)) (void);
+
+#define glXGetProcAddressARB GLXEW_GET_FUN(__glewXGetProcAddressARB)
+
+#endif /* GLX_ARB_get_proc_address */
 

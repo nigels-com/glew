@@ -1,7 +1,31 @@
 /* ------------------------------------------------------------------------ */
 
+PFNGLXQUERYVERSIONPROC __glewXQueryVersion = NULL;
+
+PFNGLXGETCLIENTSTRINGPROC __glewXGetClientString = NULL;
+
+static GLboolean _glewInit_GLX_VERSION_1_0 ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glXQueryVersion = (PFNGLXQUERYVERSIONPROC)glewGetProcAddress((const GLubyte*)"glXQueryVersion")) == NULL) || r;
+
+  return r;
+}
+
+static GLboolean _glewInit_GLX_VERSION_1_1 ()
+{
+  GLboolean r = GL_FALSE;
+
+  r = ((glXGetClientString = (PFNGLXGETCLIENTSTRINGPROC)glewGetProcAddress((const GLubyte*)"glXGetClientString")) == NULL) || r;
+
+  return r;
+}
+
+/* ------------------------------------------------------------------------ */
+
 GLboolean glxewGetExtension (const char* name)
-{    
+{
   const GLubyte* start;
   const GLubyte* end;
 
@@ -17,6 +41,10 @@ GLenum glxewInit ()
   int major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+
+  if (_glewInit_GLX_VERSION_1_0() || _glewInit_GLX_VERSION_1_1())
+      return GLEW_ERROR_GLX_VERSION_11_ONLY;
+
   /* initialize core GLX 1.2 */
   if (_glewInit_GLX_VERSION_1_2()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
