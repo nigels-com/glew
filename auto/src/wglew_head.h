@@ -12,6 +12,14 @@
 #  ifndef WIN32_LEAN_AND_MEAN
 #    define WIN32_LEAN_AND_MEAN 1
 #  endif
+/*
+ * If NOGDI is defined, wingdi.h won't be included by windows.h, and thus
+ * wglGetProcAddress won't be declared. It will instead be implicitly declared
+ * incorrectly, which we don't want.
+ */
+#  if defined(NOGDI)
+#    undef NOGDI
+#  endif
 #include <windows.h>
 #  undef WIN32_LEAN_AND_MEAN
 #endif
