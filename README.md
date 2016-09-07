@@ -51,7 +51,7 @@ RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel 
 	$ sudo make install
 	$ make clean
 
-Targets:    `all, glew.lib, glew.bin, clean, install, uninstall`
+Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew.bin, clean, install, uninstall`
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
