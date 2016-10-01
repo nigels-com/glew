@@ -187,6 +187,23 @@ typedef _W64 int ptrdiff_t;
 #define GLEW_VAR_EXPORT GLEWAPI
 #define GLEW_FUN_EXPORT GLEWAPI
 
+/*
+ * If you're integrating glew with something like Qt you really want to use
+ * the context created by Qt to resolve the function pointers.
+ * In this case define GLEW_CUSTOM_GET_PROC_ADDRESS and set the pointer below
+ * to your callback function.
+*/
+
+#ifdef GLEW_CUSTOM_GET_PROC_ADDRESS
+ typedef void*  glewResolveDataType;
+ typedef void* (*glewResolveProcType)(const char*, glewResolveDataType user);
+
+ /* This is your callback */
+ extern glewResolveProcType glewResolveProc;
+ /* This is your (optional) callback data */
+ extern glewResolveDataType glewResolveData;
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -122,7 +122,11 @@ void* NSGLGetProcAddress (const GLubyte *name)
 /*
  * Define glewGetProcAddress.
  */
-#if defined(GLEW_REGAL)
+#if defined(GLEW_CUSTOM_GET_PROC_ADDRESS)
+   glewResolveProcType glewResolveProc;
+   glewResolveDataType glewResolveData;
+#  define glewGetProcAddress(name) glewResolveProc((const char*)name, glewResolveData)
+#elif defined(GLEW_REGAL)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
