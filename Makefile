@@ -98,7 +98,10 @@ LIB.OBJS           := $(LIB.OBJS:.c=.o)
 LIB.SOBJS          := $(addprefix tmp/$(SYSTEM)/default/shared/,$(LIB.SRCS.NAMES))
 LIB.SOBJS          := $(LIB.SOBJS:.c=.o)
 
-glew.lib: lib lib/$(LIB.SHARED) lib/$(LIB.STATIC) glew.pc
+glew.lib: glew.lib.shared glew.lib.static
+
+glew.lib.shared: lib lib/$(LIB.SHARED) glew.pc
+glew.lib.static: lib lib/$(LIB.STATIC) glew.pc
 
 lib:
 	mkdir lib
