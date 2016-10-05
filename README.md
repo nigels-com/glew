@@ -55,6 +55,8 @@ Targets:    `all, glew.lib, glew.bin, clean, install, uninstall`
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
+_Note: may need to make **auto** folder_
+
 #### Using cmake
 
 *CMake 2.8.12 or higher is required.*
