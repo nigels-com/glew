@@ -103,6 +103,8 @@ glew.lib: glew.lib.shared glew.lib.static
 glew.lib.shared: lib lib/$(LIB.SHARED) glew.pc
 glew.lib.static: lib lib/$(LIB.STATIC) glew.pc
 
+.PHONY: glew.lib glew.lib.shared glew.lib.static
+
 lib:
 	mkdir lib
 
