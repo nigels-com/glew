@@ -6,6 +6,7 @@
 #define GLEW_ERROR_NO_GL_VERSION 1  /* missing GL version */
 #define GLEW_ERROR_GL_VERSION_10_ONLY 2  /* Need at least OpenGL 1.1 */
 #define GLEW_ERROR_GLX_VERSION_11_ONLY 3  /* Need at least GLX 1.2 */
+#define GLEW_ERROR_NO_GLX_DISPLAY 4  /* Need GLX display for GLX support */
 
 /* string codes */
 #define GLEW_VERSION 1
