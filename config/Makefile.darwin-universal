@@ -6,6 +6,7 @@ AR =
 LIBTOOL = libtool -static -o
 STRIP = 
 CFLAGS.EXTRA = -dynamic -fno-common
+CFLAGS.EXTRA += -std=c89 -pedantic
 #CFLAGS.EXTRA += -no-cpp-precomp
 CFLAGS.EXTRA += -arch i386 -arch x86_64
 LDFLAGS.EXTRA = -arch i386 -arch x86_64

@@ -1,3 +1,5 @@
+# Note: PPC is no longer actively maintained for GLEW, but this configuration
+#       is here for reference.
 GLEW_DEST = /usr/local
 NAME = $(GLEW_NAME)
 CC = cc
