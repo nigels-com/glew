@@ -28,12 +28,11 @@ Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of 
 [glew-20160708.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160708.tgz/download)
 *GLEW 2.0.0 RC: Core context, EGL support, no MX*
 
-[glew-20160402.tgz](http://sourceforge.net/projects/glew/files/glew/snapshots/glew-20160402.tgz/download)
-*GLEW 2.0.0 RC: Core context, EGL support, no MX*
-
 ## Build
 
-From a downloaded tarball or zip archive:
+It is highly recommended to build from a tgz or zip release snapshot.
+The code generation workflow is a complex brew of gnu make, perl and python, that works best on Linux or Mac.
+For most end-users of GLEW the official releases are the best choice, with first class support.
 
 ### Linux and Mac
 
@@ -41,9 +40,9 @@ From a downloaded tarball or zip archive:
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev git`
+Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev`
 
-RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel git`
+RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
 ##### Build
 
@@ -61,9 +60,9 @@ Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev git cmake`
+Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libXmu-dev libXi-dev libgl-dev cmake`
 
-RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel git cmake`
+RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake`
 
 ##### Build
 
