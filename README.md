@@ -149,7 +149,7 @@ OpenGL implementation and GLEW support for that.  Please include the output of
 
 ## Code Generation
 
-A Unix or Mac environment is neded for building GLEW from scratch to
+A Unix or Mac environment is needed for building GLEW from scratch to
 include new extensions, or customize the code generation. The extension
 data is regenerated from the top level source directory with:
 
