@@ -44,8 +44,10 @@ else ()
 endif ()
 
 find_package (OpenGL REQUIRED)
-find_package (X11)
-
+#X11 is only required when builing utils/
+if(BUILD_UTILS)
+  find_package (X11)
+endif()
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
