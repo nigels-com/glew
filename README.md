@@ -54,6 +54,8 @@ Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
+_Note: may need to make **auto** folder_
+
 #### Using cmake
 
 *CMake 2.8.12 or higher is required.*
