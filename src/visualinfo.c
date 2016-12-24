@@ -617,7 +617,7 @@ VisualInfo (GLContext* ctx)
 #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
 
 void
-VisualInfo (GLContext* __attribute__((__unused__)) ctx)
+VisualInfo (__attribute__((unused)) GLContext* ctx)
 {
 /*
   int attrib[] = { AGL_RGBA, AGL_NONE };
