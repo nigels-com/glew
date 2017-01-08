@@ -37,6 +37,10 @@ else ()
 endif ()
 
 find_package (OpenGL REQUIRED)
+#X11 is only required when builing utils/
+if(BUILD_UTILS)
+  find_package (X11)
+endif()
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
@@ -88,9 +92,15 @@ install ( TARGETS ${targets_to_install}
 if (BUILD_UTILS)
   add_executable (glewinfo ${GLEW_DIR}/src/glewinfo.c)
   target_link_libraries (glewinfo glew)
+  if (NOT WIN32)
+    target_link_libraries(glewinfo ${X11_LIBRARIES})
+  endif ()
 
   add_executable (visualinfo ${GLEW_DIR}/src/visualinfo.c)
   target_link_libraries (visualinfo glew)
+  if (NOT WIN32)
+    target_link_libraries(visualinfo ${X11_LIBRARIES})
+  endif ()
 
   install ( TARGETS glewinfo visualinfo
             DESTINATION bin)
