@@ -1,6 +1,7 @@
 GL_VERSION_4_0
 https://www.opengl.org/registry/doc/glspec40.compatibility.20100311.pdf
 
+
 	GL_SAMPLE_SHADING 0x8C36
 	GL_MIN_SAMPLE_SHADING_VALUE 0x8C37
 	GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET 0x8E5E

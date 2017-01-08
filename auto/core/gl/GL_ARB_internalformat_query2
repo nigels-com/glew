@@ -1,6 +1,7 @@
 GL_ARB_internalformat_query2
 http://www.opengl.org/registry/specs/ARB/internalformat_query2.txt
 GL_ARB_internalformat_query2
+
 	GL_INTERNALFORMAT_SUPPORTED 0x826F
 	GL_INTERNALFORMAT_PREFERRED 0x8270
 	GL_INTERNALFORMAT_RED_SIZE 0x8271

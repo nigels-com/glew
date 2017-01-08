@@ -1,6 +1,7 @@
 GL_NV_present_video
 http://www.opengl.org/registry/specs/NV/present_video.txt
 GL_NV_present_video
+
 	GL_FRAME_NV 0x8E26
 	GL_FIELDS_NV 0x8E27
 	GL_CURRENT_TIME_NV 0x8E28

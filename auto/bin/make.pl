@@ -69,6 +69,7 @@ sub parse_ext($)
     my $filename = shift;
     my %functions = ();
     my %tokens = ();
+    my @reuse = ();      # Extensions to reuse
     my @types = ();
     my @exacts = ();
     my $extname = "";    # Full extension name GL_FOO_extension
@@ -77,9 +78,10 @@ sub parse_ext($)
 
     open EXT, "<$filename" or return;
 
-    # As of GLEW 1.5.3 the first three lines _must_ be
+    # As of GLEW 1.14.0 the first four lines _must_ be
     # the extension name, the URL and the GL extension
-    # string (which might be different to the name)
+    # string (which might be different to the name),
+    # and the reused extensions
     #
     # For example GL_NV_geometry_program4 is available
     # iff GL_NV_gpu_program4 appears in the extension
@@ -94,6 +96,7 @@ sub parse_ext($)
     $extname   = readline(*EXT);
     $exturl    = readline(*EXT);
     $extstring = readline(*EXT);
+    @reuse     = split(" ", readline(*EXT));
 
     chomp($extname);
     chomp($exturl);
@@ -132,7 +135,7 @@ sub parse_ext($)
 
     close EXT;
 
-    return ($extname, $exturl, $extstring, \@types, \%tokens, \%functions, \@exacts);
+    return ($extname, $exturl, $extstring, \@reuse, \@types, \%tokens, \%functions, \@exacts);
 }
 
 sub output_tokens($$)
@@ -207,3 +210,14 @@ sub output_exacts($$)
     }
 }
 
+sub output_reuse($$)
+{
+    my ($tbl, $fnc) = @_;
+    if (scalar @{$tbl})
+    {
+        local $, = "\n";
+        print "\n";
+        print map { &{$fnc}($_) } sort @{$tbl};
+        print "\n";
+    }
+}
