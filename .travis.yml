@@ -1,0 +1,22 @@
+language: cpp
+sudo: false
+install:
+script:
+- make -C auto clobber
+- make extensions
+- make dist-src
+- make clean; SYSTEM=linux            make 
+- make clean; SYSTEM=linux-clang      make 
+- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                 ; make; popd
+addons:
+  apt:
+    packages:
+    - git
+    - cmake
+    - dos2unix
+  artifacts:
+    bucket: glew
+    s3_region: "us-east-1"
+    paths:
+    - $(ls *.zip *.tgz | tr "\n" ":")
+    - $(find doc -type f | tr "\n" ":")
