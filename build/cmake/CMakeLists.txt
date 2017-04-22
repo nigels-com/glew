@@ -37,6 +37,14 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+find_package (OpenGL REQUIRED)
+
+# X11 required when builing visualinfo and glewinfo,
+# but not for Windows or Apple OSX platforms
+if (BUILD_UTILS AND NOT WIN32 AND NOT APPLE)
+  find_package (X11)
+endif()
+
 if (WIN32)
   set (GLEW_LIB_NAME glew32)
 else ()
@@ -44,11 +52,6 @@ else ()
   set (DLL_PREFIX lib)
 endif ()
 
-find_package (OpenGL REQUIRED)
-#X11 is only required when builing utils/
-if(BUILD_UTILS)
-  find_package (X11)
-endif()
 set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
