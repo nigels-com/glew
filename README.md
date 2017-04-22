@@ -125,8 +125,8 @@ Alternative toolchain:  `SYSTEM=msys, SYSTEM=msys-win32, SYSTEM=msys-win64`
 ## glewinfo
 
 `glewinfo` is a command-line tool useful for inspecting the capabilities of an
-OpenGL implementation and GLEW support for that.  Please include the output of
-`glewinfo` with bug reports, as appropriate.	
+OpenGL implementation and GLEW support for that.  Please include `glewinfo.txt`
+with bug reports, as appropriate.	
 
 	---------------------------
 	    GLEW Extension Info
