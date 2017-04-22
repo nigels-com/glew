@@ -10,6 +10,7 @@
 use strict;
 use warnings;
 
+use lib '.';
 do 'bin/make.pl';
 
 # token
