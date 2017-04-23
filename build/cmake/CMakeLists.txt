@@ -192,6 +192,12 @@ set (version ${GLEW_VERSION})
 set (libname ${GLEW_LIB_NAME})
 set (cflags)
 set (requireslib glu)
+
+#  Mac OSX has no glu.pc unless optional X11/GLX is installed
+if (APPLE)
+  set (requireslib)
+endif ()
+
 configure_file (${GLEW_DIR}/glew.pc.in ${GLEW_DIR}/glew.pc @ONLY)
 
 install(FILES ${GLEW_DIR}/glew.pc 
