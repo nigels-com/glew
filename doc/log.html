@@ -75,7 +75,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 <td valign="bottom">
 <table border="0" width="100%" cellpadding="5" cellspacing="0" align="left">
-<tr><td align="center"><i>Last Update: 07-24-16</i></td></tr>
+<tr><td align="center"><i>Last Update: 04-23-17</i></td></tr>
 <tr><td align="center">
 	<a href="http://www.opengl.org"><img src="./ogl_sm.jpg" width="68" height="35" border="0" alt="OpenGL Logo"></a><br/>
 	<a href="https://github.com/nigels-com/glew"><img src="github.png" width="70" height="29" border="0" alt="GitHub Logo"></a><br/>
@@ -100,7 +100,69 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 <hr align="center">
 <ul class="none">
-<li><b>2.2.0</b> [07-24-16]
+<li><b>2.0.1</b> (upcoming)
+<ul>
+<li> Enhancements:
+<ul>
+<li> Improved Mac OSX build support
+<li> Improved cmake build support
+</ul>
+</ul>
+
+<ul>
+<li> Bug fixes:
+<ul>
+<li> Resovled crash when glXGetCurrentDisplay() is NULL
+<li> CMake: only install PDB files with MSVC
+<li> wglGetProcAddress crash with NOGDI defined 
+<li> Mac: using -Os rather than -O2
+</ul>
+</ul>
+
+<ul>
+<li> New extensions:
+<ul>
+<li> GL_AMD_gpu_shader_half_float
+<li> GL_AMD_shader_ballot
+<li> GL_ARB_gl_spirv
+<li> GL_EGL_KHR_context_flush_control
+<li> GL_INTEL_conservative_rasterization
+<li> GL_MESA_shader_integer_functions
+<li> GL_NVX_blend_equation_advanced_multi_draw_buffers
+<li> GL_NV_gpu_multicast
+<li> EGL_ARM_implicit_external_sync
+<li> EGL_EXT_gl_colorspace_bt2020_linear
+<li> EGL_EXT_gl_colorspace_bt2020_pq
+<li> EGL_EXT_gl_colorspace_scrgb_linear
+<li> EGL_EXT_image_dma_buf_import_modifiers
+<li> EGL_EXT_pixel_format_float
+<li> EGL_EXT_surface_SMPTE2086_metadata
+<li> EGL_KHR_context_flush_control
+<li> EGL_KHR_no_config_context
+<li> EGL_KHR_stream_attrib
+<li> EGL_MESA_platform_surfaceless
+<li> EGL_NV_stream_cross_display
+<li> EGL_NV_stream_cross_object
+<li> EGL_NV_stream_cross_partition
+<li> EGL_NV_stream_cross_process
+<li> EGL_NV_stream_cross_system
+<li> EGL_NV_stream_fifo_next
+<li> EGL_NV_stream_fifo_synchronous
+<li> EGL_NV_stream_frame_limits
+<li> EGL_NV_stream_remote
+<li> EGL_NV_stream_reset
+<li> EGL_NV_stream_socket
+<li> EGL_NV_stream_socket_inet
+<li> EGL_NV_stream_socket_unix
+<li> WGL_EXT_colorspace
+</ul>
+</ul>
+
+</ul>
+
+<hr align="center">
+<ul class="none">
+<li><b>2.0.0</b> [07-24-16]
 <ul>
 <li> Enhancements:
 <ul>
