@@ -202,7 +202,7 @@ endif ()
 
 configure_file (${GLEW_DIR}/glew.pc.in ${GLEW_DIR}/glew.pc @ONLY)
 
-install(FILES ${GLEW_DIR}/glew.pc 
+install(FILES ${GLEW_DIR}/glew.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
 
