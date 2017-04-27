@@ -18,11 +18,11 @@ GLenum glxewInit ()
   int major, minor;
   const GLubyte* extStart;
   const GLubyte* extEnd;
+  /* initialize core GLX 1.2 */
+  if (_glewInit_GLX_VERSION_1_2()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* check for a display */
   display = glXGetCurrentDisplay();
   if (display == NULL) return GLEW_ERROR_NO_GLX_DISPLAY;
-  /* initialize core GLX 1.2 */
-  if (_glewInit_GLX_VERSION_1_2()) return GLEW_ERROR_GLX_VERSION_11_ONLY;
   /* initialize flags */
   GLXEW_VERSION_1_0 = GL_TRUE;
   GLXEW_VERSION_1_1 = GL_TRUE;
