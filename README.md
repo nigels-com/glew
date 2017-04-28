@@ -1,5 +1,7 @@
 # GLEW - The OpenGL Extension Wrangler Library
 
+[![Join the chat at https://gitter.im/nigels-com/glew](https://badges.gitter.im/nigels-com/glew.svg)](https://gitter.im/nigels-com/glew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![](http://glew.sourceforge.net/glew.png)
 
 http://glew.sourceforge.net/
