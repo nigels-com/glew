@@ -1,29 +1,50 @@
-language: cpp
-sudo: false
+
+env:
+  global:
+    - CONAN_USERNAME="nigels-com"
+    - CONAN_REFERENCE="glew/master"
+    - CONAN_CHANNEL="testing"
+    - CONAN_REMOTES="https://api.bintray.com/conan/dimi309/conan-packages"
+    - CONAN_UPLOAD="https://api.bintray.com/conan/dimi309/conan-packages"
+
+linux: &linux
+   os: linux
+   sudo: required
+   language: python
+   python: "2.7"
+   services:
+     - docker
+osx: &osx
+   os: osx
+   language: generic
+matrix:
+   include:
+
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=4.9 CONAN_DOCKER_IMAGE=lasote/conangcc49
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=5.4 CONAN_DOCKER_IMAGE=lasote/conangcc54
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=6.3 CONAN_DOCKER_IMAGE=lasote/conangcc63
+      - <<: *linux
+        env: CONAN_CLANG_VERSIONS=3.9 CONAN_DOCKER_IMAGE=lasote/conanclang39
+      - <<: *linux
+        env: CONAN_CLANG_VERSIONS=4.0 CONAN_DOCKER_IMAGE=lasote/conanclang40
+      - <<: *osx
+        osx_image: xcode7.3
+        env: CONAN_APPLE_CLANG_VERSIONS=7.3
+      - <<: *osx
+        osx_image: xcode8.2
+        env: CONAN_APPLE_CLANG_VERSIONS=8.0
+      - <<: *osx
+        osx_image: xcode8.3
+        env: CONAN_APPLE_CLANG_VERSIONS=8.1
+        
 install:
+  - chmod +x ./build/conan/.travis/install.sh
+  - ./build/conan/.travis/install.sh
 script:
-- make -C auto clobber
-- make extensions
-- make dist-src
-- make clean; SYSTEM=linux            make 
-- make clean; SYSTEM=linux-osmesa     make
-- make clean; SYSTEM=linux-egl        make
-- make clean; SYSTEM=linux-clang      make 
-- make clean; SYSTEM=linux-clang-egl  make 
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                 ; make; popd
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 . ; make; popd
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_EGL=1 .    ; make; popd
-addons:
-  apt:
-    packages:
-    - git
-    - cmake
-    - dos2unix
-    - libosmesa6-dev
-    - libegl1-mesa-dev
-  artifacts:
-    bucket: glew
-    s3_region: "us-east-1"
-    paths:
-    - $(ls *.zip *.tgz | tr "\n" ":")
-    - $(find doc -type f | tr "\n" ":")
+  - cp -rf ./build/conan/* .
+  - cp -rf ./build/conan/.travis .
+  - chmod +x .travis/run.sh
+  - .travis/run.sh
