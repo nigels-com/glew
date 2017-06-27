@@ -4,8 +4,6 @@ env:
     - CONAN_USERNAME="nigels-com"
     - CONAN_REFERENCE="glew/master"
     - CONAN_CHANNEL="testing"
-    - CONAN_REMOTES="https://api.bintray.com/conan/dimi309/conan-packages"
-    - CONAN_UPLOAD="https://api.bintray.com/conan/dimi309/conan-packages"
 
 linux: &linux
    os: linux
@@ -44,7 +42,12 @@ install:
   - chmod +x ./build/conan/.travis/install.sh
   - ./build/conan/.travis/install.sh
 script:
+  # Building master
   - cp -rf ./build/conan/* .
   - cp -rf ./build/conan/.travis .
   - chmod +x .travis/run.sh
   - .travis/run.sh
+
+  # Building released version
+  #- chmod +x ./build/conan/.travis/run.sh
+  #- cd ./build/conan && .travis/run.sh
