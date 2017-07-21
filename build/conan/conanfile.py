@@ -99,9 +99,11 @@ class GlewConan(ConanFile):
             else:
                 if self.options.shared:
                     self.copy(pattern="*32.dll.a", dst="lib", keep_path=False)
+                    self.copy(pattern="*32d.dll.a", dst="lib", keep_path=False)
                     self.copy(pattern="*.dll", dst="bin", keep_path=False)
                 else:
                     self.copy(pattern="*32.a", dst="lib", keep_path=False)
+                    self.copy(pattern="*32d.a", dst="lib", keep_path=False)
         elif self.settings.os == "Macos":
             if self.options.shared:
                 self.copy(pattern="*.dylib", dst="lib", keep_path=False)
