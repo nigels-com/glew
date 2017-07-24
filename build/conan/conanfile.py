@@ -17,9 +17,9 @@ class GlewConan(ConanFile):
     license="https://github.com/nigels-com/glew#copyright-and-licensing"
     if version == "master":
         if os.path.isfile("Makefile"):
-            exports = "*"
+            exports_sources = "*"
         else:
-            exports = os.sep.join([".", "..", "..", "*"])
+            exports_sources = os.sep.join(["..", "..", "*"])
     else:
         exports = "FindGLEW.cmake"
         
