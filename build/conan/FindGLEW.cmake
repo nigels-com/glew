@@ -1,16 +1,18 @@
-find_path(GLEW_INCLUDE_DIR NAMES GL PATHS include)
-find_library(GLEW_LIBRARY NAMES GLEW GLEWd glew32 glew32s glew32d glew32sd PATHS lib )
+find_path(
+  GLEW_INCLUDE_DIR
+  NAMES
+  GL
+  PATHS
+  include)
 
-MESSAGE("** GLEW FOUND BY CONAN")
-SET(GLEW_FOUND TRUE)
-MESSAGE("** FOUND GLEW:  ${GLEW_LIBRARY}")
-MESSAGE("** FOUND GLEW INCLUDE:  ${GLEW_INCLUDE_DIR}")
+find_library(
+  GLEW_LIBRARY
+  NAMES
+  GLEW GLEWd glew32 glew32s glew32d glew32sd
+  PATHS
+  lib)
 
-set(GLEW_INCLUDE_DIRS ${GLEW_INCLUDE_DIR})
-set(GLEW_LIBRARIES ${GLEW_LIBRARY})
+include(FindPackageHandleStandardArgs)
 
-mark_as_advanced(GLEW_LIBRARY GLEW_INCLUDE_DIR)
+find_package_handle_standard_args(GLEW REQUIRED_VARS GLEW_LIBRARY GLEW_INCLUDE_DIR)
 
-set(GLEW_MAJOR_VERSION "2")
-set(GLEW_MINOR_VERSION "0")
-set(GLEW_PATCH_VERSION "0")
