@@ -516,6 +516,49 @@ EOT
     grep -v "RasterSamplesEXT" $1/GL_NV_framebuffer_mixed_samples > tmp
     mv tmp $1/GL_NV_framebuffer_mixed_samples
 
+# Filter out glNamedBufferStorageEXT from GL_ARB_buffer_storage
+
+    grep -v "glNamedBufferStorageEXT" $1/GL_ARB_buffer_storage > tmp
+    mv tmp $1/GL_ARB_buffer_storage
+
+# Filter out glFramebufferTextureEXT from GL_EXT_geometry_point_size
+# and GL_EXT_geometry_shader
+
+    grep -v "glFramebufferTextureEXT" $1/GL_EXT_geometry_point_size > tmp
+    mv tmp $1/GL_EXT_geometry_point_size
+
+    grep -v "glFramebufferTextureEXT" $1/GL_EXT_geometry_shader > tmp
+    mv tmp $1/GL_EXT_geometry_shader
+
+# Filter out glBindFragDataLocationEXT from GL_EXT_blend_func_extended
+
+    grep -v "glBindFragDataLocationEXT" $1/GL_EXT_blend_func_extended > tmp
+    mv tmp $1/GL_EXT_blend_func_extended
+
+# Filter out glDrawArraysInstancedEXT and glDrawElementsInstancedEXT from GL_EXT_blend_func_extended
+
+    grep -v "glDrawArraysInstancedEXT" $1/GL_EXT_instanced_arrays > tmp
+    mv tmp $1/GL_EXT_instanced_arrays
+
+    grep -v "glDrawElementsInstancedEXT" $1/GL_EXT_instanced_arrays > tmp
+    mv tmp $1/GL_EXT_instanced_arrays
+
+# Filter out glRenderbufferStorageMultisampleEXT from GL_EXT_multisampled_render_to_texture
+
+    grep -v "glRenderbufferStorageMultisampleEXT" $1/GL_EXT_multisampled_render_to_texture > tmp
+    mv tmp $1/GL_EXT_multisampled_render_to_texture
+
+# Filter out glTexturePageCommitmentEXT from GL_ARB_sparse_texture
+
+    grep -v "glTexturePageCommitmentEXT" $1/GL_ARB_sparse_texture > tmp
+    mv tmp $1/GL_ARB_sparse_texture
+
+# Filter out TextureStorage* from GL_ARB_texture_storage
+
+    grep -v "TextureStorage" $1/GL_ARB_texture_storage > tmp
+    mv tmp $1/GL_ARB_texture_storage
+
+
 # Append GLVULKANPROCNV to GL_NV_draw_vulkan_image
 # Probably ought to be explicitly mentioned in the spec language
 
