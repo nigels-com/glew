@@ -12,21 +12,18 @@ https://github.com/nigels-com/glew
 
 ## Downloads
 
-Current release is [2.0.0](https://sourceforge.net/projects/glew/files/glew/2.0.0/).
+Current release is [2.1.0](https://sourceforge.net/projects/glew/files/glew/2.1.0/).
 [(Change Log)](http://glew.sourceforge.net/log.html)
 
 Sources available as 
-[ZIP](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0.zip/download) or
-[TGZ](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0.tgz/download).
+[ZIP](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.zip/download) or
+[TGZ](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.tgz/download).
 
-Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/files/glew/2.0.0/glew-2.0.0-win32.zip/download).
+Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0-win32.zip/download).
 
 ### Recent snapshots
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
-
-[glew-20170423.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20170423.tgz/download)
-*GLEW 2.0.1 RC1: New extensions, bug fixes*
 
 ## Build
 
