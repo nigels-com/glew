@@ -434,7 +434,7 @@ GLboolean glewCreateContext (struct createParams *params)
   #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
   if (params->profile & GL_CONTEXT_CORE_PROFILE_BIT)
   {
-    if (params->major==3 && params->minor>=2)
+    if ((params->major==3 && params->minor>=2) || params->major>3)
     {
       contextAttrs[i++] = kCGLPFAOpenGLProfile;                                /* OSX 10.7 Lion onwards */
       contextAttrs[i++] = (CGLPixelFormatAttribute) kCGLOGLPVersion_3_2_Core;  /* 3.2 Core Context      */
