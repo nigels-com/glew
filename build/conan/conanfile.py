@@ -68,11 +68,6 @@ class GlewConan(ConanFile):
                 vcvars = vcvars_command(self.settings)
                 self.run("%s && %s && %s" % (vcvars, cd_build, build_command.replace("x86", "Win32")))
         else:
-            if self.settings.os == "Windows":
-                replace_in_file("%s/build/cmake/CMakeLists.txt" % self.source_directory, \
-                                "if(WIN32 AND (NOT MSVC_VERSION LESS 1600)", \
-                                "if(WIN32 AND MSVC AND (NOT MSVC_VERSION LESS 1600)")
-
             if self.version == "master":
                 self.run("make extensions")
 
