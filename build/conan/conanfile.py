@@ -1,6 +1,6 @@
 import os
 from conans import ConanFile, CMake
-from conans.tools import os_info, SystemPackageTool, ConanException
+from conans.tools import os_info, SystemPackageTool, ConanException, replace_in_file
 from conans import tools, VisualStudioBuildEnvironment
 from conans.tools import build_sln_command, vcvars_command, download, unzip
 
@@ -33,14 +33,20 @@ class GlewConan(ConanFile):
                     installer.install("libxi-dev")
                     installer.install("libgl-dev")
                     installer.install("libosmesa-dev")
-                installer.install("libglu1-mesa-dev")
+                if self.settings.arch == "x86" and tools.detected_architecture() == "x86_64":
+                    installer.install("libglu1-mesa-dev:i386")
+                else:
+                    installer.install("libglu1-mesa-dev")
             elif os_info.with_yum:
                 installer = SystemPackageTool()
                 if self.version == "master":
                     installer.install("libXmu-devel")
                     installer.install("libXi-devel")
                     installer.install("libGL-devel")
-                installer.install("mesa-libGLU-devel")
+                if self.settings.arch == "x86" and tools.detected_architecture() == "x86_64":
+                    installer.install("mesa-libGLU-devel.i686")
+                else:
+                    installer.install("mesa-libGLU-devel")
             else:
                 self.output.warn("Could not determine Linux package manager, skipping system requirements installation.")
 
@@ -71,6 +77,12 @@ class GlewConan(ConanFile):
             if self.version == "master":
                 self.run("make extensions")
 
+            replace_in_file("%s/build/cmake/CMakeLists.txt" % self.source_directory, "include(GNUInstallDirs)",
+"""
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+include(GNUInstallDirs)
+""")
             cmake = CMake(self)
             cmake.configure(source_dir="%s/build/cmake" % self.source_directory, defs={"BUILD_UTILS": "OFF"})
             cmake.build()
