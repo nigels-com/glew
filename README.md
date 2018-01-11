@@ -92,9 +92,9 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel c
 
 #### Visual Studio
 
-Use the provided Visual Studio project file in build/vc12/
+Use the provided Visual Studio project file in build/vc15/
 
-Projects for vc6 and vc10 are also provided
+Projects for vc6, vc10, vc12 and vc14 are also provided
 
 #### MSYS/Mingw
 
