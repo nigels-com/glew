@@ -1,6 +1,0 @@
-*              text eol=lf
-*.png          binary
-*.pdf          binary
-build/*/*      text eol=crlf
-CMakeLists.txt text eol=lf
-build/cmake/*  text eol=lf

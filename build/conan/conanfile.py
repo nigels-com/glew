@@ -1,8 +1,8 @@
 import os
 from conans import ConanFile, CMake
-from conans.tools import os_info, SystemPackageTool, ConanException, replace_in_file
+from conans.tools import os_info, SystemPackageTool, ConanException
 from conans import tools, VisualStudioBuildEnvironment
-from conans.tools import build_sln_command, vcvars_command, download, unzip
+from conans.tools import build_sln_command, vcvars_command, replace_in_file, download, unzip
 
 class GlewConan(ConanFile):
     name = "glew"
@@ -33,20 +33,14 @@ class GlewConan(ConanFile):
                     installer.install("libxi-dev")
                     installer.install("libgl-dev")
                     installer.install("libosmesa-dev")
-                if self.settings.arch == "x86" and tools.detected_architecture() == "x86_64":
-                    installer.install("libglu1-mesa-dev:i386")
-                else:
-                    installer.install("libglu1-mesa-dev")
+                installer.install("libglu1-mesa-dev")
             elif os_info.with_yum:
                 installer = SystemPackageTool()
                 if self.version == "master":
                     installer.install("libXmu-devel")
                     installer.install("libXi-devel")
                     installer.install("libGL-devel")
-                if self.settings.arch == "x86" and tools.detected_architecture() == "x86_64":
-                    installer.install("mesa-libGLU-devel.i686")
-                else:
-                    installer.install("mesa-libGLU-devel")
+                installer.install("mesa-libGLU-devel")
             else:
                 self.output.warn("Could not determine Linux package manager, skipping system requirements installation.")
 
@@ -69,26 +63,25 @@ class GlewConan(ConanFile):
             with tools.environment_append(env.vars):
                 version = min(12, int(self.settings.compiler.version.value))
                 version = 10 if version == 11 else version
-                cd_build = "cd %s\\%s\\build\\vc%s" % (self.build_folder, self.source_directory, version)
+                cd_build = "cd %s\\%s\\build\\vc%s" % (self.conanfile_directory, self.source_directory, version)
                 build_command = build_sln_command(self.settings, "glew.sln")
                 vcvars = vcvars_command(self.settings)
                 self.run("%s && %s && %s" % (vcvars, cd_build, build_command.replace("x86", "Win32")))
         else:
+            if self.settings.os == "Windows":
+                replace_in_file("%s/build/cmake/CMakeLists.txt" % self.source_directory, \
+                                "if(WIN32 AND (NOT MSVC_VERSION LESS 1600)", \
+                                "if(WIN32 AND MSVC AND (NOT MSVC_VERSION LESS 1600)")
+
             if self.version == "master":
                 self.run("make extensions")
 
-            replace_in_file("%s/build/cmake/CMakeLists.txt" % self.source_directory, "include(GNUInstallDirs)",
-"""
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-include(GNUInstallDirs)
-""")
             cmake = CMake(self)
             cmake.configure(source_dir="%s/build/cmake" % self.source_directory, defs={"BUILD_UTILS": "OFF"})
             cmake.build()
 
     def package(self):
-        find_glew_dir = "%s/build/conan" % self.build_folder if self.version == "master" else "."
+        find_glew_dir = "%s/build/conan" % self.conanfile_directory if self.version == "master" else "."
         self.copy("FindGLEW.cmake", ".", find_glew_dir, keep_path=False)
         self.copy("include/*", ".", "%s" % self.source_directory, keep_path=True)
         self.copy("%s/license*" % self.source_directory, dst="licenses",  ignore_case=True, keep_path=False)
