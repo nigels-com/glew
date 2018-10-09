@@ -231,6 +231,8 @@ typedef struct __GLsync *GLsync;
 
 typedef char GLchar;
 
+typedef void *GLeglImageOES; /* GL_EXT_EGL_image_storage */
+
 #define GL_ZERO 0
 #define GL_FALSE 0
 #define GL_LOGIC_OP 0x0BF1

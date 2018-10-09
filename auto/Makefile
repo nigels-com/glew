@@ -12,29 +12,8 @@ include ../config/version
 SHELL = bash
 PYTHON ?= python
 
-### Use git repository for GL extension specifications
-
-GIT_CLONE  ?= git clone --branch glew https://github.com/nigels-com/glfixes.git
-
-###
-### Conventional desktop OpenGL settings
-###
-
-REGISTRY     = registry/gl/specs
 EXT          = extensions/gl
-FILTER       = filter_gl_ext.sh
 CORE         = core/gl
-REGISTRY_URL = http://www.opengl.org/registry/
-
-###
-### Experimental OpenGL ES settings
-###
-
-# REGISTRY     = registry/gles
-# EXT          = extensions/gles
-# FILTER       = filter_gles_ext.sh
-# CORE         = core/gles
-# REGISTRY_URL = http://www.khronos.org/registry/gles/
 
 BIN = bin
 SRC = src
@@ -103,24 +82,27 @@ B.TARGETS = \
 
 all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS) $(B.TARGETS)
 
-registry: $(REGISTRY)/.dummy
+registry: OpenGL-Registry/.dummy
 ext: $(EXT)/.dummy
 
-$(REGISTRY)/.dummy:
+OpenGL-Registry/.dummy:
 	@echo "--------------------------------------------------------------------"
-	@echo "Downloading registry"
+	@echo "Downloading OpenGL-Registry"
 	@echo "--------------------------------------------------------------------"
-	$(GIT_CLONE) registry
+	git clone https://github.com/KhronosGroup/OpenGL-Registry.git OpenGL-Registry
+	git clone --branch glew https://github.com/nigels-com/glfixes glfixes
 	touch $@
 
-$(EXT)/.dummy: $(REGISTRY)/.dummy
+$(EXT)/.dummy: OpenGL-Registry/.dummy
 	@echo "--------------------------------------------------------------------"
 	@echo "Creating descriptors"
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
-	$(BIN)/update_ext.sh $(EXT) $(REGISTRY) $(BLACKLIST)
+	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
+	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
+	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
 	$(PYTHON) $(BIN)/parse_xml.py registry/xml/egl.xml --core core/gl --extensions extensions/gl
-	$(BIN)/$(FILTER)     $(EXT)
+	$(BIN)/filter_gl_ext.sh $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
 	xargs -J % cp % $(EXT)
