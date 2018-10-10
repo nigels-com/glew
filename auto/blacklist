@@ -10,13 +10,14 @@ SGIX/SGIX_dmbuffer.txt
 SGIX/SGIX_instruments.txt
 SGIX/SGIX_video_source.txt
 SGIX/SGIX_hyperpipe_group.txt
+SGIX/GLX_SGIX_color_type.txt
 SGIX/GLX_SGIX_color_typeXXX.txt
 SGIX/GLX_SGIX_dm_buffer.txt
 SGIX/GLX_SGIX_fbconfig_float.txt
 SGIX/GLX_SGIX_video_resize_float.txt
 SGIX/GLX_SGIX_video_source.txt
 SGIX/GLX_SGIX_wait_group.txt
-SGIX/GLX_SGI_transparent_pixel.txt
+SGI/GLX_SGI_transparent_pixel.txt
 OES/OES_fixed_point.txt
 OES/OES_query_matrix.txt
 IMG/IMG_user_clip_plane.txt
