@@ -65,7 +65,7 @@ _Note: may need to make **auto** folder_
 	$ sudo apt install libosmesa-dev
 	$ make SYSTEM=linux-osmesa
 
-##### Linux OSMesa
+##### Linux mingw-w64
 
 	$ sudo apt install mingw-w64
 	$ make SYSTEM=linux-mingw32
