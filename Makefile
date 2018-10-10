@@ -292,6 +292,9 @@ dist-src:
 	mkdir -p $(DIST_DIR)/lib
 	cp -a auto $(DIST_DIR)
 	$(RM) -Rf $(DIST_DIR)/auto/registry
+	$(RM) -Rf $(DIST_DIR)/auto/glfixes
+	$(RM) -Rf $(DIST_DIR)/auto/OpenGL-Registry
+	$(RM) -Rf $(DIST_DIR)/auto/EGL-Registry
 	cp -a build $(DIST_DIR)
 	cp -a config $(DIST_DIR)
 	cp -a src $(DIST_DIR)
