@@ -27,8 +27,7 @@ Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/f
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
-+[glew-20181010.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20181010.tgz/download)
-+*GLEW 2.2.0 RC1: New extensions, bug fixes*
+[glew-20181010.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20181010.tgz/download) *GLEW 2.2.0 RC1: New extensions, bug fixes*
 
 ## Build
 
