@@ -39,7 +39,7 @@ For most end-users of GLEW the official releases are the best choice, with first
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev`
+Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev`
 
 RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
@@ -54,6 +54,22 @@ Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
 _Note: may need to make **auto** folder_
+
+##### Linux EGL
+
+	$ sudo apt install libegl1-mesa-dev
+	$ make SYSTEM=linux-egl
+
+##### Linux OSMesa
+
+	$ sudo apt install libosmesa-dev
+	$ make SYSTEM=linux-osmesa
+
+##### Linux OSMesa
+
+	$ sudo apt install mingw-w64
+	$ make SYSTEM=linux-mingw32
+	$ make SYSTEM=linux-mingw64
 
 #### Using cmake
 
