@@ -196,6 +196,21 @@ Pasi K&auml;rkk&auml;inen identified and fixed several problems with
 GLX and SDL.  Nate Robins created the `wglinfo` utility, to
 which modifications were made by Michael Wimmer.  
 
+## Contributions
+
+GLEW welcomes community contributions.  Typically these are co-ordinated
+via [Issues](https://github.com/nigels-com/glew/issues) or 
+[Pull Requests](https://github.com/nigels-com/glew/pulls) in the
+GitHub web interface.
+
+Be sure to mention platform and compiler toolchain details when filing
+a bug report.  The output of `glewinfo` can be quite useful for discussion
+also.
+
+Generally GLEW is released once a year, around the time of the Siggraph
+computer graphics conference.  If you're not using the current release
+version of GLEW, be sure to check if the issue or bug is fixed there.
+
 ## Copyright and Licensing
 
 GLEW is originally derived from the EXTGL project by Lev Povalahev.
