@@ -72,6 +72,7 @@ typedef khronos_utime_nanoseconds_t EGLuint64NV;
 typedef khronos_stime_nanoseconds_t EGLnsecsANDROID;
 
 struct EGLClientPixmapHI;
+struct AHardwareBuffer;
 
 #define EGL_DONT_CARE                     ((EGLint)-1)
 

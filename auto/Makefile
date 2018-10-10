@@ -90,6 +90,7 @@ OpenGL-Registry/.dummy:
 	@echo "Downloading OpenGL-Registry"
 	@echo "--------------------------------------------------------------------"
 	git clone https://github.com/KhronosGroup/OpenGL-Registry.git OpenGL-Registry
+	git clone https://github.com/KhronosGroup/EGL-Registry.git EGL-Registry
 	git clone --branch glew https://github.com/nigels-com/glfixes glfixes
 	touch $@
 
@@ -101,7 +102,8 @@ $(EXT)/.dummy: OpenGL-Registry/.dummy
 	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
 	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
 	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
-	$(PYTHON) $(BIN)/parse_xml.py registry/xml/egl.xml --core core/gl --extensions extensions/gl
+#	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --core core/gl --extensions extensions/gl
+	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml                --extensions extensions/gl
 	$(BIN)/filter_gl_ext.sh $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
