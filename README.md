@@ -45,9 +45,6 @@ RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
 ##### Build
 
-	$ cd auto
-	$ make
-	$ cd ..
 	$ make
 	$ sudo make install
 	$ make clean
@@ -64,15 +61,13 @@ _Note: may need to make **auto** folder_
 
 ##### Install build tools
 
-Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev cmake`
+Debian/Ubuntu/Mint:   `$ sudo apt-get install build-essential libxmu-dev libxi-dev libgl-dev cmake git`
 
-RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake`
+RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel cmake git`
 
 ##### Build
 
-	$ cd auto
-	$ make
-	$ cd ../build
+	$ cd build
 	$ cmake ./cmake 
 	$ make -j4
 
