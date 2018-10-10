@@ -193,7 +193,7 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "\nstatic const char * _glewExtensionLookup[] = {" >> $@;
 	$(BIN)/make_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
-	echo -e "  NULL\n};\n" >> $@;
+	echo -e "  NULL\n};\n\n" >> $@;
 	$(BIN)/make_enable_index.pl $(GL_CORE_SPEC) $(GL_EXT_SPEC) >> $@
 	$(BIN)/make_initd.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_initd.pl GL $(GL_EXT_SPEC) >> $@
