@@ -500,10 +500,6 @@ EOT
     grep -v 'GL_NONE' $1/GL_KHR_context_flush_control > tmp
     mv tmp $1/GL_KHR_context_flush_control
 
-# Filter out GL_NONE enum from GL_EGL_KHR_context_flush_control
-    grep -v 'GL_NONE' $1/GL_EGL_KHR_context_flush_control > tmp
-    mv tmp $1/GL_EGL_KHR_context_flush_control
-
 # Filter out CoverageModulation from NV_framebuffer_mixed_samples
 # Superset of EXT_raster_multisample
 
