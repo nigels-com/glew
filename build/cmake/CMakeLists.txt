@@ -8,8 +8,11 @@ cmake_minimum_required (VERSION 2.8.12)
 
 include(GNUInstallDirs)
 
-if (COMMAND cmake_policy)
+if(POLICY CMP0003)
   cmake_policy (SET CMP0003 NEW)
+endif()
+
+if(POLICY CMP0042)
   cmake_policy (SET CMP0042 NEW)
 endif()
 
