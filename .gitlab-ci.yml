@@ -1,0 +1,26 @@
+variables:
+  REPO_OPENGL:  "http://10.0.0.2:81/glew/OpenGL-Registry.git"
+  REPO_EGL:     "http://10.0.0.2:81/glew/EGL-Registry.git"
+# REPO_GLFIXES: "https://github.com/nigels-com/glfixes"
+
+job:
+  script:
+  - make -C auto clobber
+  - make extensions
+  - make dist-src
+  - make clean; SYSTEM=linux            make 
+  - make clean; SYSTEM=linux-osmesa     make
+  - make clean; SYSTEM=linux-egl        make
+  - make clean; SYSTEM=linux-clang      make 
+  - make clean; SYSTEM=linux-clang-egl  make 
+  - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                 ; make; popd
+  - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 . ; make; popd
+  - pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_EGL=1 .    ; make; popd
+
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    when: on_success
+    expire_in: 1 year
+    paths:
+      - glew-*.tgz
+      - glew-*.zip
