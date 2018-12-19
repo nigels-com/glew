@@ -84,6 +84,16 @@ if (GLEW_OSMESA)
   set (X11_LIBRARIES)
 endif ()
 
+#### EGL ####
+
+if (GLEW_EGL AND UNIX)
+  add_definitions (-DGLEW_EGL)
+  if (OpenGL::EGL)
+    message (FATAL_ERROR "EGL library set but not found.")
+  endif()
+  set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${OPENGL_egl_LIBRARY})
+endif ()
+
 #### GLEW ####
 
 include_directories (${GLEW_DIR}/include)
