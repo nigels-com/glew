@@ -15,6 +15,10 @@ PYTHON ?= python
 EXT          = extensions/gl
 CORE         = core/gl
 
+REPO_OPENGL  ?= https://github.com/KhronosGroup/OpenGL-Registry.git
+REPO_EGL     ?= https://github.com/KhronosGroup/EGL-Registry.git
+REPO_GLFIXES ?= https://github.com/nigels-com/glfixes
+
 BIN = bin
 SRC = src
 BLACKLIST = blacklist
@@ -89,9 +93,9 @@ OpenGL-Registry/.dummy:
 	@echo "--------------------------------------------------------------------"
 	@echo "Downloading OpenGL-Registry"
 	@echo "--------------------------------------------------------------------"
-	git clone https://github.com/KhronosGroup/OpenGL-Registry.git OpenGL-Registry
-	git clone https://github.com/KhronosGroup/EGL-Registry.git EGL-Registry
-	git clone --branch glew https://github.com/nigels-com/glfixes glfixes
+	git clone $(REPO_OPENGL) OpenGL-Registry
+	git clone $(REPO_EGL) EGL-Registry
+	git clone --branch glew $(REPO_GLFIXES) glfixes
 	touch $@
 
 $(EXT)/.dummy: OpenGL-Registry/.dummy
