@@ -127,7 +127,11 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
     if (!strcmp(argv[p], "-version"))
     {
       if (++p >= argc) return GL_TRUE;
+#if defined(__STDC_LIB_EXT1__) || (defined(_MSC_VER) && (_MSC_VER >= 1400))
+      if (sscanf_s(argv[p++], "%d.%d", &params->major, &params->minor) != 2) return GL_TRUE;
+#else
       if (sscanf(argv[p++], "%d.%d", &params->major, &params->minor) != 2) return GL_TRUE;
+#endif
     }
     else if (!strcmp(argv[p], "-profile"))
     {
