@@ -20,7 +20,8 @@ int main (int argc, char** argv)
     0,   /* major */
     0,   /* minor */
     0,   /* profile mask */
-    0    /* flags */
+    0,   /* flags */
+    0    /* experimental */
   };
 
 #if defined(GLEW_EGL)
@@ -41,7 +42,8 @@ int main (int argc, char** argv)
 #endif
       "[-version <OpenGL version>] "
       "[-profile core|compatibility] "
-      "[-flag debug|forward]"
+      "[-flag debug|forward] "
+      "[-experimental]"
       "\n");
     return 1;
   }
@@ -52,7 +54,7 @@ int main (int argc, char** argv)
     glewDestroyContext();
     return 1;
   }
-  glewExperimental = GL_TRUE;
+  glewExperimental = params.experimental ? GL_TRUE : GL_FALSE;
   err = glewInit();
   if (GLEW_OK != err)
   {
@@ -158,13 +160,18 @@ GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)
     {
       if (++p >= argc) return GL_TRUE;
       params->display = argv[p++];
-     }
+    }
     else if (!strcmp(argv[p], "-visual"))
     {
       if (++p >= argc) return GL_TRUE;
       params->visual = (int)strtol(argv[p++], NULL, 0);
     }
 #endif
+    else if (!strcmp(argv[p], "-experimental"))
+    {
+      params->experimental = 1;
+      ++p;
+    }
     else
       return GL_TRUE;
   }
