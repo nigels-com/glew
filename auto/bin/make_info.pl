@@ -20,7 +20,7 @@ do 'bin/make.pl';
 sub make_pfn_info($%)
 {
     my $name = $_[0];
-    return "  glewInfoFunc(\"$_[0]\", $name == NULL);";
+    return "  glewInfoFunc(fi, \"$_[0]\", $name == NULL);";
 }
 
 #---------------------------------------------------------------------------------------
@@ -44,13 +44,23 @@ if (@ARGV)
 		#make_separator($extname);
 		print "#ifdef $extname\n\n";
 		print "static void _glewInfo_$extname (void)\n{\n";
-		if ($extvar =~ /VERSION/)
+
+		if (! %$functions)
 		{
-			print "  glewPrintExt(\"$extname\", $extvar, $extvar, $extvar);\n";
+			print "  ";		
 		}
 		else
 		{
-			print "  glewPrintExt(\"$extname\", $extvar, $extpre" .
+			print "  GLboolean fi = ";		
+		}
+
+		if ($extvar =~ /VERSION/)
+		{
+			print "glewPrintExt(\"$extname\", $extvar, $extvar, $extvar);\n";
+		}
+		else
+		{
+			print "glewPrintExt(\"$extname\", $extvar, $extpre" .
 				"ewIsSupported(\"$extname\"), $extpre" .
 				"ewGetExtension(\"$extstring\"));\n";
 		}
