@@ -30,6 +30,7 @@ BEGIN
         BEGIN
             VALUE "Comments", 
             "The OpenGL Extension Wrangler Library\r\n"
+            "Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>\r\n"
             "Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>\r\n"
             "Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>\r\n"
             "Copyright (C) 2002, Lev Povalahev\r\n"
@@ -107,7 +108,7 @@ BEGIN
             VALUE "FileDescription", "Utility for verifying extension entry points\0"
             VALUE "FileVersion", "GLEW_MAJOR,GLEW_MINOR,GLEW_MICRO,0\0"
             VALUE "InternalName", "glewinfo\0"
-            VALUE "LegalCopyright", "© 2002-2008 Milan Ikits & Marcelo Magallon\0"
+            VALUE "LegalCopyright", "© 2002-2019 Nigel Stewart & Milan Ikits & Marcelo Magallon\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", FILENAME "\0"
             VALUE "PrivateBuild", "\0"
