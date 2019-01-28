@@ -10,7 +10,6 @@ include ../config/version
 #GLEW_SPLIT_SOURCE = yes
 
 SHELL = bash
-PYTHON ?= python
 
 EXT          = extensions/gl
 CORE         = core/gl
@@ -106,8 +105,8 @@ $(EXT)/.dummy: OpenGL-Registry/.dummy
 	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
 	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
 	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
-#	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --core core/gl --extensions extensions/gl
-	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml                --extensions extensions/gl
+#	perl $(BIN)/parse_xml.pl EGL-Registry/api/egl.xml --core core/gl --extensions extensions/gl
+	perl $(BIN)/parse_xml.pl EGL-Registry/api/egl.xml                --extensions extensions/gl
 	$(BIN)/filter_gl_ext.sh $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
