@@ -45,6 +45,8 @@ Debian/Ubuntu/Mint:    `$ sudo apt-get install build-essential libxmu-dev libxi-
 
 RedHat/CentOS/Fedora:  `$ sudo yum install libXmu-devel libXi-devel libGL-devel`
 
+FreeBSD: `# pkg install xorg lang/gcc git cmake gmake bash python perl5`
+
 ##### Build
 
 	$ make
