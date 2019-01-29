@@ -5,14 +5,14 @@ script:
 - make -C auto clobber
 - make extensions
 - make dist-src
-- make clean; SYSTEM=linux            make 
-- make clean; SYSTEM=linux-osmesa     make
-- make clean; SYSTEM=linux-egl        make
-- make clean; SYSTEM=linux-clang      make 
-- make clean; SYSTEM=linux-clang-egl  make 
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' .                 ; make; popd
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 . ; make; popd
-- pushd build/cmake; git clean -xdf .; cmake -G 'Unix Makefiles' -DGLEW_EGL=1 .    ; make; popd
+- make clean && SYSTEM=linux            make
+- make clean && SYSTEM=linux-osmesa     make
+- make clean && SYSTEM=linux-egl        make
+- make clean && SYSTEM=linux-clang      make
+- make clean && SYSTEM=linux-clang-egl  make
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' .                 && make && popd
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 . && make && popd
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_EGL=1 .    && make && popd
 addons:
   apt:
     packages:
@@ -21,9 +21,14 @@ addons:
     - dos2unix
     - libosmesa6-dev
     - libegl1-mesa-dev
-  artifacts:
-    bucket: glew
-    s3_region: "us-east-1"
-    paths:
+deploy:
+  provider: s3
+  skip_cleanup: true
+  bucket: glew
+  region: us-east-1
+  acl: public_read
+  paths:
     - $(ls *.zip *.tgz | tr "\n" ":")
     - $(find doc -type f | tr "\n" ":")
+  on:
+    repo: nigels-com/glew
