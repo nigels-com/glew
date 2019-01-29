@@ -42,9 +42,8 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package (OpenGL REQUIRED)
 
-# X11 required when builing visualinfo and glewinfo,
-# but not for Windows or Apple OSX platforms
-if (BUILD_UTILS AND NOT WIN32 AND NOT APPLE)
+# X11 required except for Windows and Apple OSX platforms
+if (NOT WIN32 AND NOT APPLE)
   find_package (X11)
 endif()
 
@@ -55,7 +54,7 @@ else ()
   set (DLL_PREFIX lib)
 endif ()
 
-set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
+set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${X11_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
 
@@ -96,7 +95,7 @@ endif ()
 
 #### GLEW ####
 
-include_directories (${GLEW_DIR}/include)
+include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
 
 set (GLEW_PUBLIC_HEADERS_FILES ${GLEW_DIR}/include/GL/wglew.h ${GLEW_DIR}/include/GL/glew.h ${GLEW_DIR}/include/GL/glxew.h)
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
