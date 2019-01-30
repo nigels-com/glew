@@ -21,7 +21,7 @@ addons:
     - dos2unix
     - libosmesa6-dev
 #    - libegl1-mesa-dev
-  artifacts: true
+  artifacts:
     paths:
     - $(ls *.zip *.tgz | tr "\n" ":")
     - $(find doc -type f | tr "\n" ":")
