@@ -21,16 +21,7 @@ addons:
     - dos2unix
     - libosmesa6-dev
 #    - libegl1-mesa-dev
-deploy:
-  provider: s3
-  skip_cleanup: true
-  access_key_id: ${ARTIFACTS_KEY}
-  secret_access_key: ${ARTIFACTS_SECRET}
-  bucket: ${ARTIFACTS_BUCKET}
-  region: us-east-1
-  acl: public_read
-  paths:
+  artifacts: true
+    paths:
     - $(ls *.zip *.tgz | tr "\n" ":")
     - $(find doc -type f | tr "\n" ":")
-  on:
-    repo: nigels-com/glew
