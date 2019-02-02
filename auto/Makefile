@@ -111,11 +111,19 @@ $(EXT)/.dummy: OpenGL-Registry/.dummy EGL-Registry/.dummy
 	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
 	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
 	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
-	$(BIN)/filter_gl_ext.sh $(EXT)
+	@echo "--------------------------------------------------------------------"
+	@echo "WGL descriptors"
+	@echo "--------------------------------------------------------------------"
+	rm -f $(EXT)/WGL_*
+	$(PYTHON) $(BIN)/parse_xml.py OpenGL-Registry/xml/wgl.xml --api wgl --extensions extensions/gl
 	@echo "--------------------------------------------------------------------"
 	@echo "EGL descriptors"
 	@echo "--------------------------------------------------------------------"
-	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --extensions extensions/gl
+	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --api egl --extensions extensions/gl
+	@echo "--------------------------------------------------------------------"
+	@echo "filter descriptors"
+	@echo "--------------------------------------------------------------------"
+	$(BIN)/filter_gl_ext.sh $(EXT)
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
 	xargs -J % cp % $(EXT)
