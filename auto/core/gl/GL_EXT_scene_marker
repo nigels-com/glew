@@ -1,0 +1,6 @@
+GL_EXT_scene_marker
+https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_scene_marker.txt
+GL_EXT_scene_marker
+
+	void glBeginSceneEXT (void)
+	void glEndSceneEXT (void)
