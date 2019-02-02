@@ -148,9 +148,14 @@ EOT
 	typedef struct __GLXFBConfigRec *GLXFBConfigSGIX
 EOT
 
+# Skip GLX_SGIX_dmbuffer and GLX_SGIX_video_source
+# unknown DMparams, DMbuffer, etc
+    rm -f $1/GLX_SGIX_dmbuffer
+    rm -f $1/GLX_SGIX_video_source
+
 # add typedefs to GLX_SGIX_pbuffer
     cat >> $1/GLX_SGIX_pbuffer <<EOT
-	typedef XID GLXPbufferSGIX
+    typedef XID GLXPbufferSGIX
 	typedef struct { int type; unsigned long serial; Bool send_event; Display *display; GLXDrawable drawable; int event_type; int draw_type; unsigned int mask; int x, y; int width, height; int count; } GLXBufferClobberEventSGIX
 EOT
 
