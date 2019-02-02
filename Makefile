@@ -149,6 +149,7 @@ glew.pc: glew.pc.in
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
 		-e "s|@libname@|$(NAME)|g" \
+		-e "s|@libgl@|$(LDFLAGS.GL)|g" \
 		-e "s|@requireslib@|$(LIBGLU)|g" \
 		< $< > $@
 
