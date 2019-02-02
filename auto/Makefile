@@ -117,6 +117,11 @@ $(EXT)/.dummy: OpenGL-Registry/.dummy EGL-Registry/.dummy
 	rm -f $(EXT)/WGL_*
 	$(PYTHON) $(BIN)/parse_xml.py OpenGL-Registry/xml/wgl.xml --api wgl --extensions extensions/gl
 	@echo "--------------------------------------------------------------------"
+	@echo "GLX descriptors"
+	@echo "--------------------------------------------------------------------"
+	rm -f $(EXT)/GLX_*
+	$(PYTHON) $(BIN)/parse_xml.py OpenGL-Registry/xml/glx.xml --api glx --extensions extensions/gl
+	@echo "--------------------------------------------------------------------"
 	@echo "EGL descriptors"
 	@echo "--------------------------------------------------------------------"
 	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --api egl --extensions extensions/gl
