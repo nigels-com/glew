@@ -86,7 +86,6 @@ B.TARGETS = \
 
 all custom: $(I.TARGETS) $(S.TARGETS) $(D.TARGETS) $(B.TARGETS)
 
-registry: OpenGL-Registry/.dummy
 ext: $(EXT)/.dummy
 
 OpenGL-Registry/.dummy:
@@ -94,21 +93,29 @@ OpenGL-Registry/.dummy:
 	@echo "Downloading OpenGL-Registry"
 	@echo "--------------------------------------------------------------------"
 	git clone $(REPO_OPENGL) OpenGL-Registry
-	git clone $(REPO_EGL) EGL-Registry
 	git clone --branch glew $(REPO_GLFIXES) glfixes
 	touch $@
 
-$(EXT)/.dummy: OpenGL-Registry/.dummy
+EGL-Registry/.dummy:
 	@echo "--------------------------------------------------------------------"
-	@echo "Creating descriptors"
+	@echo "Downloading EGL-Registry"
+	@echo "--------------------------------------------------------------------"
+	git clone $(REPO_EGL) EGL-Registry
+	touch $@
+
+$(EXT)/.dummy: OpenGL-Registry/.dummy EGL-Registry/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "OpenGL descriptors"
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
 	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
 	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
 	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
-#	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --core core/gl --extensions extensions/gl
-	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml                --extensions extensions/gl
 	$(BIN)/filter_gl_ext.sh $(EXT)
+	@echo "--------------------------------------------------------------------"
+	@echo "EGL descriptors"
+	@echo "--------------------------------------------------------------------"
+	$(PYTHON) $(BIN)/parse_xml.py EGL-Registry/api/egl.xml --extensions extensions/gl
 ifeq ($(patsubst Darwin%,Darwin,$(SYSTEM)), Darwin)
 	find $(CORE) -maxdepth 1 -type f | grep -v VERSION | grep -v "~" | \
 	xargs -J % cp % $(EXT)
