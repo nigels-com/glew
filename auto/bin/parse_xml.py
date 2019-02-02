@@ -27,7 +27,7 @@ def findData(node, path):
 
 isPointer = re.compile('(.*)([ ]+)([*]+)')
 
-def findParams(node, typeMap = {}):
+def findParams(node):
     n = findData(node, ['name'])[0]
     t = ''
     for i in node.childNodes:
@@ -40,8 +40,6 @@ def findParams(node, typeMap = {}):
     m = isPointer.match(t)
     if m:
         t = ('%s%s'%(m.group(1), m.group(3))).strip()
-    if t in typeMap:
-        t = typeMap[t]
     return ( t, n.strip())
 
 def findEnums(dom):
@@ -52,11 +50,11 @@ def findEnums(dom):
       ret[n] = v
     return ret
 
-def findCommands(dom, typeMap = {}):
+def findCommands(dom):
     ret = {}
     for i in findChildren(dom, [ 'registry', 'commands', 'command' ]):
-      r,n = findParams(findChildren(i, ['proto'])[0], typeMap)
-      p = [ findParams(j, typeMap) for j in findChildren(i, ['param'])]
+      r,n = findParams(findChildren(i, ['proto'])[0])
+      p = [ findParams(j) for j in findChildren(i, ['param'])]
       ret[n] = (r, p)
     return ret
 
@@ -87,11 +85,8 @@ def findExtensions(dom):
     return ret
 
 def findApi(dom, name):
-    typeMap = {}
-#    if name=='wgl':
-#        typeMap = { 'int' : 'INT', 'void' : 'VOID' }
     enums      = findEnums(dom)
-    commands   = findCommands(dom, typeMap)
+    commands   = findCommands(dom)
     features   = findFeatures(dom)
     extensions = findExtensions(dom)
     return (enums, commands, features, extensions)
