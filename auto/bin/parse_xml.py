@@ -127,33 +127,34 @@ def writeExtension(f, name, extension, enums, commands):
 
 if __name__ == '__main__':
 
-  from optparse import OptionParser
+  from argparse import ArgumentParser
   import os
 
-  parser = OptionParser('usage: %prog [options] [XML specs...]')
-  parser.add_option("--core", dest="core", help="location for core outputs", default='')
-  parser.add_option("--api", dest="name", help="API name: egl, wgl, glx, etc", default='')
-  parser.add_option("--extensions", dest="extensions", help="location for extensions outputs", default='')
+  parser = ArgumentParser(description='usage: %prog [options] [XML specs...]')
+  parser.add_argument("--core", dest="core", help="location for core outputs", default='')
+  parser.add_argument("--api", dest="name", help="API name: egl, wgl, glx, etc", default='')
+  parser.add_argument("--extensions", dest="extensions", help="location for extensions outputs", default='')
 
-  (options, args) = parser.parse_args()
+  (options, args) = parser.parse_known_args()
+  options = vars(options)
 
   for i in args:
 
     dom = parse(i)
-    api = findApi(dom, options.name)
+    api = findApi(dom, options['name'])
 
     print('Found {} enums, {} commands, {} features and {} extensions.'.format(
         len(api[0]), len(api[1]), len(api[2]), len(api[3])))
 
-    if len(options.core):
+    if len(options['core']):
         for i in api[2].keys():
-            f = open('%s/%s'%(options.core, i), 'wb')
+            f = open('%s/%s'%(options['core'], i), 'wb')
             writeExtension(f, i, api[2][i], api[0], api[1])
             f.close()
 
-    if len(options.extensions):
+    if len(options['extensions']):
         for i in api[3].keys():
-            f = open('%s/%s'%(options.extensions, i), 'wb')
+            f = open('%s/%s'%(options['extensions'], i), 'wb')
             writeExtension(f, i, api[3][i], api[0], api[1])
             f.close()
 
