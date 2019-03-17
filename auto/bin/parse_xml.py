@@ -98,7 +98,7 @@ def findApi(dom, name):
 isWGL = re.compile('WGL_([A-Z0-9]+)_.*')
 
 def writeExtension(f, name, extension, enums, commands):
-    f.write('%s\n'%name)
+    f.write(('%s\n'%name).encode())
 
     url = 'https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf'
 
@@ -106,24 +106,24 @@ def writeExtension(f, name, extension, enums, commands):
     if m:
         url = 'https://www.khronos.org/registry/OpenGL/extensions/%s/%s.txt'%(m.group(1), name)
 
-    f.write('%s\n'%(url))
+    f.write(('%s\n'%(url)).encode())
 
     if name.find('_VERSION_')==-1:
-        f.write('%s\n'%name)
+        f.write(('%s\n'%name).encode())
     else:
-        f.write('\n')
-    f.write('\n')
+        f.write('\n'.encode())
+    f.write('\n'.encode())
 
     enums = [ (j, enums[j]) for j in extension[0] ]
     for e in sorted(enums, key=lambda i: i[1]):
-        f.write('\t%s %s\n'%(e[0], e[1]))
+        f.write(('\t%s %s\n'%(e[0], e[1])).encode())
 
     commands = [ (j, commands[j]) for j in extension[1] ]
     for c in sorted(commands):
         params = ', '.join( [ '%s %s'%(j[0].strip(), j[1].strip()) for j in c[1][1] ] )
         if len(params)==0:
             params = 'void'
-        f.write('\t%s %s (%s)\n'%(c[1][0].strip(), c[0].strip(), params))
+        f.write(('\t%s %s (%s)\n'%(c[1][0].strip(), c[0].strip(), params)).encode())
 
 if __name__ == '__main__':
 
