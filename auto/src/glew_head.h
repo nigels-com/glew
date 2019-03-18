@@ -140,15 +140,26 @@ typedef _W64 int ptrdiff_t;
  * (mem, 2004-01-04)
  */
 
-#include <stddef.h>
+#if defined(__APPLE__) || defined(__linux__)
+#  if defined(__cplusplus)
+#    include <cstddef>
+#    include <cstdint>
+#  else
+#    include <stddef.h>
+#    include <stdint.h>
+#  endif
+#else
+
+# include <stddef.h>
 
 /* SGI MIPSPro doesn't like stdint.h in C++ mode          */
 /* ID: 3376260 Solaris 9 has inttypes.h, but not stdint.h */
 
-#if (defined(__sgi) || defined(__sun)) && !defined(__GNUC__)
-#include <inttypes.h>
-#else
-#include <stdint.h>
+#  if (defined(__sgi) || defined(__sun)) && !defined(__GNUC__)
+#    include <inttypes.h>
+#  else
+#    include <stdint.h>
+#  endif
 #endif
 
 #define GLEW_APIENTRY_DEFINED
