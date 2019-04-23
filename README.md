@@ -57,7 +57,7 @@ Targets:    `all, glew.lib (sub-targets: glew.lib.shared, glew.lib.static), glew
 
 Variables:  `SYSTEM=linux-clang, GLEW_DEST=/usr/local, STRIP=`
 
-_Note: may need to make **auto** folder_
+_Note: you may need to call `make` in the  **auto** folder first_
 
 ##### Linux EGL
 
