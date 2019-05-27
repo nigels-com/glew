@@ -87,9 +87,9 @@ endif ()
 
 if (GLEW_EGL AND UNIX)
   add_definitions (-DGLEW_EGL)
-  if (OpenGL::EGL)
+  if (NOT OpenGL_EGL_FOUND)
     message (FATAL_ERROR "EGL library set but not found.")
-  endif()
+  endif ()
   set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${OPENGL_egl_LIBRARY})
 endif ()
 
