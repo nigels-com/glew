@@ -24,7 +24,7 @@ WARN = -Wall -W
 POPT = -O2
 CFLAGS.EXTRA += -fPIC
 CFLAGS.EXTRA += -Wcast-qual
-CFLAGS.EXTRA += -ansi -pedantic
+CFLAGS.EXTRA += -std=c89 -pedantic
 CFLAGS.EXTRA += -fno-stack-protector
 BIN.SUFFIX =
 LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
