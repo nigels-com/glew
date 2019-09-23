@@ -7,6 +7,7 @@ EXT/object_space_tess.txt
 SGI/filter4_parameters.txt
 SGIS/SGIS_texture_color_mask.txt
 SGIX/SGIX_dmbuffer.txt
+SGIX/SGIX_fragment_specular_lighting.txt
 SGIX/SGIX_instruments.txt
 SGIX/SGIX_video_source.txt
 SGIX/SGIX_hyperpipe_group.txt
