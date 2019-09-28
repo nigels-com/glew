@@ -27,17 +27,22 @@ Windows binaries for [32-bit and 64-bit](https://sourceforge.net/projects/glew/f
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
+[glew-20190928.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20190928.tgz/download) *GLEW 2.2.0 RC2: New extensions, bug fixes*
 [glew-20181010.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20181010.tgz/download) *GLEW 2.2.0 RC1: New extensions, bug fixes*
 
 ## Build
 
 It is highly recommended to build from a tgz or zip release snapshot.
 The code generation workflow is a complex brew of gnu make, perl and python, that works best on Linux or Mac.
+The code generation is known to work on Windows using [MSYS2](https://www.msys2.org/).
 For most end-users of GLEW the official releases are the best choice, with first class support.
 
 ### Linux and Mac
 
 #### Using GNU Make
+
+GNU make is the primary build system for GLEW, historically.
+It includes targets for building the sources and headers, for maintenance purposes.
 
 ##### Install build tools
 
@@ -76,6 +81,10 @@ _Note: you may need to call `make` in the  **auto** folder first_
 	$ make SYSTEM=linux-mingw64
 
 #### Using cmake
+
+The cmake build is mostly contributer maintained.
+Due to the multitude of use cases this is maintained on a _best effort_ basis.
+Pull requests are welcome.
 
 *CMake 2.8.12 or higher is required.*
 
@@ -134,7 +143,7 @@ Available from [Msys2](http://msys2.github.io/) and/or [Mingw-w64](http://mingw-
 
 Requirements: bash, make, gcc
 
-	$ pacman -S gcc make  mingw-w64-i686-gcc mingw-w64-x86_64-gcc
+	$ pacman -S gcc make mingw-w64-i686-gcc mingw-w64-x86_64-gcc
 	$ make
 	$ make install
 	$ make install.all
@@ -211,7 +220,7 @@ Be sure to mention platform and compiler toolchain details when filing
 a bug report.  The output of `glewinfo` can be quite useful for discussion
 also.
 
-Generally GLEW is released once a year, around the time of the Siggraph
+Generally GLEW is usually released once a year, around the time of the Siggraph
 computer graphics conference.  If you're not using the current release
 version of GLEW, be sure to check if the issue or bug is fixed there.
 
