@@ -191,10 +191,6 @@ download a pre-generated (unsupported) snapshot:
 
 https://sourceforge.net/projects/glew/files/glew/snapshots/
 
-Travis-built snapshots are also available:
-
-https://glew.s3.amazonaws.com/index.html
-
 ## Authors
 
 GLEW is currently maintained by [Nigel Stewart](https://github.com/nigels-com)
