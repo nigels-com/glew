@@ -89,7 +89,7 @@ http://www.opengl.org/documentation/specs/version2.0/glspec20.pdf
 	void glBlendEquationSeparate (GLenum modeRGB, GLenum modeAlpha)
 	void glDrawBuffers (GLsizei n, const GLenum* bufs)
 	void glStencilOpSeparate (GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass)
-	void glStencilFuncSeparate (GLenum frontfunc, GLenum backfunc, GLint ref, GLuint mask)
+	void glStencilFuncSeparate (GLenum face, GLenum func, GLint ref, GLuint mask)
 	void glStencilMaskSeparate (GLenum face, GLuint mask)
 	void glAttachShader (GLuint program, GLuint shader)
 	void glBindAttribLocation (GLuint program, GLuint index, const GLchar* name)
