@@ -2,6 +2,16 @@ GL_EXT_semaphore
 http://www.opengl.org/registry/specs/EXT/external_objects.txt
 GL_EXT_semaphore
 
+	GL_LAYOUT_GENERAL_EXT 0x958D
+	GL_LAYOUT_COLOR_ATTACHMENT_EXT 0x958E
+	GL_LAYOUT_DEPTH_STENCIL_ATTACHMENT_EXT 0x958F
+	GL_LAYOUT_DEPTH_STENCIL_READ_ONLY_EXT 0x9590
+	GL_LAYOUT_SHADER_READ_ONLY_EXT 0x9591
+	GL_LAYOUT_TRANSFER_SRC_EXT 0x9592
+	GL_LAYOUT_TRANSFER_DST_EXT 0x9593
+	GL_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_EXT 0x9530
+	GL_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_EXT 0x9531
+
 	void glDeleteSemaphoresEXT (GLsizei n, const GLuint* semaphores)
 	void glGenSemaphoresEXT (GLsizei n, GLuint* semaphores)
 	void glGetSemaphoreParameterui64vEXT (GLuint semaphore, GLenum pname, GLuint64* params)
