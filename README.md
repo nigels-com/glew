@@ -12,6 +12,31 @@ https://github.com/nigels-com/glew
 [![Gitter](https://badges.gitter.im/nigels-com/glew.svg)](https://gitter.im/nigels-com/glew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Download](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
 
+## Table of Contents
+
+    * [Downloads](#downloads)
+       * [Recent snapshots](#recent-snapshots)
+    * [Build](#build)
+       * [Linux and Mac](#linux-and-mac)
+          * [Using GNU Make](#using-gnu-make)
+             * [Install build tools](#install-build-tools)
+             * [Build](#build-1)
+             * [Linux EGL](#linux-egl)
+             * [Linux OSMesa](#linux-osmesa)
+             * [Linux mingw-w64](#linux-mingw-w64)
+          * [Using cmake](#using-cmake)
+             * [Install build tools](#install-build-tools-1)
+             * [Build](#build-2)
+       * [Windows](#windows)
+          * [Visual Studio](#visual-studio)
+          * [MSYS/Mingw](#msysmingw)
+          * [MSYS2/Mingw-w64](#msys2mingw-w64)
+    * [glewinfo](#glewinfo)
+    * [Code Generation](#code-generation)
+    * [Authors](#authors)
+    * [Contributions](#contributions)
+    * [Copyright and Licensing](#copyright-and-licensing)
+
 ## Downloads
 
 Current release is [2.1.0](https://sourceforge.net/projects/glew/files/glew/2.1.0/).
