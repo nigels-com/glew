@@ -1,0 +1,24 @@
+NAME = $(GLEW_NAME)
+CC = /usr/lib/sdk/toolchain-i386/bin/i686-unknown-linux-gnu-gcc -m32 -L/lib/i386-linux-gnu
+LD = /usr/lib/sdk/toolchain-i386/bin/i686-unknown-linux-gnu-gcc -m32 -L/lib/i386-linux-gnu
+LDFLAGS.EXTRA += -m32
+LDFLAGS.EXTRA += -L/lib/i386-linux-gnu
+LIBDIR = $(GLEW_DEST)/lib32 
+LDFLAGS.GL = -lGL -lX11
+LDFLAGS.STATIC = -Wl,-Bstatic
+LDFLAGS.DYNAMIC = -Wl,-Bdynamic
+WARN += -Wall -W
+WARN += -Wshadow
+WARN += -pedantic
+POPT = -O2
+CFLAGS.EXTRA += -m32
+CFLAGS.EXTRA += -fPIC
+CFLAGS.EXTRA += -Wcast-qual
+CFLAGS.EXTRA += -ansi -pedantic
+CFLAGS.EXTRA += -fno-stack-protector
+BIN.SUFFIX =
+LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
+LIB.DEVLNK = lib$(NAME).so
+LIB.SHARED = lib$(NAME).so.$(SO_VERSION)
+LIB.STATIC = lib$(NAME).a
+LDFLAGS.SO = -m32 -shared -Wl,-soname=$(LIB.SONAME)
