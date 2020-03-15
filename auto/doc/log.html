@@ -2,6 +2,189 @@
 
 <hr align="center">
 <ul class="none">
+<li><b>2.2.0</b> [03-15-20]
+
+<ul>
+<li> Bug fixes:
+<ul>
+<li> GL_EXT_semaphore constants
+<li> Some const pointer fixups in OpenGL API
+<li> Correction for GLEW_VERSION_4_5
+<li> Windows build updates and fixes
+</ul>
+</ul>
+
+<ul>
+<li> New extensions:
+<ul>
+<li> GL_AMD_framebuffer_multisample_advanced
+<li> GL_AMD_gpu_shader_half_float_fetch
+<li> GL_AMD_shader_image_load_store_lod
+<li> GL_ARM_texture_unnormalized_coordinates
+<li> GL_DMP_program_binary
+<li> GL_DMP_shader_binary
+<li> GL_EXT_EGL_image_external_wrap_modes
+<li> GL_EXT_EGL_image_storage
+<li> GL_EXT_EGL_sync
+<li> GL_EXT_clip_control
+<li> GL_EXT_depth_clamp
+<li> GL_EXT_disjoint_timer_query
+<li> GL_EXT_draw_transform_feedback
+<li> GL_EXT_multiview_tessellation_geometry_shader
+<li> GL_EXT_multiview_texture_multisample
+<li> GL_EXT_multiview_timer_query
+<li> GL_EXT_occlusion_query_boolean
+<li> GL_EXT_primitive_bounding_box
+<li> GL_EXT_protected_textures
+<li> GL_EXT_robustness
+<li> GL_EXT_shader_framebuffer_fetch_non_coherent
+<li> GL_EXT_static_vertex_array
+<li> GL_EXT_tessellation_point_size
+<li> GL_EXT_tessellation_shader
+<li> GL_EXT_texture_border_clamp
+<li> GL_EXT_texture_buffer
+<li> GL_EXT_texture_compression_s3tc_srgb
+<li> GL_EXT_texture_format_sRGB_override
+<li> GL_EXT_texture_mirror_clamp_to_edge
+<li> GL_EXT_texture_query_lod
+<li> GL_EXT_texture_shadow_lod
+<li> GL_FJ_shader_binary_GCCSO
+<li> GL_IMG_bindless_texture
+<li> GL_IMG_framebuffer_downsample
+<li> GL_IMG_multisampled_render_to_texture
+<li> GL_IMG_program_binary
+<li> GL_IMG_read_format
+<li> GL_IMG_shader_binary
+<li> GL_IMG_texture_compression_pvrtc
+<li> GL_IMG_texture_compression_pvrtc2
+<li> GL_IMG_texture_env_enhanced_fixed_function
+<li> GL_IMG_texture_filter_cubic
+<li> GL_INTEL_blackhole_render
+<li> GL_INTEL_shader_integer_functions2
+<li> GL_KHR_shader_subgroup
+<li> GL_MESA_framebuffer_flip_y
+<li> GL_MESA_program_binary_formats
+<li> GL_MESA_tile_raster_order
+<li> GL_NVX_gpu_multicast2
+<li> GL_NVX_progress_fence
+<li> GL_NV_compute_shader_derivatives
+<li> GL_NV_conservative_raster_pre_snap
+<li> GL_NV_conservative_raster_underestimation
+<li> GL_NV_depth_nonlinear
+<li> GL_NV_fragment_shader_barycentric
+<li> GL_NV_memory_attachment
+<li> GL_NV_mesh_shader
+<li> GL_NV_query_resource_tag
+<li> GL_NV_read_buffer
+<li> GL_NV_read_buffer_front
+<li> GL_NV_representative_fragment_test
+<li> GL_NV_scissor_exclusive
+<li> GL_NV_shader_subgroup_partitioned
+<li> GL_NV_shader_texture_footprint 
+<li> GL_NV_shading_rate_image
+<li> GL_NV_vdpau_interop2
+<li> GL_OES_EGL_image
+<li> GL_OES_EGL_image_external
+<li> GL_OES_EGL_image_external_essl3
+<li> GL_OES_blend_equation_separate
+<li> GL_OES_blend_func_separate
+<li> GL_OES_blend_subtract
+<li> GL_OES_compressed_ETC1_RGB8_texture
+<li> GL_OES_compressed_paletted_texture
+<li> GL_OES_copy_image
+<li> GL_OES_depth24
+<li> GL_OES_depth32
+<li> GL_OES_depth_texture
+<li> GL_OES_depth_texture_cube_map
+<li> GL_OES_draw_buffers_indexed
+<li> GL_OES_draw_texture
+<li> GL_OES_element_index_uint
+<li> GL_OES_extended_matrix_palette
+<li> GL_OES_fbo_render_mipmap
+<li> GL_OES_fragment_precision_high
+<li> GL_OES_framebuffer_object
+<li> GL_OES_geometry_point_size
+<li> GL_OES_geometry_shader
+<li> GL_OES_get_program_binary
+<li> GL_OES_gpu_shader5
+<li> GL_OES_mapbuffer
+<li> GL_OES_matrix_get
+<li> GL_OES_matrix_palette
+<li> GL_OES_packed_depth_stencil
+<li> GL_OES_point_size_array
+<li> GL_OES_point_sprite
+<li> GL_OES_read_format
+<li> GL_OES_required_internalformat
+<li> GL_OES_rgb8_rgba8
+<li> GL_OES_sample_shading
+<li> GL_OES_sample_variables
+<li> GL_OES_shader_image_atomic
+<li> GL_OES_shader_io_blocks
+<li> GL_OES_shader_multisample_interpolation
+<li> GL_OES_single_precision
+<li> GL_OES_standard_derivatives
+<li> GL_OES_stencil1
+<li> GL_OES_stencil4
+<li> GL_OES_stencil8
+<li> GL_OES_surfaceless_context
+<li> GL_OES_tessellation_point_size
+<li> GL_OES_tessellation_shader
+<li> GL_OES_texture_3D
+<li> GL_OES_texture_border_clamp
+<li> GL_OES_texture_buffer
+<li> GL_OES_texture_compression_astc
+<li> GL_OES_texture_cube_map
+<li> GL_OES_texture_cube_map_array
+<li> GL_OES_texture_env_crossbar
+<li> GL_OES_texture_mirrored_repeat
+<li> GL_OES_texture_npot
+<li> GL_OES_texture_stencil8
+<li> GL_OES_texture_storage_multisample_2d_array
+<li> GL_OES_texture_view
+<li> GL_OES_vertex_array_object
+<li> GL_OES_vertex_half_float
+<li> GL_OES_vertex_type_10_10_10_2
+<li> GL_QCOM_YUV_texture_gather
+<li> GL_QCOM_shader_framebuffer_fetch_rate
+<li> GL_QCOM_texture_foveated
+<li> GL_QCOM_texture_foveated_subsampled_layout
+<li> GL_VIV_shader_binary
+<li> EGL_ANDROID_GLES_layers
+<li> EGL_ANDROID_get_frame_timestamps
+<li> EGL_ANDROID_get_native_client_buffer
+<li> EGL_ARM_image_format
+<li> EGL_EXT_bind_to_front
+<li> EGL_EXT_client_sync
+<li> EGL_EXT_compositor
+<li> EGL_EXT_gl_colorspace_display_p3
+<li> EGL_EXT_gl_colorspace_display_p3_linear
+<li> EGL_EXT_gl_colorspace_display_p3_passthrough
+<li> EGL_EXT_gl_colorspace_scrgb
+<li> EGL_EXT_image_gl_colorspace
+<li> EGL_EXT_image_implicit_sync_control
+<li> EGL_EXT_surface_CTA861_3_metadata
+<li> EGL_EXT_sync_reuse
+<li> EGL_KHR_display_reference
+<li> EGL_MESA_query_driver
+<li> EGL_NV_context_priority_realtime
+<li> EGL_NV_quadruple_buffer
+<li> EGL_NV_stream_dma
+<li> EGL_NV_stream_flush
+<li> EGL_NV_stream_origin
+<li> EGL_NV_triple_buffer
+<li> EGL_WL_bind_wayland_display
+<li> EGL_WL_create_wayland_buffer_from_image
+<li> GLX_EXT_context_priority
+<li> GLX_EXT_no_config_context
+<li> GLX_NV_multigpu_context
+<li> WGL_NV_multigpu_context
+</ul> 
+</ul>
+
+</ul>
+
+<hr align="center">
+<ul class="none">
 <li><b>2.1.0</b> [07-31-17]
 <ul>
 <li> Enhancements:
