@@ -603,5 +603,11 @@ EOT
     typedef void (APIENTRY *GLVULKANPROCNV)(void)
 EOT
 
+# GLU extensions are not relevant here
+    rm -f $1/GL_GLU_*
+
+# Not complete
+    rm -f $1/GL_SGIX_color_type
+
 # clean up
     rm -f patterns $1/*.bak
