@@ -1,0 +1,12 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+      - "build-essential"
+      - "libxmu-dev"
+      - "libxi-dev"
+      - "libgl-dev"
+    index:
+      build_command:
+        - "cd auto; make all -j8; cd .."
+        - "make all -j8"
