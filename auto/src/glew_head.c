@@ -28,7 +28,7 @@
 #if defined(GLEW_EGL)
 #elif defined(GLEW_REGAL)
 
-/* In GLEW_REGAL mode we call direcly into the linked
+/* In GLEW_REGAL mode we call directly into the linked
    libRegal.so glGetProcAddressREGAL for looking up
    the GL function pointers. */
 
