@@ -43,12 +43,7 @@ def findParams(node):
     return ( t, n.strip())
 
 def findEnums(dom):
-    ret = {}
-    for i in findChildren(dom, [ 'registry', 'enums', 'enum' ]):
-      n = i.getAttribute('name')
-      v = i.getAttribute('value')
-      ret[n] = v
-    return ret
+    return {i.getAttribute('name'): i.getAttribute('value') for i in findChildren(dom, [ 'registry', 'enums', 'enum' ])}
 
 def findCommands(dom):
     ret = {}
@@ -62,12 +57,8 @@ def findFeatures(dom):
     ret = {}
     for i in findChildren(dom, [ 'registry', 'feature' ]):
         n = i.getAttribute('name')
-        e = []
-        c = []
-        for j in findChildren(i, [ 'require', 'enum' ]):
-            e.append(j.getAttribute("name"))
-        for j in findChildren(i, [ 'require', 'command' ]):
-            c.append(j.getAttribute("name"))
+        e = [j.getAttribute("name") for j in findChildren(i, [ 'require', 'enum' ])]
+        c = [j.getAttribute("name") for j in findChildren(i, [ 'require', 'command' ])]
         ret[n] = (e,c)
     return ret
 
@@ -75,12 +66,8 @@ def findExtensions(dom):
     ret = {}
     for i in findChildren(dom, [ 'registry', 'extensions', 'extension' ]):
         n = i.getAttribute('name')
-        e = []
-        c = []
-        for j in findChildren(i, [ 'require', 'enum' ]):
-            e.append(j.getAttribute("name"))
-        for j in findChildren(i, [ 'require', 'command' ]):
-            c.append(j.getAttribute("name"))
+        e = [j.getAttribute("name") for j in findChildren(i, [ 'require', 'enum' ])]
+        c = [j.getAttribute("name") for j in findChildren(i, [ 'require', 'command' ])]
         ret[n] = (e,c)
     return ret
 
