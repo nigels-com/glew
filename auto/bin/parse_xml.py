@@ -148,13 +148,11 @@ if __name__ == '__main__':
 
     if len(options['core']):
         for i in api[2].keys():
-            f = open('%s/%s'%(options['core'], i), 'wb')
-            writeExtension(f, i, api[2][i], api[0], api[1])
-            f.close()
+            with open('%s/%s'%(options['core'], i), 'wb') as f:
+                writeExtension(f, i, api[2][i], api[0], api[1])
 
     if len(options['extensions']):
         for i in api[3].keys():
-            f = open('%s/%s'%(options['extensions'], i), 'wb')
-            writeExtension(f, i, api[3][i], api[0], api[1])
-            f.close()
+            with open('%s/%s'%(options['extensions'], i), 'wb') as f:
+                writeExtension(f, i, api[3][i], api[0], api[1])
 
