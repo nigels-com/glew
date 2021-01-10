@@ -79,6 +79,7 @@ struct EGLClientPixmapHI;
 struct AHardwareBuffer;
 
 /* Wayland types for WL_bind_wayland_display purposes */
+struct wl_buffer;
 struct wl_display;
 struct wl_resource;
 
