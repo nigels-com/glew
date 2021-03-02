@@ -24,6 +24,8 @@ option (GLEW_OSMESA "OSMesa mode" OFF)
 if (APPLE)
     option (BUILD_FRAMEWORK "Build Framework bundle for OSX" OFF)
 endif ()
+option (GLEW_X11 "X11 mode" ON)
+option (GLEW_EGL "EGL mode" OFF)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -42,9 +44,12 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package (OpenGL REQUIRED)
 
+set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
+
 # X11 required except for Windows and Apple OSX platforms
-if (NOT WIN32 AND NOT APPLE)
+if (GLEW_X11 AND NOT WIN32 AND NOT APPLE)
   find_package (X11)
+  list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
 endif()
 
 if (WIN32)
@@ -53,8 +58,6 @@ else ()
   set (GLEW_LIB_NAME GLEW)
   set (DLL_PREFIX lib)
 endif ()
-
-set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${X11_LIBRARIES})
 
 add_definitions (-DGLEW_NO_GLU)
 
