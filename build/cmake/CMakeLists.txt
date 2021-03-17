@@ -16,6 +16,10 @@ if(POLICY CMP0042)
   cmake_policy (SET CMP0042 NEW)
 endif()
 
+if (POLICY CMP0072)
+  cmake_policy (SET CMP0072 NEW)
+endif(POLICY CMP0072)
+
 set(CMAKE_DEBUG_POSTFIX d)
 
 option (BUILD_UTILS "utilities" ON)
@@ -45,7 +49,20 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package (OpenGL REQUIRED)
 
-set (GLEW_LIBRARIES ${OPENGL_LIBRARIES})
+# cmake<3.10 doesnt detect EGL/GLX
+if (CMAKE_VERSION VERSION_LESS 3.10)
+  find_library(OPENGL_egl_LIBRARY NAMES EGL)
+  if (OPENGL_egl_LIBRARY)
+    set (OpenGL_EGL_FOUND TRUE)
+  endif ()
+endif ()
+
+# prefer GLVND
+if (OPENGL_opengl_LIBRARY)
+  set (GLEW_LIBRARIES ${OPENGL_opengl_LIBRARY})
+else ()
+  set (GLEW_LIBRARIES ${OPENGL_gl_LIBRARY})
+endif ()
 
 # X11 required except for Windows and Apple OSX platforms
 if (GLEW_X11 AND NOT WIN32 AND NOT APPLE)
@@ -83,7 +100,7 @@ if (GLEW_OSMESA)
     set (OSMESA_LIB_NAME OSMesa)
   endif ()
   add_definitions (-DGLEW_OSMESA)
-  set (GLEW_LIBRARIES ${OSMESA_LIB_NAME} ${OPENGL_LIBRARIES})
+  list (APPEND GLEW_LIBRARIES ${OSMESA_LIB_NAME})
   set (X11_LIBRARIES)
 endif ()
 
@@ -94,7 +111,7 @@ if (GLEW_EGL AND UNIX)
   if (NOT OpenGL_EGL_FOUND)
     message (FATAL_ERROR "EGL library set but not found.")
   endif ()
-  set (GLEW_LIBRARIES ${OPENGL_LIBRARIES} ${OPENGL_egl_LIBRARY})
+  list (APPEND GLEW_LIBRARIES ${OPENGL_egl_LIBRARY})
 endif ()
 
 #### GLEW ####
