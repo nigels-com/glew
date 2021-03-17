@@ -1,6 +1,5 @@
 language: cpp
 dist: trusty
-sudo: false
 install:
 script:
 - make -C auto clobber
@@ -11,9 +10,9 @@ script:
 - make clean && SYSTEM=linux-egl        make
 - make clean && SYSTEM=linux-clang      make
 - make clean && SYSTEM=linux-clang-egl  make
-- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' .                 && make && popd
-- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_OSMESA=1 . && make && popd
-#- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_EGL=1 .    && make && popd
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' .                              && make && popd
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_OSMESA=ON .             && make && popd
+- pushd build/cmake && git clean -xdf . && cmake -G 'Unix Makefiles' -DGLEW_EGL=ON -DGLEW_X11=OFF . && make && popd
 addons:
   apt:
     packages:
