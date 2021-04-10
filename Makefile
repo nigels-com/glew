@@ -48,7 +48,10 @@ INCDIR    ?= $(GLEW_DEST)/include/GL
 PKGDIR    ?= $(GLEW_DEST)/lib/pkgconfig
 
 ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
+# MinGW does not provide a .pc file for glu
+ifeq ($(filter mingw%,$(SYSTEM)),)
 LIBGLU = glu
+endif
 endif
 
 DIST_NAME    ?= glew-$(GLEW_VERSION)

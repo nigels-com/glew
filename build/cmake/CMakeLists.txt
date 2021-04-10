@@ -239,7 +239,7 @@ set (cflags)
 set (requireslib glu)
 
 #  Mac OSX has no glu.pc unless optional X11/GLX is installed
-if (APPLE)
+if (WIN32 OR APPLE)
   set (requireslib)
 endif ()
 

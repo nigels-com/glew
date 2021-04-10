@@ -4,9 +4,11 @@ CC := gcc -fno-builtin
 LD := gcc
 LN :=
 LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32
+ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
+LDFLAGS.GL := -lglu32 $(LDFLAGS.GL)
+endif
 LDFLAGS.EXTRA = -L/mingw/lib
 CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
-LDFLAGS.EXTRA += -nostdlib
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX = .exe
@@ -14,4 +16,4 @@ LIB.SONAME    = lib$(NAME).dll
 LIB.DEVLNK    = lib$(NAME).dll.a   # for mingw this is the dll import lib
 LIB.SHARED    = $(NAME).dll
 LIB.STATIC    = lib$(NAME).a       # the static lib will be broken
-LDFLAGS.SO    = -shared -Wl,-soname,$(LIB.SONAME) -Wl,--out-implib,lib/$(LIB.DEVLNK)
+LDFLAGS.SO    = -nostdlib -shared -Wl,-soname,$(LIB.SONAME) -Wl,--out-implib,lib/$(LIB.DEVLNK)
