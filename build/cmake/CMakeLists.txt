@@ -123,7 +123,19 @@ endif ()
 
 #include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
 
-set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
+set (GLEW_SRC_FILES
+        ${GLEW_DIR}/src/glew_str_egl.c
+        ${GLEW_DIR}/src/glew_str_glx.c
+        ${GLEW_DIR}/src/glew_str_head.c
+        ${GLEW_DIR}/src/glew_str_tail.c
+        ${GLEW_DIR}/src/glew_str_wgl.c
+        ${GLEW_DIR}/src/glew_init_glx.c
+        ${GLEW_DIR}/src/glew_init_tail.c
+        ${GLEW_DIR}/src/glew_init_wgl.c
+        ${GLEW_DIR}/src/glew_init_egl.c
+        ${GLEW_DIR}/src/glew_init_gl.c
+        ${GLEW_DIR}/src/glew_head.c
+        )
 
 if (WIN32)
   list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
