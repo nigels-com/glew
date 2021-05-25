@@ -34,6 +34,9 @@ option (BUILD_SHARED_LIBS "install/link shared instead of static libs" ON)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../auto)
 
+add_library(common_glew_includes INTERFACE)
+target_include_directories(common_glew_includes INTERFACE ${GLEW_DIR}/src/)
+
 # get version from config/version
 file (STRINGS ${GLEW_DIR}/../config/version  _VERSION_MAJOR_STRING REGEX "GLEW_MAJOR[ ]*=[ ]*[0-9]+.*")
 string (REGEX REPLACE "GLEW_MAJOR[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_MAJOR ${_VERSION_MAJOR_STRING})
@@ -118,7 +121,7 @@ endif ()
 
 #### GLEW ####
 
-include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
+#include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
 
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
@@ -127,12 +130,13 @@ if (WIN32)
 endif ()
 
 add_library (glew SHARED ${GLEW_SRC_FILES})
-target_include_directories(glew PUBLIC ${GLEW_DIR}/src/)
+target_link_libraries(glew PUBLIC common_glew_includes)
 
 set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX "${DLL_PREFIX}"
                                        VERSION ${GLEW_VERSION}
                                        SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR})
-add_library (glew_s STATIC ${GLEW_PUBLIC_HEADERS_FILES} ${GLEW_SRC_FILES})
+add_library (glew_s STATIC ${GLEW_SRC_FILES})
+target_link_libraries(glew_s PUBLIC common_glew_includes)
 set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
 
 if (MSVC)
@@ -198,9 +202,16 @@ install ( TARGETS ${targets_to_install}
 )
 
 if (BUILD_UTILS)
-  set (GLEWINFO_SRC_FILES ${GLEW_DIR}/src/glewinfo.c)
+  set (GLEWINFO_SRC_FILES
+  ${GLEW_DIR}/src/glewinfo_glx.c
+  ${GLEW_DIR}/src/glewinfo_head.c
+  ${GLEW_DIR}/src/glewinfo_tail.c
+  ${GLEW_DIR}/src/glewinfo_wgl.c
+  ${GLEW_DIR}/src/glewinfo_egl.c
+  ${GLEW_DIR}/src/glewinfo_gl.c
+  )
   if (WIN32)
-    list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
+    list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/src/glewinfo.rc)
   endif ()
   add_executable (glewinfo ${GLEWINFO_SRC_FILES})
   if(BUILD_SHARED_LIBS)
