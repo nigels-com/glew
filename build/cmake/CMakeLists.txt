@@ -212,7 +212,7 @@ if (BUILD_UTILS)
     target_link_libraries(glewinfo ${X11_LIBRARIES})
   endif ()
 
-  set (VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.c)
+  set (VISUALINFO_SRC_FILES ${GLEW_DIR}/../src/visualinfo.c)
   if (WIN32)
     list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
   endif ()
