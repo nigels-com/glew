@@ -34,9 +34,6 @@ option (BUILD_SHARED_LIBS "install/link shared instead of static libs" ON)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../auto)
 
-add_library(common_glew_includes INTERFACE)
-target_include_directories(common_glew_includes INTERFACE ${GLEW_DIR}/src/)
-
 # get version from config/version
 file (STRINGS ${GLEW_DIR}/../config/version  _VERSION_MAJOR_STRING REGEX "GLEW_MAJOR[ ]*=[ ]*[0-9]+.*")
 string (REGEX REPLACE "GLEW_MAJOR[ ]*=[ ]*([0-9]+)" "\\1" CPACK_PACKAGE_VERSION_MAJOR ${_VERSION_MAJOR_STRING})
