@@ -127,7 +127,7 @@ if (WIN32)
 endif ()
 
 add_library (glew SHARED ${GLEW_SRC_FILES})
-target_include_directories(glew ${GLEW_DIR}/src/)
+target_include_directories(glew PUBLIC ${GLEW_DIR}/src/)
 
 set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX "${DLL_PREFIX}"
                                        VERSION ${GLEW_VERSION}
