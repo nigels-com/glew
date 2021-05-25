@@ -138,7 +138,7 @@ set (GLEW_SRC_FILES
         )
 
 if (WIN32)
-  list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
+  list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/src/glew.rc)
 endif ()
 
 add_library (glew SHARED ${GLEW_SRC_FILES})
@@ -236,7 +236,7 @@ if (BUILD_UTILS)
 
   set (VISUALINFO_SRC_FILES ${GLEW_DIR}/../src/visualinfo.c)
   if (WIN32)
-    list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
+    list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.rc)
   endif ()
   add_executable (visualinfo ${VISUALINFO_SRC_FILES})
   if(BUILD_SHARED_LIBS)
