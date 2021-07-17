@@ -8,6 +8,7 @@ const GLubyte * GLEWAPIENTRY glewGetErrorString (GLenum error)
     (const GLubyte*)"Missing GL version",
     (const GLubyte*)"GL 1.1 and up are not supported",
     (const GLubyte*)"GLX 1.2 and up are not supported",
+    (const GLubyte*)"No GLX display",
     (const GLubyte*)"Unknown error"
   };
   const size_t max_error = sizeof(_glewErrorString)/sizeof(*_glewErrorString) - 1;
