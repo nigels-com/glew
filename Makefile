@@ -40,8 +40,8 @@ else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 
-GLEW_PREFIX ?= /usr
-GLEW_DEST ?= /usr
+GLEW_PREFIX ?= /usr/local
+GLEW_DEST ?= /usr/local
 BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
 INCDIR    ?= $(GLEW_DEST)/include/GL
