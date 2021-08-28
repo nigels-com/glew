@@ -61,7 +61,6 @@ DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 # To disable stripping of linked binaries either:
 #   - use STRIP= on gmake command-line
 #   - edit this makefile to set STRIP to the empty string
-# (Note: STRIP does not affect the strip in the install step)
 #
 # To disable symlinks:
 #   - use LN= on gmake command-line
@@ -228,7 +227,7 @@ endif
 
 install.bin: glew.bin
 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) "$(DESTDIR)$(BINDIR)/"
+	$(INSTALL)    -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) "$(DESTDIR)$(BINDIR)/"
 
 install.include:
 	$(INSTALL) -d -m 0755 "$(DESTDIR)$(INCDIR)"
