@@ -1,17 +1,19 @@
 # For cross-compiling from Linux to Windows 64-bit using mingw64
 # http://mingw-w64.org/
 #
+# Ubuntu/Debian:
 # $ sudo apt install mingw-w64
 # $ make SYSTEM=linux-mingw64
 
-NAME  := glew32
-HOST  := x86_64-w64-mingw32
+NAME      := glew32
+HOST      := x86_64-w64-mingw32
+GLEW_DEST ?= /usr/local/$(HOST)
 CC    := $(HOST)-gcc
 LD    := $(HOST)-ld
 LN    :=
 STRIP :=
 LDFLAGS.GL = -L/usr/$(HOST)/lib -lopengl32 -lgdi32 -luser32 -lkernel32
-CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector
+CFLAGS.EXTRA  += -fno-builtin -fno-stack-protector -Wno-cast-function-type
 WARN = -Wall -W
 POPT = -O2
 BIN.SUFFIX = .exe
