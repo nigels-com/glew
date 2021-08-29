@@ -4,7 +4,7 @@
 ** Copyright (C) Nate Robins, 1997
 **               Michael Wimmer, 1999
 **               Milan Ikits, 2002-2008
-**               Nigel Stewart, 2008-2019
+**               Nigel Stewart, 2008-2021
 **
 ** visualinfo is a small utility that displays all available visuals,
 ** aka. pixelformats, in an OpenGL system along with renderer version
@@ -47,18 +47,6 @@
 #elif !defined(__HAIKU__)
 #include <GL/glxew.h>
 #endif
-
-#ifdef GLEW_MX
-GLEWContext _glewctx;
-#  define glewGetContext() (&_glewctx)
-#  ifdef _WIN32
-WGLEWContext _wglewctx;
-#    define wglewGetContext() (&_wglewctx)
-#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-GLXEWContext _glxewctx;
-#    define glxewGetContext() (&_glxewctx)
-#  endif
-#endif /* GLEW_MX */
 
 typedef struct GLContextStruct
 {
@@ -123,6 +111,13 @@ main (int argc, char** argv)
     return 1;
   }
 
+#if defined(GLEW_EGL)
+  {
+    fprintf(stderr, "Error [main]: EGL not supported by visualinfo.\n");
+    return 1;
+  }
+#endif
+
   /* ---------------------------------------------------------------------- */
   /* create OpenGL rendering context */
   InitContext(&ctx);
@@ -136,16 +131,7 @@ main (int argc, char** argv)
   /* ---------------------------------------------------------------------- */
   /* initialize GLEW */
   glewExperimental = GL_TRUE;
-#ifdef GLEW_MX
-  err = glewContextInit(glewGetContext());
-#  ifdef _WIN32
-  err = err || wglewContextInit(wglewGetContext());
-#  elif !defined(__APPLE__) && !defined(__HAIKU__) || defined(GLEW_APPLE_GLX)
-  err = err || glxewContextInit(glxewGetContext());
-#  endif
-#else
   err = glewInit();
-#endif
   if (GLEW_OK != err)
   {
     fprintf(stderr, "Error [main]: glewInit failed: %s\n", glewGetErrorString(err));
