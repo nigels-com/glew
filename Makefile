@@ -77,6 +77,7 @@ DOS2UNIX ?= dos2unix -q
 
 ifneq (,$(filter debug,$(MAKECMDGOALS)))
 OPT = -g
+STRIP :=
 else
 OPT = $(POPT)
 endif
