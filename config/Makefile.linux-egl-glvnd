@@ -2,3 +2,4 @@ include config/Makefile.linux
 
 LDFLAGS.GL = -lEGL -lOpenGL
 CFLAGS.EXTRA += -DGLEW_EGL
+GLEW_NO_GLU = -DGLEW_NO_GLU
