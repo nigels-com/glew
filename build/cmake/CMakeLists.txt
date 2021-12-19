@@ -51,7 +51,7 @@ endif()
 
 find_package (OpenGL REQUIRED)
 
-# cmake<3.10 doesnt detect EGL/GLX
+# cmake<3.10 doesn't detect EGL/GLX
 if (CMAKE_VERSION VERSION_LESS 3.10)
   find_library(OPENGL_egl_LIBRARY NAMES EGL)
   if (OPENGL_egl_LIBRARY)
