@@ -106,7 +106,7 @@ _Note: you may need to call `make` in the  **auto** folder first_
 
 #### Using cmake
 
-The cmake build is mostly contributer maintained.
+The cmake build is mostly contributor maintained.
 Due to the multitude of use cases this is maintained on a _best effort_ basis.
 Pull requests are welcome.
 

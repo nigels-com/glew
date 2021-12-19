@@ -114,7 +114,7 @@ my %taboo_tokens = (
 );
 
 # list of function definitions to be ignored, unless they are being defined in
-# the given spec.  This is an ugly hack arround the fact that people writing
+# the given spec.  This is an ugly hack around the fact that people writing
 # spec files seem to shut down all brain activity while they are at this task.
 #
 # This will be moved to its own file eventually.
@@ -185,7 +185,7 @@ sub normalize_prototype
     return $_;
 }
 
-# Ugly hack to work arround the fact that functions are declared in more
+# Ugly hack to work around the fact that functions are declared in more
 # than one spec file.
 sub ignore_function($$)
 {
