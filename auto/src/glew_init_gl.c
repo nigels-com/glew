@@ -70,9 +70,6 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 
 /* ------------------------------------------------------------------------- */
 
-typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
-typedef void (GLAPIENTRY * PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
-
 GLenum GLEWAPIENTRY glewContextInit (void)
 {
   PFNGLGETSTRINGPROC getString;
@@ -80,13 +77,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
   GLuint dot;
   GLint major, minor;
 
-  #ifdef _WIN32
-  getString = glGetString;
-  #else
   getString = (PFNGLGETSTRINGPROC) glewGetProcAddress((const GLubyte*)"glGetString");
   if (!getString)
     return GLEW_ERROR_NO_GL_VERSION;
-  #endif
 
   /* query opengl version */
   s = getString(GL_VERSION);
@@ -144,11 +137,7 @@ GLenum GLEWAPIENTRY glewContextInit (void)
     const char *ext;
     GLboolean *enable;
 
-    #ifdef _WIN32
-    getIntegerv = glGetIntegerv;
-    #else
     getIntegerv = (PFNGLGETINTEGERVPROC) glewGetProcAddress((const GLubyte*)"glGetIntegerv");
-    #endif
 
     if (getIntegerv)
       getIntegerv(GL_NUM_EXTENSIONS, &n);

@@ -126,7 +126,16 @@ void* NSGLGetProcAddress (const GLubyte *name)
 /*
  * Define glewGetProcAddress.
  */
-#if defined(GLEW_REGAL)
+#if defined(GLEW_CUSTOM_GET_PROC)
+#  ifndef GLEW_STATIC
+#  error GLEW_CUSTOM_GET_PROC currently requires GLEW_STATIC and defining the symbol glewGetProcAddress
+#  endif
+#  ifdef WIN32
+extern void *  __stdcall glewGetProcAddress(const GLchar *name);
+#  else
+extern void * glewGetProcAddress(const GLchar *name);
+#  endif
+#elif defined(GLEW_REGAL)
 #  define glewGetProcAddress(name) regalGetProcAddress((const GLchar *)name)
 #elif defined(GLEW_OSMESA)
 #  define glewGetProcAddress(name) OSMesaGetProcAddress((const char *)name)
