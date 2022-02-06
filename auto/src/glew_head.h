@@ -63,11 +63,6 @@
 #    define APIENTRY
 #  endif
 #endif
-#ifndef GLAPI
-#  if defined(__MINGW32__) || defined(__CYGWIN__)
-#    define GLAPI extern
-#  endif
-#endif
 /* <winnt.h> */
 #ifndef CALLBACK
 #define GLEW_CALLBACK_DEFINED
