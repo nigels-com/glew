@@ -120,7 +120,12 @@ endif ()
 
 include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
 
-set (GLEW_PUBLIC_HEADERS_FILES ${GLEW_DIR}/include/GL/wglew.h ${GLEW_DIR}/include/GL/glew.h ${GLEW_DIR}/include/GL/glxew.h)
+set (GLEW_PUBLIC_HEADERS_FILES
+  ${GLEW_DIR}/include/GL/wglew.h
+  ${GLEW_DIR}/include/GL/glew.h
+  ${GLEW_DIR}/include/GL/glxew.h
+  ${GLEW_DIR}/include/GL/eglew.h
+)
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
 if (WIN32)
@@ -257,10 +262,8 @@ if(WIN32 AND MSVC AND (NOT MSVC_VERSION LESS 1600) AND (NOT CMAKE_VERSION VERSIO
     )
 endif()
 
-install (FILES
-    ${GLEW_DIR}/include/GL/wglew.h
-    ${GLEW_DIR}/include/GL/glew.h
-    ${GLEW_DIR}/include/GL/glxew.h
+install (
+    FILES ${GLEW_PUBLIC_HEADERS_FILES}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL)
 
 if(MAYBE_EXPORT)
