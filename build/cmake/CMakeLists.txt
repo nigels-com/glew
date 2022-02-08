@@ -236,12 +236,7 @@ set (includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 set (version ${GLEW_VERSION})
 set (libname ${GLEW_LIB_NAME})
 set (cflags)
-set (requireslib glu)
-
-#  Mac OSX has no glu.pc unless optional X11/GLX is installed
-if (APPLE)
-  set (requireslib)
-endif ()
+set (requireslib)
 
 configure_file (${GLEW_DIR}/glew.pc.in ${CMAKE_CURRENT_BINARY_DIR}/glew.pc @ONLY)
 
