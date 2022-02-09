@@ -1,5 +1,5 @@
 #
-# Needs to be clang toolchain for universal: -arch i386 -arch x86_64 -arch arm64
+# Needs to be clang toolchain for universal: -arch x86_64 -arch arm64
 #
 GLEW_DEST = /usr/local
 NAME = $(GLEW_NAME)
@@ -11,8 +11,8 @@ STRIP =
 CFLAGS.EXTRA = -dynamic -fno-common
 CFLAGS.EXTRA += -pedantic
 CFLAGS.EXTRA += -fPIC
-CFLAGS.EXTRA += -arch i386 -arch x86_64 -arch arm64
-LDFLAGS.EXTRA = -arch i386 -arch x86_64 -arch arm64
+CFLAGS.EXTRA += -arch x86_64 -arch arm64
+LDFLAGS.EXTRA = -arch x86_64 -arch arm64
 ifneq (undefined, $(origin GLEW_APPLE_GLX))
 CFLAGS.EXTRA += -std=c99
 CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
