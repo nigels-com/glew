@@ -481,8 +481,9 @@ EOT
     head -n4 $1/GL_AMD_gpu_shader_int64 > tmp
     mv tmp $1/GL_AMD_gpu_shader_int64
 
-# Filter out GL_NO_ERROR enum from GL_KHR_robustness
-    grep -v 'GL_NO_ERROR' $1/GL_KHR_robustness > tmp
+# Filter out GL_NO_ERROR enum and glGetGraphicsResetStatus from GL_KHR_robustness
+    grep -v 'GL_NO_ERROR'              $1/GL_KHR_robustness |
+    grep -v 'glGetGraphicsResetStatus' > tmp
     mv tmp $1/GL_KHR_robustness
 
 # Filter out all enums from GL_KHR_blend_equation_advanced_coherent
