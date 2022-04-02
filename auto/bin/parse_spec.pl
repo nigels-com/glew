@@ -158,7 +158,7 @@ my %regex = (
     eofnc    => qr/(?:\);?$|^$)/, # )$ | );$ | ^$
     extname  => qr/^[A-Z][A-Za-z0-9_]+$/,
     none     => qr/^\(none\)$/,
-    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.+)\)$/i,
+    function => qr/^(.+) ([a-z][a-z0-9_]*) \((.*)\)$/i,
     prefix   => qr/^(?:[aw]?gl|glX|egl)/, # gl | agl | wgl | glX
     tprefix  => qr/^(?:[AW]?GL|GLX|EGL)_/, # GL_ | AGL_ | WGL_ | GLX_
     section  => compile_regex('^(', join('|', @sections), ')$'), # sections in spec
@@ -258,6 +258,10 @@ sub parse_spec($)
                             $parms =~ s/$regex{voidtype}/$voidtypemap{$1}/og;
                             $parms =~ s/GLvoid/void/og;
                             $parms =~ s/ void\* / void */og;
+                            if ($parms eq "")
+                            {
+                                $parms = "void";  # NVX_progress_fence and others
+                            }
                         }
                         # add to functions hash
                         $functions{$name} = {
