@@ -52,7 +52,7 @@ Windows binaries for [32-bit and 64-bit](https://github.com/nigels-com/glew/rele
 
 Snapshots may contain new features, bug-fixes or new OpenGL extensions ahead of tested, official releases.
 
-<!--- [glew-20190928.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20190928.tgz/download) *GLEW 2.2.0 RC2: New extensions, bug fixes* -->
+[glew-20220402.tgz](https://sourceforge.net/projects/glew/files/glew/snapshots/glew-20220402.tgz/download) *GLEW 2.2.0 - with fix for glCreateProgressFenceNVX*
 
 ## Build
 
