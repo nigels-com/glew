@@ -69,7 +69,7 @@ endif ()
 # X11 required except for Windows and Apple OSX platforms
 if (GLEW_X11 AND NOT WIN32 AND NOT APPLE)
   find_package (X11)
-  list (APPEND GLEW_LIBRARIES ${X11_LIBRARIES})
+  list (APPEND GLEW_LIBRARIES ${OPENGL_glx_LIBRARY} ${X11_LIBRARIES})
 endif()
 
 if (WIN32)
