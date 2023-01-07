@@ -20,3 +20,6 @@
 /tmp
 /out
 .DS_Store*
+auto/EGL-Registry
+auto/OpenGL-Registry
+auto/glfixes
