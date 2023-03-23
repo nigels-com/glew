@@ -22,4 +22,4 @@ target_compile_definitions(cmake-test PRIVATE
     -DGLEW_CMAKE_TEST_TARGET_TYPE=$<TARGET_PROPERTY:GLEW::GLEW,TYPE>
     )
 
-install(TARGETS cmake-test DESTINATION bin)
+install(TARGETS cmake-test DESTINATION bin COMPONENT Runtime)
