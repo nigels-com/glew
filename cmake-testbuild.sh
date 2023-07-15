@@ -24,7 +24,7 @@
 #
 # Build & install shared + static, find default (shared)
 #
-#    ./cmake-testbuild.shh
+#    ./cmake-testbuild.sh
 #
 # Build & install shared + static, find static
 #
