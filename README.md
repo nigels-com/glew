@@ -38,14 +38,14 @@ https://github.com/nigels-com/glew
 
 ## Downloads
 
-Current release is [2.2.0](https://github.com/nigels-com/glew/releases/tag/glew-2.2.0).
+Current release is [2.3.0](https://github.com/nigels-com/glew/releases/tag/glew-2.3.0).
 [(Change Log)](http://glew.sourceforge.net/log.html)
 
 Sources available as
-[ZIP](https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip) or
-[TGZ](https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.tgz).
+[ZIP](https://github.com/nigels-com/glew/releases/download/glew-2.3.0/glew-2.3.0.zip) or
+[TGZ](https://github.com/nigels-com/glew/releases/download/glew-2.3.0/glew-2.3.0.tgz).
 
-Windows binaries for [32-bit and 64-bit](https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip).
+Windows binaries for [32-bit and 64-bit](https://github.com/nigels-com/glew/releases/download/glew-2.3.0/glew-2.3.0-win32.zip).
 
 ### Recent snapshots
 
