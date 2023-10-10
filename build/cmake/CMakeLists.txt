@@ -161,7 +161,6 @@ target_compile_definitions(glew_s INTERFACE "GLEW_STATIC")
 foreach(t glew glew_s)
   target_include_directories(${t} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 endforeach()
-set(MAYBE_EXPORT EXPORT glew-targets)
 
 set(targets_to_install "")
 if(BUILD_SHARED_LIBS)
@@ -171,7 +170,7 @@ else ()
 endif()
 
 install ( TARGETS ${targets_to_install}
-          ${MAYBE_EXPORT}
+          EXPORT glew-targets
           RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
           LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Runtime
           ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
@@ -247,16 +246,14 @@ install (
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL
     COMPONENT Development)
 
-if(MAYBE_EXPORT)
-  install(EXPORT glew-targets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew
-    COMPONENT Development
-    NAMESPACE GLEW::)
-  install(FILES
-      ${CMAKE_CURRENT_SOURCE_DIR}/glew-config.cmake
-      ${CMAKE_CURRENT_SOURCE_DIR}/CopyImportedTargetProperties.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew
-    COMPONENT Development)
-endif()
+install(EXPORT glew-targets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew
+  COMPONENT Development
+  NAMESPACE GLEW::)
+install(FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/glew-config.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/CopyImportedTargetProperties.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew
+  COMPONENT Development)
 
 if(NOT TARGET uninstall)
   configure_file(
