@@ -4,6 +4,7 @@ EXT/vertex_array_set.alt.txt
 EXT/vertex_array_set.txt
 EXT/nurbs_tessellator.txt
 EXT/object_space_tess.txt
+MESA/MESA_sampler_objects.txt
 SGI/filter4_parameters.txt
 SGIS/SGIS_texture_color_mask.txt
 SGIX/SGIX_dmbuffer.txt
