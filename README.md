@@ -10,7 +10,8 @@ https://github.com/nigels-com/glew
 
 [![Gitter](https://badges.gitter.im/nigels-com/glew.svg)](https://gitter.im/nigels-com/glew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Download](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
-[![Health](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZ0cxMFNORFBPTGQ5Z1MyRUsxRnU5V1ZyOUNUWmZZRFJwNWdBNng5MnNtdFFObGNsTEJkQkxZa0lHYmtMNEZRREZaZmdvMUh2bDMxVjhFc3c2L29odFQ4PSIsIml2UGFyYW1ldGVyU3BlYyI6InhLVlFqWXVaMEZRVFh6c1QiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+[![Health](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZ0cxMFNORFBPTGQ5Z1MyRUsxRnU5V1ZyOUNUWmZZRFJwNWdBNng5MnNtdFFObGNsTEJkQkxZa0lHYmtMNEZRREZaZmdvMUh2bDMxVjhFc3c2L29odFQ4PSIsIml2UGFyYW1ldGVyU3BlYyI6InhLVlFqWXVaMEZRVFh6c1QiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://ap-southeast-2.codebuild.aws.amazon.com/project/eyJlbmNyeXB0ZWREYXRhIjoiK3RLWndGOVVkMWthbXRQZCtVTTNOQ0w2dEpxakZ1cVBTNDZ1UldGODdqUERSdkx0U21Nd0RFaGhQL1kycVlmNzh2OXpEYnRKV3hXTVJJdjUvVStCbTl0dkliZm5jRTFsc0VBPSIsIml2UGFyYW1ldGVyU3BlYyI6ImZ0ekRoMkNjaU0rRUt5K2UiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D)
+
 ## Table of Contents
 
 * [Downloads](#downloads)
