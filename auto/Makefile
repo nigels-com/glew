@@ -17,7 +17,11 @@ CORE         = core/gl
 
 REPO_OPENGL  ?= https://github.com/KhronosGroup/OpenGL-Registry.git
 REPO_EGL     ?= https://github.com/KhronosGroup/EGL-Registry.git
-REPO_GLFIXES ?= https://github.com/nigels-com/glfixes
+REPO_GLFIXES ?= https://github.com/nigels-com/glfixes.git
+
+REPO_OPENGL_COMMIT		?= 784b8b340e0429da3be2378bd5217d3c5530b9e5
+REPO_EGL 				?= b055c9b483e70ecd57b3cf7204db21f5a06f9ffe
+REPO_GLFIXES_COMMIT 	?= b63c8d3e676097d610efda64870cbe6f10543bd3
 
 BIN = bin
 SRC = src
@@ -92,15 +96,18 @@ OpenGL-Registry/.dummy:
 	@echo "--------------------------------------------------------------------"
 	@echo "Downloading OpenGL-Registry"
 	@echo "--------------------------------------------------------------------"
-	git clone --depth=1 $(REPO_OPENGL) OpenGL-Registry
-	git clone --depth=1 --branch glew $(REPO_GLFIXES) glfixes
+	git clone --no-checkout $(REPO_OPENGL) OpenGL-Registry
+	git -C OpenGL-Registry checkout $(REPO_OPENGL_COMMIT)
+	git clone --no-checkout --branch glew $(REPO_GLFIXES) glfixes
+	git -C glfixes checkout $(REPO_GLFIXES_COMMIT)
 	touch $@
 
 EGL-Registry/.dummy:
 	@echo "--------------------------------------------------------------------"
 	@echo "Downloading EGL-Registry"
 	@echo "--------------------------------------------------------------------"
-	git clone --depth=1 $(REPO_EGL) EGL-Registry
+	git clone --no-checkout $(REPO_EGL) EGL-Registry
+	git -C EGL-Registry checkout $(REPO_EGL_COMMIT)
 	touch $@
 
 $(EXT)/.dummy: OpenGL-Registry/.dummy EGL-Registry/.dummy
