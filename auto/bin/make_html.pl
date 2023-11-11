@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 ##
-## Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
+## Copyright (C) 2008-2023, Nigel Stewart <nigels[]nigels com>
 ## Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
 ## Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
 ##
@@ -30,8 +30,8 @@ if (@ARGV)
 	{
 		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 		$cur_group = $extname;
-		$cur_group =~ s/^(?:W?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
-		$extname =~ s/^(?:W?)GL(?:X?)_(.*)$/$1/;
+		$cur_group =~ s/^(?:[EW]?)GL(?:X?)_([A-Z0-9]+?)_.*$/$1/;
+		$extname =~ s/^(?:[EW]?)GL(?:X?)_(.*)$/$1/;
 		if ($cur_group ne $group)
 		{
 			if ($group ne "")
