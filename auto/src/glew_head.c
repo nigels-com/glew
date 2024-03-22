@@ -6,7 +6,15 @@
 
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
+#  ifndef APIENTRY
+#    define APIENTRY
+#    define GLEW_APIENTRY_DEFINED
+#  endif
 #  include <GL/osmesa.h>
+#  ifdef GLEW_APIENTRY_DEFINED
+#    undef APIENTRY
+#    undef GLEW_APIENTRY_DEFINED
+#  endif
 #elif defined(GLEW_EGL)
 #  include <GL/eglew.h>
 #elif defined(_WIN32)
