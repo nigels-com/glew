@@ -144,7 +144,6 @@ tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wgl
 glew.pc: glew.pc.in
 	sed \
 		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
-		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
 		-e "s|@libname@|$(NAME)|g" \
