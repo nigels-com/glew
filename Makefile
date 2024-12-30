@@ -145,8 +145,6 @@ glew.pc: glew.pc.in
 	sed \
 		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
-		-e "s|@exec_prefix@|$(BINDIR)|g" \
-		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
 		-e "s|@libname@|$(NAME)|g" \
