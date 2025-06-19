@@ -6,13 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
+      - name: Install Dependencies
         uses: ConorMacBride/install-package@v1
         with:
-          apt: libxmu-dev libxi-dev libgl-dev dos2unix
-      - name: Check out repository code
+          apt: libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev libosmesa-dev dos2unix
+      - name: Git Checkout
         uses: actions/checkout@v4
-      - name: Code Generation
+      - name: Generate Code
         run: |
           make -C auto clobber
           make extensions
