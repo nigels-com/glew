@@ -49,7 +49,7 @@ GLboolean glewCreateContext (struct createParams *params);
 
 GLboolean glewParseArgs (int argc, char** argv, struct createParams *);
 
-void glewDestroyContext ();
+void glewDestroyContext (void);
 
 /* ------------------------------------------------------------------------- */
 

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------ */
 
-GLEWAPI GLenum GLEWAPIENTRY glxewInit ();
+GLEWAPI GLenum GLEWAPIENTRY glxewInit (void);
 GLEWAPI GLboolean GLEWAPIENTRY glxewIsSupported (const char *name);
 
 #ifndef GLXEW_GET_VAR

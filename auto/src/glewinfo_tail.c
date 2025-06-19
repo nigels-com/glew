@@ -300,7 +300,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != ctx) eglDestroyContext(display, ctx);
 }
@@ -328,7 +328,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != ctx) OSMesaDestroyContext(ctx);
 }
@@ -413,7 +413,7 @@ GLboolean glewCreateContext (struct createParams* params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != rc) wglMakeCurrent(NULL, NULL);
   if (NULL != rc) wglDeleteContext(rc);
@@ -471,7 +471,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   CGLSetCurrentContext(octx);
   CGLReleaseContext(ctx);
@@ -488,7 +488,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   /* TODO: Haiku: We need to call C++ code here */
 }
@@ -596,7 +596,7 @@ GLboolean glewCreateContext (struct createParams *params)
   return GL_FALSE;
 }
 
-void glewDestroyContext ()
+void glewDestroyContext (void)
 {
   if (NULL != dpy && NULL != ctx) glXDestroyContext(dpy, ctx);
   if (NULL != dpy && 0 != wnd) XDestroyWindow(dpy, wnd);
