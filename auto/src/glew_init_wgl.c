@@ -20,7 +20,7 @@ GLboolean GLEWAPIENTRY wglewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
-GLenum GLEWAPIENTRY wglewInit ()
+GLenum GLEWAPIENTRY wglewInit (void)
 {
   GLboolean crippled;
   const GLubyte* extStart;

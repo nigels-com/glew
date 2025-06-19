@@ -12,7 +12,7 @@ GLboolean glxewGetExtension (const char* name)
   return _glewSearchExtension(name, start, end);
 }
 
-GLenum glxewInit ()
+GLenum glxewInit (void)
 {
   Display* display;
   int major, minor;

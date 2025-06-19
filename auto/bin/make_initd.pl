@@ -38,7 +38,7 @@ if (@ARGV)
 		#print "#ifdef $extname\n\n";
 		if (keys %$functions)
 		{
-			print "static GLboolean _glewInit_$extname ();\n";
+			print "static GLboolean _glewInit_$extname (void);\n";
 		}
 		#print "#endif /* $extname */\n\n";
 	}
