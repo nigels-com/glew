@@ -6,9 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Code Generation
       - run: make -C auto clobber
       - run: make extensions
       - run: make dist-src
+      - name: Build Binaries
       - run: make clean && SYSTEM=linux            make
       - run: make clean && SYSTEM=linux-osmesa     make
       - run: make clean && SYSTEM=linux-egl        make
