@@ -36,6 +36,9 @@
 #include <GL/glew.h>
 #if defined(GLEW_OSMESA)
 #define GLAPI extern
+#ifndef APIENTRY
+#define APIENTRY
+#endif
 #include <GL/osmesa.h>
 #elif defined(GLEW_EGL)
 #include <GL/eglew.h>
@@ -1027,7 +1030,7 @@ GLboolean CreateContext (GLContext* ctx)
   {
     osmPixels = (GLubyte *) calloc(osmWidth*osmHeight*4, 1);
   }
-  if (!OSMesaMakeCurrent(ctx->ctx, osmPixels, GL_UNSIGNED_BYTE, osmWidth, osmHeight))
+  if (!OSMesaMakeCurrent(ctx->ctx, osmPixels, osmFormat, osmWidth, osmHeight))
   {
       return GL_TRUE;
   }
