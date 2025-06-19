@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependencies
-        run: apt install -y libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
+        run: |
+          apt update
+          apt install -y libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
       - name: Git Checkout
         uses: actions/checkout@v4
       - name: Generate Code
