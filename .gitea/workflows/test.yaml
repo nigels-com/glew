@@ -9,15 +9,15 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Code Generation
-      - run: make -C auto clobber
-      - run: make extensions
-      - run: make dist-src
+        run: make -C auto clobber
+        run: make extensions
+        run: make dist-src
       - name: Build Binaries
-      - run: make clean && SYSTEM=linux            make
-      - run: make clean && SYSTEM=linux-osmesa     make
-      - run: make clean && SYSTEM=linux-egl        make
-      - run: make clean && SYSTEM=linux-clang      make
-      - run: make clean && SYSTEM=linux-clang-egl  make
+        run: make clean && SYSTEM=linux            make
+        run: make clean && SYSTEM=linux-osmesa     make
+        run: make clean && SYSTEM=linux-egl        make
+        run: make clean && SYSTEM=linux-clang      make
+       run: make clean && SYSTEM=linux-clang-egl  make
 
       # - run: echo "🎉 The job was automatically triggered by a ${{ gitea.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by Gitea!"
