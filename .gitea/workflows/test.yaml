@@ -20,7 +20,8 @@ jobs:
       - name: Build Binaries
         run: |
           make clean && SYSTEM=linux            make
-#         make clean && SYSTEM=linux-osmesa     make
           make clean && SYSTEM=linux-egl        make
           make clean && SYSTEM=linux-clang      make
           make clean && SYSTEM=linux-clang-egl  make
+
+#         make clean && SYSTEM=linux-osmesa     make
