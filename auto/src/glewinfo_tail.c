@@ -195,7 +195,6 @@ GLboolean glewCreateContext (struct createParams *params)
   EGLDeviceEXT devices[1];
   EGLint numDevices;
   EGLSurface  surface;
-  EGLint majorVersion, minorVersion;
   EGLint configAttribs[] = {
         EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
         EGL_RED_SIZE, 1,
@@ -228,6 +227,8 @@ GLboolean glewCreateContext (struct createParams *params)
   PFNEGLCREATECONTEXTPROC         createContext = NULL;
   PFNEGLMAKECURRENTPROC           makeCurrent = NULL;
   PFNEGLCREATEPBUFFERSURFACEPROC  createPbufferSurface = NULL;
+
+  (void) params; /* not used */
 
   /* Load necessary entry points */
   queryDevices         = (PFNEGLQUERYDEVICESEXTPROC)       eglGetProcAddress("eglQueryDevicesEXT");
@@ -483,6 +484,7 @@ void glewDestroyContext ()
 GLboolean glewCreateContext (struct createParams *params)
 {
   /* TODO: Haiku: We need to call C++ code here */
+  (void) params; /* not used */
   return GL_FALSE;
 }
 
