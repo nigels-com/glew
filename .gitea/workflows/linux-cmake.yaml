@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir build_
           cmake build/cmake -B build_ -G Ninja --fresh ${{ matrix.flavour }}
+          cmake --build build_
           rm -Rf build_
 
 
