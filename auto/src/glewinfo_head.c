@@ -5,7 +5,12 @@
 #if defined(GLEW_EGL)
 #include <GL/eglew.h>
 #elif defined(GLEW_OSMESA)
+#ifndef GLAPI
 #define GLAPI extern
+#endif
+#ifndef APIENTRY
+#define APIENTRY
+#endif
 #include <GL/osmesa.h>
 #elif defined(_WIN32)
 #include <GL/wglew.h>
