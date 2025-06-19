@@ -6,6 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup
+        uses: ConorMacBride/install-package@v1
+        with:
+          apt: dos2unix
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Code Generation
