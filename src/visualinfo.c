@@ -260,6 +260,7 @@ void PrintExtensions (const char* s)
 void
 VisualInfo (GLContext* ctx)
 {
+  (void) ctx; /* not used */
 }
 
 #elif defined(_WIN32)
@@ -1049,13 +1050,13 @@ void InitContext (GLContext* ctx)
 
 GLboolean CreateContext (GLContext* ctx)
 {
+  (void) ctx; /* not used */
   return GL_FALSE;
 }
 
 void DestroyContext (GLContext* ctx)
 {
-  if (NULL == ctx) return;
-  return;
+  (void) ctx; /* not used */
 }
 
 /* ------------------------------------------------------------------------ */
