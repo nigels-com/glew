@@ -66,3 +66,14 @@ int __stdcall DllMainCRTStartup(void* instance, unsigned reason, void* reserved)
   return 1;
 }
 #endif
+
+#if defined(_WIN32) && defined(GLEW_BUILD) && defined(__clang__)
+/* Windows mingw clang requires a DLL entry point */
+int __stdcall _DllMainCRTStartup(void* instance, unsigned reason, void* reserved)
+{
+  (void) instance;
+  (void) reason;
+  (void) reserved;
+  return 1;
+}
+#endif

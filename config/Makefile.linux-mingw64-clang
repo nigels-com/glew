@@ -1,9 +1,11 @@
-# For cross-compiling from Linux to Windows 64-bit using mingw64
-# http://mingw-w64.org/
+# For cross-compiling from Linux to Windows 64-bit using LLVM MinGW
+# https://github.com/mstorsjo/llvm-mingw
 #
 # Ubuntu/Debian:
-# $ sudo apt install mingw-w64
-# $ make SYSTEM=linux-mingw64
+# $ make SYSTEM=linux-mingw64-clang
+#
+# Note: It is likely necessary to configure LDFLAGS.GL to reflect the location
+#       of the Windows link libraries
 
 NAME      := glew32
 HOST      := x86_64-w64-mingw32
@@ -12,7 +14,7 @@ CC    := $(HOST)-clang
 LD    := $(HOST)-ld
 LN    :=
 STRIP :=
-LDFLAGS.GL = -lopengl32 -lgdi32 -luser32 -lkernel32 -lmsvcrt
+LDFLAGS.GL = -L/opt/llvm-mingw-20250613-msvcrt-ubuntu-22.04-x86_64/x86_64-w64-mingw32/lib -lopengl32 -lgdi32 -luser32 -lkernel32 -lmsvcrt
 CFLAGS.EXTRA  += -fno-stack-protector -Wno-cast-function-type
 WARN = -Wall -W
 POPT = -O2
