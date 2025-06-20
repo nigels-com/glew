@@ -1,0 +1,43 @@
+name: Ubuntu Linux cmake Build
+run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavour: [
+          "-DCMAKE_BUILD_TYPE=Debug -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=N",
+          "-DCMAKE_BUILD_TYPE=Debug -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=N",
+          "-DCMAKE_BUILD_TYPE=Debug -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=Y",
+          "-DCMAKE_BUILD_TYPE=Debug -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=Y",
+          "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=N",
+          "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=N",
+          "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=Y",
+          "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=Y",
+          ]
+    exclude:
+      - os: macos-latest
+        version: 12
+        environment: production
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y cmake ninja-build libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
+      - name: Git Checkout
+        uses: actions/checkout@v4
+      - name: Generate Code
+        run: |
+          make -C auto clobber
+          make extensions
+          make dist-src
+      - name: Build Binaries
+        run: |
+          mkdir build_
+          cmake build/cmake -B build_ -G Ninja --fresh ${{ matrix.flavour }}
+          cmake --build build_
+          rm -Rf build_
+
+

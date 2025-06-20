@@ -1,0 +1,23 @@
+name: Ubuntu Linux gcc cross-build
+run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y mingw-w64 dos2unix
+      - name: Git Checkout
+        uses: actions/checkout@v4
+      - name: Generate Code
+        run: |
+          make -C auto clobber
+          make extensions
+          make dist-src
+      - name: Build Binaries
+        run: |
+          make clean && SYSTEM=linux-mingw32 make
+          make clean && SYSTEM=linux-mingw64 make

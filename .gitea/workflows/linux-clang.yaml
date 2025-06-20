@@ -1,0 +1,23 @@
+name: Ubuntu Linux clang Build
+run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y clang libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
+      - name: Git Checkout
+        uses: actions/checkout@v4
+      - name: Generate Code
+        run: |
+          make -C auto clobber
+          make extensions
+          make dist-src
+      - name: Build Binaries
+        run: |
+          make clean && SYSTEM=linux-clang      make
+          make clean && SYSTEM=linux-clang-egl  make
