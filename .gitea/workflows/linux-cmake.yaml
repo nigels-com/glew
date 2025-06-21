@@ -1,5 +1,4 @@
 name: Ubuntu Linux cmake Build
-run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
 on: [push]
 
 jobs:
@@ -17,10 +16,6 @@ jobs:
           "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=Y -DGLEW_EGL=N -DBUILD_SHARED_LIBS=Y",
           "-DCMAKE_BUILD_TYPE=Release -DGLEW_X11=N -DGLEW_EGL=Y -DBUILD_SHARED_LIBS=Y",
           ]
-    exclude:
-      - os: macos-latest
-        version: 12
-        environment: production
     steps:
       - name: Install Dependencies
         run: |
