@@ -77,7 +77,8 @@ D.TARGETS = \
 	$(D.DEST)/log.html \
 	$(D.DEST)/glew.html \
 	$(D.DEST)/wglew.html \
-	$(D.DEST)/glxew.html
+	$(D.DEST)/glxew.html \
+	$(D.DEST)/eglew.html
 
 B.TARGETS = \
 	$(B.DEST)/glew.rc \
@@ -349,6 +350,16 @@ $(D.DEST)/glxew.html: $(EXT)/.dummy
 	cp -f $(SRC)/header.html $@
 	echo -e "<h2>Supported GLX Extensions</h2>\n" >> $@
 	$(BIN)/make_html.pl $(GLX_EXT_SPEC) >> $@
+	cat $(SRC)/footer.html >> $@
+	perl -i -pe 's#<a href="$(@F)">(.*)</a>#\1#' $@
+
+$(D.DEST)/eglew.html: $(EXT)/.dummy
+	@echo "--------------------------------------------------------------------"
+	@echo "Creating eglew.html"
+	@echo "--------------------------------------------------------------------"
+	cp -f $(SRC)/header.html $@
+	echo -e "<h2>Supported EGL Extensions</h2>\n" >> $@
+	$(BIN)/make_html.pl $(EGL_EXT_SPEC) >> $@
 	cat $(SRC)/footer.html >> $@
 	perl -i -pe 's#<a href="$(@F)">(.*)</a>#\1#' $@
 
