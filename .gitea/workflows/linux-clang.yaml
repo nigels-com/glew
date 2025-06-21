@@ -1,5 +1,4 @@
 name: Ubuntu Linux clang Build
-run-name: ${{ gitea.actor }} is testing out Gitea Actions 🚀
 on: [push]
 
 jobs:
