@@ -378,6 +378,12 @@ EOT
     void glVertexArrayVertexAttribDivisorEXT (GLuint vaobj, GLuint index, GLuint divisor)
 EOT
 
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_sparse_texture related)
+# https://github.com/nigels-com/glew/issues/445
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glTexturePageCommitmentEXT (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit)
+EOT
+
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
     grep -v 'GL_UNSIGNED_INT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
