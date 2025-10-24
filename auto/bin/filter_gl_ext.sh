@@ -610,6 +610,16 @@ EOT
     typedef void (APIENTRY *GLVULKANPROCNV)(void)
 EOT
 
+# remove duplicates in GL_EXT_fragment_shading_rate and GL_EXT_fragment_shading_rate_primitive
+    tail -n +5 $1/GL_EXT_fragment_shading_rate_primitive > patterns
+    grep -v -F -f patterns $1/GL_EXT_fragment_shading_rate_primitive > tmp
+    mv tmp $1/GL_EXT_fragment_shading_rate_primitive
+
+# remove duplicates in GL_EXT_fragment_shading_rate and GL_EXT_fragment_shading_rate_attachment
+    tail -n +5 $1/GL_EXT_fragment_shading_rate_attachment > patterns
+    grep -v -F -f patterns $1/GL_EXT_fragment_shading_rate_attachment > tmp
+    mv tmp $1/GL_EXT_fragment_shading_rate_attachment
+
 # GLU extensions are not relevant here
     rm -f $1/GL_GLU_*
 
