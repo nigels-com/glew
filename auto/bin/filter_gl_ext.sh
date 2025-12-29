@@ -384,6 +384,12 @@ EOT
     void glTexturePageCommitmentEXT (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit)
 EOT
 
+# add missing functions to GL_EXT_direct_state_access (GL_EXT_buffer_storage related)
+# https://github.com/nigels-com/glew/issues/454
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glNamedBufferStorageEXT (GLuint buffer, GLsizeiptr size, const void *data, GLbitfield flags)
+EOT
+
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
     grep -v 'GL_UNSIGNED_INT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
