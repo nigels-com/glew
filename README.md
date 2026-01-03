@@ -8,7 +8,14 @@ http://glew.sourceforge.net/
 
 https://github.com/nigels-com/glew
 
-[![Download](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
+[![GitHub Stars](https://img.shields.io/github/stars/nigels-com/glew)](https://github.com/nigels-com/glew)
+[Contributors](https://img.shields.io/github/contributors/nigels-com/glew)
+[![Commits since release](https://img.shields.io/github/commits-since/nigels-com/glew/latest)](https://github.com/nigels-com/glew/commits/master/)
+[![Issues](https://img.shields.io/github/issues/nigels-com/glew)](https://github.com/nigels-com/glew/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/nigels-com/glew)(https://github.com/nigels-com/glew/pulls)]
+
+[![GitHub Downloads](https://img.shields.io/github/downloads/nigels-com/glew/latest/total)](https://github.com/nigels-com/glew/releases)
+[![SourceForge Downloads](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
 [![Health](https://codebuild.ap-southeast-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZ0cxMFNORFBPTGQ5Z1MyRUsxRnU5V1ZyOUNUWmZZRFJwNWdBNng5MnNtdFFObGNsTEJkQkxZa0lHYmtMNEZRREZaZmdvMUh2bDMxVjhFc3c2L29odFQ4PSIsIml2UGFyYW1ldGVyU3BlYyI6InhLVlFqWXVaMEZRVFh6c1QiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://ap-southeast-2.codebuild.aws.amazon.com/project/eyJlbmNyeXB0ZWREYXRhIjoiK3RLWndGOVVkMWthbXRQZCtVTTNOQ0w2dEpxakZ1cVBTNDZ1UldGODdqUERSdkx0U21Nd0RFaGhQL1kycVlmNzh2OXpEYnRKV3hXTVJJdjUvVStCbTl0dkliZm5jRTFsc0VBPSIsIml2UGFyYW1ldGVyU3BlYyI6ImZ0ekRoMkNjaU0rRUt5K2UiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D)
 
 ## Table of Contents
