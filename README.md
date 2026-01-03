@@ -9,7 +9,7 @@ http://glew.sourceforge.net/
 https://github.com/nigels-com/glew
 
 [![GitHub Stars](https://img.shields.io/github/stars/nigels-com/glew)](https://github.com/nigels-com/glew)
-[Contributors](https://img.shields.io/github/contributors/nigels-com/glew)
+![Contributors](https://img.shields.io/github/contributors/nigels-com/glew)
 [![Commits since release](https://img.shields.io/github/commits-since/nigels-com/glew/latest)](https://github.com/nigels-com/glew/commits/master/)
 [![Issues](https://img.shields.io/github/issues/nigels-com/glew)](https://github.com/nigels-com/glew/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/nigels-com/glew)(https://github.com/nigels-com/glew/pulls)]
