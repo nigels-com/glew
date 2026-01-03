@@ -19,7 +19,6 @@ https://github.com/nigels-com/glew
 ## Table of Contents
 
 * [Downloads](#downloads)
-	* [Recent snapshots](#recent-snapshots)
 * [Build](#build)
 	* [Linux and Mac](#linux-and-mac)
 		* [Using GNU Make](#using-gnu-make)
