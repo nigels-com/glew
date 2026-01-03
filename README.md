@@ -12,7 +12,7 @@ https://github.com/nigels-com/glew
 ![Contributors](https://img.shields.io/github/contributors/nigels-com/glew)
 [![Commits since release](https://img.shields.io/github/commits-since/nigels-com/glew/latest)](https://github.com/nigels-com/glew/commits/master/)
 [![Issues](https://img.shields.io/github/issues/nigels-com/glew)](https://github.com/nigels-com/glew/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/nigels-com/glew)(https://github.com/nigels-com/glew/pulls)]
+[![Pull Requests](https://img.shields.io/github/issues-pr/nigels-com/glew)](https://github.com/nigels-com/glew/pulls)
 
 [![GitHub Downloads](https://img.shields.io/github/downloads/nigels-com/glew/latest/total)](https://github.com/nigels-com/glew/releases)
 [![SourceForge Downloads](https://img.shields.io/sourceforge/dm/glew.svg)](https://sourceforge.net/projects/glew/files/latest/download)
