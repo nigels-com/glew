@@ -118,7 +118,7 @@ set_target_properties (glew PROPERTIES COMPILE_DEFINITIONS "GLEW_BUILD" OUTPUT_N
 add_library (glew_s STATIC ${GLEW_PUBLIC_HEADERS_FILES} ${GLEW_SRC_FILES})
 set_target_properties (glew_s PROPERTIES COMPILE_DEFINITIONS "GLEW_STATIC" OUTPUT_NAME "${GLEW_LIB_NAME}" PREFIX lib)
 
-if (MSVC)
+if (MSVC AND NOT CMAKE_C_COMPILER_ID MATCHES "Clang")
   # add options from visual studio project
   target_compile_definitions (glew PRIVATE "GLEW_BUILD;VC_EXTRALEAN")
   target_compile_definitions (glew_s PRIVATE "GLEW_STATIC;VC_EXTRALEAN")
