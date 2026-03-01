@@ -97,8 +97,6 @@ endif ()
 
 #### GLEW ####
 
-include_directories (${GLEW_DIR}/include ${X11_INCLUDE_DIR})
-
 set (GLEW_PUBLIC_HEADERS_FILES
   ${GLEW_DIR}/include/GL/wglew.h
   ${GLEW_DIR}/include/GL/glew.h
@@ -159,7 +157,11 @@ target_link_libraries (glew_s ${GLEW_LIBRARIES})
 
 target_compile_definitions(glew_s INTERFACE "GLEW_STATIC")
 foreach(t glew glew_s)
+  target_include_directories(${t} PUBLIC $<BUILD_INTERFACE:${GLEW_DIR}/include>)
   target_include_directories(${t} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  if (NOT WIN32)
+    target_include_directories(${t} PUBLIC ${X11_INCLUDE_DIR})
+  endif()
 endforeach()
 
 set(targets_to_install "")
