@@ -100,6 +100,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
   GLuint dot;
   GLint major, minor;
 
+  if (!glewHasContext())
+    return GLEW_ERROR_NO_GL_CONTEXT;
+
   #ifdef _WIN32
   getString = glGetString;
   #else
