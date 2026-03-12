@@ -72,6 +72,26 @@ GLboolean GLEWAPIENTRY glewGetExtension (const char* name)
 
 typedef const GLubyte* (GLAPIENTRY * PFNGLGETSTRINGPROC) (GLenum name);
 typedef void (GLAPIENTRY * PFNGLGETINTEGERVPROC) (GLenum pname, GLint *params);
+#if defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
+#include <OpenGL/CGLCurrent.h>
+#endif
+
+GLboolean GLEWAPIENTRY glewHasContext (void)
+{
+  #if defined(GLEW_EGL)
+  return eglGetCurrentContext() != EGL_NO_CONTEXT;
+  #elif defined(GLEW_OSMESA)
+  return !!OSMesaGetCurrentContext();
+  #elif defined(_WIN32)
+  return !!wglGetCurrentContext();
+  #elif defined(__APPLE__) && !defined(GLEW_APPLE_GLX)
+  return !!CGLGetCurrentContext();
+  #elif defined(__HAIKU__)
+  return GL_TRUE; /* no way to detect */
+  #else /* __UNIX || (__APPLE__ && GLEW_APPLE_GLX) */
+  return !!glXGetCurrentContext();
+  #endif
+}
 
 GLenum GLEWAPIENTRY glewContextInit (void)
 {
@@ -79,6 +99,9 @@ GLenum GLEWAPIENTRY glewContextInit (void)
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
+
+  if (!glewHasContext())
+    return GLEW_ERROR_NO_GL_CONTEXT;
 
   #ifdef _WIN32
   getString = glGetString;
