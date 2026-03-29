@@ -390,6 +390,18 @@ EOT
     void glNamedBufferStorageEXT (GLuint buffer, GLsizeiptr size, const void *data, GLbitfield flags)
 EOT
 
+# add missing functions to GL_EXT_direct_state_access (GL_ARB_sparse_buffer related)
+# https://github.com/nigels-com/glew/issues/470
+    cat >> $1/GL_EXT_direct_state_access <<EOT
+    void glNamedBufferPageCommitmentEXT (GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit)
+EOT
+
+# add missing functions to GL_ARB_direct_state_access (GL_ARB_sparse_buffer related)
+# https://github.com/nigels-com/glew/issues/470
+    cat >> $1/GL_ARB_direct_state_access <<EOT
+    void glNamedBufferPageCommitmentARB (GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit)
+EOT
+
 # Filter out GL_UNSIGNED_INT and GL_FLOAT from GL_AMD_performance_monitor
     grep -v 'GL_UNSIGNED_INT ' $1/GL_AMD_performance_monitor > tmp
     mv tmp $1/GL_AMD_performance_monitor
