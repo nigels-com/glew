@@ -117,19 +117,6 @@ EOT
 	ERROR_INVALID_PIXEL_TYPE_EXT 0x2043
 EOT
 
-# add typedefs to GL_ARB_vertex_buffer_object; (from personal communication
-# with Marco Fabbricatore).
-#
-# Rationale.  The spec says:
-#
-#   "Both types are defined as signed integers large enough to contain
-#   any pointer value [...] The idea of making these types unsigned was
-#   considered, but was ultimately rejected ..."
-    cat >> $1/GL_ARB_vertex_buffer_object <<EOT
-	typedef ptrdiff_t GLsizeiptrARB
-	typedef ptrdiff_t GLintptrARB
-EOT
-
 # add typedefs to GLX_EXT_import_context
     cat >> $1/GLX_EXT_import_context <<EOT
 	typedef XID GLXContextID
