@@ -34,13 +34,6 @@ sub prefix_varname($)
 
 #---------------------------------------------------------------------------------------
 
-sub make_exact($)
-{
-	my $exact = $_[0];
-	$exact =~ s/(; |{)/$1\n/g;
-    return $exact;
-}
-
 sub make_separator($)
 {
     my $extname = $_[0];
@@ -50,15 +43,15 @@ sub make_separator($)
     my $j = 3;
     for (my $i = 0; $i < $s; $i++)
     {
-	print "-";
-	$j++;
+        print "-";
+        $j++;
     }
     print " $_[0] ";
     $j += $l + 2;
     while ($j < 76)
     {
-	print "-";
-	$j++;
+        print "-";
+        $j++;
     }
     print " */\n\n";
 }
@@ -75,7 +68,7 @@ sub parse_ext($)
     my @exacts = ();
     my $extname = "";    # Full extension name GL_FOO_extension
     my $exturl = "";     # Info URL
-    my $extstring = "";  # Relevant extension string 
+    my $extstring = "";  # Relevant extension string
 
     open EXT, "<$filename" or return;
 
@@ -93,7 +86,7 @@ sub parse_ext($)
     #
     # If the URL is unknown, the second line should be
     # blank.
-   
+
     $extname   = readline(*EXT);
     $exturl    = readline(*EXT);
     $extstring = readline(*EXT);
@@ -125,9 +118,9 @@ sub parse_ext($)
             {
                 my ($return, $name, $parms) = ($1, $2, $3);
                 $functions{$name} = {
-		    rtype => $return,
-		    parms => $parms,
-		};
+                    rtype => $return,
+                    parms => $parms,
+                };
             } else {
                 print STDERR "'$_' matched no regex.\n";
             }
@@ -146,7 +139,7 @@ sub output_tokens($$)
     {
         local $, = "\n";
         print "\n";
-        print map { &{$fnc}($_, $tbl->{$_}) } sort { 
+        print map { &{$fnc}($_, $tbl->{$_}) } sort {
             if (${$tbl}{$a} eq ${$tbl}{$b}) {
                     $a cmp $b
             } else {
@@ -165,7 +158,7 @@ sub output_tokens($$)
                         } else {
                             hex ${$tbl}{$a} <=> hex ${$tbl}{$b}
                         }
-                    }                    
+                    }
                 }
             }
         } keys %{$tbl};

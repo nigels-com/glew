@@ -26,6 +26,13 @@ sub make_type($$)
     return "@_;"
 }
 
+sub make_exact($)
+{
+    my $exact = $_[0];
+    $exact =~ s/(; |{)/$1\n/g;
+    return $exact;
+}
+
 # function pointer type declaration
 sub make_pfn_type($%)
 {
@@ -52,22 +59,22 @@ if (@ARGV)
 {
     @extlist = @ARGV;
 
-	foreach my $ext (sort @extlist)
-	{
-		my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = parse_ext($ext);
+    foreach my $ext (sort @extlist)
+    {
+        my ($extname, $exturl, $extstring, $reuse, $types, $tokens, $functions, $exacts) = parse_ext($ext);
 
-		make_separator($extname);
-		print "#ifndef $extname\n#define $extname 1\n";
-		output_tokens($tokens, \&make_define);
-		output_types($types, \&make_type);
-		output_exacts($exacts, \&make_exact);
-		output_decls($functions, \&make_pfn_type);
-		output_decls($functions, \&make_pfn_alias);
+        make_separator($extname);
+        print "#ifndef $extname\n#define $extname 1\n";
+        output_tokens($tokens, \&make_define);
+        output_types($types, \&make_type);
+        output_exacts($exacts, \&make_exact);
+        output_decls($functions, \&make_pfn_type);
+        output_decls($functions, \&make_pfn_alias);
 
-		my $extvar = $extname;
-		$extvar =~ s/GL(X*)_/GL$1EW_/;
-		
-		print "\n#define $extvar " . $type . "EW_GET_VAR(" . prefix_varname($extvar) . ")\n";
-		print "\n#endif /* $extname */\n\n";
-	}
+        my $extvar = $extname;
+        $extvar =~ s/GL(X*)_/GL$1EW_/;
+
+        print "\n#define $extvar " . $type . "EW_GET_VAR(" . prefix_varname($extvar) . ")\n";
+        print "\n#endif /* $extname */\n\n";
+    }
 }
