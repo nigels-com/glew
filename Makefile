@@ -44,7 +44,8 @@ GLEW_PREFIX ?= /usr/local
 GLEW_DEST ?= /usr/local
 BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
-INCDIR    ?= $(GLEW_DEST)/include/GL
+INCLUDEDIR ?= $(GLEW_DEST)/include
+INCDIR    ?= $(INCLUDEDIR)/GL
 PKGDIR    ?= $(GLEW_DEST)/lib/pkgconfig
 
 ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
@@ -146,7 +147,7 @@ glew.pc: glew.pc.in
 		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
-		-e "s|@includedir@|$(INCDIR)|g" \
+		-e "s|@includedir@|$(INCLUDEDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
 		-e "s|@libname@|$(NAME)|g" \
