@@ -23,7 +23,19 @@ sub make_define($$)
 # type declaration
 sub make_type($$)
 {
-    return "@_;"
+    my ($type) = @_;
+
+    if($type =~ /\bGLhandleARB\b/) {
+        return join("\n",
+            "#ifdef __APPLE__",
+            "typedef void *GLhandleARB;",
+            "#else",
+            "typedef unsigned int GLhandleARB;",
+            "#endif"
+        );
+    }
+
+    return "$type;"
 }
 
 sub make_exact($)
