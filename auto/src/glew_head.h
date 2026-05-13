@@ -1138,3 +1138,11 @@ GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei heigh
 #  endif
 #endif
 
+/* Aligned with GL/glext.h */
+#ifndef GL_ARB_shader_objects
+#  ifdef __APPLE__
+typedef void *GLhandleARB;
+#  else
+typedef unsigned int GLhandleARB;
+#  endif
+#endif

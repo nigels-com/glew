@@ -30,11 +30,11 @@ set -e
 
 # GL_EXT_draw_buffers2 and GL_EXT_transform_feedback both define glGetBooleanIndexedvEXT but with different parameter names
     grep -v glGetBooleanIndexedvEXT $1/GL_EXT_transform_feedback > tmp
-    mv tmp $1/GL_EXT_transform_feedback    
+    mv tmp $1/GL_EXT_transform_feedback
 
 # GL_EXT_draw_buffers2 and GL_EXT_transform_feedback both define glGetIntegerIndexedvEXT but with different parameter names
     grep -v glGetIntegerIndexedvEXT $1/GL_EXT_transform_feedback > tmp
-    mv tmp $1/GL_EXT_transform_feedback    
+    mv tmp $1/GL_EXT_transform_feedback
 
 # remove duplicates from GL_NV_video_capture and GLX_NV_video_capture
     grep -v glX $1/GL_NV_video_capture > tmp
@@ -99,7 +99,7 @@ EOT
 	GL_OFFSET_TEXTURE_2D_BIAS_NV 0x86E3
 	GL_OFFSET_TEXTURE_2D_SCALE_NV 0x86E2
 EOT
-	
+
 # fix WGL_ATI_pixel_format_float
     cat >> $1/WGL_ATI_pixel_format_float <<EOT
 	GL_RGBA_FLOAT_MODE_ATI 0x8820
@@ -183,7 +183,7 @@ EOT
     perl -e 's/v2/z/g' -pi $1/GL_ARB_vertex_shader
     perl -e 's/v3/w/g' -pi $1/GL_ARB_vertex_shader
 
-# remove triplicates in GL_ARB_shader_objects, GL_ARB_fragment_shader, 
+# remove triplicates in GL_ARB_shader_objects, GL_ARB_fragment_shader,
 # and GL_ARB_vertex_shader
     tail -n +5 $1/GL_ARB_shader_objects > patterns
     grep -v -F -f patterns $1/GL_ARB_fragment_shader > tmp
@@ -236,7 +236,6 @@ EOT
 # add typedefs to GL_ARB_shader_objects
     cat >> $1/GL_ARB_shader_objects <<EOT
 	typedef char GLcharARB
-	typedef unsigned int GLhandleARB
 EOT
 
 # add missing functions to GL_ARB_transpose_matrix
