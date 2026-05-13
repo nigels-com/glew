@@ -25,7 +25,7 @@ sub make_type($$)
 {
     my ($type) = @_;
 
-    if($type =~ /\bGLhandleARB\b/) {
+    if($type =~ /^\s*typedef\s+unsigned\s+int\s+GLhandleARB\s*$/) {
         return join("\n",
             "#ifdef __APPLE__",
             "typedef void *GLhandleARB;",
