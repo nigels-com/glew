@@ -114,6 +114,10 @@ void* NSGLGetProcAddress (const GLubyte *name)
   }
   /* prepend a '_' for the Unix C symbol mangling convention */
   symbolName = malloc(strlen((const char*)name) + 2);
+  if (NULL == symbolName)
+  {
+    return NULL;
+  }
   strcpy(symbolName+1, (const char*)name);
   symbolName[0] = '_';
   symbol = NULL;
