@@ -1,6 +1,12 @@
 name: Ubuntu Linux cmake Build
 on: [push]
 
+# Local mirrors are faster
+env:
+  REPO_OPENGL: "http://server:3000/Mirror/OpenGL-Registry.git"
+  REPO_EGL: "http://server:3000/Mirror/EGL-Registry.git"
+  REPO_GLFIXES: "http://server:3000/Mirror/glfixes.git"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,8 +28,8 @@ jobs:
           apt update
           apt install -y cmake ninja-build libxmu-dev libxi-dev libgl-dev libegl1-mesa-dev dos2unix
       - name: Git Checkout
-        uses: actions/checkout@v4
-      - name: Generate Code
+        uses: actions/checkout@v6
+      - name: Generate GLEW Sources
         run: |
           make -C auto clobber
           make extensions
