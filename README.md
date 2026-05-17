@@ -137,6 +137,7 @@ RedHat/CentOS/Fedora: `$ sudo yum install libXmu-devel libXi-devel libGL-devel c
 | GLEW_REGAL      | Build in Regal mode. |
 | GLEW_OSMESA     | Build in off-screen Mesa mode. |
 | BUILD_FRAMEWORK | Build as MacOSX Framework.  Setting `CMAKE_INSTALL_PREFIX` to `/Library/Frameworks` is recommended. |
+| CLANG_TIDY      | clang-tidy linting mode |
 
 ### Windows
 
