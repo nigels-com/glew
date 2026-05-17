@@ -18,6 +18,7 @@ endif ()
 option (GLEW_X11 "X11 mode" ON)
 option (GLEW_EGL "EGL mode" OFF)
 option (BUILD_SHARED_LIBS "install/link shared instead of static libs" ON)
+option (CLANG_TIDY "clang-tidy linting" OFF)
 
 set (GLEW_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
@@ -34,6 +35,25 @@ if (NOT GLEW_CUSTOM_OUTPUT_DIRS)
   set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
   set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
   set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+endif()
+
+# Optional clang-tidy linting mode
+
+if (CLANG_TIDY)
+  find_program(CLANG_TIDY_BIN NAMES clang-tidy)
+  if (CLANG_TIDY_BIN)
+    set(CLANG_TIDY_ARGS -checks=*)
+    string(APPEND CLANG_TIDY_ARGS ",readability-*,-readability-identifier-length,-readability-magic-numbers,-readability-function-cognitive-complexity,-readability-braces-around-statements,-readability-function-size,-readability-isolate-declaration")
+    string(APPEND CLANG_TIDY_ARGS ",hicpp-*,-hicpp-braces-around-statements,-hicpp-function-size")
+    string(APPEND CLANG_TIDY_ARGS ",altera-*,-altera-unroll-loops,-altera-id-dependent-backward-branch")
+    string(APPEND CLANG_TIDY_ARGS ",google-*,-google-readability-braces-around-statements,-google-readability-function-size")
+    string(APPEND CLANG_TIDY_ARGS ",cppcoreguidelines-*,-cppcoreguidelines-avoid-non-const-global-variables,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-init-variables")
+    string(APPEND CLANG_TIDY_ARGS ",bugprone-*,-bugprone-reserved-identifier")
+    string(APPEND CLANG_TIDY_ARGS ",llvm-*,-llvm-include-order,-llvmlibc-*")
+    string(APPEND CLANG_TIDY_ARGS ",clang-*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,-clang-analyzer-security.insecureAPI.strcpy")
+    string(APPEND CLANG_TIDY_ARGS ",-cert-dcl37-c,-cert-dcl51-cpp,-cert-err33-c,-cert-err34-c")
+    set(CMAKE_C_CLANG_TIDY ${CLANG_TIDY_BIN} ${CLANG_TIDY_ARGS})
+  endif()
 endif()
 
 find_package (OpenGL REQUIRED)
