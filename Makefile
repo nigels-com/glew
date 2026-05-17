@@ -351,7 +351,7 @@ dist-src:
 	find $(DIST_DIR) -name '*.pm' | xargs $(DOS2UNIX)
 	find $(DIST_DIR) -name '*.rc' | xargs $(DOS2UNIX)
 	rm -f $(DIST_SRC_TGZ)
-	cd $(DIST_DIR)/.. && env GZIP=-9 tar czf $(DIST_SRC_TGZ) $(DIST_NAME)
+	cd $(DIST_DIR)/.. && tar -cf - $(DIST_NAME) | gzip -9 > $(DIST_SRC_TGZ)
 	$(RM) -r $(DIST_DIR)
 
 extensions:

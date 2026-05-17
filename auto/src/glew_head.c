@@ -28,6 +28,7 @@
 #  endif
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
+#  include <X11/Xlib.h>
 #  include <GL/glxew.h>
 #endif
 
@@ -155,7 +156,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
 #elif defined(__native_client__)
 #  define glewGetProcAddress(name) NULL /* TODO */
 #else /* __linux */
-#  define glewGetProcAddress(name) (*glXGetProcAddressARB)(name)
+#  define glewGetProcAddress(name) glXGetProcAddressARB(name)
 #endif
 
 /*
