@@ -213,7 +213,6 @@ $(S.DEST)/glew.c: $(EXT)/.dummy
 	cat $(SRC)/glew_head.c >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_fun.pl GL $(GL_EXT_SPEC) >> $@
-	echo -e "\nGLboolean __GLEW_VERSION_1_1 = GL_FALSE;" >> $@
 	$(BIN)/make_def_var.pl GL $(GL_CORE_SPEC) >> $@
 	$(BIN)/make_def_var.pl GL $(GL_EXT_SPEC) >> $@
 	echo -e "\nstatic const char * _glewExtensionLookup[] = {" >> $@;

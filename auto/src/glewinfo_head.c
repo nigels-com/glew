@@ -87,15 +87,3 @@ static void glewInfoFunc (GLboolean fi, const char* name, GLint undefined)
     fflush(f);
   }
 }
-
-/* ----------------------------- GL_VERSION_1_1 ---------------------------- */
-
-#ifdef GL_VERSION_1_1
-
-static void _glewInfo_GL_VERSION_1_1 (void)
-{
-  glewPrintExt("GL_VERSION_1_1", GLEW_VERSION_1_1, GLEW_VERSION_1_1, GLEW_VERSION_1_1);
-}
-
-#endif /* GL_VERSION_1_1 */
-
