@@ -95,7 +95,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   addr = dlsym(image, (const char*)name);
   if( addr ) return addr;
 #ifdef GLEW_APPLE_GLX
-  return dlGetProcAddress( name ); // try next for glx symbols
+  return dlGetProcAddress( name ); /* try next for glx symbols */
 #else
   return NULL;
 #endif
@@ -128,7 +128,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   free(symbolName);
   if( symbol ) return NSAddressOfSymbol(symbol);
 #ifdef GLEW_APPLE_GLX
-  return dlGetProcAddress( name ); // try next for glx symbols
+  return dlGetProcAddress( name ); /* try next for glx symbols */
 #else
   return NULL;
 #endif
