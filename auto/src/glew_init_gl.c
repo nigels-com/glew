@@ -77,7 +77,7 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 {
   PFNGLGETSTRINGPROC getString;
   const GLubyte* s;
-  GLuint dot;
+  GLuint dot, majorDigits;
   GLint major, minor;
 
   #ifdef _WIN32
@@ -90,17 +90,23 @@ GLenum GLEWAPIENTRY glewContextInit (void)
 
   /* query opengl version */
   s = getString(GL_VERSION);
+  if (s == NULL)
+    return GLEW_ERROR_NO_GL_VERSION;
+
+  /* dot is the length of the string if no '.' is present -- guard
+   * against indexing past the end of the string in that case */
   dot = _glewStrCLen(s, '.');
-  if (dot == 0)
+  if (dot == 0 || s[dot] != '.')
     return GLEW_ERROR_NO_GL_VERSION;
 
-  major = s[dot-1]-'0';
-  minor = s[dot+1]-'0';
-
-  if (minor < 0 || minor > 9)
-    minor = 0;
-  if (major<0 || major>9)
+  /* parse major/minor as decimal numbers rather than assuming a
+   * single ASCII digit on either side of the dot, so multi-digit
+   * versions (e.g. a future "10.0") are handled correctly */
+  major = _glewInteger(s, &majorDigits);
+  if (majorDigits != dot)
     return GLEW_ERROR_NO_GL_VERSION;
+
+  minor = _glewInteger(s + dot + 1, NULL);
 
   if (major == 1 && minor == 0)
   {
