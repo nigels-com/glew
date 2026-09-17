@@ -211,6 +211,20 @@ static GLuint _glewStrCopy(char *d, const char *s, char c)
   return i;
 }
 
+/* Parse a run of ASCII decimal digits at the start of s, stopping at
+ * the first non-digit character (or NUL). Returns the parsed value,
+ * and, if n is non-NULL, the number of digit characters consumed
+ * (0 if s does not start with a digit). */
+static GLint _glewInteger (const GLubyte* s, GLuint* n)
+{
+  GLint v=0;
+  GLuint i=0;
+  if (s != NULL)
+    while (s[i] >= '0' && s[i] <= '9') { v = v*10 + (GLint)(s[i]-'0'); i++; }
+  if (n) *n = i;
+  return v;
+}
+
 #if !defined(GLEW_OSMESA)
 #if !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
 static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
