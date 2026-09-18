@@ -1,0 +1,206 @@
+# GLEW Supported EGL Extensions
+
+## ANDROID
+
+- [EGL_ANDROID_GLES_layers](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_GLES_layers.txt)
+- [EGL_ANDROID_blob_cache](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_blob_cache.txt)
+- [EGL_ANDROID_create_native_client_buffer](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_create_native_client_buffer.txt)
+- [EGL_ANDROID_framebuffer_target](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_framebuffer_target.txt)
+- [EGL_ANDROID_front_buffer_auto_refresh](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_front_buffer_auto_refresh.txt)
+- [EGL_ANDROID_get_frame_timestamps](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_get_frame_timestamps.txt)
+- [EGL_ANDROID_get_native_client_buffer](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_get_native_client_buffer.txt)
+- [EGL_ANDROID_image_native_buffer](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_image_native_buffer.txt)
+- [EGL_ANDROID_native_fence_sync](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_native_fence_sync.txt)
+- [EGL_ANDROID_presentation_time](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_presentation_time.txt)
+- [EGL_ANDROID_recordable](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_recordable.txt)
+- [EGL_ANDROID_telemetry_hint](https://registry.khronos.org/EGL/extensions/ANDROID/EGL_ANDROID_telemetry_hint.txt)
+
+## ANGLE
+
+- [EGL_ANGLE_d3d_share_handle_client_buffer](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_d3d_share_handle_client_buffer.txt)
+- [EGL_ANGLE_device_d3d](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_device_d3d.txt)
+- [EGL_ANGLE_query_surface_pointer](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_query_surface_pointer.txt)
+- [EGL_ANGLE_surface_d3d_texture_2d_share_handle](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_surface_d3d_texture_2d_share_handle.txt)
+- [EGL_ANGLE_sync_control_rate](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_sync_control_rate.txt)
+- [EGL_ANGLE_window_fixed_size](https://registry.khronos.org/EGL/extensions/ANGLE/EGL_ANGLE_window_fixed_size.txt)
+
+## ARM
+
+- [EGL_ARM_image_format](https://registry.khronos.org/EGL/extensions/ARM/EGL_ARM_image_format.txt)
+- [EGL_ARM_implicit_external_sync](https://registry.khronos.org/EGL/extensions/ARM/EGL_ARM_implicit_external_sync.txt)
+- [EGL_ARM_pixmap_multisample_discard](https://registry.khronos.org/EGL/extensions/ARM/EGL_ARM_pixmap_multisample_discard.txt)
+
+## EXT
+
+- [EGL_EXT_bind_to_front](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_bind_to_front.txt)
+- [EGL_EXT_buffer_age](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_buffer_age.txt)
+- [EGL_EXT_client_extensions](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_client_extensions.txt)
+- [EGL_EXT_client_sync](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_client_sync.txt)
+- [EGL_EXT_compositor](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_compositor.txt)
+- [EGL_EXT_config_select_group](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_config_select_group.txt)
+- [EGL_EXT_create_context_robustness](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_create_context_robustness.txt)
+- [EGL_EXT_device_base](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_base.txt)
+- [EGL_EXT_device_drm](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_drm.txt)
+- [EGL_EXT_device_drm_render_node](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_drm_render_node.txt)
+- [EGL_EXT_device_enumeration](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_enumeration.txt)
+- [EGL_EXT_device_openwf](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_openwf.txt)
+- [EGL_EXT_device_persistent_id](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_persistent_id.txt)
+- [EGL_EXT_device_query](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_query.txt)
+- [EGL_EXT_device_query_name](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_device_query_name.txt)
+- [EGL_EXT_display_alloc](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_display_alloc.txt)
+- [EGL_EXT_explicit_device](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_explicit_device.txt)
+- [EGL_EXT_gl_colorspace_bt2020_hlg](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_EXT_gl_colorspace_bt2020_linear](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_gl_colorspace_bt2020_linear.txt)
+- [EGL_EXT_gl_colorspace_bt2020_pq](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_EXT_gl_colorspace_display_p3](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_gl_colorspace_display_p3.txt)
+- [EGL_EXT_gl_colorspace_display_p3_linear](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_EXT_gl_colorspace_display_p3_passthrough](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_gl_colorspace_display_p3_passthrough.txt)
+- [EGL_EXT_gl_colorspace_scrgb](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_gl_colorspace_scrgb.txt)
+- [EGL_EXT_gl_colorspace_scrgb_linear](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_gl_colorspace_scrgb_linear.txt)
+- [EGL_EXT_image_dma_buf_import](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import.txt)
+- [EGL_EXT_image_dma_buf_import_modifiers](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import_modifiers.txt)
+- [EGL_EXT_image_gl_colorspace](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_gl_colorspace.txt)
+- [EGL_EXT_image_implicit_sync_control](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_image_implicit_sync_control.txt)
+- [EGL_EXT_multiview_window](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_multiview_window.txt)
+- [EGL_EXT_output_base](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_output_base.txt)
+- [EGL_EXT_output_drm](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_EXT_output_openwf](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_EXT_pixel_format_float](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_pixel_format_float.txt)
+- [EGL_EXT_platform_base](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_platform_base.txt)
+- [EGL_EXT_platform_device](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_platform_device.txt)
+- [EGL_EXT_platform_wayland](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_platform_wayland.txt)
+- [EGL_EXT_platform_x11](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_platform_x11.txt)
+- [EGL_EXT_platform_xcb](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_platform_xcb.txt)
+- [EGL_EXT_present_opaque](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_present_opaque.txt)
+- [EGL_EXT_protected_content](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_protected_content.txt)
+- [EGL_EXT_protected_surface](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_protected_surface.txt)
+- [EGL_EXT_query_reset_notification_strategy](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_query_reset_notification_strategy.txt)
+- [EGL_EXT_stream_consumer_egloutput](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_stream_consumer_egloutput.txt)
+- [EGL_EXT_surface_CTA861_3_metadata](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_surface_CTA861_3_metadata.txt)
+- [EGL_EXT_surface_SMPTE2086_metadata](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_surface_SMPTE2086_metadata.txt)
+- [EGL_EXT_surface_compression](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_surface_compression.txt)
+- [EGL_EXT_swap_buffers_with_damage](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_swap_buffers_with_damage.txt)
+- [EGL_EXT_sync_reuse](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_sync_reuse.txt)
+- [EGL_EXT_yuv_surface](https://registry.khronos.org/EGL/extensions/EXT/EGL_EXT_yuv_surface.txt)
+
+## HI
+
+- [EGL_HI_clientpixmap](https://registry.khronos.org/EGL/extensions/HI/EGL_HI_clientpixmap.txt)
+- [EGL_HI_colorformats](https://registry.khronos.org/EGL/extensions/HI/EGL_HI_colorformats.txt)
+
+## IMG
+
+- [EGL_IMG_context_priority](https://registry.khronos.org/EGL/extensions/IMG/EGL_IMG_context_priority.txt)
+- [EGL_IMG_image_plane_attribs](https://registry.khronos.org/EGL/extensions/IMG/EGL_IMG_image_plane_attribs.txt)
+
+## KHR
+
+- [EGL_KHR_cl_event](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_cl_event.txt)
+- [EGL_KHR_cl_event2](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_cl_event2.txt)
+- [EGL_KHR_client_get_all_proc_addresses](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_config_attribs](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_config_attribs.txt)
+- [EGL_KHR_context_flush_control](https://registry.khronos.org/OpenGL/extensions/KHR/KHR_context_flush_control.txt)
+- [EGL_KHR_create_context](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_create_context.txt)
+- [EGL_KHR_create_context_no_error](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_create_context_no_error.txt)
+- [EGL_KHR_debug](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_debug.txt)
+- [EGL_KHR_display_reference](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_display_reference.txt)
+- [EGL_KHR_fence_sync](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_fence_sync.txt)
+- [EGL_KHR_get_all_proc_addresses](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_get_all_proc_addresses.txt)
+- [EGL_KHR_gl_colorspace](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_gl_colorspace.txt)
+- [EGL_KHR_gl_renderbuffer_image](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_gl_texture_2D_image](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_gl_texture_3D_image](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_gl_texture_cubemap_image](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_image](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_image.txt)
+- [EGL_KHR_image_base](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_image_base.txt)
+- [EGL_KHR_image_pixmap](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_image_pixmap.txt)
+- [EGL_KHR_lock_surface](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_lock_surface.txt)
+- [EGL_KHR_lock_surface2](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_lock_surface2.txt)
+- [EGL_KHR_lock_surface3](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_lock_surface3.txt)
+- [EGL_KHR_mutable_render_buffer](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_mutable_render_buffer.txt)
+- [EGL_KHR_no_config_context](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_no_config_context.txt)
+- [EGL_KHR_partial_update](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_partial_update.txt)
+- [EGL_KHR_platform_android](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_platform_android.txt)
+- [EGL_KHR_platform_gbm](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_platform_gbm.txt)
+- [EGL_KHR_platform_wayland](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_platform_wayland.txt)
+- [EGL_KHR_platform_x11](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_platform_x11.txt)
+- [EGL_KHR_reusable_sync](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_reusable_sync.txt)
+- [EGL_KHR_stream](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream.txt)
+- [EGL_KHR_stream_attrib](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_KHR_stream_consumer_gltexture](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream_consumer_gltexture.txt)
+- [EGL_KHR_stream_cross_process_fd](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream_cross_process_fd.txt)
+- [EGL_KHR_stream_fifo](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream_fifo.txt)
+- [EGL_KHR_stream_producer_aldatalocator](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream_producer_aldatalocator.txt)
+- [EGL_KHR_stream_producer_eglsurface](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_stream_producer_eglsurface.txt)
+- [EGL_KHR_surfaceless_context](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_surfaceless_context.txt)
+- [EGL_KHR_swap_buffers_with_damage](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_swap_buffers_with_damage.txt)
+- [EGL_KHR_vg_parent_image](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_vg_parent_image.txt)
+- [EGL_KHR_wait_sync](https://registry.khronos.org/EGL/extensions/KHR/EGL_KHR_wait_sync.txt)
+
+## MESA
+
+- [EGL_MESA_drm_image](https://registry.khronos.org/EGL/extensions/MESA/EGL_MESA_drm_image.txt)
+- [EGL_MESA_image_dma_buf_export](https://registry.khronos.org/EGL/extensions/MESA/EGL_MESA_image_dma_buf_export.txt)
+- [EGL_MESA_platform_gbm](https://registry.khronos.org/EGL/extensions/MESA/EGL_MESA_platform_gbm.txt)
+- [EGL_MESA_platform_surfaceless](https://registry.khronos.org/EGL/extensions/MESA/EGL_MESA_platform_surfaceless.txt)
+- [EGL_MESA_query_driver](https://registry.khronos.org/EGL/extensions/MESA/EGL_MESA_query_driver.txt)
+
+## NOK
+
+- [EGL_NOK_swap_region](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NOK_swap_region2](https://registry.khronos.org/EGL/extensions/NOK/EGL_NOK_swap_region2.txt)
+- [EGL_NOK_texture_from_pixmap](https://registry.khronos.org/EGL/extensions/NOK/EGL_NOK_texture_from_pixmap.txt)
+
+## NV
+
+- [EGL_NV_3dvision_surface](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_3dvision_surface.txt)
+- [EGL_NV_context_priority_realtime](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_context_priority_realtime.txt)
+- [EGL_NV_coverage_sample](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_coverage_sample.txt)
+- [EGL_NV_coverage_sample_resolve](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_coverage_sample_resolve.txt)
+- [EGL_NV_cuda_event](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_cuda_event.txt)
+- [EGL_NV_depth_nonlinear](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_depth_nonlinear.txt)
+- [EGL_NV_device_cuda](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_device_cuda.txt)
+- [EGL_NV_native_query](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_native_query.txt)
+- [EGL_NV_post_convert_rounding](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_post_convert_rounding.txt)
+- [EGL_NV_post_sub_buffer](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_post_sub_buffer.txt)
+- [EGL_NV_quadruple_buffer](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_robustness_video_memory_purge](https://registry.khronos.org/OpenGL/extensions/NV/NV_robustness_video_memory_purge.txt)
+- [EGL_NV_stream_consumer_eglimage](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_consumer_eglimage.txt)
+- [EGL_NV_stream_consumer_eglimage_use_scanout_attrib](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_consumer_eglimage_use_scanout_attrib.txt)
+- [EGL_NV_stream_consumer_gltexture_yuv](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_consumer_gltexture_yuv.txt)
+- [EGL_NV_stream_cross_display](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_cross_object](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_cross_partition](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_cross_process](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_cross_system](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_dma](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_dma.txt)
+- [EGL_NV_stream_fifo_next](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_fifo_next.txt)
+- [EGL_NV_stream_fifo_synchronous](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_fifo_synchronous.txt)
+- [EGL_NV_stream_flush](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_flush.txt)
+- [EGL_NV_stream_frame_limits](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_frame_limits.txt)
+- [EGL_NV_stream_metadata](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_metadata.txt)
+- [EGL_NV_stream_origin](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_origin.txt)
+- [EGL_NV_stream_remote](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_remote.txt)
+- [EGL_NV_stream_reset](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_reset.txt)
+- [EGL_NV_stream_socket](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_socket.txt)
+- [EGL_NV_stream_socket_inet](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_socket_unix](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+- [EGL_NV_stream_sync](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_stream_sync.txt)
+- [EGL_NV_sync](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_sync.txt)
+- [EGL_NV_system_time](https://registry.khronos.org/EGL/extensions/NV/EGL_NV_system_time.txt)
+- [EGL_NV_triple_buffer](https://www.khronos.org/registry/egl/specs/eglspec.1.5.pdf)
+
+## QNX
+
+- [EGL_QNX_image_native_buffer](https://registry.khronos.org/EGL/extensions/QNX/EGL_QNX_image_native_buffer.txt)
+- [EGL_QNX_platform_screen](https://registry.khronos.org/EGL/extensions/QNX/EGL_QNX_platform_screen.txt)
+
+## TIZEN
+
+- [EGL_TIZEN_image_native_buffer](https://registry.khronos.org/EGL/extensions/TIZEN/EGL_TIZEN_image_native_buffer.txt)
+- [EGL_TIZEN_image_native_surface](https://registry.khronos.org/EGL/extensions/TIZEN/EGL_TIZEN_image_native_surface.txt)
+
+## WL
+
+- [EGL_WL_bind_wayland_display](https://registry.khronos.org/EGL/extensions/WL/EGL_WL_bind_wayland_display.txt)
+- [EGL_WL_create_wayland_buffer_from_image](https://registry.khronos.org/EGL/extensions/WL/EGL_WL_create_wayland_buffer_from_image.txt)
