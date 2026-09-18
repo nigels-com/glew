@@ -1,5 +1,32 @@
 # Notes for Claude Code
 
+## GLEW.md — extensions with no working spec link
+
+`GLEW.md` (converted from `glew-2.3.1/doc/glew.html`) links each supported extension to its
+registry spec. Seven of these have no known working link anywhere and are listed as plain,
+unlinked bullets:
+
+- `ATIX_point_sprites`
+- `ATIX_texture_env_route`
+- `ATIX_vertex_shader_output_point_size`
+- `EXT_texture_edge_clamp`
+- `EXT_texture_rectangle`
+- `SUN_read_video_pixels`
+- `WIN_swap_hint`
+
+Investigated and confirmed dead (not just moved):
+- Their original hosts (ati.com, opengl.org, developer.apple.com, wwws.sun.com,
+  msdn.microsoft.com) either 404, redirect to a generic homepage/docs landing page unrelated
+  to the specific extension, or fail to resolve at all.
+- No file matching these names (under any vendor prefix, and checked for combined/renamed
+  specs too) exists in the local `auto/OpenGL-Registry` checkout.
+- The Internet Archive Wayback Machine was rate-limiting lookups when last tried, and is not
+  reachable via the WebFetch tool at all — worth another attempt later as a source of archived
+  copies if these should get *some* link rather than none.
+
+If a working link ever turns up for any of these, update the corresponding bullet in
+`GLEW.md`.
+
 ## `auto/glfixes` — keep it, REGAL support continues
 
 `auto/glfixes` (cloned from `nigels-com/glfixes` in `auto/Makefile`) supplies extension specs
