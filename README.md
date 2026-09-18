@@ -59,10 +59,9 @@ Sources available as
 [ZIP](https://github.com/Perlmint/glew-cmake/archive/refs/tags/glew-cmake-2.3.1.zip) or
 [TGZ](https://github.com/Perlmint/glew-cmake/archive/refs/tags/glew-cmake-2.3.1.tar.gz).
 
-Repository of generated sources:
-[https](https://github.com/Perlmint/glew-cmake.git) or
-[ssh](git@github.com:Perlmint/glew-cmake.git).
-
+Git repository:
+* https `https://github.com/Perlmint/glew-cmake.git`
+* ssh `git@github.com:Perlmint/glew-cmake.git`
 
 ## Build
 
