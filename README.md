@@ -219,11 +219,6 @@ data is regenerated from the top level source directory with:
 
 	make extensions
 
-An alternative to generating the GLEW sources from scratch is to
-download a pre-generated (unsupported) snapshot:
-
-https://sourceforge.net/projects/glew/files/glew/snapshots/
-
 ## Authors
 
 GLEW is currently maintained by [Nigel Stewart](https://github.com/nigels-com)
