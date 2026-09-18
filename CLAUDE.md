@@ -27,6 +27,75 @@ Investigated and confirmed dead (not just moved):
 If a working link ever turns up for any of these, update the corresponding bullet in
 `GLEW.md`.
 
+## GLXEW.md — doc-generation bug, and extensions with no working spec link
+
+`glew-2.3.1/doc/glxew.html` (the source for `GLXEW.md`) has a real bug: 64 of its 72 rows
+were mistakenly linked to the *EGL* spec PDF (`eglspec.1.5.pdf`) instead of any real GLX page —
+not just a dead link, a wrong one. `GLXEW.md` ignores those source links entirely and resolves
+every extension from scratch against the local `auto/OpenGL-Registry` checkout (dedicated
+`GLX_VENDOR_name.txt` files, or the combined-spec fallback for extensions documented alongside
+their GL/WGL siblings in one file).
+
+10 of 72 have no working link anywhere and are listed as plain, unlinked bullets:
+
+- `ARB_context_flush_control`
+- `ARB_create_context_profile`
+- `ARB_fbconfig_float`
+- `ARB_robustness_share_group_isolation`
+- `ATI_pixel_format_float`
+- `ATI_render_texture`
+- `EXT_create_context_es_profile`
+- `EXT_fbconfig_packed_float`
+- `NV_vertex_array_range`
+- `SUN_video_resize`
+
+Notes:
+- 8 of these 10 are the same names already found unresolvable while writing `HISTORY.md` —
+  consistent cross-check that they're genuinely absent, not just missed.
+- `ARB_fbconfig_float` looked like it might be a GLEW-side mix-up with the real
+  `GLX_SGIX_fbconfig_float` (same feature, different vendor tag), but that file's own Name
+  Strings section only claims `GLX_SGIX_fbconfig_float` — the ARB name isn't listed as an
+  alias anywhere, so no substitution was made.
+- `NV_vertex_array_range` exists as a GL-only extension (`NV_vertex_array_range.txt`) but that
+  spec doesn't list a GLX name string, so the GLX-specific variant genuinely has no page.
+
+If a working link ever turns up for any of these, update the corresponding bullet in
+`GLXEW.md`.
+
+## EGLEW.md — extensions with only a generic spec-PDF link
+
+`glew-2.3.1/doc/eglew.html` (the source for `EGLEW.md`) links *every* one of its 166 rows to
+the same generic EGL 1.5 spec PDF, not a per-extension page. `EGLEW.md` replaces that with a
+dedicated Khronos page per extension wherever one exists in the local `auto/EGL-Registry` (or
+`auto/OpenGL-Registry` for extensions documented in a combined GL/WGL/GLX/EGL spec) — 145 of
+166 got a real, specific link this way.
+
+21 of 166 have no dedicated page anywhere and still fall back to the generic spec PDF (these
+are *linked*, just not specifically — not the same situation as `GLEW.md`/`GLXEW.md`'s plain
+unlinked bullets):
+
+- `EGL_EXT_gl_colorspace_bt2020_hlg`, `EGL_EXT_gl_colorspace_bt2020_pq`,
+  `EGL_EXT_gl_colorspace_display_p3_linear`
+- `EGL_EXT_output_drm`, `EGL_EXT_output_openwf`
+- `EGL_KHR_client_get_all_proc_addresses`, `EGL_KHR_gl_renderbuffer_image`,
+  `EGL_KHR_gl_texture_2D_image`, `EGL_KHR_gl_texture_3D_image`,
+  `EGL_KHR_gl_texture_cubemap_image`, `EGL_KHR_stream_attrib`
+- `EGL_NOK_swap_region`
+- `EGL_NV_quadruple_buffer`, `EGL_NV_triple_buffer`, `EGL_NV_stream_cross_display`,
+  `EGL_NV_stream_cross_object`, `EGL_NV_stream_cross_partition`, `EGL_NV_stream_cross_process`,
+  `EGL_NV_stream_cross_system`, `EGL_NV_stream_socket_inet`, `EGL_NV_stream_socket_unix`
+
+Most of these are the same names already found unresolvable while writing `HISTORY.md` —
+consistent cross-check. If a dedicated page ever turns up for any of these, update the
+corresponding bullet in `EGLEW.md`.
+
+## WGLEW.md — fully resolved
+
+No note needed here: all 57 extensions resolved to a specific, working Khronos page. The
+source (`glew-2.3.1/doc/wglew.html`) already had correct per-extension links for 56 of them;
+the one exception (`WGL_NV_gpu_affinity`, pointing at an old NVIDIA download URL) had a
+Khronos page available and was switched to it.
+
 ## `auto/glfixes` — keep it, REGAL support continues
 
 `auto/glfixes` (cloned from `nigels-com/glfixes` in `auto/Makefile`) supplies extension specs
