@@ -109,7 +109,9 @@ $(EXT)/.dummy: OpenGL-Registry/.dummy EGL-Registry/.dummy
 	@echo "OpenGL descriptors"
 	@echo "--------------------------------------------------------------------"
 	rm -rf $(EXT)
-	cp -r glfixes/gl/specs/ANGLE OpenGL-Registry/extensions
+	# Khronos now ships ANGLE_*.txt natively for all but timer_query; only
+	# copy that one from glfixes to avoid duplicating the rest.
+	cp glfixes/gl/specs/ANGLE/timer_query.txt OpenGL-Registry/extensions/ANGLE/ANGLE_timer_query.txt
 	cp -r glfixes/gl/specs/REGAL OpenGL-Registry/extensions
 	$(BIN)/update_ext.sh $(EXT) OpenGL-Registry/extensions $(BLACKLIST)
 	@echo "--------------------------------------------------------------------"
