@@ -42,6 +42,8 @@ https://github.com/nigels-com/glew
 
 ## Downloads
 
+### Official Release
+
 Current release is [2.3.1](https://github.com/nigels-com/glew/releases/tag/glew-2.3.1).
 [(Change Log)](http://glew.sourceforge.net/log.html)
 
@@ -50,6 +52,17 @@ Sources available as
 [TGZ](https://github.com/nigels-com/glew/releases/download/glew-2.3.1/glew-2.3.1.tgz).
 
 Windows binaries for [32-bit and 64-bit](https://github.com/nigels-com/glew/releases/download/glew-2.3.1/glew-2.3.1-win32.zip).
+
+### Perlmint/glew-cmake
+
+Sources available as
+[ZIP](https://github.com/Perlmint/glew-cmake/archive/refs/tags/glew-cmake-2.3.1.zip) or
+[TGZ](https://github.com/Perlmint/glew-cmake/archive/refs/tags/glew-cmake-2.3.1.tar.gz).
+
+Repository of generated sources:
+[https](https://github.com/Perlmint/glew-cmake.git) or
+[ssh](git@github.com:Perlmint/glew-cmake.git).
+
 
 ## Build
 
